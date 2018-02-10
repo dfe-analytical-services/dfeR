@@ -1,6 +1,6 @@
 Package: dfeR
 Type: Package
-Title: Repository of functions to standardise common DfE R tasks. 
+Title: Repository of functions to standardise common DfE R tasks
 Version: 0.1.0
 Depends: R (>= 3.4.1)
 Author: Adam Robinson
