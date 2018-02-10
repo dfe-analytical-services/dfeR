@@ -2,19 +2,15 @@
 % Please edit documentation in R/loading_data.R
 \name{read_sql_script}
 \alias{read_sql_script}
-\title{Read SQL script and return result set from specified database}
+\title{Read and Clean SQL script to allow direct querying from R}
 \usage{
-read_sql_script(file, server, database)
+read_sql_script(file)
 }
 \arguments{
-\item{file}{The .sql file to be used as query}
-
-\item{server}{Address of server that database is on. Note \ must be replaced with \\\\}
-
-\item{database}{Name of database on the server}
+\item{file}{The .sql file to be read in}
 }
 \description{
-This function allows you to specify an .sql script and return the result set of this on a specified
-MS SQL Server database.
+This function allows you to specify an .sql script read a clean version in that can be used with
+RODBC and other packages to direct query a database.
 }
 \keyword{sql}
