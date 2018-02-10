@@ -4,10 +4,13 @@
 \alias{project_setup}
 \title{Create a standard project structure for analytical projects}
 \usage{
-project_setup(path)
+project_setup(path = ".")
+}
+\arguments{
+\item{path}{Folder path where you would like to create the structure. Default is current working directory}
 }
 \description{
-This function creates the foolowing folders/files in your working directory to be used for analytical projects: \cr \cr
+This function creates the the following structure to be used for analytical projects: \cr \cr
 1. R - A folder for your R scripts and functions \cr
 2. Data - A folder for copies of raw data to be stored if required \cr
 3. Outputs - A folder to populate in run.R with all outputs. Note outputs are disposable and not version controlled. \cr

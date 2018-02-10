@@ -1,6 +1,6 @@
 #' Create a standard project structure for analytical projects
 #'
-#' This function creates the foolowing folders/files in your working directory to be used for analytical projects: \cr \cr
+#' This function creates the the following structure to be used for analytical projects: \cr \cr
 #' 1. R - A folder for your R scripts and functions \cr
 #' 2. Data - A folder for copies of raw data to be stored if required \cr
 #' 3. Outputs - A folder to populate in run.R with all outputs. Note outputs are disposable and not version controlled. \cr
@@ -8,10 +8,11 @@
 #' 5. Misc - A folder for anything else \cr
 #' 6. README.md - A markdown file where documentation is to be kept \cr
 #' 7. run.R - An R file that when run populates the outputs folder with your analysis \cr
+#' @param path Folder path where you would like to create the structure. Default is current working directory
 #' @keywords project, setup
 #' @export
 
-project_setup <- function(path) {
+project_setup <- function(path = ".") {
 
   # ensure path exists
   dir.create(path, recursive = TRUE, showWarnings = FALSE)
