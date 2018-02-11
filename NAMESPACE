@@ -2,3 +2,5 @@
 
 export(project_setup)
 export(read_sql_script)
+export(run_sql_script)
+export(sql_server_connect)
