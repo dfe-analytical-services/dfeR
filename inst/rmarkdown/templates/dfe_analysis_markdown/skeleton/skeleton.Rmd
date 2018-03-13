@@ -1,0 +1,22 @@
+---
+title: "DfE Analysis Markdown Template"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# It is recommended that you load in any scripts your require in the markdown here. E.g:
+# library(ggplot2)
+
+# Similarly you can load in any R Scripts required in your markdown here. E.g:
+# source("R/script_name.R")
+```
+
+## Analysis
+
+This is an example commentary followed by an output from an r code chunk.
+
+```{r, echo = FALSE}
+plot(mtcars)
+```
+
