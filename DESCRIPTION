@@ -1,7 +1,7 @@
 Package: dfeR
 Type: Package
 Title: Repository of functions to standardise common DfE R tasks
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Depends: R (>= 3.4.1)
 Author: Adam Robinson
 License: MIT + file LICENSE
@@ -13,3 +13,4 @@ LazyData: true
 RoxygenNote: 6.0.1
 Imports: yaml (>= 2.1.18),
     rmarkdown (>= 1.9)
+Suggests: testthat

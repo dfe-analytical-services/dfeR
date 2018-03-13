@@ -15,4 +15,7 @@ sql_conn_string(server, database)
 This function allows you to create a connection string to a Microsoft SQL Server database by specifying the
 Server name and the Database name only.
 }
+\examples{
+sql_conn_string("3DCPRI-PDB16\\\\ACSQLS", "SWFC_Project")
+}
 \keyword{sql}

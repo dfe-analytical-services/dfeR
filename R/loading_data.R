@@ -7,8 +7,15 @@
 #' @param database Name of database on the server
 #' @keywords sql
 #' @export
+#' @examples
+#' sql_conn_string("3DCPRI-PDB16\\ACSQLS", "SWFC_Project")
 
 sql_conn_string <- function(server, database){
+
+  if(!is.character(server)) stop("server parmaeter must be of type character")
+
+  if(!is.character(database)) stop("database parmaeter must be of type character")
+
     paste0("driver={SQL Server};server=",server,";database=", database, ";trusted_connection=TRUE")
 }
 

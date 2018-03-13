@@ -2,7 +2,7 @@
 % Please edit documentation in R/loading_data.R
 \name{read_sql_script}
 \alias{read_sql_script}
-\title{Read and Clean SQL script to allow direct querying from R}
+\title{Read a clean SQL script for use with RODBC}
 \usage{
 read_sql_script(file)
 }
