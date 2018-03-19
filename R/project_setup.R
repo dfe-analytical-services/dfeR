@@ -14,6 +14,8 @@
 
 project_setup <- function(path = ".") {
 
+  if (!is.character(path)) stop("path parmaeter must be of type character")
+
   # ensure path exists
   dir.create(path, recursive = TRUE, showWarnings = FALSE)
 
