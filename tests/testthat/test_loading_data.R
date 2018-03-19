@@ -14,5 +14,12 @@ test_that("Deals with non character server variable gracefully", {
 })
 
 test_that("Deals with non character database variable gracefully", {
-  expect_error(sql_conn_string("server", data.frame(a=1)), "database parmaeter must be of type character")
+  expect_error(sql_conn_string("server", data.frame(a = 1)), "database parmaeter must be of type character")
 })
+
+context("read_sql_script")
+
+test_that("Unclean Query Read in correctly", {
+  expect_equal(read_sql_script("data/unclean_query.sql"), "Select * From Schema.TableName")
+})
+
