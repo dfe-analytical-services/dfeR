@@ -12,9 +12,9 @@
 
 sql_conn_string <- function(server, database){
 
-  if(!is.character(server)) stop("server parmaeter must be of type character")
+  if (!is.character(server)) stop("server parmaeter must be of type character")
 
-  if(!is.character(database)) stop("database parmaeter must be of type character")
+  if (!is.character(database)) stop("database parmaeter must be of type character")
 
     paste0("driver={SQL Server};server=",server,";database=", database, ";trusted_connection=TRUE")
 }
@@ -27,6 +27,8 @@ sql_conn_string <- function(server, database){
 #' @export
 
 read_sql_script <- function(file) {
+
+  if (!is.character(file)) stop("file parmaeter must be of type character")
 
   # Read in all lines from file
   sqlLines <- readLines(file)
