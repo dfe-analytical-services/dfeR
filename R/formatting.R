@@ -7,7 +7,8 @@
 #' @return A formatted academic year
 #' @export
 #' @examples
-#' format_ay(20161)
+#' format_ay(201617)
+#' format_ay("201617")
 format_ay <- function(year){
 
   if (!grepl("^[0-9]{6,6}$",year)) stop("year parameter must be a six didgit number e.g. 201617")
