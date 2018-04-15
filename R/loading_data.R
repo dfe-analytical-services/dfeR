@@ -39,6 +39,9 @@ read_sql_script <- function(file) {
   # set any go lines to blank
   sqlLines <- gsub("^GO+.*$", "", sqlLines, perl = TRUE, ignore.case = TRUE)
 
+  # set any comments lines to blank
+  sqlLines <- gsub("--.*", "", sqlLines, perl = TRUE)
+
   # remove all tabs
   sqlLines <- gsub("\t+", "", sqlLines, perl = TRUE)
 
@@ -50,9 +53,6 @@ read_sql_script <- function(file) {
 
   # collapse multiple spaces to a single space
   sqlLines <- gsub("[ ]+", " ", sqlLines, perl = TRUE)
-
-  # set any comments lines to blank
-  sqlLines <- gsub("^[--]+.*$", "", sqlLines, perl = TRUE)
 
   # Filter out any blank lines
   sqlLines <- Filter(function(x) x != "", sqlLines)
