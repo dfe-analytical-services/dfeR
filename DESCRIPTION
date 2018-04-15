@@ -3,7 +3,7 @@ Type: Package
 Title: Repository of functions to standardise common DfE R tasks
 Version: 0.0.0.9004
 Depends: R (>= 3.4.1)
-Author: Adam Robinson
+Authors@R: person("Adam", "Robinson", role = c("aut", "cre"), email = "adam.robinson@education.gov.uk")
 License: MIT + file LICENSE
 Maintainer: Adam Robinson <Adam.Robinson@education.gov.uk>
 Description: This package contrains R functions to allow DfE analysts to re-use code for 
@@ -14,3 +14,5 @@ RoxygenNote: 6.0.1
 Imports: yaml (>= 2.1.18),
     rmarkdown (>= 1.9)
 Suggests: testthat
+URL: https://github.com/dfe-analytical-services/dfeR
+BugReports: https://github.com/dfe-analytical-services/dfeR/issues

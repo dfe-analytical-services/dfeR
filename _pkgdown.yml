@@ -1,0 +1,17 @@
+title: dfeR
+
+url: https://dfe-analytical-services.github.io/dfeR
+
+development:
+  mode: unreleased
+
+reference:
+  - title: Templates
+    desc:  Structures for reproducible standardised code
+    contents:
+    - project_setup
+  - title: SQL Functions
+    desc:  Functions for importing data from SQL into R
+    contents:
+    - sql_conn_string
+    - read_sql_script

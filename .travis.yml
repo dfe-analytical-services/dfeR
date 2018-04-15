@@ -3,3 +3,24 @@
 language: R
 sudo: false
 cache: packages
+
+git:
+  depth: 3
+
+env:
+  global:
+    - secure: GITHUB_PAT
+
+r_packages:
+  - devtools
+
+install:
+  - R -e 'devtools::install_github("r-lib/pkgdown")'
+
+before_script:
+  - chmod +x ./_build.sh
+  - chmod +x ./_deploy.sh
+
+script:
+  - ./_build.sh
+  - ./_deploy.sh
