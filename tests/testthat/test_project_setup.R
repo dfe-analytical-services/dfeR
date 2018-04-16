@@ -12,7 +12,7 @@ test_that("folder structure can be created in temp folder",{
   files <- list.files(path = dir)
 
   # Check that the files match
-  expect_equal(files, c("Data","report.Rmd","Misc","Outputs","Queries","R","README.md","run.R"))
+  expect_equal(files, c("Data","Misc","Outputs","Queries","R","README.md","report.Rmd", "run.R"))
 })
 
 test_that("Deals with non character path variable gracefully", {
