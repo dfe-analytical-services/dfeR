@@ -25,5 +25,5 @@ script:
   - R CMD build .
   - R CMD check *tar.gz
   
- after_success:
+after_success:
   - ./_build.sh
