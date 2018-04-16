@@ -27,3 +27,4 @@ script:
   
 after_success:
   - ./_build.sh
+  - ./_deploy.sh
