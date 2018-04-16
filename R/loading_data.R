@@ -1,10 +1,11 @@
 #' Create a connection string for a Microsoft SQL database
 #'
-#' This function allows you to create a connection string to a Microsoft SQL Server database by specifying the
-#' Server name and the Database name only.
+#' This function allows you to create a trusted connection string to a Microsoft SQL Server database by specifying the
+#' Server name and the Database name only. This is the DfE standard.
 #'
 #' @param server Address of server that database is on. Note \ must be replaced with \\\\
 #' @param database Name of database on the server
+#' @return Character vector of MSSQL Trusted Connection string
 #' @keywords sql
 #' @export
 #' @examples
@@ -19,12 +20,18 @@ sql_conn_string <- function(server, database){
     paste0("driver={SQL Server};server=",server,";database=", database, ";trusted_connection=TRUE")
 }
 
-#' Read a clean SQL script for use with RODBC
+#' Read and clean a .sql script for use with RODBC
 #'
-#' This function allows you to read in a clean .sql string that can be used directly with RODBC.
+#' This function allows you to read in and clean .sql string that can be used directly with RODBC. \cr\cr
+#' It removes statements such as USE and GO, all -- comments and ensures formatting is correct. Without this lots of scripts fail when read in and used with RODBC.
 #' @param file The .sql file to be read in
+#' @return Character vector of clean sql query
 #' @keywords sql
 #' @export
+#' @examples
+#' \dontrun{
+#' read_sql_script("Queries/script_name.sql")
+#' }
 
 read_sql_script <- function(file) {
 
