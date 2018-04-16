@@ -5,6 +5,7 @@
 #'
 #' @param server Address of server that database is on. Note \ must be replaced with \\\\
 #' @param database Name of database on the server
+#' @return Character vector of MSSQL Trusted Connection string
 #' @keywords sql
 #' @export
 #' @examples
@@ -24,6 +25,7 @@ sql_conn_string <- function(server, database){
 #' This function allows you to read in and clean .sql string that can be used directly with RODBC. \cr\cr
 #' It removes statements such as USE and GO, all -- comments and ensures formatting is correct. Without this lots of scripts fail when read in and used with RODBC.
 #' @param file The .sql file to be read in
+#' @return Character vector of clean sql query
 #' @keywords sql
 #' @export
 #' @examples

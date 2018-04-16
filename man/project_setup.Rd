@@ -9,6 +9,9 @@ project_setup(path = ".")
 \arguments{
 \item{path}{Folder path where you would like to create the structure. Default is current working directory}
 }
+\value{
+Updated folder structure
+}
 \description{
 This function creates the the following structure to be used for analytical projects: \cr \cr
 1. R - A folder for your R scripts and functions \cr

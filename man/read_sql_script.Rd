@@ -9,6 +9,9 @@ read_sql_script(file)
 \arguments{
 \item{file}{The .sql file to be read in}
 }
+\value{
+Character vector of clean sql query
+}
 \description{
 This function allows you to read in and clean .sql string that can be used directly with RODBC. \cr\cr
 It removes statements such as USE and GO, all -- comments and ensures formatting is correct. Without this lots of scripts fail when read in and used with RODBC.

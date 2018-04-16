@@ -15,3 +15,7 @@ reference:
     contents:
     - sql_conn_string
     - read_sql_script
+  - title: Formatting
+    desc: Useful formatting functions for DfE datasets
+    contents:
+    - format_ay

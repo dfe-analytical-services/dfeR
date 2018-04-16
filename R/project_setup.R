@@ -9,6 +9,7 @@
 #' 6. README.md - A markdown file where documentation is to be kept \cr
 #' 7. run.R - An R file that when run populates the outputs folder with your analysis \cr
 #' @param path Folder path where you would like to create the structure. Default is current working directory
+#' @return Updated folder structure
 #' @keywords project, setup
 #' @export
 #' @examples
