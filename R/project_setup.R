@@ -11,6 +11,10 @@
 #' @param path Folder path where you would like to create the structure. Default is current working directory
 #' @keywords project, setup
 #' @export
+#' @examples
+#' \dontrun{
+#' project_setup()
+#' }
 
 project_setup <- function(path = ".") {
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/loading_data.R
 \name{read_sql_script}
 \alias{read_sql_script}
-\title{Read a clean SQL script for use with RODBC}
+\title{Read and clean a .sql script for use with RODBC}
 \usage{
 read_sql_script(file)
 }
@@ -10,6 +10,12 @@ read_sql_script(file)
 \item{file}{The .sql file to be read in}
 }
 \description{
-This function allows you to read in a clean .sql string that can be used directly with RODBC.
+This function allows you to read in and clean .sql string that can be used directly with RODBC. \cr\cr
+It removes statements such as USE and GO, all -- comments and ensures formatting is correct. Without this lots of scripts fail when read in and used with RODBC.
+}
+\examples{
+\dontrun{
+read_sql_script("Queries/script_name.sql")
+}
 }
 \keyword{sql}

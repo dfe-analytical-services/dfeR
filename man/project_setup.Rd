@@ -19,5 +19,10 @@ This function creates the the following structure to be used for analytical proj
 6. README.md - A markdown file where documentation is to be kept \cr
 7. run.R - An R file that when run populates the outputs folder with your analysis \cr
 }
+\examples{
+\dontrun{
+project_setup()
+}
+}
 \keyword{project,}
 \keyword{setup}

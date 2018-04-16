@@ -4,3 +4,6 @@
 ^\.Rproj\.user$
 ^\.travis\.yml$
 ^Dockerfile
+^_build.sh
+^_deploy.sh
+^_pkgdown.yml
