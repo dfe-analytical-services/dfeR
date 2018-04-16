@@ -5,7 +5,7 @@
 git config --global user.email ${EMAIL}
 git config --global user.name ${USERNAME}
 
-# Ensure that the book will only be updated when the build is 
+# Ensure that the book will only be updated when the build is
 # triggered from the master branch.
 
 #[ "${TRAVIS_BRANCH}" != "master" ] && exit 0
@@ -18,9 +18,9 @@ git clone -b gh-pages \
   https://${GITHUB_PAT}@github.com/${TRAVIS_REPO_SLUG}.git \
   book-output
 
-# Copy locally built *.html files into 
+# Copy locally built *.html files into
 
-cp -r docs/* book-output
+cp -r docs/* book-output/docs
 
 # Create .nojekyll file to prevent git from trying to build
 # html pages with jekyll.
