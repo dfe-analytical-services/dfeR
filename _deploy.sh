@@ -8,9 +8,9 @@ git config --global user.name ${USERNAME}
 # Ensure that the book will only be updated when the build is 
 # triggered from the master branch.
 
-[ "${TRAVIS_BRANCH}" != "master" ] && exit 0
+#[ "${TRAVIS_BRANCH}" != "master" ] && exit 0
 
-[ "${TRAVIS_PULL_REQUEST}" != "false" ] && exit 0
+#[ "${TRAVIS_PULL_REQUEST}" != "false" ] && exit 0
 
 # Clone the repository to the book-output directory
 
