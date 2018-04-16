@@ -22,5 +22,6 @@ before_script:
   - chmod +x ./_deploy.sh
 
 script:
+  - R -e 'devtools::check()'
   - ./_build.sh
   - ./_deploy.sh
