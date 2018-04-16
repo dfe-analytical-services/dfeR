@@ -16,6 +16,9 @@ A formatted academic year
 This function formats academic year variables for reporting purposes. It
 will convert an academic year input from 201516 format to 2015/16 format.
 }
+\details{
+It accepts both numerical and character arguments.
+}
 \examples{
 format_ay(201617)
 format_ay("201617")

@@ -3,6 +3,8 @@
 #' This function formats academic year variables for reporting purposes. It
 #' will convert an academic year input from 201516 format to 2015/16 format.
 #'
+#' It accepts both numerical and character arguments.
+#'
 #' @param year Academic year
 #' @return A formatted academic year
 #' @export
