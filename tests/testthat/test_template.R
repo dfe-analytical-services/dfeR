@@ -1,4 +1,4 @@
-context("project_setup")
+context("template_project")
 
 test_that("folder structure can be created in temp folder",{
 
@@ -6,7 +6,7 @@ test_that("folder structure can be created in temp folder",{
   dir <- file.path(tempdir(), "test")
 
   # Run project setup in directory
-  project_setup(dir)
+  template_project(dir)
 
   # Make a character vector of all files in folder (Folders classed as files)
   files <- list.files(path = dir)
@@ -16,6 +16,6 @@ test_that("folder structure can be created in temp folder",{
 })
 
 test_that("Deals with non character path variable gracefully", {
-  expect_error(project_setup(1) , "path parmaeter must be of type character")
+  expect_error(template_project(1) , "path parmaeter must be of type character")
 })
 

@@ -15,10 +15,10 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' project_setup()
+#' template_project()
 #' }
 
-project_setup <- function(path = ".") {
+template_project <- function(path = ".") {
 
   if (!is.character(path)) stop("path parmaeter must be of type character")
 
