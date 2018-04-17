@@ -9,7 +9,7 @@ reference:
   - title: Templates
     desc:  Structures for reproducible standardised code
     contents:
-    - project_setup
+    - template_project
   - title: SQL Functions
     desc:  Functions for importing data from SQL into R
     contents:
