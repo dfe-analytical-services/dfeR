@@ -17,5 +17,17 @@ development version from github with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("department-for-education/dfeR")
+devtools::install_github("dfe-analytical-services/dfeR")
 ```
+## Proxy
+
+When installing dfeR on your work laptop you will need to use the following code set the proxy before installation:
+
+``` r
+library(httr)
+library(XML)
+
+set_config(use_proxy(url = "http://ad\\yourusername:yourwindowspassword@192.168.2.40:8080", port = 8080))
+```
+
+**Note:** You must substiture the *yourusername* and *yourwindowspassword* with your own details.

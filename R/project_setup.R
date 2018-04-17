@@ -35,7 +35,7 @@ project_setup <- function(path = ".") {
 
   write("#Note\n\nOutputs are not tracked in git. To populate this folder you must run run.R.", file = file.path(path, "Outputs/README.md"))
 
-  write("# This file should be used to run all of the code required to populate the Outputs folder \n\n# Example below that renders example markdown in Outputs folder \n\nrmarkdown::render('report.Rmd', output_format = 'html_document', output_file='findings.html', output_dir='Outputs')", file = file.path(path, "run.R"))
+  write("# This file should be used to run all of the code required to populate the Outputs folder \n\n# Example below that renders example markdown in Outputs folder \n\nrmarkdown::render('report.Rmd', output_format = 'html_document', output_file='report.html', output_dir='Outputs')", file = file.path(path, "run.R"))
 
   rmarkdown::draft(file.path(path, "report.Rmd"), template = "dfe_analysis_markdown", package = "dfeR", edit = FALSE)
 
