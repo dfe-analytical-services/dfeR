@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Repository of functions to standardise common DfE R tasks • dfeR</title>
-<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><meta property="og:title" content="Repository of functions to standardise common DfE R tasks">
@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">dfeR</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.0.9008</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.0.9009</span>
       </span>
     </div>
 
@@ -68,17 +68,17 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#dfer-build-status" class="anchor"></a>dfeR <a href="https://travis-ci.org/dfe-analytical-services/dfeR"><img src="https://travis-ci.org/dfe-analytical-services/dfeR.svg?branch=master" alt="Build Status"></a>
 </h1></div>
-<p>dfeR is an R package designed to help standardised R programming accross the Department for Education and facilitate sharing of business specific functions.</p>
+<p>dfeR is an R package designed to help standardised R programming across the Department for Education and facilitate sharing of business specific functions.</p>
 <p>Current functionality is focussed around the following:</p>
 <ol>
 <li><p>Templates for analytical projects</p></li>
-<li><p>Working with Microsoft SQL Datbabases</p></li>
+<li><p>Working with Microsoft SQL Databases</p></li>
 <li><p>DfE specific formatting</p></li>
 </ol>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>dfeR is not currently available on CRAN. You can instead install the development version from github with:</p>
+<p>dfeR is not currently available on CRAN. You can instead install the development version from GitHub with:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
 devtools::<span class="kw">install_github</span>(<span class="st">"dfe-analytical-services/dfeR"</span>)</code></pre></div>
 </div>
@@ -90,7 +90,7 @@ devtools::<span class="kw">install_github</span>(<span class="st">"dfe-analytica
 <span class="kw">library</span>(XML)
 
 <span class="kw"><a href="http://www.rdocumentation.org/packages/httr/topics/set_config">set_config</a></span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/httr/topics/use_proxy">use_proxy</a></span>(<span class="dt">url =</span> <span class="st">"http://ad</span><span class="ch">\\</span><span class="st">yourusername:yourwindowspassword@192.168.2.40:8080"</span>, <span class="dt">port =</span> <span class="dv">8080</span>))</code></pre></div>
-<p><strong>Note:</strong> You must substiture the <em>yourusername</em> and <em>yourwindowspassword</em> with your own details.</p>
+<p><strong>Note:</strong> You must substitute the <em>yourusername</em> and <em>yourwindowspassword</em> with your own details.</p>
 </div>
 </div>
   </div>
