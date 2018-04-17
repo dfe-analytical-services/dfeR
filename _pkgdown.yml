@@ -2,6 +2,10 @@ title: dfeR
 
 url: https://dfe-analytical-services.github.io/dfeR
 
+template:
+  params:
+    bootswatch: flatly
+
 development:
   mode: unreleased
 
