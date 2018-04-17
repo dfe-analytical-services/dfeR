@@ -4,12 +4,12 @@
     <loc>https://dfe-analytical-services.github.io/dfeR/reference/format_ay.html</loc>
   </url>
   <url>
-    <loc>https://dfe-analytical-services.github.io/dfeR/reference/project_setup.html</loc>
-  </url>
-  <url>
     <loc>https://dfe-analytical-services.github.io/dfeR/reference/read_sql_script.html</loc>
   </url>
   <url>
     <loc>https://dfe-analytical-services.github.io/dfeR/reference/sql_conn_string.html</loc>
+  </url>
+  <url>
+    <loc>https://dfe-analytical-services.github.io/dfeR/reference/template_project.html</loc>
   </url>
 </urlset>
