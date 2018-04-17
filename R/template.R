@@ -7,7 +7,7 @@
 #' 4. Queries - A folder for copies of any SQL scripts used \cr
 #' 5. Misc - A folder for anything else \cr
 #' 6. README.md - A markdown file where documentation is to be kept \cr
-#' 7. report.Rmd - An example R Markdown. Note .Rmd is in root so that relative references can be used easily.
+#' 7. report.Rmd - An example R Markdown. Note .Rmd is in root so that relative references can be used easily. \cr
 #' 8. run.R - An R file that when run populates the outputs folder with your analysis \cr
 #' @param path Folder path where you would like to create the structure. Default is current working directory
 #' @return Updated folder structure
