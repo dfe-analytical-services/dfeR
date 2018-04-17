@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">dfeR</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.0.9006</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.0.9007</span>
       </span>
     </div>
 
@@ -80,7 +80,17 @@
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>dfeR is not currently available on CRAN. You can instead install the development version from github with:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
-devtools::<span class="kw">install_github</span>(<span class="st">"department-for-education/dfeR"</span>)</code></pre></div>
+devtools::<span class="kw">install_github</span>(<span class="st">"dfe-analytical-services/dfeR"</span>)</code></pre></div>
+</div>
+<div id="proxy" class="section level2">
+<h2 class="hasAnchor">
+<a href="#proxy" class="anchor"></a>Proxy</h2>
+<p>When installing dfeR on your work laptop you will need to use the following code set the proxy before installation:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(httr)
+<span class="kw">library</span>(XML)
+
+<span class="kw"><a href="http://www.rdocumentation.org/packages/httr/topics/set_config">set_config</a></span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/httr/topics/use_proxy">use_proxy</a></span>(<span class="dt">url =</span> <span class="st">"http://ad</span><span class="ch">\\</span><span class="st">yourusername:yourwindowspassword@192.168.2.40:8080"</span>, <span class="dt">port =</span> <span class="dv">8080</span>))</code></pre></div>
+<p><strong>Note:</strong> You must substiture the <em>yourusername</em> and <em>yourwindowspassword</em> with your own details.</p>
 </div>
 </div>
   </div>
