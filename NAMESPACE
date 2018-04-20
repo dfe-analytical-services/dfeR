@@ -2,5 +2,6 @@
 
 export(format_ay)
 export(read_sql_script)
+export(set_DfE_proxy)
 export(sql_conn_string)
 export(template_project)
