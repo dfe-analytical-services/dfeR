@@ -21,11 +21,13 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # Supplying a username and password
 #' set_DfE_proxy("myusername", "mypassword")
 #'
 #' # Supplying a path to a folder containing username.txt and password.txt
 #' set_DfE_proxy("C:/MySecretLoginFolder/")
+#' }
 set_DfE_proxy <- function(arg1 = NA, arg2 = NA){
   if(is.na(arg1)){
     username <- winDialogString("Username:", "")

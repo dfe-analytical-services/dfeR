@@ -28,11 +28,13 @@ The supplied username and password are passed to \code{httr::use_proxy} with
 the appropriate setting for the DfE proxy.
 }
 \examples{
+\dontrun{
 # Supplying a username and password
 set_DfE_proxy("myusername", "mypassword")
 
 # Supplying a path to a folder containing username.txt and password.txt
 set_DfE_proxy("C:/MySecretLoginFolder/")
+}
 }
 \seealso{
 \code{\link[httr]{use_proxy}}
