@@ -2,6 +2,9 @@
 #'
 #' This function sets the proxy setting for httr
 #'
+#' If no argument is supplied, the user will be prompted for both username and
+#' password.
+#'
 #' If given one argument it is assumed that this is the path to the directory
 #' containing the files username.txt and password.txt. Each file should contain
 #' a single line of text: the username and password respectively.
@@ -20,9 +23,11 @@
 #'
 #' # Supplying a path to a folder containing username.txt and password.txt
 #' set_DfE_proxy("C:/MySecretLoginFolder/")
-set_DfE_proxy <- function(arg1, arg2 = NA){
-
-  if(is.na(arg2)){
+set_DfE_proxy <- function(arg1 = NA, arg2 = NA){
+  if(is.na(arg1)){
+    username <- winDialogString("Username:", "")
+    password <- winDialogString("Password:", "")
+  } else if(is.na(arg2)){
     username <- readLines(file.path(arg1,"username.txt"))
     password <- readLines(file.path(arg1,"password.txt"))
   } else {
