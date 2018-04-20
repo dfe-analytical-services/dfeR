@@ -1,6 +1,6 @@
 #' Set proxy settings for use with the httr package
 #'
-#' This function sets the proxy setting for httr
+#' This function sets up the DfE proxy with the \code{httr} package.
 #'
 #' If no argument is supplied, the user will be prompted for both username and
 #' password.
@@ -11,13 +11,16 @@
 #'
 #' If given two arguments it is assumed that this is username and password.
 #'
+#' The supplied username and password are passed to \code{httr::use_proxy} with
+#' the appropriate setting for the DfE proxy.
+#'
 #' @param arg1 Character. Either the path to a folder containg files called username.txt and password.txt that contain the username and password respectively, or a username
 #' @param arg2 Character. The password, if the username is passed to arg1
 #'
+#' @seealso \code{\link[httr]{use_proxy}}
 #' @export
 #'
 #' @examples
-#'
 #' # Supplying a username and password
 #' set_DfE_proxy("myusername", "mypassword")
 #'
