@@ -35,6 +35,6 @@ set_DfE_proxy <- function(arg1 = NA, arg2 = NA){
     password <- arg2
   }
 
-  httr::set_config(httr::use_proxy(url = paste("http://ad\\", username, ":", password, "@192.168.2.40:8080", sep = ""), port = 8080))
+  httr::set_config(httr::use_proxy(url = paste("http://ad\\", username, ":", password, "@192.168.2.40", sep = ""), port = 8080))
 
 }
