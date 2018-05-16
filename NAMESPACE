@@ -2,5 +2,6 @@
 
 export(format_ay)
 export(read_sql_script)
+export(round_nearest)
 export(sql_conn_string)
 export(template_project)
