@@ -31,9 +31,9 @@ test_that("Input as expected", {
 })
 
 test_that("Example numerical known answer", {
-  expect_equal(round_nearest(1337,5), "1335")
+  expect_equal(round_nearest(1337,5), 1335)
 })
 
 test_that("Example character known answer", {
-  expect_equal(round_nearest("1337",10), "1340")
+  expect_equal(round_nearest("1337",10), 1340)
 })
