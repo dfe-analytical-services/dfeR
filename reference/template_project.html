@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Create a standard project structure for analytical projects — template_project" />
 
 <meta property="og:description" content="This function creates the the following structure to be used for analytical projects:  
@@ -48,8 +51,6 @@
 <![endif]-->
 
 
-
-
   </head>
 
   <body>
@@ -65,7 +66,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">dfeR</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.0.9009</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.0.0.9010</span>
       </span>
     </div>
 
@@ -102,10 +103,11 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Create a standard project structure for analytical projects</h1>
-    <small>Source: <a href='https://github.com/dfe-analytical-services/dfeR/blob/master/R/template.R'><code>R/template.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/dfe-analytical-services/dfeR/blob/master/R/template.R'><code>R/template.R</code></a></small>
     <div class="hidden name"><code>template_project.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>This function creates the the following structure to be used for analytical projects: <br /> <br />
 1. R - A folder for your R scripts and functions <br />
@@ -117,6 +119,7 @@
 7. report.Rmd - An example R Markdown. Note .Rmd is in root so that relative references can be used easily. <br />
 8. run.R - An R file that when run populates the outputs folder with your analysis <br /></p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>template_project</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
     

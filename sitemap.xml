@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://dfe-analytical-services.github.io/dfeR/index.html</loc>
+  </url>
+  <url>
     <loc>https://dfe-analytical-services.github.io/dfeR/reference/format_ay.html</loc>
   </url>
   <url>
     <loc>https://dfe-analytical-services.github.io/dfeR/reference/read_sql_script.html</loc>
+  </url>
+  <url>
+    <loc>https://dfe-analytical-services.github.io/dfeR/reference/round_nearest.html</loc>
   </url>
   <url>
     <loc>https://dfe-analytical-services.github.io/dfeR/reference/sql_conn_string.html</loc>
