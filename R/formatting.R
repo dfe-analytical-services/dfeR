@@ -19,3 +19,29 @@ format_ay <- function(year){
 
 }
 
+
+
+#' Round to nearest
+#'
+#' This function rounds a number (x) to the nearest specified multiple (n).\cr\cr
+#'
+#' It accepts both numerical and character arguments.
+#'
+#' @param x The number to be rounded
+#' @param n the multiple to use when rounding
+#' @return Character vector of rounded number
+#' @export
+#' @examples
+#' round_nearest(1337,10)
+#' round_nearest("1337",10)
+round_nearest  <- function(x,n){
+
+  if (!grepl("[[:digit:]]",x)) stop("x must be a number")
+
+  if (!grepl("[[:digit:]]",n)) stop("n must be a number")
+
+  round(as.numeric(x) / as.numeric(n), 0) * as.numeric(n)
+
+}
+
+
