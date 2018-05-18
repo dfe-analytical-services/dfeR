@@ -25,7 +25,6 @@ When installing dfeR on your work laptop you will need to use the following code
 
 ``` r
 library(httr)
-library(XML)
 
 set_config(use_proxy(url = "http://ad\\yourusername:yourwindowspassword@192.168.2.40:8080", port = 8080))
 ```
