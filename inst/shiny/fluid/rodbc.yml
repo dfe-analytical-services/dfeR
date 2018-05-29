@@ -1,0 +1,7 @@
+app_code:
+  driver: "SQL Server Native Client 11.0
+  server: "your/server/name/here"
+  database: "your/database/name/here"
+  uid: ""
+  pwd: ""
+  trusted: "yes"

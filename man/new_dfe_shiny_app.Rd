@@ -4,16 +4,16 @@
 \alias{new_dfe_shiny_app}
 \title{Function to create a blank shiny app in a folder of your choice.}
 \usage{
-new_dfe_shiny_app(folder = tempdir(), app_dir = "New Shiny App",
-  data_connections = TRUE, sql_queries = TRUE, csv_data = TRUE,
+new_dfe_shiny_app(folder = tempdir(), app_name = "New Shiny App",
+  app_type = "fluid", sql_queries = TRUE, csv_data = TRUE,
   css_style = TRUE)
 }
 \arguments{
 \item{folder}{The parent folder of the shiny app}
 
-\item{app_dir}{The app directory}
+\item{app_name}{The app directory name}
 
-\item{data_connections}{Logical, should yml files for data connections be created}
+\item{app_type}{Should the app be a 'fluidPage' or a 'dashboardPage' structure}
 
 \item{sql_queries}{Logical, should a SQL/ folder be created to hold .sql files}
 
