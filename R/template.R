@@ -40,3 +40,55 @@ template_project <- function(path = ".") {
   rmarkdown::draft(file.path(path, "report.Rmd"), template = "dfe_analysis_markdown", package = "dfeR", edit = FALSE)
 
 }
+
+#' Utilise DfE Predefined R Shiny Templates
+#'
+#' This function provides R Shiny templates that both provide stater structures and prepare for deployment. Structure as follows: \cr \cr
+#' 1. global.R - Script loaded on start up of app \cr
+#' 2. server.R - Backend for application logic \cr
+#' 3. ui.R - Front end for User Interface \cr
+#' 4. config.yml/ rodbc.yml - YAML Scripts for using SQL Servers on RSConnect. \cr
+#' 5. R - A folder for your R scripts and functions \cr
+#' 6. Data - A folder for copies of raw data to be stored if required \cr
+#' 7. Queries - A folder for copies of any SQL scripts used \cr
+#' 8. Misc - A folder for anything else \cr
+#' 9. README.md - A markdown file where documentation is to be kept \cr
+#' @param path Folder path where you would like to create the structure. Default is current working directory
+#' @param type Type of Shiny Template to use. Current options are fluid or dashboard. Default is fluid.
+#' @return Updated folder structure
+#' @keywords project, setup
+#' @export
+#' @examples
+#' \dontrun{
+#' template_app()
+#' }
+template_app <- function(path = ".", type = "fluid") {
+
+  if (!is.character(path)) stop("path parmaeter must be of type character")
+
+  if (!(type %in% c("fluid", "dashboard")))
+    stop("type must be 'fluid' or 'dashboard'")
+
+  # ensure path exists
+  dir.create(path, recursive = TRUE, showWarnings = FALSE)
+
+  folders <- c("R","Data", "Queries", "Misc", "www")
+
+  folders_w_path <- file.path(path, folders)
+
+  lapply(folders_w_path, dir.create)
+
+  app_files <- c("global.R", "ui.R", "server.R", "config.yml", "rodbc.yml")
+
+  app_files_to_copy <- system.file("shiny", type, app_files, package = "dfeR")
+
+  destinations <- file.path(path, app_files)
+
+  file.copy(from = app_files_to_copy, to = destinations, overwrite = TRUE)
+
+  write("",file = file.path(path, "www/style.css"))
+
+  write("#README\n\nThis document is to be filled in with the documentation of the application",file = file.path(path, "README.md"))
+
+}
+
