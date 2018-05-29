@@ -11,11 +11,16 @@
 # Use library() to load in packages you need for your app
 library(shiny)
 
-# Data wrangling - the tidyverse is HIGHLY recommended for your data analysis!
-library(tidyverse)
+# Data wrangling - dplyr and other tidyverse packages are HIGHLY recommended.
+
+library(dplyr)
 
 # Data Connections
 library(RODBC)
+
+# dfeR
+
+library(dfeR)
 
 # Data Connections --------------------------------------------------------
 
@@ -39,12 +44,12 @@ connection_string <- paste0("Driver={", odbc_conf$driver,
 # or by reading in SQL queries, and using your `connection_string` above to connect
 # to a database.
 
-# CSV:
-# my_csv_data <- read_csv("CSV/filename.csv")
+# Data:
+# my_csv_data <- read_csv("Data/filename.csv")
 
-# SQL:
+# Queries:
 # my_connection <- odbcDriverConnect(connection_string)
-# my_query <- paste(readLines("SQL/filename.sql"), sep = "\n")
+# my_query <- read_sql_script("SQL/filename.sql")
 # my_sql_data <- sqlQuery(my_connection, my_query, stringsAsFactors = FALSE)
 # odbcClose(my_connection)
 
