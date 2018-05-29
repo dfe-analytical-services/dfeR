@@ -1,0 +1,5 @@
+default:
+  rodbc: ./rodbc.yml
+
+production:
+  rodbc: /etc/rodbc.yml
