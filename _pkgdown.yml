@@ -5,7 +5,7 @@ url: https://dfe-analytical-services.github.io/dfeR
 template:
   params:
     bootswatch: flatly
-
+    ganalytics: UA-100821064-5
 development:
   mode: unreleased
 
