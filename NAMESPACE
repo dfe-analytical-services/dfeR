@@ -2,6 +2,7 @@
 
 export(format_ay)
 export(national_statistic)
+export(publication)
 export(read_sql_script)
 export(round_nearest)
 export(sql_conn_string)
