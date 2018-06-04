@@ -35,24 +35,24 @@ national_statistic <- function(...) {
 
 }
 
-#' R Markdown Non National Statistic Publication Format
+#' R Markdown DfE Official Statistic Output Format
 #'
 #' This function creates an R Markdown output format that generates documents
-#' in the style of a non DfE National Statistics Publication. \cr
+#' in the style of an DfE Official Statistics Publications. \cr
 #'
 #' To format an R Markdown document using this template add the function to the R Markdowns
 #' YAML header as follows:
 #'
 #' title: "Name" \cr
-#' output: dfeR::publication
+#' output: dfeR::official_statistic
 #'
 #' @param ... All Parameters from rmarkdown::word_document are accepted
 #' @export
 #' @examples
-#' publication()
+#' official_statistic()
 
-publication <- function(...) {
+official_statistic <- function(...) {
 
-  rmarkdown_template("publication")
+  rmarkdown_template("official_statistic")
 
 }

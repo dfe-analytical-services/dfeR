@@ -50,10 +50,21 @@ Version: 0.2
 Hash: e011aef1e6b2f8ff15d833f56abcf0ba
 Requires: Rcpp, bindr, plogr
 
+Package: bitops
+Source: CRAN
+Version: 1.0-6
+Hash: 67d0775189fd0041d95abca618c5c07e
+
 Package: brew
 Source: CRAN
 Version: 1.0-6
 Hash: 931f9972deae0f205e1c78a51f33149b
+
+Package: caTools
+Source: CRAN
+Version: 1.17.1
+Hash: 97cb6f6293cd18d17df77a6383cc6763
+Requires: bitops
 
 Package: cli
 Source: CRAN
@@ -148,7 +159,7 @@ Package: knitr
 Source: CRAN
 Version: 1.20
 Hash: 9c6b215d1d02b97586c8232e94533e6a
-Requires: highr, yaml, markdown, stringr, evaluate
+Requires: evaluate, highr, markdown, stringr, yaml
 
 Package: magrittr
 Source: CRAN
@@ -212,8 +223,8 @@ Package: rmarkdown
 Source: CRAN
 Version: 1.9
 Hash: ab7f84e6f41ed8d8e8b9a2031cf631f8
-Requires: base64enc, jsonlite, mime, yaml, rprojroot, htmltools,
-    stringr, evaluate, knitr
+Requires: base64enc, evaluate, htmltools, jsonlite, knitr, mime,
+    rprojroot, stringr, yaml
 
 Package: roxygen2
 Source: CRAN
@@ -248,7 +259,7 @@ Package: testthat
 Source: CRAN
 Version: 2.0.0
 Hash: 537114b476376c5773bf3c557f5bbd19
-Requires: R6, crayon, digest, magrittr, praise, rlang, withr, cli
+Requires: R6, cli, crayon, digest, magrittr, praise, rlang, withr
 
 Package: tibble
 Source: CRAN
@@ -274,5 +285,5 @@ Requires: BH, Rcpp
 
 Package: yaml
 Source: CRAN
-Version: 2.1.18
-Hash: 28c7e28c239d7a1d1bd579390bab89bd
+Version: 2.1.19
+Hash: 6e3d988c25e34c31f668e0ae41dc3259
