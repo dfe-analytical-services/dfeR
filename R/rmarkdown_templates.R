@@ -16,7 +16,7 @@ rmarkdown_template <- function(template) {
 #' R Markdown DfE National Statistic Output Format
 #'
 #' This function creates an R Markdown output format that generates documents
-#' in the style of an DfE National Statistics Publications. \cr
+#' in the style of DfE National Statistic Publications. \cr
 #'
 #' To format an R Markdown document using this template add the function to the R Markdowns
 #' YAML header as follows:
@@ -38,7 +38,7 @@ national_statistic <- function(...) {
 #' R Markdown DfE Official Statistic Output Format
 #'
 #' This function creates an R Markdown output format that generates documents
-#' in the style of an DfE Official Statistics Publications. \cr
+#' in the style of DfE Official Statistic Publications. \cr
 #'
 #' To format an R Markdown document using this template add the function to the R Markdowns
 #' YAML header as follows:
