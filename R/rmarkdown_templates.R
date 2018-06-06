@@ -22,7 +22,9 @@ rmarkdown_template <- function(template) {
 #' YAML header as follows:
 #'
 #' title: "Name" \cr
-#' output: dfeR::national_statistic
+#' output: dfeR::national_statistic \cr
+#'
+#' You can also use the template in R Studio via File > New File > R Markdown > From Template ...
 #'
 #' @param ... All Parameters from rmarkdown::word_document are accepted
 #' @export
@@ -44,7 +46,9 @@ national_statistic <- function(...) {
 #' YAML header as follows:
 #'
 #' title: "Name" \cr
-#' output: dfeR::official_statistic
+#' output: dfeR::official_statistic \cr
+#'
+#' You can also use the template in R Studio via File > New File > R Markdown > From Template ...
 #'
 #' @param ... All Parameters from rmarkdown::word_document are accepted
 #' @export

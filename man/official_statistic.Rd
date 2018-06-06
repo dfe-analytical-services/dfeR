@@ -18,7 +18,9 @@ To format an R Markdown document using this template add the function to the R M
 YAML header as follows:
 
 title: "Name" \cr
-output: dfeR::official_statistic
+output: dfeR::official_statistic \cr
+
+You can also use the template in R Studio via File > New File > R Markdown > From Template ...
 }
 \examples{
 official_statistic()
