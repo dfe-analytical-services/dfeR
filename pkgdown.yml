@@ -1,6 +1,6 @@
 pandoc: '2.2'
-pkgdown: 1.0.0.9000
-pkgdown_sha: 151fe303511fa1a97cd7b3e9fde76e50ed4a66c6
+pkgdown: 1.1.0.9000
+pkgdown_sha: bcf6299e76d4a398aadfc476b3ac22d253a91d35
 articles: []
 urls:
   reference: https://dfe-analytical-services.github.io/dfeR/reference

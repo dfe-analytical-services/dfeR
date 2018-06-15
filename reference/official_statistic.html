@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Format academic year — format_ay • dfeR</title>
+<title>R Markdown DfE Official Statistic Output Format — official_statistic • dfeR</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,10 +30,10 @@
 
 
 
-<meta property="og:title" content="Format academic year — format_ay" />
+<meta property="og:title" content="R Markdown DfE Official Statistic Output Format — official_statistic" />
 
-<meta property="og:description" content="This function formats academic year variables for reporting purposes. It
-will convert an academic year input from 201516 format to 2015/16 format. " />
+<meta property="og:description" content="This function creates an R Markdown output format that generates documents
+in the style of DfE Official Statistic Publications. " />
 <meta name="twitter:card" content="summary" />
 
 
@@ -108,48 +108,125 @@ will convert an academic year input from 201516 format to 2015/16 format. " />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Format academic year</h1>
-    <small class="dont-index">Source: <a href='https://github.com/dfe-analytical-services/dfeR/blob/master/R/formatting.R'><code>R/formatting.R</code></a></small>
-    <div class="hidden name"><code>format_ay.Rd</code></div>
+    <h1>R Markdown DfE Official Statistic Output Format</h1>
+    <small class="dont-index">Source: <a href='https://github.com/dfe-analytical-services/dfeR/blob/master/R/rmarkdown_templates.R'><code>R/rmarkdown_templates.R</code></a></small>
+    <div class="hidden name"><code>official_statistic.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This function formats academic year variables for reporting purposes. It
-will convert an academic year input from 201516 format to 2015/16 format. <br /><br /></p>
+    <p>This function creates an R Markdown output format that generates documents
+in the style of DfE Official Statistic Publications. <br /></p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>format_ay</span>(<span class='no'>year</span>)</pre>
+    <pre class="usage"><span class='fu'>official_statistic</span>(<span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>year</th>
-      <td><p>Academic year</p></td>
+      <th>...</th>
+      <td><p>All Parameters from rmarkdown::word_document are accepted</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>Character vector of formatted academic year</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>It accepts both numerical and character arguments.</p>
+    <p>To format an R Markdown document using this template add the function to the R Markdowns
+YAML header as follows:</p>
+<p>title: "Name" <br />
+output: dfeR::official_statistic <br /></p>
+<p>You can also use the template in R Studio via File &gt; New File &gt; R Markdown &gt; From Template ...</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>format_ay</span>(<span class='fl'>201617</span>)</div><div class='output co'>#&gt; [1] "2016/17"</div><div class='input'><span class='fu'>format_ay</span>(<span class='st'>"201617"</span>)</div><div class='output co'>#&gt; [1] "2016/17"</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>official_statistic</span>()</div><div class='output co'>#&gt; $knitr
+#&gt; $knitr$opts_knit
+#&gt; NULL
+#&gt; 
+#&gt; $knitr$opts_chunk
+#&gt; $knitr$opts_chunk$dev
+#&gt; [1] "png"
+#&gt; 
+#&gt; $knitr$opts_chunk$dpi
+#&gt; [1] 96
+#&gt; 
+#&gt; $knitr$opts_chunk$fig.width
+#&gt; [1] 5
+#&gt; 
+#&gt; $knitr$opts_chunk$fig.height
+#&gt; [1] 4
+#&gt; 
+#&gt; 
+#&gt; $knitr$knit_hooks
+#&gt; NULL
+#&gt; 
+#&gt; $knitr$opts_hooks
+#&gt; NULL
+#&gt; 
+#&gt; $knitr$opts_template
+#&gt; NULL
+#&gt; 
+#&gt; 
+#&gt; $pandoc
+#&gt; $pandoc$to
+#&gt; [1] "docx"
+#&gt; 
+#&gt; $pandoc$from
+#&gt; [1] "markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash+smart"
+#&gt; 
+#&gt; $pandoc$args
+#&gt; [1] "--highlight-style"                                                                  
+#&gt; [2] "tango"                                                                              
+#&gt; [3] "--reference-doc"                                                                    
+#&gt; [4] "/home/travis/build/dfe-analytical-services/dfeR/inst/styles/official_statistic.docx"
+#&gt; 
+#&gt; $pandoc$keep_tex
+#&gt; [1] FALSE
+#&gt; 
+#&gt; $pandoc$latex_engine
+#&gt; [1] "pdflatex"
+#&gt; 
+#&gt; $pandoc$ext
+#&gt; NULL
+#&gt; 
+#&gt; 
+#&gt; $keep_md
+#&gt; [1] FALSE
+#&gt; 
+#&gt; $clean_supporting
+#&gt; [1] TRUE
+#&gt; 
+#&gt; $df_print
+#&gt; [1] "default"
+#&gt; 
+#&gt; $pre_knit
+#&gt; NULL
+#&gt; 
+#&gt; $post_knit
+#&gt; NULL
+#&gt; 
+#&gt; $pre_processor
+#&gt; NULL
+#&gt; 
+#&gt; $intermediates_generator
+#&gt; NULL
+#&gt; 
+#&gt; $post_processor
+#&gt; NULL
+#&gt; 
+#&gt; $on_exit
+#&gt; NULL
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "rmarkdown_output_format"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
       
       <li><a href="#examples">Examples</a></li>

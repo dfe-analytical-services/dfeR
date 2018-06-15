@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Format academic year — format_ay • dfeR</title>
+<title>R Markdown template picker — rmarkdown_template • dfeR</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,10 +30,9 @@
 
 
 
-<meta property="og:title" content="Format academic year — format_ay" />
+<meta property="og:title" content="R Markdown template picker — rmarkdown_template" />
 
-<meta property="og:description" content="This function formats academic year variables for reporting purposes. It
-will convert an academic year input from 201516 format to 2015/16 format. " />
+<meta property="og:description" content="Allows you to pick template in inst/styles folder and convert into callable output type." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -108,52 +107,35 @@ will convert an academic year input from 201516 format to 2015/16 format. " />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Format academic year</h1>
-    <small class="dont-index">Source: <a href='https://github.com/dfe-analytical-services/dfeR/blob/master/R/formatting.R'><code>R/formatting.R</code></a></small>
-    <div class="hidden name"><code>format_ay.Rd</code></div>
+    <h1>R Markdown template picker</h1>
+    <small class="dont-index">Source: <a href='https://github.com/dfe-analytical-services/dfeR/blob/master/R/rmarkdown_templates.R'><code>R/rmarkdown_templates.R</code></a></small>
+    <div class="hidden name"><code>rmarkdown_template.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This function formats academic year variables for reporting purposes. It
-will convert an academic year input from 201516 format to 2015/16 format. <br /><br /></p>
+    <p>Allows you to pick template in inst/styles folder and convert into callable output type.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>format_ay</span>(<span class='no'>year</span>)</pre>
+    <pre class="usage"><span class='fu'>rmarkdown_template</span>(<span class='no'>template</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>year</th>
-      <td><p>Academic year</p></td>
+      <th>template</th>
+      <td><p>Name of template in styles folder</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Character vector of formatted academic year</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>It accepts both numerical and character arguments.</p>
-    
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>format_ay</span>(<span class='fl'>201617</span>)</div><div class='output co'>#&gt; [1] "2016/17"</div><div class='input'><span class='fu'>format_ay</span>(<span class='st'>"201617"</span>)</div><div class='output co'>#&gt; [1] "2016/17"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+                </ul>
 
   </div>
 </div>
