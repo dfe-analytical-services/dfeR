@@ -6,9 +6,11 @@ Current functionality is focussed around the following:
 
 1. Templates for analytical projects
 
-2. Working with Microsoft SQL Databases
+2. Publication R Markdown Templates
 
-3. DfE specific formatting
+3. Working with Microsoft SQL Databases
+
+4. DfE specific formatting
 
 ## Installation
 

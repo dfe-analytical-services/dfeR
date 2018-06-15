@@ -1,0 +1,52 @@
+---
+title: "National Statistic Template"
+output: dfeR::national_statistic
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# It is recommended that you load in any scripts your require in the markdown here. E.g:
+library(ggplot2)
+
+# Similarly you can load in any R Scripts required in your markdown here. E.g:
+# source("R/script_name.R")
+```
+
+# Heading 1
+## Heading 2
+### Heading 3
+#### Front Page Heading
+##### Box Heading
+
+Paragraph text
+
+- Bullet Points
+
+*Italic Text*
+
+**Bold Text**
+
+[hyperlink]("https://google.com")
+
+> block quote
+
+Paragraph text with footnote[^1]
+
+```{r, echo = FALSE}
+knitr::kable(mtcars[1:5, ])
+```  
+
+```{r echo=FALSE, fig.width=10, fig.height=4, dpi=300}
+# You can alter the size of the chart using fig.width and fig.height. Increasing dpi can improve the plot's resolution.
+
+ggplot(data = mtcars, 
+       mapping = aes(x = wt, y = mpg)) + 
+       geom_point(size = 1) +
+  xlab("Car weight") +
+  ylab("Miles per gallon") +
+  theme_classic()  
+
+```  
+
+[^1]: Footnote text

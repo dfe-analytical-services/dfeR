@@ -10,10 +10,15 @@ development:
   mode: unreleased
 
 reference:
-  - title: Templates
+  - title: Project Templates
     desc:  Structures for reproducible standardised code
     contents:
     - template_project
+  - title: Publication R Markdown Templates
+    desc:  Functions for publication style R Markdowns
+    contents:
+    - national_statistic
+    - official_statistic
   - title: SQL Functions
     desc:  Functions for importing data from SQL into R
     contents:
