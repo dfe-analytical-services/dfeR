@@ -26,9 +26,7 @@ devtools::install_github("dfe-analytical-services/dfeR")
 When installing dfeR on your work laptop you will need to use the following code set the proxy before installation:
 
 ``` r
-library(httr)
-
-set_config(use_proxy(url = "http://ad\\yourusername:yourwindowspassword@192.168.2.40:8080", port = 8080))
+Sys.setenv(https_proxy = "http://ad\\yourusername:yourwindowspassword@192.168.2.40:8080")
 ```
 
 **Note:** You must substitute the *yourusername* and *yourwindowspassword* with your own details.
