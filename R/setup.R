@@ -17,39 +17,47 @@
 
 setup_rtools_pkgs <- function(extsoft_dir = 'c:/extsoft'){
 
-  temp_dir <- tempdir()
+  if (!(Sys.info()["sysname"] == "Windows")) {
 
-  # Download the local323 zip of system dependencies
-  download.file('https://www.stats.ox.ac.uk/pub/Rtools/goodies/multilib/local323.zip', paste0(temp_dir,'/local323.zip'))
+    message("Windows only function. On Mac/Linux use respctive package managers.")
 
-  # Download curl specific zip that is not captured in local323
-  download.file('https://www.stats.ox.ac.uk/pub/Rtools/goodies/multilib/curl-7.40.0.zip', paste0(temp_dir,'curl-7.40.0.zip'))
+  } else {
 
-  # Check if c:/extsoft exists otherwise make it
-  if (!dir.exists(extsoft_dir)) dir.create(extsoft_dir)
+    # Create temp directory
+    temp_dir <- tempdir()
 
-  # Unzip both of the zips into the directory
-  unzip(paste0(temp_dir,'/local323.zip'), exdir = extsoft_dir)
-  unzip(paste0(temp_dir,'curl-7.40.0.zip'), exdir = extsoft_dir)
+    # Download the local323 zip of system dependencies
+    download.file('https://www.stats.ox.ac.uk/pub/Rtools/goodies/multilib/local323.zip', paste0(temp_dir,'/local323.zip'))
 
-  # Check if ~/.R directory exists (this is folder where custom makevars go)
-  if (!dir.exists('~/.R')) dir.create('~/.R')
+    # Download curl specific zip that is not captured in local323
+    download.file('https://www.stats.ox.ac.uk/pub/Rtools/goodies/multilib/curl-7.40.0.zip', paste0(temp_dir,'curl-7.40.0.zip'))
 
-  # Define custom makevars file
-  makevars <- c(
-    paste0('LOCAL_SOFT = ', extsoft_dir),
-    paste0('LIB_XML = ', extsoft_dir),
-    'ifneq ($(strip $(LOCAL_SOFT)),)',
-    'LOCAL_CPPFLAGS = -I"$(LOCAL_SOFT)/include"',
-    'LOCAL_LIBS = -L"$(LOCAL_SOFT)/lib$(R_ARCH)" -L"$(LOCAL_SOFT)/lib"',
-    'endif'
-  )
+    # Check if c:/extsoft exists otherwise make it
+    if (!dir.exists(extsoft_dir)) dir.create(extsoft_dir)
 
-  # Write makevars file to default user makevars location
-  writeLines(makevars, '~/.R./makevars')
+    # Unzip both of the zips into the directory
+    unzip(paste0(temp_dir,'/local323.zip'), exdir = extsoft_dir)
+    unzip(paste0(temp_dir,'curl-7.40.0.zip'), exdir = extsoft_dir)
 
-  # Return success
-  message('Rtools external packages succesffully installed!')
+    # Check if ~/.R directory exists (this is folder where custom makevars go)
+    if (!dir.exists('~/.R')) dir.create('~/.R')
+
+    # Define custom makevars file
+    makevars <- c(
+      paste0('LOCAL_SOFT = ', extsoft_dir),
+      paste0('LIB_XML = ', extsoft_dir),
+      'ifneq ($(strip $(LOCAL_SOFT)),)',
+      'LOCAL_CPPFLAGS = -I"$(LOCAL_SOFT)/include"',
+      'LOCAL_LIBS = -L"$(LOCAL_SOFT)/lib$(R_ARCH)" -L"$(LOCAL_SOFT)/lib"',
+      'endif'
+    )
+
+    # Write makevars file to default user makevars location
+    writeLines(makevars, '~/.R./makevars')
+
+    # Return success
+    message('Rtools external packages succesffully installed!')
+  }
 
 }
 
