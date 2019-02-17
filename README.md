@@ -12,6 +12,8 @@ Current functionality is focussed around the following:
 
 4. DfE specific formatting
 
+5. Functions for setting up R for reproducible analysis
+
 ## Installation
 
 dfeR is not currently available on CRAN. You can instead install the
