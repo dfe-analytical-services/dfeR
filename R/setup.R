@@ -44,8 +44,8 @@ setup_rtools_pkgs <- function(extsoft_dir = 'c:/extsoft'){
     unzip(paste0(temp_dir,'nlopt.zip'), exdir = extsoft_dir)
 
     #Copy nlopt sub folder to root
-    file.copy(paste0(extsoft_dir, "/nlopt-2.4.2/include"), paste0(extsoft_dir, "/include"), recursive = TRUE)
-    file.copy(paste0(extsoft_dir, "/nlopt-2.4.2/lib"), paste0(extsoft_dir, "/lib"), recursive = TRUE)
+    file.copy(paste0(extsoft_dir, "/nlopt-2.4.2/include"), extsoft_dir, recursive = TRUE)
+    file.copy(paste0(extsoft_dir, "/nlopt-2.4.2/lib"), extsoft_dir, recursive = TRUE)
 
     # Delete redundant directory
     unlink(paste0(extsoft_dir, "/nlopt-2.4.2"), recursive = TRUE)
