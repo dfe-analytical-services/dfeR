@@ -32,12 +32,16 @@ setup_rtools_pkgs <- function(extsoft_dir = 'c:/extsoft'){
     # Download curl specific zip that is not captured in local323
     download.file('https://www.stats.ox.ac.uk/pub/Rtools/goodies/multilib/curl-7.40.0.zip', paste0(temp_dir,'curl-7.40.0.zip'))
 
+    # Download nlopt
+    download.file('https://github.com/rwinlib/nlopt/archive/v2.4.2.zip', paste0(temp_dir,'nlopt.zip'))
+
     # Check if c:/extsoft exists otherwise make it
     if (!dir.exists(extsoft_dir)) dir.create(extsoft_dir)
 
     # Unzip both of the zips into the directory
     unzip(paste0(temp_dir,'/local323.zip'), exdir = extsoft_dir)
     unzip(paste0(temp_dir,'curl-7.40.0.zip'), exdir = extsoft_dir)
+    unzip(paste0(temp_dir,'nlopt.zip'), exdir = extsoft_dir)
 
     # Check if ~/.R directory exists (this is folder where custom makevars go)
     if (!dir.exists('~/.R')) dir.create('~/.R')
