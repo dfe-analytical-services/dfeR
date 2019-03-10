@@ -43,6 +43,13 @@ setup_rtools_pkgs <- function(extsoft_dir = 'c:/extsoft'){
     unzip(paste0(temp_dir,'curl-7.40.0.zip'), exdir = extsoft_dir)
     unzip(paste0(temp_dir,'nlopt.zip'), exdir = extsoft_dir)
 
+    #Copy nlopt sub folder to root
+    file.copy(paste0(extsoft_dir, "/nlopt-2.4.2/include"), paste0(extsoft_dir, "/include"), recursive = TRUE)
+    file.copy(paste0(extsoft_dir, "/nlopt-2.4.2/lib"), paste0(extsoft_dir, "/lib"), recursive = TRUE)
+
+    # Delete redundant directory
+    unlink(paste0(extsoft_dir, "/nlopt-2.4.2"), recursive = TRUE)
+
     # Check if ~/.R directory exists (this is folder where custom makevars go)
     if (!dir.exists('~/.R')) dir.create('~/.R')
 
