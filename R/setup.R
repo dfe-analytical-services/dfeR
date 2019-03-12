@@ -30,10 +30,14 @@ setup_rtools_pkgs <- function(extsoft_dir = 'c:/extsoft'){
     download.file('https://www.stats.ox.ac.uk/pub/Rtools/goodies/multilib/local323.zip', paste0(temp_dir,'/local323.zip'))
 
     # Download curl specific zip that is not captured in local323
-    download.file('https://www.stats.ox.ac.uk/pub/Rtools/goodies/multilib/curl-7.40.0.zip', paste0(temp_dir,'curl-7.40.0.zip'))
+    download.file('https://www.stats.ox.ac.uk/pub/Rtools/goodies/multilib/curl-7.40.0.zip', paste0(temp_dir,'/curl-7.40.0.zip'))
 
     # Download nlopt
-    download.file('https://github.com/rwinlib/nlopt/archive/v2.4.2.zip', paste0(temp_dir,'nlopt.zip'))
+    download.file('https://github.com/rwinlib/nlopt/archive/v2.4.2.zip', paste0(temp_dir,'/nlopt.zip'))
+
+    # Download GTK
+    download.file('http://ftp.gnome.org/pub/gnome/binaries/win32/gtk+/2.22/gtk+-bundle_2.22.1-20101227_win32.zip', paste0(temp_dir,'/gtk32.zip'))
+    download.file('http://ftp.gnome.org/pub/gnome/binaries/win64/gtk+/2.22/gtk+-bundle_2.22.1-20101229_win64.zip', paste0(temp_dir,'/gtk64.zip'))
 
     # Check if c:/extsoft exists otherwise make it
     if (!dir.exists(extsoft_dir)) dir.create(extsoft_dir)
@@ -50,6 +54,15 @@ setup_rtools_pkgs <- function(extsoft_dir = 'c:/extsoft'){
     # Delete redundant directory
     unlink(paste0(extsoft_dir, "/nlopt-2.4.2"), recursive = TRUE)
 
+    # Create gtk folder
+    if (!dir.exists(paste0(extsoft_dir, "/gtk"))) dir.create(paste0(extsoft_dir, "/gtk"))
+    if (!dir.exists(paste0(extsoft_dir, "/gtk/i386"))) dir.create(paste0(extsoft_dir, "/gtk/i386"))
+    if (!dir.exists(paste0(extsoft_dir, "/gtk/x64"))) dir.create(paste0(extsoft_dir, "/gtk/x64"))
+
+    # Extract gtk
+    unzip(paste0(temp_dir,'/gtk32.zip'),exdir =  paste0(extsoft_dir, "/gtk/i386"))
+    unzip(paste0(temp_dir,'/gtk64.zip'),exdir =  paste0(extsoft_dir, "/gtk/x64"))
+
     # Check if ~/.R directory exists (this is folder where custom makevars go)
     if (!dir.exists('~/.R')) dir.create('~/.R')
 
@@ -57,6 +70,7 @@ setup_rtools_pkgs <- function(extsoft_dir = 'c:/extsoft'){
     makevars <- c(
       paste0('LOCAL_SOFT = ', extsoft_dir),
       paste0('LIB_XML = ', extsoft_dir),
+      paste0('GTK_PATH = ', extsoft_dir, '/gtk$(R_ARCH)'),
       'ifneq ($(strip $(LOCAL_SOFT)),)',
       'LOCAL_CPPFLAGS = -I"$(LOCAL_SOFT)/include"',
       'LOCAL_LIBS = -L"$(LOCAL_SOFT)/lib$(R_ARCH)" -L"$(LOCAL_SOFT)/lib"',
@@ -65,6 +79,17 @@ setup_rtools_pkgs <- function(extsoft_dir = 'c:/extsoft'){
 
     # Write makevars file to default user makevars location
     writeLines(makevars, '~/.R./makevars')
+
+    # Custom rprofile
+    rprofile <- c(
+      paste0('Sys.setenv(PATH = paste(paste0("', extsoft_dir, '/gdk", Sys.getenv("R_ARCH"), "/bin"), Sys.getenv("PATH"), sep=";"))'),
+      'Sys.setenv(PATH = paste("C:/Rtools/usr/bin", Sys.getenv("PATH"), sep=";"))',
+      'Sys.setenv(BINPREF = "C:/Rtools/mingw_$(WIN)/bin/")'
+    )
+
+    # Write custom rprofile
+    writeLines(rprofile, '~/.Rprofile')
+
 
     # Return success
     message('Rtools external packages succesffully installed!')
