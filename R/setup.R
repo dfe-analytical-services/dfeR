@@ -44,8 +44,8 @@ setup_rtools_pkgs <- function(extsoft_dir = 'c:/extsoft'){
 
     # Unzip both of the zips into the directory
     unzip(paste0(temp_dir,'/local323.zip'), exdir = extsoft_dir)
-    unzip(paste0(temp_dir,'curl-7.40.0.zip'), exdir = extsoft_dir)
-    unzip(paste0(temp_dir,'nlopt.zip'), exdir = extsoft_dir)
+    unzip(paste0(temp_dir,'/curl-7.40.0.zip'), exdir = extsoft_dir)
+    unzip(paste0(temp_dir,'/nlopt.zip'), exdir = extsoft_dir)
 
     #Copy nlopt sub folder to root
     file.copy(paste0(extsoft_dir, "/nlopt-2.4.2/include"), extsoft_dir, recursive = TRUE)
