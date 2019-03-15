@@ -82,7 +82,7 @@ setup_rtools_pkgs <- function(extsoft_dir = 'c:/extsoft'){
 
     # Custom rprofile
     rprofile <- c(
-      paste0('Sys.setenv(PATH = paste(paste0("', extsoft_dir, '/gdk", Sys.getenv("R_ARCH"), "/bin"), Sys.getenv("PATH"), sep=";"))'),
+      paste0('Sys.setenv(PATH = paste(paste0("', extsoft_dir, '/gtk", Sys.getenv("R_ARCH"), "/bin"), Sys.getenv("PATH"), sep=";"))'),
       'Sys.setenv(PATH = paste("C:/Rtools/usr/bin", Sys.getenv("PATH"), sep=";"))',
       'Sys.setenv(BINPREF = "C:/Rtools/mingw_$(WIN)/bin/")'
     )
