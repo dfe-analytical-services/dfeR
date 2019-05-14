@@ -26,9 +26,7 @@ devtools::install_github("dfe-analytical-services/dfeR")
 When installing dfeR on your work laptop you will need to use the following code set the proxy before installation:
 
 ``` r
-library(rstudioapi)
-yourusername <- rstudioapi::showPrompt(title = "Username", message = "Username", default = "")
-Sys.setenv(https_proxy = paste("http://ad\\",yourusername,":",
+Sys.setenv(https_proxy = paste("http://ad\\",Sys.getenv("USERNAME"),":",
                                rstudioapi::askForPassword("AD account password"),
                                "@192.168.2.40:8080",sep=""))
 ```
