@@ -1,5 +1,14 @@
-# This script sets up the variables required to get through the DfE Proxy for R.
-# The function is not exported and not intended for use via dfeR.
+#' Sets up Environment Variables to authenticate with the DfE Proxy for working with web content.
+#'
+#' This function sets up User environment variables http_proxy and https_proxy so that R (and other software) can access web conent. E.g. install packages from github, web scrape etc.
+#'
+#' This function will need to be re-run every time you change your windows password.
+#'
+#' @keywords setup
+#' @examples
+#' \dontrun{
+#' setup_proxy()
+#' }
 
 setup_proxy <- function(){
   
@@ -25,7 +34,3 @@ setup_proxy <- function(){
   system(https_proxy_cmd)
   
 }
-
-setup_proxy()
-         
-       
