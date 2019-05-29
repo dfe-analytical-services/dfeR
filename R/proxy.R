@@ -13,7 +13,7 @@
 setup_proxy <- function(){
   
   # Ask the user for their password
-  password <- rstudioapi::askForPassword("AD account password")
+  password <- rstudioapi::askForPassword("Please type in your Windows Password to authenticate against the Proxy.")
   
   # Construct proxy url using username and password
   proxy_encoded_url <- URLencode(
