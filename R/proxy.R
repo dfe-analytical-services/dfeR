@@ -18,7 +18,7 @@ setup_proxy <- function(){
   # Construct proxy url using username and password
   proxy_encoded_url <- URLencode(
     paste0(
-      "https://ad\\",
+      "http://ad\\",
       Sys.getenv("USERNAME"),
       ":",
       password,
