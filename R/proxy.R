@@ -18,7 +18,7 @@ setup_proxy <- function(){
   # Construct proxy url using username and password
   proxy_encoded_url <- URLencode(
     paste0(
-      "://ad\\",
+      "https://ad\\",
       Sys.getenv("USERNAME"),
       ":",
       password,
@@ -26,8 +26,8 @@ setup_proxy <- function(){
     ))
   
   # Construct commands to create environment variables
-  http_proxy_cmd <-  paste0("setx http_proxy http", proxy_encoded_url)
-  https_proxy_cmd <-  paste0("setx https_proxy https", proxy_encoded_url)
+  http_proxy_cmd <-  paste0("setx http_proxy ", proxy_encoded_url)
+  https_proxy_cmd <-  paste0("setx https_proxy ", proxy_encoded_url)
   
   # Create system environment variables
   system(http_proxy_cmd)
