@@ -27,7 +27,7 @@ devtools::install_github("dfe-analytical-services/dfeR")
 
 To install dfeR and more generally access web resources within the Departmental network programatically, you need to set http and https proxy variables. 
 
-The following function will ask you for your password and set such variables for you to enable this functionality.
+The following function set such variables for you to enable this functionality on your machine.
 
 **Note:** The required password is your windows logon password and you will need to restart R and/or your terminal session for the change to take effect.
 
