@@ -25,14 +25,13 @@ devtools::install_github("dfe-analytical-services/dfeR")
 ```
 ## Proxy
 
-To install dfeR and more generally access web resources programmatically (R, Python, Git) within the Departmental network you need to set http and https proxy variables.
+To install dfeR and more generally access web resources within the Departmental network programatically, you need to set http and https proxy variables. 
 
-The following function will ask you for your password and set such variables for you to enable this functionality. Note: Any session including R Studio will need a restart for the proxy to take effect.
+The following function will ask you for your password and set such variables for you to enable this functionality.
+
+**Note:** The required password is your windows logon password and you will need to restart R and/or your terminal session for the change to take effect.
 
 ``` r
 source("https://raw.githubusercontent.com/dfe-analytical-services/dfeR/master/R/proxy.R")
 setup_proxy()
 ```
-
-
-**Note:** The required password is your windows logon password.
