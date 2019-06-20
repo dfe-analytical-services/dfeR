@@ -27,8 +27,11 @@ To install dfeR and more generally access web resources within the Departmental 
 
 The following function set such variables for you to enable this functionality on your machine.
 
-**Note 1:** The password required is that of your windows logon.  
-**Note 2:** You will need to restart R and/or your terminal session for the change to take effect. 
+**Notes** 
+
+1. The password required is that of your windows logon.  
+2. You will need to restart R and/or your terminal session for the change to take effect. 
+3. This code needs to be re-run whenever you change your password.
 
 ``` r
 source("https://raw.githubusercontent.com/dfe-analytical-services/dfeR/master/R/proxy.R")
