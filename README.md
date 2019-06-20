@@ -35,4 +35,4 @@ setup_proxy()
 ```
 
 
-**Note:** You must substitute the *yourusername* and *yourwindowspassword* with your own details.
+**Note:** The required password is your windows logon password.
