@@ -29,7 +29,3 @@ reference:
     contents:
     - format_ay
     - round_nearest
-  - title: R Setup
-    desc: Functions for setting up R for reproducible analysis
-    contents:
-    - setup_rtools_pkgs
