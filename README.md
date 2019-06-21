@@ -23,10 +23,17 @@ devtools::install_github("dfe-analytical-services/dfeR")
 ```
 ## Proxy
 
-When installing dfeR on your work laptop you will need to use the following code set the proxy before installation:
+To install dfeR and more generally access web resources within the Departmental network programatically, you need to set http and https proxy variables. 
+
+The following function set such variables for you to enable this functionality on your machine.
+
+**Notes** 
+
+1. The password required is that of your windows logon.  
+2. You will need to restart R and/or your terminal session for the change to take effect. 
+3. This code needs to be re-run whenever you change your password.
 
 ``` r
-Sys.setenv(https_proxy = paste("http://ad\\",Sys.getenv("USERNAME"),":",
-                               rstudioapi::askForPassword("AD account password"),
-                               "@192.168.2.40:8080",sep=""))
+source("https://raw.githubusercontent.com/dfe-analytical-services/dfeR/master/R/proxy.R")
+setup_proxy()
 ```

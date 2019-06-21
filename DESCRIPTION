@@ -1,7 +1,7 @@
 Package: dfeR
 Type: Package
 Title: Repository of functions to standardise common DfE R tasks
-Version: 0.0.0.9012
+Version: 0.0.0.9013
 Depends: R (>= 3.4.1)
 Authors@R: person("Adam", "Robinson", role = c("aut", "cre"), email = "adam.robinson@education.gov.uk")
 License: MIT + file LICENSE
@@ -10,9 +10,10 @@ Description: This package contrains R functions to allow DfE analysts to re-use 
     common analytical tasks that are undertaken accross the Department.
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 Imports: rmarkdown (>= 1.9),
-    ggplot2
+    ggplot2,
+    rstudioapi
 Suggests: testthat
 URL: https://github.com/dfe-analytical-services/dfeR
 BugReports: https://github.com/dfe-analytical-services/dfeR/issues
