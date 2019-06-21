@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>R Markdown template picker — rmarkdown_template • dfeR</title>
+<title>Sets up Environment Variables to authenticate with the DfE Proxy for working with web content. — setup_proxy • dfeR</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,9 +32,9 @@
 
 
 
-<meta property="og:title" content="R Markdown template picker — rmarkdown_template" />
+<meta property="og:title" content="Sets up Environment Variables to authenticate with the DfE Proxy for working with web content. — setup_proxy" />
 
-<meta property="og:description" content="Allows you to pick template in inst/styles folder and convert into callable output type." />
+<meta property="og:description" content="This function sets up User environment variables http_proxy and https_proxy so that R (and other software) can access web conent. E.g. install packages from github, web scrape etc." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -113,35 +113,37 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>R Markdown template picker</h1>
-    <small class="dont-index">Source: <a href='https://github.com/dfe-analytical-services/dfeR/blob/master/R/rmarkdown_templates.R'><code>R/rmarkdown_templates.R</code></a></small>
-    <div class="hidden name"><code>rmarkdown_template.Rd</code></div>
+    <h1>Sets up Environment Variables to authenticate with the DfE Proxy for working with web content.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/dfe-analytical-services/dfeR/blob/master/R/proxy.R'><code>R/proxy.R</code></a></small>
+    <div class="hidden name"><code>setup_proxy.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Allows you to pick template in inst/styles folder and convert into callable output type.</p>
+    <p>This function sets up User environment variables http_proxy and https_proxy so that R (and other software) can access web conent. E.g. install packages from github, web scrape etc.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>rmarkdown_template</span>(<span class='no'>template</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>template</th>
-      <td><p>Name of template in styles folder</p></td>
-    </tr>
-    </table>
+    <pre class="usage"><span class='fu'>setup_proxy</span>()</pre>
+        
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>This function will need to be re-run every time you change your windows password.</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='fu'>setup_proxy</span>()
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#details">Details</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
