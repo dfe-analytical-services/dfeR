@@ -32,7 +32,7 @@ The following function set such variables for you to enable this functionality o
 1. The password required is that of your windows logon.  
 2. You will need to restart R and/or your terminal session for the change to take effect. 
 3. This code needs to be re-run whenever you change your password.
-4. When using APIs to Java, such as RSelenium, the proxy will need to be disabled using `r Sys.setenv(no_proxy = "*")`
+4. When using APIs to Java, such as RSelenium, the proxy will need to be disabled using `r Sys.setenv(no_proxy = "*")`.
 
 ``` r
 source("https://raw.githubusercontent.com/dfe-analytical-services/dfeR/master/R/proxy.R")
