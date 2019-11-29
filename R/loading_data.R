@@ -17,7 +17,7 @@ sql_conn_string <- function(server, database){
 
   if (!is.character(database)) stop("database parmaeter must be of type character")
 
-    paste0("driver={SQL Server};server=",server,";database=", database, ";trusted_connection=TRUE")
+    paste0("driver={ODBC Driver 13 for SQL Server};server=",server,";database=", database, ";trusted_connection=yes")
 }
 
 #' Read and clean a .sql script for use with RODBC

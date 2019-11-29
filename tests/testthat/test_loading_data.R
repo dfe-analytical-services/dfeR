@@ -6,7 +6,7 @@ test_that("Basic test case works", {
 
 test_that("Example Database as Expected", {
   expect_equal(sql_conn_string("3DCPRI-PDB16\\ACSQLS", "SWFC_Project"),
-  "driver={SQL Server};server=3DCPRI-PDB16\\ACSQLS;database=SWFC_Project;trusted_connection=TRUE")
+  "driver={ODBC Driver 13 for SQL Server};server=3DCPRI-PDB16\\ACSQLS;database=SWFC_Project;trusted_connection=yes")
 })
 
 test_that("Deals with non character server variable gracefully", {
