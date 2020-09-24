@@ -1,28 +1,11 @@
-#' Sets up Environment Variables to authenticate with the DfE Proxy for working with web content.
-#'
-#' This function sets up user environment variables http_proxy and https_proxy so that R (and other software) can access web conent. E.g. install packages from github, web scrape etc.
-#'
-#' This function will need to be re-run every time you change your windows password.
-#'
-#' @keywords setup
-#' @examples
-#' \dontrun{
-#' setup_proxy()
-#' }
-
 setup_proxy <- function(){
-
-  # Ask the user for their password
-  password <- rstudioapi::askForPassword("Please provide your Windows Password to authenticate.")
 
   # Construct proxy url using username and password
   proxy_encoded_url <- URLencode(
     paste0(
-      "http://ad\\",
+      "http://",
       Sys.getenv("USERNAME"),
-      ":",
-      password,
-      "@192.168.2.40:8080"
+      "@mwg.proxy.ad.hq.dept:9090"
     ))
 
   # Construct commands to create environment variables
