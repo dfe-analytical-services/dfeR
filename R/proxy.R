@@ -15,5 +15,7 @@ setup_proxy <- function(){
   # Create system environment variables
   system(http_proxy_cmd)
   system(https_proxy_cmd)
-
+  
+  # Set renv to use wininet
+  system("setx RENV_DOWNLOAD_FILE_METHOD wininet")
 }
