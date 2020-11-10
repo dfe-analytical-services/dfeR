@@ -31,6 +31,8 @@ The following function set such variables for you to enable this functionality o
 
 1. You will need to restart R and/or your terminal session for the change to take effect. 
 2. When using APIs to Java, such as RSelenium, the proxy will need to be disabled using `Sys.setenv(no_proxy = "*")`.
+3. If setup_proxy fails due to not having rstudioapi installed then simply install it with `install.packages("rstudioapi")` and re-run `setup_proxy()`.
+4. This also sets pypi.python.org as a trusted host so that python and pip should work out of the box outside of R.
 
 ``` r
 source("https://raw.githubusercontent.com/dfe-analytical-services/dfeR/master/R/proxy.R")

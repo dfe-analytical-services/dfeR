@@ -1,10 +1,15 @@
 setup_proxy <- function(){
 
+  # Ask the user for their password
+  password <- rstudioapi::askForPassword("Please provide your Windows Password to authenticate.")
+
   # Construct proxy url using username and password
   proxy_encoded_url <- URLencode(
     paste0(
-      "http://",
+      "http://ad\\",
       Sys.getenv("USERNAME"),
+      ":",
+      password,
       "@mwg.proxy.ad.hq.dept:9090"
     ))
 
@@ -15,7 +20,20 @@ setup_proxy <- function(){
   # Create system environment variables
   system(http_proxy_cmd)
   system(https_proxy_cmd)
-  
-  # Set renv to use wininet
+
+  # Set download file method for renv
   system("setx RENV_DOWNLOAD_FILE_METHOD wininet")
+
+  # Pip folder variable
+  pip_folder <- file.path(Sys.getenv("APPDATA"), "pip")
+
+  # Create pip.ini file with trusted website for python
+  if (!dir.exists(pip_folder)) dir.create(pip_folder)
+
+  write("[global]
+trusted-host = pypi.python.org
+               pypi.org
+               files.pythonhosted.org",
+        file = file.path(pip_folder, "pip.ini"))
+
 }
