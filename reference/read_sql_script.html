@@ -129,7 +129,7 @@ It removes statements such as USE and GO, all -- comments and ensures formatting
 It removes statements such as USE and GO, all -- comments and ensures formatting is correct. Without this lots of scripts fail when read in and used with RODBC.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>read_sql_script</span>(<span class='kw'>file</span>)</pre>
+    <pre class="usage"><span class='fu'>read_sql_script</span><span class='op'>(</span><span class='va'>file</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -145,9 +145,9 @@ It removes statements such as USE and GO, all -- comments and ensures formatting
     <p>Character vector of clean sql query</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>read_sql_script</span>(<span class='st'>"Queries/script_name.sql"</span>)
-}
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'>read_sql_script</span><span class='op'>(</span><span class='st'>"Queries/script_name.sql"</span><span class='op'>)</span>
+<span class='op'>}</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

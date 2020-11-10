@@ -89,10 +89,9 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>dfeR is not currently available on CRAN. You can instead install the development version from GitHub with:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="co"># install.packages("devtools")</span>
-<span class="kw">devtools</span>::<span class="fu">install_github</span>(<span class="st">"dfe-analytical-services/dfeR"</span>)
-</pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"dfe-analytical-services/dfeR"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="proxy" class="section level2">
 <h2 class="hasAnchor">
@@ -103,11 +102,12 @@
 <ol>
 <li>You will need to restart R and/or your terminal session for the change to take effect.</li>
 <li>When using APIs to Java, such as RSelenium, the proxy will need to be disabled using <code>Sys.setenv(no_proxy = "*")</code>.</li>
+<li>If setup_proxy fails due to not having rstudioapi installed then simply install it with <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages("rstudioapi")</a></code> and re-run <code><a href="reference/setup_proxy.html">setup_proxy()</a></code>.</li>
+<li>This also sets pypi.python.org as a trusted host so that python and pip should work out of the box outside of R.</li>
 </ol>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/source.html">source</a></span>(<span class="st">"https://raw.githubusercontent.com/dfe-analytical-services/dfeR/master/R/proxy.R"</span>)
-<span class="fu"><a href="reference/setup_proxy.html">setup_proxy</a></span>()
-</pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/dfe-analytical-services/dfeR/master/R/proxy.R"</span><span class="op">)</span>
+<span class="fu"><a href="reference/setup_proxy.html">setup_proxy</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
   </div>
