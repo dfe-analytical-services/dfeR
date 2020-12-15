@@ -29,6 +29,9 @@ setup_proxy <- function(){
 
   # Create pip.ini file with trusted website for python
   if (!dir.exists(pip_folder)) dir.create(pip_folder)
+  
+  # SSL verify false (to make Azure Devops work internally). Analyst should only pull from trusted repos.
+  system("git config --global http.sslVerify false")
 
   write("[global]
 trusted-host = pypi.python.org
