@@ -19,11 +19,7 @@
 
 dfeR is an R package designed to help standardise R programming across the Department for Education (DfE) and facilitate sharing of business specific functions.
 
-<<<<<<< HEAD
 **Scope**
-=======
-*Scope*
->>>>>>> 95035ce75f1c553705a57f6a402785f699951839
 
 dfeR is open to all of DfE and anything we think could be useful to other programmers / analysts can be contributed. 
 
