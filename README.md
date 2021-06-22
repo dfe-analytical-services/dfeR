@@ -71,9 +71,9 @@ Ideas for dfeR should first be raised as a [github issue](https://github.com/dfe
 
 When contributing to dfeR you should work on a new branch and, where applicable, you will be asked to: 
 
-1. Follow code standards - [consistency across functions, can we nick from existing guidance? Function names and arguments follow similar format. Standardising where we can.] 
+1. Follow code standards 
 2. Write relevant package documentation
-3. Write appropriate tests [(detail on what we expect for testing and what we test automatically) - link off to other guidance]
+3. Write appropriate tests 
 
 Your pull request should then be reviewed and approved by at least one other person before it can be merged. 
 
