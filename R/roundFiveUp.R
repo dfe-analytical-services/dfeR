@@ -16,10 +16,14 @@
 #' roundFiveUp(2495, -1)
 #' roundFiveUp(2495.85, 1)
 roundFiveUp <- function(x, n) {
-  positiveNegative <- sign(x)
+
+  if (!grepl("[[:digit:]]",x)) stop("x must be a number")
+
+  if (!grepl("[[:digit:]]",n)) stop("n must be a number")
+
   z <- abs(x) * 10^n
   z <- z + 0.5 + sqrt(.Machine$double.eps)
   z <- trunc(z)
   z <- z / 10^n
-  return(z * positiveNegative)
+  return(z * sign(x))
 }
