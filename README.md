@@ -23,12 +23,11 @@ dfeR is an R package designed to help standardise R programming across the Depar
 
 dfeR is open to all of DfE and anything we think could be useful to other programmers / analysts can be contributed. 
 
-Functionality is expected to focus around the following:
+Functionality is likely to focus around the following:
 
 1. Templates for analytical projects
-2. Publication R Markdown Templates
-3. Working with Microsoft SQL Databases
-4. DfE specific formatting
+2. Working with Microsoft SQL Databases
+3. DfE specific formatting
 
 Documentation for what has been included in the package so far is available at http://dfe-analytical-services.github.io/dfeR/ 
 
