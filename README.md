@@ -1,5 +1,4 @@
-[![R-CMD-check](https://github.com/cjrace/dfeR/actions/workflows/r_cmd_check.yml/badge.svg)](https://github.com/cjrace/dfeR/actions/workflows/r_cmd_check.yml)
-
+[![R-CMD-check](https://github.com/cjrace/dfeR/actions/workflows/r_cmd_check.yml/badge.svg?branch=master&event=push)](https://github.com/cjrace/dfeR/actions/workflows/r_cmd_check.yml)
 
 <h1 align="center">
   <br>
