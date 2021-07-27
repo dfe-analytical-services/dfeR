@@ -1,4 +1,4 @@
-# dfeR  [![Build Status](https://travis-ci.org/dfe-analytical-services/dfeR.svg?branch=master)](https://travis-ci.org/dfe-analytical-services/dfeR)
+[![R-CMD-check](https://github.com/cjrace/dfeR/actions/workflows/r_cmd_check.yml/badge.svg)](https://github.com/cjrace/dfeR/actions/workflows/r_cmd_check.yml)
 
 
 <h1 align="center">
