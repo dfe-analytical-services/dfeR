@@ -9,9 +9,9 @@ test_that("Rounds other numbers", {
 })
 
 test_that("Input validation", {
-  expect_error(roundFiveUp("ten", "10"), "x and n must both be numeric")
-  expect_error(roundFiveUp(12, "ten"), "n must be a number")
-  expect_error(roundFiveUp(12, "10"), "n must be a number")
-  expect_error(roundFiveUp("twelve", 10), "x must be a number")
-  expect_error(roundFiveUp("12", 10), "x must be a number")
+  expect_error(roundFiveUp("ten", "10"), "both inputs must be numeric")
+  expect_error(roundFiveUp(12, "ten"), "the roundTo value must be numeric")
+  expect_error(roundFiveUp(12, "10"), "the roundTo value must be numeric")
+  expect_error(roundFiveUp("twelve", 10), "the value to be rounded must be numeric")
+  expect_error(roundFiveUp("12", 10), "the value to be rounded must be numeric")
 })

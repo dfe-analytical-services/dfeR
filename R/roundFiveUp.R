@@ -15,15 +15,15 @@
 #' @examples
 #' roundFiveUp(2495, -1)
 #' roundFiveUp(2495.85, 1)
-roundFiveUp <- function(x, n) {
+roundFiveUp <- function(value, roundTo) {
 
-  if (!is.numeric(x) && !is.numeric(n)) stop("x and n must both be numeric")
-  if (!is.numeric(x)) stop("x value must be numeric")
-  if (!is.numeric(n)) stop("n value must be numeric")
+  if (!is.numeric(value) && !is.numeric(roundTo)) stop("both inputs must be numeric")
+  if (!is.numeric(value)) stop("the value to be rounded must be numeric")
+  if (!is.numeric(roundTo)) stop("the roundTo value must be numeric")
 
-  z <- abs(x) * 10^n
+  z <- abs(value) * 10^roundTo
   z <- z + 0.5 + sqrt(.Machine$double.eps)
   z <- trunc(z)
-  z <- z / 10^n
-  return(z * sign(x))
+  z <- z / 10^roundTo
+  return(z * sign(value))
 }
