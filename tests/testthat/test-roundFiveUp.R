@@ -9,9 +9,24 @@ test_that("Rounds other numbers", {
 })
 
 test_that("Input validation", {
-  expect_error(roundFiveUp("ten", "10"), "both inputs must be numeric")
-  expect_error(roundFiveUp(12, "ten"), "the decimal places value must be numeric")
-  expect_error(roundFiveUp(12, "10"), "the decimal places value must be numeric")
-  expect_error(roundFiveUp("twelve", 10), "the value to be rounded must be numeric")
-  expect_error(roundFiveUp("12", 10), "the value to be rounded must be numeric")
+  expect_error(
+    roundFiveUp("ten", "10"),
+    "both inputs must be numeric"
+  )
+  expect_error(
+    roundFiveUp(12, "ten"),
+    "the decimal places value must be numeric"
+  )
+  expect_error(
+    roundFiveUp(12, "10"),
+    "the decimal places value must be numeric"
+  )
+  expect_error(
+    roundFiveUp("twelve", 10),
+    "the value to be rounded must be numeric"
+  )
+  expect_error(
+    roundFiveUp("12", 10),
+    "the value to be rounded must be numeric"
+  )
 })
