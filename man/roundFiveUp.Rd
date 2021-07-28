@@ -4,23 +4,27 @@
 \alias{roundFiveUp}
 \title{Round five up}
 \usage{
-roundFiveUp(x, n)
+roundFiveUp(value, dp)
 }
 \arguments{
-\item{x}{number to be rounded}
+\item{value}{number to be rounded}
 
-\item{n}{number of decimal places to round to}
+\item{dp}{number of decimal places to round to}
 }
 \value{
-Rounded number (should something else go in here?)
+Rounded number
 }
 \description{
 Round any number to a specified number of places, with 5's being rounded up.
-This is as an alternative to round in base R, which rounds 5's down due to
-an international standard I should reference here.
+This is as an alternative to round in base R, which sometimes rounds 5's down due to
+an international standard. For more information see the round() documentation
+https://stat.ethz.ch/R-manual/R-devel/library/base/html/Round.html
 }
 \details{
-This whole function could be refactored and documentation updated.
+You can use a negative value for the decimal places. For example:
+-1 would round to the nearest 10
+-2 would round to the nearest 100
+and so on.
 }
 \examples{
 roundFiveUp(2495, -1)
