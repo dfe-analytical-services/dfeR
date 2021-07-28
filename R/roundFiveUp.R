@@ -17,9 +17,9 @@
 #' roundFiveUp(2495.85, 1)
 roundFiveUp <- function(x, n) {
 
-  if (!grepl("[[:digit:]]",x)) stop("x must be a number")
-
-  if (!grepl("[[:digit:]]",n)) stop("n must be a number")
+  if (!is.numeric(x) && !is.numeric(n)) stop("x and n must both be numeric")
+  if (!is.numeric(x)) stop("x value must be numeric")
+  if (!is.numeric(n)) stop("n value must be numeric")
 
   z <- abs(x) * 10^n
   z <- z + 0.5 + sqrt(.Machine$double.eps)
