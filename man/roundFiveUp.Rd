@@ -16,8 +16,9 @@ Rounded number
 }
 \description{
 Round any number to a specified number of places, with 5's being rounded up.
-This is as an alternative to round in base R, which sometimes rounds 5's down due to
-an international standard. For more information see the round() documentation
+This is as an alternative to round in base R, which sometimes rounds 5's
+down due to an international standard. For more information see the
+round() documentation:
 https://stat.ethz.ch/R-manual/R-devel/library/base/html/Round.html
 }
 \details{
