@@ -45,25 +45,7 @@ devtools::install_github("dfe-analytical-services/dfeR")
 
 ### Proxy
 
-To install dfeR and more generally access web resources within the Departmental network programatically, you need to set http and https proxy variables.
-
-The following function set such variables for you to enable this functionality on your machine.
-
-
-**Notes** 
-
-1. This code will need to be re-run whenever you change your windows password.
-2. You will need to restart R and/or your terminal session for the change to take effect. 
-3. When using APIs to Java, such as RSelenium, the proxy will need to be disabled using `Sys.setenv(no_proxy = "*")`.
-4. If setup_proxy fails due to not having rstudioapi installed then simply install it with `install.packages("rstudioapi")` and re-run `setup_proxy()`.
-5. This also sets pypi.python.org as a trusted host so that python and pip should work out of the box outside of R.
-
-``` r
-source("https://raw.githubusercontent.com/dfe-analytical-services/dfeR/master/R/proxy.R")
-setup_proxy()
-```
-
----
+The need for setting proxy settings in order to be able to work with R and git within the DfE estate has now ended. If you previously run the proxy script in previous versions of the DfE R package, then contact the [Statistics Development team](statistics.development@education.gov.uk) to assist in cleaning out your system settings.
 
 ## Contributing
 
