@@ -9,7 +9,7 @@ Authors@R: c(
 Description: This package contains R functions to allow DfE analysts to
     re-use code for common analytical tasks that are undertaken across the
     Department.
-License: MIT + file LICENSE
+License: GPL (>= 3)
 URL: https://dfe-analytical-services.github.io/dfeR/,
     https://github.com/dfe-analytical-services/dfeR
 BugReports: https://github.com/dfe-analytical-services/dfeR/issues
