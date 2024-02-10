@@ -14,7 +14,8 @@ Suggests:
     spelling,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
-URL: https://dfe-analytical-services.github.io/dfeR/
+URL: https://dfe-analytical-services.github.io/dfeR/, https://github.com/dfe-analytical-services/dfeR
 Language: en-GB
 Imports: 
     lifecycle
+BugReports: https://github.com/dfe-analytical-services/dfeR/issues
