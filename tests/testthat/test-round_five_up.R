@@ -29,10 +29,10 @@ test_that("Input validation", {
   )
   expect_error(
     round_five_up("twelve", 10),
-    "the value argument must be numeric"
+    "the number argument must be numeric"
   )
   expect_error(
     round_five_up("12", 10),
-    "the value argument must be numeric"
+    "the number argument must be numeric"
   )
 })
