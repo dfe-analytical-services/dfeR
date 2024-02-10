@@ -4,30 +4,35 @@
 \alias{round_five_up}
 \title{Round five up}
 \usage{
-round_five_up(value, dp)
+round_five_up(value, dp = 0)
 }
 \arguments{
 \item{value}{number to be rounded}
 
-\item{dp}{number of decimal places to round to}
+\item{dp}{number of decimal places to round to, default is 0}
 }
 \value{
 Rounded number
 }
 \description{
 Round any number to a specified number of places, with 5's being rounded up.
-This is as an alternative to round in base R, which sometimes rounds 5's
-down due to an international standard. For more information see the
-round() documentation:
-https://stat.ethz.ch/R-manual/R-devel/library/base/html/Round.html
 }
 \details{
-You can use a negative value for the decimal places. For example:
+Rounds to 0 decimal places by default.
+
+#' You can use a negative value for the decimal places. For example:
 -1 would round to the nearest 10
 -2 would round to the nearest 100
 and so on.
+
+This is as an alternative to round in base R, which uses a bankers round.
+For more information see the \href{https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/Round}{round() documentation }.
 }
 \examples{
-round_five_up(2495, -1)
+round_five_up(2495.85)
 round_five_up(2495.85, 1)
+round_five_up(2495.85, 0)
+round_five_up(2495.85, -1)
+round_five_up(2495.85, -2)
+
 }
