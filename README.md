@@ -1,5 +1,8 @@
-[![R-CMD-check](https://github.com/cjrace/dfeR/actions/workflows/r_cmd_check.yml/badge.svg?branch=master&event=push)](https://github.com/cjrace/dfeR/actions/workflows/r_cmd_check.yml)
-
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/dfe-analytical-services/dfeR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/dfe-analytical-services/dfeR/actions/workflows/R-CMD-check.yaml)
+[![pkgdown](https://github.com/dfe-analytical-services/dfeR/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/dfe-analytical-services/dfeR/actions/workflows/pkgdown.yaml)
+<!-- badges: end -->
+  
 <h1 align="center">
   <br>
   dfeR 
@@ -20,7 +23,7 @@ dfeR is an R package designed to help standardise R programming across the Depar
 
 **Scope**
 
-dfeR is open to all of DfE and anything we think could be useful to other programmers / analysts can be contributed. 
+dfeR is open to all of DfE and anything we think could be useful to other programmers and analysts can be contributed. 
 
 Functionality is expected to focus around the following:
 

@@ -13,3 +13,4 @@ RoxygenNote: 7.3.1
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
+URL: https://dfe-analytical-services.github.io/dfeR/
