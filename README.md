@@ -15,9 +15,10 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 
 The goal of dfeR is to help standardise R programming across the
 Department for Education (DfE) and facilitate sharing of business
-specific functions. Credit to
-[lauraselby](https://github.com/lauraselby) for the logo featuring
-Frederick!
+specific functions.
+
+Credit to [lauraselby](https://github.com/lauraselby) for the logo
+featuring Frederick!
 
 ## Scope
 
