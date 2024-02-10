@@ -4,7 +4,7 @@
 #'
 #' Rounds to 0 decimal places by default.
 #'
-#' #' You can use a negative value for the decimal places. For example:
+#' You can use a negative value for the decimal places. For example:
 #' -1 would round to the nearest 10
 #' -2 would round to the nearest 100
 #' and so on.
