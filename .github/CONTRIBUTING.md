@@ -2,7 +2,11 @@
 
 Ideas for dfeR should first be raised as a [GitHub issue](https://github.com/dfe-analytical-services/dfeR/issues) after which anyone is free to write the code and create a pull request for review. 
 
-For a detailed discussion on contributing to R packages in the tidyverse, please see the [development contributing guide](https://rstd.io/tidy-contrib) and their [code review principles](https://code-review.tidyverse.org/). Full knowledge of this isn't needed, though some awareness of general principles will be useful.
+For a detailed discussion on contributing to R packages in the tidyverse, please see the [development contributing guide](https://rstd.io/tidy-contrib) and their [code review principles](https://code-review.tidyverse.org/). Full knowledge of this isn't needed, though some awareness of general principles may be useful.
+
+## Support
+
+We're keen for anyone at DfE to be able to feel comfortable contributing to this package. If you have any questions, or would like support in making changes, let the [Statistics Development Team](mailto:statistics.development@education.gov.uk) know.
 
 ## Basics
 
@@ -10,26 +14,51 @@ When contributing to dfeR you should work on a new branch taken from main.
 
 Any pull request must be reviewed and approved by at least one admin user before it can be merged. 
 
+- If you’ve found a bug, please file an issue that illustrates the bug with a minimal 
+[reprex example](https://www.tidyverse.org/help/#reprex) (this will also help you write a unit test, if needed).
+
+- See the tidyverse guide on [how to create a great issue](https://code-review.tidyverse.org/issues/) for more advice.
+
 ### Fixing typos
 
 You can fix typos, spelling mistakes, or grammatical errors in the documentation directly using the GitHub web interface, as long as the changes are made in the _source_ file. 
+
 This generally means you'll need to edit [roxygen2 comments](https://roxygen2.r-lib.org/articles/roxygen2.html) in an `.R`, not a `.Rd` file. 
 You can find the `.R` file that generates the `.Rd` by reading the comment in the first line.
 
 ### Bigger changes
 
-If you want to make a bigger change, it's a good idea to first file an issue and make sure someone from the team agrees that it’s needed. 
-
-- If you’ve found a bug, please file an issue that illustrates the bug with a minimal 
-[reprex](https://www.tidyverse.org/help/#reprex) (this will also help you write a unit test, if needed).
-
-- See the tidyverse guide on [how to create a great issue](https://code-review.tidyverse.org/issues/) for more advice.
+If you want to make a bigger change, it's a good idea to first [file an issue](https://github.com/dfe-analytical-services/dfeR/issues) and make sure someone from the team agrees with the change. 
 
 Where possible, we'd recommend following the [Test Driven Development (TDD)](https://testdriven.io/test-driven-development/) approach:
 
-* Write tests for the behaviour you want
-* Write just enough code so that the tests pass
-* Continue to improve code while keeping tests passing
+1. Write tests for the behaviour you want. Either edit an existing test script, or if adding a new function, create a test script using:
+
+``` r
+usethis::usetest("name_of_new_function")
+```
+
+2. Write just enough code so that the tests pass. Again, either edit an existing function, or add a new R script using:
+
+``` r
+usethis::use_r("name_of_new_function")
+```
+
+3. Add documentation for what you've done. Follow the [roxygen2](https://roxygen2.r-lib.org/articles/rd.html) pattern for comments.
+
+4. Continue to improve code while keeping tests passing. You can automatically style code using:
+
+``` r
+styler::style_pkg()
+```
+
+5. Run a full check of the package. Here's a few ways you can do this:
+
+``` r
+devtools::check() # General package check, can also use Ctrl-Shift-E
+lintr::lint_pkg() # Check styling of code
+spelling::spell_check() # Check for spelling mistakes
+```
 
 ## Handy workflows
 
@@ -109,13 +138,13 @@ lintr::lint_package()
 
 [styler](https://CRAN.R-project.org/package=styler) will not fix all linting issues, so we recommend using that first, then using [lintr](https://lintr.r-lib.org/articles/lintr.html) to check for places you may need to manually fix styling issues such as line length or not using snake_case.
 
-#### Testing
+### Testing
 
 We use [testthat](https://cran.r-project.org/package=testthat) for unit tests, we expect all new functions to have some level of test coverage.  
 
-#### Spelling
+### Spelling
 
-The [spelling] package is used to check spelling. A custom wordlist of exceptions for this package exists in the `inst/` folder. 
+The [spelling](https://docs.ropensci.org/spelling/) package is used to check spelling. A custom word list of exceptions for this package exists in the `inst/` folder. 
 
 There will be messages in the `devtools::check()` output if there's potential spelling errors. Please review and fix any genuine errors.
 
