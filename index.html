@@ -60,17 +60,21 @@
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
 <p><code>dfeR</code> is an R package designed to help standardise R programming across the Department for Education (DfE) and facilitate sharing of business specific functions.</p>
-<p><strong>Scope</strong></p>
-<p><code>dfeR</code> is open to all of DfE and anything we think could be useful to other programmers and analysts can be contributed.</p>
+<div class="section level3">
+<h3 id="scope">Scope<a class="anchor" aria-label="anchor" href="#scope"></a>
+</h3>
+<p>This package is open to all of DfE and anything we think could be useful to other programmers and analysts can be contributed, with the exception of R Shiny specific functions. We are also developing the <a href="https://github.com/dfe-analytical-services/dfeshiny" class="external-link">dfeshiny</a> package, and expect any functions specific to public facing R Shiny dashboards will live there.</p>
 <p>Functionality is expected to focus around the following:</p>
 <ol style="list-style-type: decimal">
+<li>DfE specific formatting</li>
+<li>Working with Microsoft SQL Databases</li>
 <li>Templates for analytical projects</li>
 <li>Publication R Markdown Templates</li>
-<li>Working with Microsoft SQL Databases</li>
-<li>DfE specific formatting</li>
+<li>API wrappers for use internally</li>
 </ol>
-<p>Documentation for what has been included in the package so far is available at <a href="http://dfe-analytical-services.github.io/dfeR/" class="external-link uri">http://dfe-analytical-services.github.io/dfeR/</a></p>
+<p>Documentation for what has been included in the package so far is available at <a href="http://dfe-analytical-services.github.io/dfeR/" class="external-link uri">http://dfe-analytical-services.github.io/dfeR/</a>.</p>
 <hr>
+</div>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -87,7 +91,7 @@
 <div class="section level2">
 <h2 id="proxy">Proxy<a class="anchor" aria-label="anchor" href="#proxy"></a>
 </h2>
-<p>The need for setting proxy settings in order to be able to work with R and Git within the DfE estate has now ended. If you previously run the proxy script in previous versions of the <code>dfeR</code> package, then contact the <a href="statistics.development@education.gov.uk">Statistics Development team</a> to assist in cleaning out your system settings.</p>
+<p>The need for setting proxy settings in order to be able to work with R and Git within the DfE estate has now ended. If you previously run the proxy script in previous versions of the <code>dfeR</code> package, then contact the <a href="statistics.development@education.gov.uk">Statistics Development Team</a> to assist in cleaning out your system settings.</p>
 <hr>
 </div>
 <div class="section level2">
@@ -145,8 +149,8 @@
 <ul class="list-unstyled">
 <li><a href="https://github.com/dfe-analytical-services/dfeR/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/dfe-analytical-services/dfeR/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://github.com/dfe-analytical-services/dfeR/actions/workflows/pkgdown.yaml" class="external-link"><img src="https://github.com/dfe-analytical-services/dfeR/actions/workflows/pkgdown.yaml/badge.svg" alt="pkgdown"></a></li>
-<li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
 <li><a href="https://app.codecov.io/gh/dfe-analytical-services/dfeR?branch=main" class="external-link"><img src="https://codecov.io/gh/dfe-analytical-services/dfeR/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
 </ul>
 </div>
 
