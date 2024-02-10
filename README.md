@@ -102,6 +102,8 @@ package
 We recommend using the [usethis](https://usethis.r-lib.org/index.html)
 package where possible for consistency and simplicity.
 
+#### Adding package dependencies
+
 Add any packages the package users will need with:
 
 ``` r
@@ -114,7 +116,19 @@ Add any packages that package developers only may need with:
 usethis::use_package(pkgname, type = "suggests")
 ```
 
-### Updating the package version
+#### Updating the README
+
+There are two README files that are linked with a pre-commit-hook to
+ensure are kept in sync.
+
+Make all changes to the `README.Rmd` file and then run the following
+line to rebuild:
+
+``` r
+devtools::build_readme()
+```
+
+#### Updating the package version
 
 Once changes have been completed, reviewed and are ready for use in the
 wild, you can increment the package version using:
