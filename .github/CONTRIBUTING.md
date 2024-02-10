@@ -90,7 +90,27 @@ lintr::lint_package()
 
 [styler](https://CRAN.R-project.org/package=styler) will not fix all linting issues, so we recommend using that first, then using [lintr](https://lintr.r-lib.org/articles/lintr.html) to check for places you may need to manually fix styling issues such as line length or not using snake_case.
 
+#### Testing
+
 We use [testthat](https://cran.r-project.org/package=testthat) for unit tests, we expect all new functions to have some level of test coverage.  
+
+#### Spelling
+
+The [spelling] package is used to check spelling. A custom wordlist of exceptions for this package exists in the `inst/` folder. 
+
+There will be messages in the `devtools::check()` output if there's potential spelling errors. Please review and fix any genuine errors.
+
+You can run a check yourself using:
+
+``` r
+spelling::spell_check_package()`
+```
+
+To automatically pick up genuine new words in the package and add to this list, use:
+
+``` r
+spelling::update_wordlist()
+```
 
 ## Code of Conduct
 

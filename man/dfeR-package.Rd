@@ -4,7 +4,7 @@
 \name{dfeR-package}
 \alias{dfeR}
 \alias{dfeR-package}
-\title{dfeR: Repository of functions to standardise common DfE R tasks}
+\title{dfeR: Common DfE R tasks}
 \description{
 This package contains R functions to allow DfE analysts to re-use code for common analytical tasks that are undertaken across the Department.
 }

@@ -30,8 +30,8 @@ Functionality for dfeR is expected to focus around the following:
 4.  Publication R Markdown Templates
 5.  API wrappers for use internally
 
-Documentation for what has been included in the package so far is
-available at <http://dfe-analytical-services.github.io/dfeR/>.
+Documentation for what has been included in the package so far is on our
+[pkgdown site](http://dfe-analytical-services.github.io/dfeR/).
 
 We are also developing the
 [dfeshiny](https://github.com/dfe-analytical-services/dfeshiny) package,
@@ -42,10 +42,12 @@ will live there.
 
 ## Installation
 
-`dfeR` is not currently available on CRAN. For the time being you can
+dfeR is not currently available on CRAN. For the time being you can
 install the development version from GitHub.
 
-If you are using `renv` in your project (recommended):
+If you are using
+[renv](https://rstudio.github.io/renv/articles/renv.html) in your
+project (recommended):
 
 ``` r
 renv::install("dfe-analytical-services/dfeR")
@@ -64,21 +66,20 @@ devtools::install_github("dfe-analytical-services/dfeR")
 
 The need for setting proxy settings in order to be able to work with R
 and Git within the DfE estate has now ended. If you previously run the
-proxy script in previous versions of the `dfeR` package, then contact
-the [Statistics Development
-Team](statistics.development@education.gov.uk) to assist in cleaning out
-your system settings.
+proxy script in previous versions of the dfeR package, then contact the
+[Statistics Development Team](statistics.development@education.gov.uk)
+to assist in cleaning out your system settings.
 
 ------------------------------------------------------------------------
 
 ## Contributing
 
-Ideas for `dfeR` should first be raised as a [GitHub
+Ideas for dfeR should first be raised as a [GitHub
 issue](https://github.com/dfe-analytical-services/dfeR) after which
 anyone is free to write the code and create a pull request for review.
 
-For more details on contributing to `dfeR`, see our [contributing
-guidelines](https://github.com/dfe-analytical-services/dfeR/blob/main/.github/CONTRIBUTING.md).
+For more details on contributing to dfeR, see our [contributing
+guidelines](https://dfe-analytical-services.github.io/dfeR/CONTRIBUTING.html).
 
 ------------------------------------------------------------------------
 

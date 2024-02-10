@@ -4,3 +4,4 @@ template:
   bootswatch: quartz
   bslib:
     pkgdown-nav-height: 81.4468px
+    code-color: "ffffff"
