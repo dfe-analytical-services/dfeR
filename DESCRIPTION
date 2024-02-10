@@ -1,6 +1,6 @@
 Package: dfeR
 Title: Repository of functions to standardise common DfE R tasks
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: c(
     person("Cam", "Race", , "cameron.race@education.gov.uk", role = c("aut", "cre")),
     person("Adam", "Robinson", role = "aut"),
