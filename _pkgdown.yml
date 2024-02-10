@@ -5,4 +5,3 @@ template:
   bslib:
     pkgdown-nav-height: 81.4468px
     code-color: "ffffff"
-    pre-color: "#000000"
