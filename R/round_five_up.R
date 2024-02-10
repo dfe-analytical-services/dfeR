@@ -18,9 +18,9 @@
 #' @export
 #'
 #' @examples
-#' roundFiveUp(2495, -1)
-#' roundFiveUp(2495.85, 1)
-roundFiveUp <- function(value, dp) {
+#' round_five_up(2495, -1)
+#' round_five_up(2495.85, 1)
+round_five_up <- function(value, dp) {
   if (!is.numeric(value) && !is.numeric(dp)) stop("both inputs must be numeric")
   if (!is.numeric(value)) stop("the value to be rounded must be numeric")
   if (!is.numeric(dp)) stop("the decimal places value must be numeric")
