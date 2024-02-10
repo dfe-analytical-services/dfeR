@@ -1,33 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://dfe-analytical-services.github.io/dfeR/404.html</loc>
+  </url>
+  <url>
+    <loc>https://dfe-analytical-services.github.io/dfeR/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://dfe-analytical-services.github.io/dfeR/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://dfe-analytical-services.github.io/dfeR/authors.html</loc>
+  </url>
+  <url>
     <loc>https://dfe-analytical-services.github.io/dfeR/index.html</loc>
   </url>
   <url>
-    <loc>https://dfe-analytical-services.github.io/dfeR/reference/format_ay.html</loc>
+    <loc>https://dfe-analytical-services.github.io/dfeR/reference/formatAY.html</loc>
   </url>
   <url>
-    <loc>https://dfe-analytical-services.github.io/dfeR/reference/national_statistic.html</loc>
+    <loc>https://dfe-analytical-services.github.io/dfeR/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://dfe-analytical-services.github.io/dfeR/reference/official_statistic.html</loc>
-  </url>
-  <url>
-    <loc>https://dfe-analytical-services.github.io/dfeR/reference/read_sql_script.html</loc>
-  </url>
-  <url>
-    <loc>https://dfe-analytical-services.github.io/dfeR/reference/rmarkdown_template.html</loc>
-  </url>
-  <url>
-    <loc>https://dfe-analytical-services.github.io/dfeR/reference/round_nearest.html</loc>
-  </url>
-  <url>
-    <loc>https://dfe-analytical-services.github.io/dfeR/reference/setup_proxy.html</loc>
-  </url>
-  <url>
-    <loc>https://dfe-analytical-services.github.io/dfeR/reference/sql_conn_string.html</loc>
-  </url>
-  <url>
-    <loc>https://dfe-analytical-services.github.io/dfeR/reference/template_project.html</loc>
+    <loc>https://dfe-analytical-services.github.io/dfeR/reference/roundFiveUp.html</loc>
   </url>
 </urlset>
