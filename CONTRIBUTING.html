@@ -46,7 +46,7 @@
 
 <div id="contributing-to-dfer" class="section level1">
 
-<p>Ideas for dfeR should first be raised as a <a href="https://github.com/dfe-analytical-services/dfeR" class="external-link">GitHub issue</a> after which anyone is free to write the code and create a pull request for review.</p>
+<p>Ideas for dfeR should first be raised as a <a href="https://github.com/dfe-analytical-services/dfeR/issues" class="external-link">GitHub issue</a> after which anyone is free to write the code and create a pull request for review.</p>
 <p>For a detailed discussion on contributing to R packages in the tidyverse, please see the <a href="https://rstd.io/tidy-contrib" class="external-link">development contributing guide</a> and their <a href="https://code-review.tidyverse.org/" class="external-link">code review principles</a>. Full knowledge of this isn’t needed, though some awareness of general principles will be useful.</p>
 <div class="section level2">
 <h2 id="basics">Basics<a class="anchor" aria-label="anchor" href="#basics"></a></h2>
@@ -69,8 +69,16 @@
 </div>
 <div class="section level2">
 <h2 id="handy-workflows">Handy workflows<a class="anchor" aria-label="anchor" href="#handy-workflows"></a></h2>
-<p>Keyboard shortcuts for the <code>devtools</code> package to use while in RStudio: - <code>load_all()</code> (Ctrl-Shift-L): Load code with dfeR package - <code>test()</code> (Ctrl-Shift-T): Run tests - <code>document()</code> (Ctrl-Shift-D): Rebuild docs and NAMESPACE - <code>check()</code> (Ctrl-Shift-E): Check complete package</p>
-<p>We recommend using the <a href="https://usethis.r-lib.org/index.html" class="external-link">usethis</a> package where possible for consistency and simplicity.</p>
+<p>Keyboard shortcuts for the <code>devtools</code> package to use while in RStudio:</p>
+<ul><li>
+<code>load_all()</code> (Ctrl-Shift-L): Load code with dfeR package</li>
+<li>
+<code>test()</code> (Ctrl-Shift-T): Run tests</li>
+<li>
+<code>document()</code> (Ctrl-Shift-D): Rebuild docs and NAMESPACE</li>
+<li>
+<code>check()</code> (Ctrl-Shift-E): Check complete package</li>
+</ul><p>We recommend using the <a href="https://usethis.r-lib.org/index.html" class="external-link">usethis</a> package where possible for consistency and simplicity.</p>
 </div>
 <div class="section level2">
 <h2 id="adding-package-dependencies">Adding package dependencies<a class="anchor" aria-label="anchor" href="#adding-package-dependencies"></a></h2>
@@ -83,7 +91,7 @@
 </div>
 <div class="section level2">
 <h2 id="updating-the-readme">Updating the README<a class="anchor" aria-label="anchor" href="#updating-the-readme"></a></h2>
-<p>There are two README files that are linked with a pre-commit-hook to ensure are kept in sync.</p>
+<p>There are two README files that are linked with a pre-commit-hook to ensure they are kept in sync.</p>
 <p>Make all changes to the <code>README.Rmd</code> file and then run the following line to rebuild:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">build_readme</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -100,7 +108,8 @@
 <p>Once changes have been completed, reviewed and are ready for use in the wild, you can increment the package version using:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu">use_version</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>Once you’ve incremented the version number, it’ll offer to perform a commit on your behalf, so all you then need to do is push to GitHub.</p>
+<p>Once you’ve incremented the version number, it’ll offer to perform a commit on your behalf. As this happens it will add an update to <code>NEWS.md</code>, which acts as the changelog for the package. Make sure this is updated correctly and then push to GitHub.</p>
+<p>Once the version has been updated and pushed, create a new GitHub release version.</p>
 <div class="section level3">
 <h3 id="code-style">Code style<a class="anchor" aria-label="anchor" href="#code-style"></a></h3>
 <p>New code should follow the tidyverse <a href="https://style.tidyverse.org" class="external-link">style guide</a>. We use <a href="https://lintr.r-lib.org/articles/lintr.html" class="external-link">lintr</a> to scan styling on pull requests, this will automatically run and add comments for any code that is failing the standards we’d expect. Where these happen, please proactively resolve these as we are unlikely to approve pull requests that have styling issues.</p>
