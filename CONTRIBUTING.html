@@ -110,8 +110,9 @@
 <code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu">use_version</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Once you’ve incremented the version number, it’ll offer to perform a commit on your behalf. As this happens it will add an update to <code>NEWS.md</code>, which acts as the changelog for the package. Make sure this is updated correctly and then push to GitHub.</p>
 <p>Once the version has been updated and pushed, create a new GitHub release version.</p>
-<div class="section level3">
-<h3 id="code-style">Code style<a class="anchor" aria-label="anchor" href="#code-style"></a></h3>
+</div>
+<div class="section level2">
+<h2 id="code-style">Code style<a class="anchor" aria-label="anchor" href="#code-style"></a></h2>
 <p>New code should follow the tidyverse <a href="https://style.tidyverse.org" class="external-link">style guide</a>. We use <a href="https://lintr.r-lib.org/articles/lintr.html" class="external-link">lintr</a> to scan styling on pull requests, this will automatically run and add comments for any code that is failing the standards we’d expect. Where these happen, please proactively resolve these as we are unlikely to approve pull requests that have styling issues.</p>
 <p>You can use the <a href="https://CRAN.R-project.org/package=styler" class="external-link">styler</a> package to apply most of the styling using:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -129,11 +130,11 @@
 <p>The <a href="#spelling">spelling</a> package is used to check spelling. A custom wordlist of exceptions for this package exists in the <code>inst/</code> folder.</p>
 <p>There will be messages in the <code>devtools::check()</code> output if there’s potential spelling errors. Please review and fix any genuine errors.</p>
 <p>You can run a check yourself using:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>spelling<span class="sc">::</span><span class="fu">spell_check_package</span>()<span class="st">`</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">spelling</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/spelling/reference/spell_check_package.html" class="external-link">spell_check_package</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>To automatically pick up genuine new words in the package and add to this list, use:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">spelling</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/spelling/reference/wordlist.html" class="external-link">update_wordlist</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-</div>
 </div>
 </div>
 <div class="section level2">
@@ -147,7 +148,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Cam Race, Adam Robinson, Laura Selby.</p>
+  <p></p><p>Developed by Cam Race, Laura Selby, Adam Robinson.</p>
 </div>
 
 <div class="pkgdown-footer-right">
