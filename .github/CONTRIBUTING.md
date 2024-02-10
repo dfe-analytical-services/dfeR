@@ -85,7 +85,7 @@ Once you've incremented the version number, it'll offer to perform a commit on y
 
 Once the version has been updated and pushed, create a new GitHub release version.
 
-### Code style
+## Code style
 
 New code should follow the tidyverse [style guide](https://style.tidyverse.org). We use [lintr](https://lintr.r-lib.org/articles/lintr.html) to scan styling on pull requests, this will automatically run and add comments for any code that is failing the standards we'd expect. Where these happen, please proactively resolve these as we are unlikely to approve pull requests that have styling issues.
 
@@ -116,7 +116,7 @@ There will be messages in the `devtools::check()` output if there's potential sp
 You can run a check yourself using:
 
 ``` r
-spelling::spell_check_package()`
+spelling::spell_check_package()
 ```
 
 To automatically pick up genuine new words in the package and add to this list, use:
