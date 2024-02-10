@@ -93,8 +93,14 @@
 <p>Once you’ve incremented the version number, it’ll offer to perform a commit on your behalf, so all you then need to do is push to GitHub.</p>
 <div class="section level3">
 <h3 id="code-style">Code style<a class="anchor" aria-label="anchor" href="#code-style"></a></h3>
-<p>New code should follow the tidyverse <a href="https://style.tidyverse.org" class="external-link">style guide</a>.</p>
-<p>You can use the <a href="https://CRAN.R-project.org/package=styler" class="external-link">styler</a> package to apply these styles.</p>
+<p>New code should follow the tidyverse <a href="https://style.tidyverse.org" class="external-link">style guide</a>. We use <a href="https://lintr.r-lib.org/articles/lintr.html" class="external-link">lintr</a> to scan styling on pull requests, this will automatically run and add comments for any code that is failing the standards we’d expect. Where these happen, please proactively resolve these as we are unlikely to approve pull requests that have styling issues.</p>
+<p>You can use the <a href="https://CRAN.R-project.org/package=styler" class="external-link">styler</a> package to apply most of the styling using:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">styler</span><span class="fu">::</span><span class="fu">style_pkg</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>To check for any further styling issues locally, use:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">lintr</span><span class="fu">::</span><span class="fu">lint_package</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><a href="https://CRAN.R-project.org/package=styler" class="external-link">styler</a> will not fix all linting issues, so we recommend using that first, then using <a href="https://lintr.r-lib.org/articles/lintr.html" class="external-link">lintr</a> to check for places you may need to manually fix styling issues such as line length or not using snake_case.</p>
 <p>We use <a href="https://cran.r-project.org/package=testthat" class="external-link">testthat</a> for unit tests, we expect all new functions to have some level of test coverage.</p>
 </div>
 </div>
