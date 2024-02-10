@@ -2,12 +2,12 @@ Package: dfeR
 Title: Repository of functions to standardise common DfE R tasks
 Version: 0.0.0.9000
 Authors@R: 
+    person("Adam", "Robinson", role = c("cre"), email = "adam.robinson@education.gov.uk")
     person("Cam", "Race", email = "cameron.race@education.gov.uk", role = c("aut", "cre"))
 Description: This package contrains R functions to allow DfE analysts to re-use code for 
     common analytical tasks that are undertaken accross the Department.
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
 Suggests: 
