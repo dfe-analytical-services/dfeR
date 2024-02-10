@@ -1,5 +1,4 @@
-# dfeR  [![Build Status](https://travis-ci.org/dfe-analytical-services/dfeR.svg?branch=master)](https://travis-ci.org/dfe-analytical-services/dfeR)
-
+[![R-CMD-check](https://github.com/cjrace/dfeR/actions/workflows/r_cmd_check.yml/badge.svg?branch=master&event=push)](https://github.com/cjrace/dfeR/actions/workflows/r_cmd_check.yml)
 
 <h1 align="center">
   <br>
@@ -39,13 +38,14 @@ Documentation for what has been included in the package so far is available at h
 dfeR is not currently available on CRAN. You can instead install the development version from GitHub with:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("dfe-analytical-services/dfeR")
+renv::install("dfe-analytical-services/dfeR")
 ```
 
 ### Proxy
 
 The need for setting proxy settings in order to be able to work with R and git within the DfE estate has now ended. If you previously run the proxy script in previous versions of the DfE R package, then contact the [Statistics Development team](statistics.development@education.gov.uk) to assist in cleaning out your system settings.
+
+---
 
 ## Contributing
 
