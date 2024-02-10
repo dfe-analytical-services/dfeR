@@ -104,7 +104,20 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">lintr</span><span class="fu">::</span><span class="fu"><a href="https://lintr.r-lib.org/reference/lint.html" class="external-link">lint_package</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><a href="https://CRAN.R-project.org/package=styler" class="external-link">styler</a> will not fix all linting issues, so we recommend using that first, then using <a href="https://lintr.r-lib.org/articles/lintr.html" class="external-link">lintr</a> to check for places you may need to manually fix styling issues such as line length or not using snake_case.</p>
+<div class="section level4">
+<h4 id="testing">Testing<a class="anchor" aria-label="anchor" href="#testing"></a></h4>
 <p>We use <a href="https://cran.r-project.org/package=testthat" class="external-link">testthat</a> for unit tests, we expect all new functions to have some level of test coverage.</p>
+</div>
+<div class="section level4">
+<h4 id="spelling">Spelling<a class="anchor" aria-label="anchor" href="#spelling"></a></h4>
+<p>The <a href="#spelling">spelling</a> package is used to check spelling. A custom wordlist of exceptions for this package exists in the <code>inst/</code> folder.</p>
+<p>There will be messages in the <code>devtools::check()</code> output if there’s potential spelling errors. Please review and fix any genuine errors.</p>
+<p>You can run a check yourself using:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>spelling<span class="sc">::</span><span class="fu">spell_check_package</span>()<span class="st">`</span></span></code></pre></div>
+<p>To automatically pick up genuine new words in the package and add to this list, use:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">spelling</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/spelling/reference/wordlist.html" class="external-link">update_wordlist</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+</div>
 </div>
 </div>
 <div class="section level2">
