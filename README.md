@@ -56,7 +56,7 @@ renv::install("dfe-analytical-services/dfeR")
 Otherwise:
 
 ``` r
-# install.packages("devtools)
+# install.packages("devtools")
 devtools::install_github("dfe-analytical-services/dfeR")
 ```
 

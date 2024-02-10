@@ -87,7 +87,7 @@ Once the version has been updated and pushed, create a new GitHub release versio
 
 ### Lifecyles
 
-The package has [lifecycle](https://r-pkgs.org/lifecycle.html) imported, follow their guidance for the process around deprecating any functions or arguments
+The package has [lifecycle](https://r-pkgs.org/lifecycle.html) imported, follow their guidance for the process around deprecating any functions or arguments.
 
 ## Code style
 
