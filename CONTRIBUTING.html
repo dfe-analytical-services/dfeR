@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="index.html">dfeR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,7 +43,7 @@
 
 <div id="contributing-to-dfer" class="section level1">
 
-<p>Ideas for <code>dfeR</code> should first be raised as a <a href="https://github.com/dfe-analytical-services/dfeR" class="external-link">GitHub issue</a> after which anyone is free to write the code and create a pull request for review.</p>
+<p>Ideas for dfeR should first be raised as a <a href="https://github.com/dfe-analytical-services/dfeR" class="external-link">GitHub issue</a> after which anyone is free to write the code and create a pull request for review.</p>
 <p>For a detailed discussion on contributing to R packages in the tidyverse, please see the <a href="https://rstd.io/tidy-contrib" class="external-link">development contributing guide</a> and their <a href="https://code-review.tidyverse.org/" class="external-link">code review principles</a>. Full knowledge of this isn’t needed, though some awareness of general principles will be useful.</p>
 <div class="section level2">
 <h2 id="basics">Basics<a class="anchor" aria-label="anchor" href="#basics"></a></h2>
@@ -99,7 +99,7 @@
 <code class="sourceCode R"><span><span class="fu">styler</span><span class="fu">::</span><span class="fu">style_pkg</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>To check for any further styling issues locally, use:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">lintr</span><span class="fu">::</span><span class="fu">lint_package</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">lintr</span><span class="fu">::</span><span class="fu"><a href="https://lintr.r-lib.org/reference/lint.html" class="external-link">lint_package</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><a href="https://CRAN.R-project.org/package=styler" class="external-link">styler</a> will not fix all linting issues, so we recommend using that first, then using <a href="https://lintr.r-lib.org/articles/lintr.html" class="external-link">lintr</a> to check for places you may need to manually fix styling issues such as line length or not using snake_case.</p>
 <p>We use <a href="https://cran.r-project.org/package=testthat" class="external-link">testthat</a> for unit tests, we expect all new functions to have some level of test coverage.</p>
 </div>

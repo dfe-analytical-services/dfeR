@@ -30,7 +30,7 @@
     
     <a class="navbar-brand me-2" href="index.html">dfeR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -106,47 +106,8 @@
 <h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
 </h2>
 <p>Ideas for <code>dfeR</code> should first be raised as a <a href="https://github.com/dfe-analytical-services/dfeR" class="external-link">GitHub issue</a> after which anyone is free to write the code and create a pull request for review.</p>
-<p>When contributing to dfeR you should work on a new branch and, where applicable, you will be asked to:</p>
-<ol style="list-style-type: decimal">
-<li>Follow code standards</li>
-<li>Write relevant package documentation</li>
-<li>Write appropriate tests</li>
-</ol>
-<p>Your pull request should then be reviewed and approved by at least one admin user before it can be merged.</p>
-<p>Once your changes have been merged they should appear almost immediately, though users will need to re-install the package locally to see them.</p>
-<div class="section level3">
-<h3 id="recommended-workflows">Recommended workflows<a class="anchor" aria-label="anchor" href="#recommended-workflows"></a>
-</h3>
-<p>Handy keyboard shortcuts for the <code>devtools</code> package to use while in RStudio: - <code>load_all()</code> (Ctrl-Shift-L): Load code with dfeR package - <code>test()</code> (Ctrl-Shift-T): Run tests - <code>document()</code> (Ctrl-Shift-D): Rebuild docs and NAMESPACE - <code>check()</code> (Ctrl-Shift-E): Check complete package</p>
-<p>We recommend using the <a href="https://usethis.r-lib.org/index.html" class="external-link">usethis</a> package where possible for consistency and simplicity.</p>
-<div class="section level4">
-<h4 id="adding-package-dependencies">Adding package dependencies<a class="anchor" aria-label="anchor" href="#adding-package-dependencies"></a>
-</h4>
-<p>Add any packages the package users will need with:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu">use_package</span><span class="op">(</span><span class="va">pkgname</span>, type <span class="op">=</span> <span class="st">"imports"</span><span class="op">)</span></span></code></pre></div>
-<p>Add any packages that package developers only may need with:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu">use_package</span><span class="op">(</span><span class="va">pkgname</span>, type <span class="op">=</span> <span class="st">"suggests"</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level4">
-<h4 id="updating-the-readme">Updating the README<a class="anchor" aria-label="anchor" href="#updating-the-readme"></a>
-</h4>
-<p>There are two README files that are linked with a pre-commit-hook to ensure are kept in sync.</p>
-<p>Make all changes to the <code>README.Rmd</code> file and then run the following line to rebuild:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">build_readme</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level4">
-<h4 id="updating-the-package-version">Updating the package version<a class="anchor" aria-label="anchor" href="#updating-the-package-version"></a>
-</h4>
-<p>Once changes have been completed, reviewed and are ready for use in the wild, you can increment the package version using:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu">use_version</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>Once you’ve incremented the version number, it’ll offer to perform a commit on your behalf, so all you then need to do is push to GitHub.</p>
+<p>For more details on contributing to <code>dfeR</code>, see our <a href="https://github.com/dfe-analytical-services/dfeR/blob/main/.github/CONTRIBUTING.md" class="external-link">contributing guidelines</a>.</p>
 <hr>
-</div>
-</div>
 </div>
 <div class="section level2">
 <h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
@@ -157,10 +118,10 @@
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
-<p>This is a basic example showing the <code>formatAY()</code> function:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<p>This is a basic example showing the <code><a href="reference/format_ay.html">format_ay()</a></code> function:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dfe-analytical-services.github.io/dfeR/">dfeR</a></span><span class="op">)</span></span>
-<span><span class="fu">formatAY</span><span class="op">(</span><span class="fl">202425</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/format_ay.html">format_ay</a></span><span class="op">(</span><span class="fl">202425</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "2024/25"</span></span></code></pre></div>
 </div>
 </div>
