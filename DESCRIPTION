@@ -3,7 +3,8 @@ Title: Repository of functions to standardise common DfE R tasks
 Version: 0.0.0.9000
 Authors@R: c(
     person("Cam", "Race", , "cameron.race@education.gov.uk", role = c("aut", "cre")),
-    person("Adam", "Robinson", role = "aut")
+    person("Adam", "Robinson", role = "aut"),
+    person("Laura", "Selby", , "laura.selby@education.gov.uk", role = "aut")
   )
 Description: This package contains R functions to allow DfE analysts to
     re-use code for common analytical tasks that are undertaken across the
