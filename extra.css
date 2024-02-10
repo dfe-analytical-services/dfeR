@@ -1,4 +1,19 @@
+/* This is set to make sure the citation box text is visible */
 pre {
     background-color: #f1f3f5;
     color: #000000;
+}
+
+/* These are to make sure the navbar text is visible */
+.navbar-dark .navbar-nav .active>.nav-link {
+    background: #343a40;
+    color: #ffffff;
+}
+
+.nav-link {
+  color: #ffffff;
+}
+
+.navbar-brand {
+  color: #ffffff;
 }

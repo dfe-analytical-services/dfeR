@@ -89,19 +89,26 @@
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">build_readme</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
+<h2 id="pkgdown-site">pkgdown site<a class="anchor" aria-label="anchor" href="#pkgdown-site"></a></h2>
+<p>Most of the <code>pkgdown</code> site is automatically generated. The theme is set in the <code>_pkgdown.yml</code> file.</p>
+<p>Custom CSS can be set in <code>pkgdown/extra.css</code> file. If you make any edits to this file you will need to re-initialise the site using the following line:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">pkgdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgdown.r-lib.org/reference/init_site.html" class="external-link">init_site</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
 <h2 id="updating-the-package-version">Updating the package version<a class="anchor" aria-label="anchor" href="#updating-the-package-version"></a></h2>
 <p>Once changes have been completed, reviewed and are ready for use in the wild, you can increment the package version using:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu">use_version</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Once you’ve incremented the version number, it’ll offer to perform a commit on your behalf, so all you then need to do is push to GitHub.</p>
 <div class="section level3">
 <h3 id="code-style">Code style<a class="anchor" aria-label="anchor" href="#code-style"></a></h3>
 <p>New code should follow the tidyverse <a href="https://style.tidyverse.org" class="external-link">style guide</a>. We use <a href="https://lintr.r-lib.org/articles/lintr.html" class="external-link">lintr</a> to scan styling on pull requests, this will automatically run and add comments for any code that is failing the standards we’d expect. Where these happen, please proactively resolve these as we are unlikely to approve pull requests that have styling issues.</p>
 <p>You can use the <a href="https://CRAN.R-project.org/package=styler" class="external-link">styler</a> package to apply most of the styling using:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">styler</span><span class="fu">::</span><span class="fu">style_pkg</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>To check for any further styling issues locally, use:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">lintr</span><span class="fu">::</span><span class="fu"><a href="https://lintr.r-lib.org/reference/lint.html" class="external-link">lint_package</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><a href="https://CRAN.R-project.org/package=styler" class="external-link">styler</a> will not fix all linting issues, so we recommend using that first, then using <a href="https://lintr.r-lib.org/articles/lintr.html" class="external-link">lintr</a> to check for places you may need to manually fix styling issues such as line length or not using snake_case.</p>
 <div class="section level4">
@@ -113,9 +120,9 @@
 <p>The <a href="#spelling">spelling</a> package is used to check spelling. A custom wordlist of exceptions for this package exists in the <code>inst/</code> folder.</p>
 <p>There will be messages in the <code>devtools::check()</code> output if there’s potential spelling errors. Please review and fix any genuine errors.</p>
 <p>You can run a check yourself using:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>spelling<span class="sc">::</span><span class="fu">spell_check_package</span>()<span class="st">`</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>spelling<span class="sc">::</span><span class="fu">spell_check_package</span>()<span class="st">`</span></span></code></pre></div>
 <p>To automatically pick up genuine new words in the package and add to this list, use:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">spelling</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/spelling/reference/wordlist.html" class="external-link">update_wordlist</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
