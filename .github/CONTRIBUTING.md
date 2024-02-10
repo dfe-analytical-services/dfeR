@@ -85,6 +85,10 @@ Once you've incremented the version number, it'll offer to perform a commit on y
 
 Once the version has been updated and pushed, create a new GitHub release version.
 
+### Lifecyles
+
+The package has [lifecycle](https://r-pkgs.org/lifecycle.html) imported, follow their guidance for the process around deprecating any functions or arguments
+
 ## Code style
 
 New code should follow the tidyverse [style guide](https://style.tidyverse.org). We use [lintr](https://lintr.r-lib.org/articles/lintr.html) to scan styling on pull requests, this will automatically run and add comments for any code that is failing the standards we'd expect. Where these happen, please proactively resolve these as we are unlikely to approve pull requests that have styling issues.
