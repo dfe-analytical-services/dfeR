@@ -1,6 +1,6 @@
 # Contributing to dfeR
 
-Ideas for dfeR should first be raised as a [GitHub issue](https://github.com/dfe-analytical-services/dfeR) after which anyone is free to write the code and create a pull request for review. 
+Ideas for dfeR should first be raised as a [GitHub issue](https://github.com/dfe-analytical-services/dfeR/issues) after which anyone is free to write the code and create a pull request for review. 
 
 For a detailed discussion on contributing to R packages in the tidyverse, please see the [development contributing guide](https://rstd.io/tidy-contrib) and their [code review principles](https://code-review.tidyverse.org/). Full knowledge of this isn't needed, though some awareness of general principles will be useful.
 
@@ -27,17 +27,18 @@ If you want to make a bigger change, it's a good idea to first file an issue and
 
 Where possible, we'd recommend following the [Test Driven Development (TDD)](https://testdriven.io/test-driven-development/) approach:
 
-- Write tests for the behaviour you want
-- Write just enough code so that the tests pass
-- Continue to improve code while keeping tests passing
+* Write tests for the behaviour you want
+* Write just enough code so that the tests pass
+* Continue to improve code while keeping tests passing
 
 ## Handy workflows
 
 Keyboard shortcuts for the `devtools` package to use while in RStudio:
-- `load_all()` (Ctrl-Shift-L): Load code with dfeR package
-- `test()` (Ctrl-Shift-T): Run tests
-- `document()` (Ctrl-Shift-D): Rebuild docs and NAMESPACE
-- `check()` (Ctrl-Shift-E): Check complete package
+
+* `load_all()` (Ctrl-Shift-L): Load code with dfeR package
+* `test()` (Ctrl-Shift-T): Run tests
+* `document()` (Ctrl-Shift-D): Rebuild docs and NAMESPACE
+* `check()` (Ctrl-Shift-E): Check complete package
 
 We recommend using the [usethis](https://usethis.r-lib.org/index.html) package where possible for consistency and simplicity.
 
@@ -55,7 +56,7 @@ usethis::use_package(pkgname, type = "suggests")
 
 ## Updating the README
 
-There are two README files that are linked with a pre-commit-hook to ensure are kept in sync.
+There are two README files that are linked with a pre-commit-hook to ensure they are kept in sync.
 
 Make all changes to the `README.Rmd` file and then run the following line to rebuild:
 
@@ -80,7 +81,9 @@ Once changes have been completed, reviewed and are ready for use in the wild, yo
 usethis::use_version()
 ```
 
-Once you've incremented the version number, it'll offer to perform a commit on your behalf, so all you then need to do is push to GitHub.
+Once you've incremented the version number, it'll offer to perform a commit on your behalf. As this happens it will add an update to `NEWS.md`, which acts as the changelog for the package. Make sure this is updated correctly and then push to GitHub.
+
+Once the version has been updated and pushed, create a new GitHub release version.
 
 ### Code style
 

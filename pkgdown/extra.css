@@ -17,3 +17,12 @@ pre {
 .navbar-brand {
   color: #ffffff;
 }
+
+/* This changes the background on search results */
+.algolia-autocomplete .aa-dropdown-menu {
+    background-color: #ffffff;
+}
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
+  background-color: #33b7e2;
+}
