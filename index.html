@@ -5,16 +5,16 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="This package contrains R functions to allow DfE analysts to re-use code for 
-    common analytical tasks that are undertaken accross the Department.">
+<meta name="description" content="This package contains R functions to allow DfE analysts to re-use code for 
+    common analytical tasks that are undertaken across the Department.">
 <title>Repository of functions to standardise common DfE R tasks • dfeR</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Repository of functions to standardise common DfE R tasks">
-<meta property="og:description" content="This package contrains R functions to allow DfE analysts to re-use code for 
-    common analytical tasks that are undertaken accross the Department.">
+<meta property="og:description" content="This package contains R functions to allow DfE analysts to re-use code for 
+    common analytical tasks that are undertaken across the Department.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -52,13 +52,11 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9">
-<div class="page-header"><h1 align="center">
-<br> dfeR <br>
+  <main id="main" class="col-md-9"><div class="section level1">
+<div class="page-header"><h1 id="dfer">dfeR<a class="anchor" aria-label="anchor" href="#dfer"></a>
 </h1></div>
-<p align="center">
-<a href="#introduction">Introduction</a> | <a href="#requirements">Installation</a> | <a href="#how-to-use">Contributing</a>
-</p>
+<hr>
+<!-- badges: start -->
 <hr>
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
@@ -79,30 +77,41 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>dfeR is not currently available on CRAN. You can instead install the development version from GitHub with:</p>
+<p>dfeR is not currently available on CRAN. For the time being you can install the development version from GitHub.</p>
+<p>If you are using <code>renv</code> in your project (recommended):</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">renv</span><span class="fu">::</span><span class="fu">install</span><span class="op">(</span><span class="st">"dfe-analytical-services/dfeR"</span><span class="op">)</span></span></code></pre></div>
-<div class="section level3">
-<h3 id="proxy">Proxy<a class="anchor" aria-label="anchor" href="#proxy"></a>
-</h3>
-<p>The need for setting proxy settings in order to be able to work with R and git within the DfE estate has now ended. If you previously run the proxy script in previous versions of the DfE R package, then contact the <a href="statistics.development@education.gov.uk">Statistics Development team</a> to assist in cleaning out your system settings.</p>
+<p>Otherwise:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"dfe-analytical-services/dfeR"</span><span class="op">)</span></span></code></pre></div>
 <hr>
 </div>
+<div class="section level2">
+<h2 id="proxy">Proxy<a class="anchor" aria-label="anchor" href="#proxy"></a>
+</h2>
+<p>The need for setting proxy settings in order to be able to work with R and git within the DfE estate has now ended. If you previously run the proxy script in previous versions of the DfE R package, then contact the <a href="statistics.development@education.gov.uk">Statistics Development team</a> to assist in cleaning out your system settings.</p>
+<hr>
 </div>
 <div class="section level2">
 <h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
 </h2>
-<p>Ideas for dfeR should first be raised as a <a href="https://github.com/dfe-analytical-services/dfeR" class="external-link">github issue</a> after which anyone is free to write the code and create a pull request for review.</p>
+<p>Ideas for dfeR should first be raised as a <a href="https://github.com/dfe-analytical-services/dfeR" class="external-link">GitHub issue</a> after which anyone is free to write the code and create a pull request for review.</p>
 <p>When contributing to dfeR you should work on a new branch and, where applicable, you will be asked to:</p>
 <ol style="list-style-type: decimal">
 <li>Follow code standards</li>
 <li>Write relevant package documentation</li>
 <li>Write appropriate tests</li>
 </ol>
-<p>Your pull request should then be reviewed and approved by at least one other person before it can be merged.</p>
-<p>Once your changes have been merged they should appear almost immediately, though users will need to reinstall the package locally to see them.</p>
+<p>Your pull request should then be reviewed and approved by at least one admin user before it can be merged.</p>
+<p>Once your changes have been merged they should appear almost immediately, though users will need to re-install the package locally to see them.</p>
+<hr>
 </div>
-
+<div class="section level2">
+<h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
+</h2>
+<p>Please note that the dfeR project is released with a <a href="https://dfe-analytical-services.github.io/dfeR/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
+</div>
+</div>
   </main><aside class="col-md-3"><div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
@@ -111,6 +120,12 @@
 </ul>
 </div>
 
+<div class="community">
+<h2 data-toc-skip>Community</h2>
+<ul class="list-unstyled">
+<li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
+</ul>
+</div>
 
 <div class="citation">
 <h2 data-toc-skip>Citation</h2>
@@ -132,6 +147,7 @@
 <li><a href="https://github.com/dfe-analytical-services/dfeR/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/dfe-analytical-services/dfeR/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://github.com/dfe-analytical-services/dfeR/actions/workflows/pkgdown.yaml" class="external-link"><img src="https://github.com/dfe-analytical-services/dfeR/actions/workflows/pkgdown.yaml/badge.svg" alt="pkgdown"></a></li>
 <li><a href="https://github.com/dfe-analytical-services/dfeR/actions/workflows/test-coverage.yaml" class="external-link"><img src="https://github.com/dfe-analytical-services/dfeR/actions/workflows/test-coverage.yaml/badge.svg" alt="test-coverage"></a></li>
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
 </ul>
 </div>
 
