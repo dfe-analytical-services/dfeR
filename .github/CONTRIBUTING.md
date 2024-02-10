@@ -28,7 +28,19 @@ You can find the `.R` file that generates the `.Rd` by reading the comment in th
 
 ### Bigger changes
 
-If you want to make a bigger change, it's a good idea to first [file an issue](https://github.com/dfe-analytical-services/dfeR/issues) and make sure someone from the team agrees with the change. 
+If you want to make a bigger change, it's a good idea to first [file an issue](https://github.com/dfe-analytical-services/dfeR/issues) and make sure someone from the team agrees with the change.
+
+Packages worth installing to aid development are:
+
+``` r
+install.packages("devtools")
+install.packages("usethis")
+install.packages("pkgdown")
+install.packages("roxygen2")
+install.packages("spelling")
+install.packages("lintr")
+install.packages("styler")
+```
 
 Where possible, we'd recommend following the [Test Driven Development (TDD)](https://testdriven.io/test-driven-development/) approach:
 
@@ -103,9 +115,16 @@ Custom CSS can be set in `pkgdown/extra.css` file. If you make any edits to this
 pkgdown::init_site()
 ```
 
+The site is hosted on GitHub pages. You build and preview the pkgdown site locally by running:
+
+```r
+devtools::build_site()
+```
+
 ## Updating the package version
 
 Once changes have been completed, reviewed and are ready for use in the wild, you can increment the package version using:
+
 ``` r
 usethis::use_version()
 ```
