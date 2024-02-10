@@ -74,13 +74,21 @@ Once you've incremented the version number, it'll offer to perform a commit on y
 
 ### Code style
 
-New code should follow the tidyverse [style guide](https://style.tidyverse.org). You can use the [styler](https://CRAN.R-project.org/package=styler) package to apply these styles using:
+New code should follow the tidyverse [style guide](https://style.tidyverse.org). We use [lintr](https://lintr.r-lib.org/articles/lintr.html) to scan styling on pull requests, this will automatically run and add comments for any code that is failing the standards we'd expect. Where these happen, please proactively resolve these as we are unlikely to approve pull requests that have styling issues.
+
+You can use the [styler](https://CRAN.R-project.org/package=styler) package to apply most of the styling using:
 
 ``` r
 styler::style_pkg()
 ```
 
-We use [lintr](https://lintr.r-lib.org/articles/lintr.html) to scan styling on pull requests, this will automatically run and add comments for any code that is failing the standards we'd expect. Where these happen, please proactively resolve these as we are unlikely to approve pull requests that have styling issues.
+To check for any further styling issues locally, use:
+
+``` r
+lintr::lint_package()
+```
+
+[styler](https://CRAN.R-project.org/package=styler) will not fix all linting issues, so we recommend using that first, then using [lintr](https://lintr.r-lib.org/articles/lintr.html) to check for places you may need to manually fix styling issues such as line length or not using snake_case.
 
 We use [testthat](https://cran.r-project.org/package=testthat) for unit tests, we expect all new functions to have some level of test coverage.  
 
