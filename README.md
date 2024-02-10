@@ -4,7 +4,9 @@
 [![Codecov test coverage](https://codecov.io/gh/dfe-analytical-services/dfeR/branch/main/graph/badge.svg)](https://app.codecov.io/gh/dfe-analytical-services/dfeR?branch=main)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
-  
+
+---
+
 # dfeR
 
 ## Introduction
@@ -13,9 +15,9 @@
 
 ### Scope
 
-This package is open to all of DfE and anything we think could be useful to other programmers and analysts can be contributed, with the exception of R Shiny specific functions. We are also developing the [dfeshiny](https://github.com/dfe-analytical-services/dfeshiny) package, and expect any functions specific to public facing R Shiny dashboards will live there.
+This package is open to all of DfE and anything we think could be useful to other programmers and analysts can be contributed.
 
-Functionality is expected to focus around the following:
+Functionality for `dfeR` is expected to focus around the following:
 
 1. DfE specific formatting
 2. Working with Microsoft SQL Databases
@@ -24,6 +26,8 @@ Functionality is expected to focus around the following:
 5. API wrappers for use internally
 
 Documentation for what has been included in the package so far is available at http://dfe-analytical-services.github.io/dfeR/.
+
+We are also developing the [dfeshiny](https://github.com/dfe-analytical-services/dfeshiny) package, and expect any functions specific to public facing R Shiny dashboards will live there.
 
 ---
 
