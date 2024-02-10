@@ -81,6 +81,8 @@ Once changes have been completed, reviewed and are ready for use in the wild, yo
 usethis::use_version()
 ```
 
+If you are unsure what kind of version to increment, have a look through [lifecycle's guidance on release types](https://r-pkgs.org/lifecycle.html#sec-lifecycle-release-type).
+
 Once you've incremented the version number, it'll offer to perform a commit on your behalf. As this happens it will add an update to `NEWS.md`, which acts as the changelog for the package. Make sure this is updated correctly and then push to GitHub.
 
 Once the version has been updated and pushed, create a new GitHub release version.
