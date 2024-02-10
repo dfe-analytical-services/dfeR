@@ -77,68 +77,8 @@ Ideas for `dfeR` should first be raised as a [GitHub
 issue](https://github.com/dfe-analytical-services/dfeR) after which
 anyone is free to write the code and create a pull request for review.
 
-When contributing to dfeR you should work on a new branch and, where
-applicable, you will be asked to:
-
-1.  Follow code standards
-2.  Write relevant package documentation
-3.  Write appropriate tests
-
-Your pull request should then be reviewed and approved by at least one
-admin user before it can be merged.
-
-Once your changes have been merged they should appear almost
-immediately, though users will need to re-install the package locally to
-see them.
-
-### Recommended workflows
-
-Handy keyboard shortcuts for the `devtools` package to use while in
-RStudio: - `load_all()` (Ctrl-Shift-L): Load code with dfeR package -
-`test()` (Ctrl-Shift-T): Run tests - `document()` (Ctrl-Shift-D):
-Rebuild docs and NAMESPACE - `check()` (Ctrl-Shift-E): Check complete
-package
-
-We recommend using the [usethis](https://usethis.r-lib.org/index.html)
-package where possible for consistency and simplicity.
-
-#### Adding package dependencies
-
-Add any packages the package users will need with:
-
-``` r
-usethis::use_package(pkgname, type = "imports")
-```
-
-Add any packages that package developers only may need with:
-
-``` r
-usethis::use_package(pkgname, type = "suggests")
-```
-
-#### Updating the README
-
-There are two README files that are linked with a pre-commit-hook to
-ensure are kept in sync.
-
-Make all changes to the `README.Rmd` file and then run the following
-line to rebuild:
-
-``` r
-devtools::build_readme()
-```
-
-#### Updating the package version
-
-Once changes have been completed, reviewed and are ready for use in the
-wild, you can increment the package version using:
-
-``` r
-usethis::use_version()
-```
-
-Once you’ve incremented the version number, it’ll offer to perform a
-commit on your behalf, so all you then need to do is push to GitHub.
+For more details on contributing to `dfeR`, see our [contributing
+guidelines](https://github.com/dfe-analytical-services/dfeR/blob/main/.github/CONTRIBUTING.md).
 
 ------------------------------------------------------------------------
 
@@ -153,10 +93,10 @@ By contributing to this project, you agree to abide by its terms.
 
 ## Example
 
-This is a basic example showing the `formatAY()` function:
+This is a basic example showing the `format_ay()` function:
 
 ``` r
 library(dfeR)
-formatAY(202425)
+format_ay(202425)
 #> [1] "2024/25"
 ```

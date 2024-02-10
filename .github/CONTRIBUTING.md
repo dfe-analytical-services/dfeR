@@ -1,6 +1,6 @@
 # Contributing to dfeR
 
-Ideas for `dfeR` should first be raised as a [GitHub issue](https://github.com/dfe-analytical-services/dfeR) after which anyone is free to write the code and create a pull request for review. 
+Ideas for dfeR should first be raised as a [GitHub issue](https://github.com/dfe-analytical-services/dfeR) after which anyone is free to write the code and create a pull request for review. 
 
 For a detailed discussion on contributing to R packages in the tidyverse, please see the [development contributing guide](https://rstd.io/tidy-contrib) and their [code review principles](https://code-review.tidyverse.org/). Full knowledge of this isn't needed, though some awareness of general principles will be useful.
 
