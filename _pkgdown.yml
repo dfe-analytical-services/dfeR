@@ -2,3 +2,5 @@ url: https://dfe-analytical-services.github.io/dfeR/
 template:
   bootstrap: 5
   bootswatch: quartz
+  bslib:
+    pkgdown-nav-height: 100px
