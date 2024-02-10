@@ -29,9 +29,9 @@
 #'
 
 round_five_up <- function(value, dp = 0) {
-  if (!is.numeric(value) && !is.numeric(dp)) stop("both inputs must be numeric")
-  if (!is.numeric(value)) stop("the value to be rounded must be numeric")
-  if (!is.numeric(dp)) stop("the decimal places value must be numeric")
+  if (!is.numeric(value) && !is.numeric(dp)) stop("both input arguments must be numeric")
+  if (!is.numeric(value)) stop("the value argument must be numeric")
+  if (!is.numeric(dp)) stop("the decimal places argument must be numeric")
 
   z <- abs(value) * 10^dp
   z <- z + 0.5 + sqrt(.Machine$double.eps)

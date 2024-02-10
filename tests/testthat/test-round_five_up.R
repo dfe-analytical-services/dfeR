@@ -17,22 +17,22 @@ test_that("Rounds other numbers", {
 test_that("Input validation", {
   expect_error(
     round_five_up("ten", "10"),
-    "both inputs must be numeric"
+    "both input arguments must be numeric"
   )
   expect_error(
     round_five_up(12, "ten"),
-    "the decimal places value must be numeric"
+    "the decimal places argument must be numeric"
   )
   expect_error(
     round_five_up(12, "10"),
-    "the decimal places value must be numeric"
+    "the decimal places argument must be numeric"
   )
   expect_error(
     round_five_up("twelve", 10),
-    "the value to be rounded must be numeric"
+    "the value argument must be numeric"
   )
   expect_error(
     round_five_up("12", 10),
-    "the value to be rounded must be numeric"
+    "the value argument must be numeric"
   )
 })
