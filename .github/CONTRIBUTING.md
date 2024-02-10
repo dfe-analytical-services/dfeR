@@ -63,6 +63,16 @@ Make all changes to the `README.Rmd` file and then run the following line to reb
 devtools::build_readme()
 ```
 
+## pkgdown site
+
+Most of the `pkgdown` site is automatically generated. The theme is set in the `_pkgdown.yml` file. 
+
+Custom CSS can be set in `pkgdown/extra.css` file. If you make any edits to this file you will need to re-initialise the site using the following line:
+
+``` r
+pkgdown::init_site()
+```
+
 ## Updating the package version
 
 Once changes have been completed, reviewed and are ready for use in the wild, you can increment the package version using:
