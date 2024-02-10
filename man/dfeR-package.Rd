@@ -6,6 +6,8 @@
 \alias{dfeR-package}
 \title{dfeR: Common DfE R tasks}
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 This package contains R functions to allow DfE analysts to re-use code for common analytical tasks that are undertaken across the Department.
 }
 \seealso{

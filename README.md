@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# dfeR
+# dfeR <a href="http://dfe-analytical-services.github.io/dfeR/"><img src="man/figures/logo.png" align="right" height="138" /></a>
 
 <!-- badges: start -->
 
@@ -16,6 +16,9 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 The goal of dfeR is to help standardise R programming across the
 Department for Education (DfE) and facilitate sharing of business
 specific functions.
+
+Credit to [lauraselby](https://github.com/lauraselby) for the logo
+featuring Frederick!
 
 ## Scope
 
