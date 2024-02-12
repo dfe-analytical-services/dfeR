@@ -21,18 +21,18 @@ test_that("Input validation", {
   )
   expect_error(
     round_five_up(12, "ten"),
-    "the decimal places argument must be numeric"
+    "the decimal places input must be numeric"
   )
   expect_error(
     round_five_up(12, "10"),
-    "the decimal places argument must be numeric"
+    "the decimal places input must be numeric"
   )
   expect_error(
     round_five_up("twelve", 10),
-    "the number argument must be numeric"
+    "the input number to be rounded must be numeric"
   )
   expect_error(
     round_five_up("12", 10),
-    "the number argument must be numeric"
+    "the input number to be rounded must be numeric"
   )
 })

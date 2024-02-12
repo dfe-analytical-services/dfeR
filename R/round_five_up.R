@@ -37,10 +37,10 @@ round_five_up <- function(number, dp = 0) {
     stop("both input arguments must be numeric")
   }
   if (!is.numeric(number)) {
-    stop("the number argument must be numeric")
+    stop("the input number to be rounded must be numeric")
   }
   if (!is.numeric(dp)) {
-    stop("the decimal places argument must be numeric")
+    stop("the decimal places input must be numeric")
   }
 
   z <- abs(number) * 10^dp
