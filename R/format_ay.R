@@ -18,7 +18,18 @@ format_ay <- function(year) {
   sub("(.{4})(.*)", "\\1/\\2", year)
 }
 
-# function to reverse the change back to e.g. 201617
+#' Undo academic year formatting
+#'
+#' This function converts academic year variables back into 201617 format.
+#'
+#' It accepts character arguments.
+#'
+#' @param year Academic year
+#' @return Unformatted year
+#' @export
+#' @examples
+#' format_ay_reverse("2016/17")
+
 format_ay_reverse <- function(year) {
   if (!grepl("^\\d{4}/\\d{2}.*", year)) {
     stop("year parameter must be a seven digit string e.g. '2016/17'")
@@ -26,4 +37,4 @@ format_ay_reverse <- function(year) {
   gsub("/", "", year)
 }
 
- format_ay_reverse("2016/17")
+format_ay_reverse("2016/17")

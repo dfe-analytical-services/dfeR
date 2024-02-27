@@ -5,8 +5,8 @@
 #'
 #' It accepts both numerical and character arguments.
 #'
-#' @param year Academic year
-#' @return Character vector of formatted academic year
+#' @param year Financial year
+#' @return Character vector of formatted financial year
 #' @export
 #' @examples
 #' format_fy(201617)
@@ -18,6 +18,18 @@ format_fy <- function(year) {
   sub("(.{4})(.*)", "\\1-\\2", year)
 }
 
+#' Undo financial year formatting
+#'
+#' This function converts financial year variables back into 201617 format.
+#'
+#' It accepts character arguments.
+#'
+#' @param year Financial year
+#' @return Unformatted year
+#' @export
+#' @examples
+#' format_fy_reverse("2016-17")
+
 # function to reverse the change back to e.g. 201617
 format_fy_reverse <- function(year) {
   if (!grepl("^\\d{4}-\\d{2}.*", year)) {
@@ -25,5 +37,3 @@ format_fy_reverse <- function(year) {
   }
   gsub("[^0-9A-Za-z///' ]", "", year)
 }
-
-# format_fy_reverse("2016-17")

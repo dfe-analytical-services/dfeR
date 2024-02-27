@@ -7,10 +7,10 @@
 format_fy(year)
 }
 \arguments{
-\item{year}{Academic year}
+\item{year}{Financial year}
 }
 \value{
-Character vector of formatted academic year
+Character vector of formatted financial year
 }
 \description{
 This function formats financial year variables for reporting purposes. It
