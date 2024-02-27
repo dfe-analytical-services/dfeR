@@ -46,8 +46,8 @@ Where possible, we'd recommend following the [Test Driven Development (TDD)](htt
 
 1. Write tests for the behaviour you want. Either edit an existing test script, or if adding a new function, create a test script using:
 
-``` r
-usethis::usetest("name_of_new_function")
+``` r_
+usethis::use_test("name_of_new_function")
 ```
 
 2. Write just enough code so that the tests pass. Again, either edit an existing function, or add a new R script using:
