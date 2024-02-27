@@ -17,3 +17,13 @@ format_ay <- function(year) {
   }
   sub("(.{4})(.*)", "\\1/\\2", year)
 }
+
+# function to reverse the change back to e.g. 201617
+format_ay_reverse <- function(year) {
+  if (!grepl("^\\d{4}/\\d{2}.*", year)) {
+    stop("year parameter must be a seven digit string e.g. '2016/17'")
+  }
+  gsub("/", "", year)
+}
+
+ format_ay_reverse("2016/17")
