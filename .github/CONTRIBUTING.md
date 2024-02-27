@@ -46,7 +46,7 @@ Where possible, we'd recommend following the [Test Driven Development (TDD)](htt
 
 1. Write tests for the behaviour you want. Either edit an existing test script, or if adding a new function, create a test script using:
 
-``` r_
+``` r
 usethis::use_test("name_of_new_function")
 ```
 
@@ -87,7 +87,7 @@ We recommend using the [usethis](https://usethis.r-lib.org/index.html) package w
 
 Add any packages the package users will need with:
 ``` r
-usethis::use_package(pkgname, type = "imports")
+usethis::use_package(pkgname)
 ```
 
 Add any packages that package developers only may need with:
@@ -160,6 +160,16 @@ lintr::lint_package()
 ### Testing
 
 We use [testthat](https://cran.r-project.org/package=testthat) for unit tests, we expect all new functions to have some level of test coverage.  
+
+### Test coverage
+
+There are GitHub Actions workflows that check and link the package to [codecov.io](https://app.codecov.io/gh/dfe-analytical-services/), this runs automatic scans to check the % of lines in functions that we are testing. On the [dfeR codecov pages](https://app.codecov.io/gh/dfe-analytical-services/dfeR) you can preview the variation by branch and commit to see the impact of changes made.
+
+You will need to create an account or login using GitHub to see the pages.
+
+The current % of coverage is shown as a badge on the package [README on GitHub](https://github.com/dfe-analytical-services/dfeR).
+
+It is worth noting that 100% coverage does not mean that the tests are perfect, it only means that all lines are ran in tests, so it's more a measure of quantity rather than quality. Interesting to see all the same though, and we'd recommend using it to spot any potential elements of more complicated functions that you may have forgotten to test.
 
 ### Spelling
 
