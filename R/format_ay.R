@@ -13,7 +13,7 @@
 #' format_ay("201617")
 format_ay <- function(year) {
   if (!grepl("^[0-9]{6,6}$", year)) {
-    stop("year parameter must be a six digit number e.g. 201617")
+    stop("year parameter must be a six digit number or string e.g. 201617")
   }
   sub("(.{4})(.*)", "\\1/\\2", year)
 }
@@ -32,7 +32,7 @@ format_ay <- function(year) {
 
 format_ay_reverse <- function(year) {
   if (!grepl("^\\d{4}/\\d{2}.*", year)) {
-    stop("year parameter must be a seven digit string e.g. '2016/17'")
+    stop("year parameter must in the format 2016/17")
   }
   gsub("/", "", year)
 }

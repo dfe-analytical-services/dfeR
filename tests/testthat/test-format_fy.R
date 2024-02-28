@@ -8,6 +8,6 @@ test_that("Rejects non 6-digit numbers", {
 })
 
 test_that("Converts correctly", {
-  expect_equal(format_fy(199920), "1999-20")
-  expect_equal(format_fy("199920"), "1999-20")
+  expect_equal(format_fy(199900), "1999-00")
+  expect_equal(format_fy("199900"), "1999-00")
 })
