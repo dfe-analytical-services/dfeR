@@ -22,7 +22,12 @@
 
 get_clean_sql <- function(filepath, additional_settings = FALSE) {
 
-  # check that additional_settings is always NULL or TRUE
+  if(!additional_settings %in% c(TRUE, FALSE, T, F)){
+    stop(
+      "additional_settings must be either TRUE or FALSE"
+    )
+  }
+
 
   # check filepath can be found and is a SQL file?
 
