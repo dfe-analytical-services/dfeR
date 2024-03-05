@@ -25,7 +25,7 @@ format_fy <- function(year) {
 #' It accepts character arguments.
 #'
 #' @param year Financial year
-#' @return Unformatted year
+#' @return Unformatted 6 digit year as string
 #' @export
 #' @examples
 #' format_fy_reverse("2016-17")
@@ -33,7 +33,7 @@ format_fy <- function(year) {
 # function to reverse the change back to e.g. 201617
 format_fy_reverse <- function(year) {
   if (!grepl("^\\d{4}-\\d{2}.*", year)) {
-    stop("year parameter be in the format 2016-17")
+    stop("year parameter must be a seven digit string in a financial year format, e.g. '2016-17'")
   }
   gsub("[^0-9A-Za-z///' ]", "", year)
 }
