@@ -10,7 +10,7 @@ format_fy_reverse(year)
 \item{year}{Financial year}
 }
 \value{
-Unformatted year
+Unformatted 6 digit year as string
 }
 \description{
 This function converts financial year variables back into 201617 format.
