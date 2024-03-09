@@ -39,14 +39,13 @@ library(DBI)
 # Database connection ====
 
 con <- DBI::dbConnect(odbc::odbc(),
-                      Driver = "ODBC Driver 17 for SQL Server",
-                      Server = "server_name",
-                      Database = "database_name",
-                      UID = "",
-                      PWD = "",
-                      Trusted_Connection = "Yes"
+  Driver = "ODBC Driver 17 for SQL Server",
+  Server = "server_name",
+  Database = "database_name",
+  UID = "",
+  PWD = "",
+  Trusted_Connection = "Yes"
 )
-
 ```
 
 For advice on finding your database details, or connecting to a SQL database from an R Shiny app that is deployed on a server, please contact the [Statistics Development Team](mailto:statistics.development@education.gov.uk) who will be able to advise on the setup and steps required.
@@ -72,7 +71,10 @@ sql_query_result <- DBI::dbGetQuery(con, statement = sql_query)
 Our first advice if you hit an error, would be to set additional settings while cleaning the SQL script. You can do this with the `additional_settings` argument in the `get_clean_sql()` function.
 
 ```{r reading clean sql additional, eval=FALSE}
-sql_query <- dfeR::get_clean_sql("path_to_sql_file.sql", additional_settings = TRUE)
+sql_query <- dfeR::get_clean_sql(
+  "path_to_sql_file.sql",
+  additional_settings = TRUE
+)
 ```
 
 This will add additional settings to the start of your SQL query that are sometimes necessary for the odbc and DBI connection to correctly execute your query. For further troubleshooting tips, please see the [Interacting with a SQL database section of our Analysts' Guide](https://dfe-analytical-services.github.io/analysts-guide/learning-development/r.html#interacting-with-a-sql-database-from-within-r-scripts), or contact the [Statistics Development Team](mailto:statistics.development@education.gov.uk) for support.

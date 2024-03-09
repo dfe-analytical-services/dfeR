@@ -24,7 +24,7 @@ This function cleans a SQL script, ready for using within R in the DfE.
 # For more details see the vignette on connecting to SQL
 
 # Pull a cleaned version of the SQL file into R
-if(file.exists("your_script.sql")){
-sql_query <- get_clean_sql("your_script.sql")
+if (file.exists("your_script.sql")) {
+  sql_query <- get_clean_sql("your_script.sql")
 }
 }
