@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_clean_sql.R
 \name{get_clean_sql}
 \alias{get_clean_sql}
-\title{Get clean SQL}
+\title{Get a cleaned SQL script into R}
 \usage{
 get_clean_sql(filepath, additional_settings = FALSE)
 }
@@ -20,17 +20,11 @@ This function cleans a SQL script, ready for using within R in the DfE.
 }
 \examples{
 # This assumes you have already set up a database connection
-# and have assigned to 'con'
-
-# For more details see [vignette]
+# and that the filepath for the function exists
+# For more details see the vignette on connecting to SQL
 
 # Pull a cleaned version of the SQL file into R
-\dontrun{
-sql_query <- get_clean_sql("path_to_sql_file.sql")
-}
-
-# Use the cleaned SQL query to query the database
-\dontrun{
-dbGetQuery(con, statement = sql_query)
+if(file.exists("your_script.sql")){
+sql_query <- get_clean_sql("your_script.sql")
 }
 }

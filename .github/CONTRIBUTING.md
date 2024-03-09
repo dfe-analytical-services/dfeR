@@ -42,7 +42,7 @@ install.packages("lintr")
 install.packages("styler")
 ```
 
-Where possible, we'd recommend following the [Test Driven Development (TDD)](https://testdriven.io/test-driven-development/) approach:
+Where possible, we'd recommend following the [Test Driven Development (TDD)](https://testdriven.io/test-driven-development/) approach. Though if you're new to package development, or already have code for a specific function feel free to start with step 2, to copy the function into the package and then go back to step 1 afterwards. 
 
 1. Write tests using [testthat](https://r-pkgs.org/testing-basics.html) for the behaviour you want. Either edit an existing test script, or if adding a new function, create a test script using:
 
@@ -78,11 +78,11 @@ add <- function(x, y) {
 styler::style_pkg()
 ```
 
-5. Run a full check of the package. Here's a few ways you can do this:
+5. Run a full check of the package using the following functions:
 
 ``` r
 devtools::check() # General package check, can also use Ctrl-Shift-E
-lintr::lint_pkg() # Check styling of code
+lintr::lint_package() # Check formatting of code
 spelling::spell_check() # Check for spelling mistakes
 ```
 
@@ -90,10 +90,12 @@ spelling::spell_check() # Check for spelling mistakes
 
 Keyboard shortcuts for the `devtools` package to use while in RStudio:
 
-* `load_all()` (Ctrl-Shift-L): Load code with dfeR package
-* `test()` (Ctrl-Shift-T): Run tests
-* `document()` (Ctrl-Shift-D): Rebuild docs and NAMESPACE
-* `check()` (Ctrl-Shift-E): Check complete package
+``` r
+load_all() # (Ctrl-Shift-L): Load code with dfeR package
+test() # (Ctrl-Shift-T): Run tests
+document() # (Ctrl-Shift-D): Rebuild docs and NAMESPACE
+check() # (Ctrl-Shift-E): Check complete package
+```
 
 We recommend using the [usethis](https://usethis.r-lib.org/index.html) package where possible for consistency and simplicity.
 
@@ -173,7 +175,9 @@ lintr::lint_package()
 
 ### Testing
 
-We use [testthat](https://cran.r-project.org/package=testthat) for unit tests, we expect all new functions to have some level of test coverage.  
+We use [testthat](https://cran.r-project.org/package=testthat) for unit tests, we expect all new functions to have some level of test coverage. 
+
+If you want to see examples of existing tests for inspiration, take a look inside the `tests/testthat/` folder.
 
 ### Test coverage
 
@@ -201,6 +205,14 @@ To automatically pick up genuine new words in the package and add to this list, 
 
 ``` r
 spelling::update_wordlist()
+```
+
+## Adding vignettes
+
+Vignettes can be found in the `vignettes/` folder as .Rmd files. To start a new one use:
+
+``` r
+usethis::use_vignette("name_of_vignette")
 ```
 
 ## Code of Conduct
