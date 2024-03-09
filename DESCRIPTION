@@ -1,7 +1,7 @@
 Type: Package
 Package: dfeR
 Title: Common DfE R tasks
-Version: 0.1.1
+Version: 0.2.0
 Authors@R: c(
     person("Cam", "Race", , "cameron.race@education.gov.uk", role = c("aut", "cre")),
     person("Laura", "Selby", , "laura.selby@education.gov.uk", role = "aut"),
