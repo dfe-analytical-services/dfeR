@@ -6,7 +6,9 @@ Authors@R: c(
     person("Cam", "Race", , "cameron.race@education.gov.uk", role = c("aut", "cre")),
     person("Laura", "Selby", , "laura.selby@education.gov.uk", role = "aut"),
     person("Adam", "Robinson", role = "aut"),
-    person("Jen", "Machin", , "jen.machin@education.gov.uk", role = "ctb")
+    person("Jen", "Machin", , "jen.machin@education.gov.uk", role = "ctb"),
+    person("Rich", "Bielby", , "richard.bielby@education.gov.uk", role = "ctb",
+           comment = c(ORCID = "0000-0001-9070-9969"))
   )
 Description: This package contains R functions to allow DfE analysts to
     re-use code for common analytical tasks that are undertaken across the
