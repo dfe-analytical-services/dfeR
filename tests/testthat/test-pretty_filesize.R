@@ -9,17 +9,21 @@ test_that("pretties file size", {
   expect_equal(pretty_filesize(10^9), "1 GB")
 })
 
+test_that("comma separates", {
+  expect_equal(pretty_filesize(50000000*100000), "5,000 GB")
+})
+
 test_that("rejects non-numbers", {
   expect_error(
     pretty_filesize("12"),
-    "file size must be a number"
+    "file size must be a numeric value"
   )
   expect_error(
     pretty_filesize("test"),
-    "file size must be a number"
+    "file size must be a numeric value"
   )
   expect_error(
     pretty_filesize(TRUE),
-    "file size must be a number"
+    "file size must be a numeric value"
   )
 })

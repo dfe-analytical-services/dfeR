@@ -31,10 +31,10 @@
 #' pretty_filesize(10^9)
 pretty_filesize <- function(filesize) {
   if (!is.numeric(filesize)) {
-    stop("file size must be a number")
+    stop("file size must be a numeric value")
   } else {
     if (round_five_up(filesize / 10^9, 2) >= 1) {
-      return(paste0(comma_separate(round_five_up(filesize / 10^9, 2)), " GB"))
+      return(paste0(comma_sep(round_five_up(filesize / 10^9, 2)), " GB"))
     } else {
       if (round_five_up(filesize / 1000^2, 2) >= 1) {
         return(paste0(round_five_up(filesize / 1000^2, 2), " MB"))
