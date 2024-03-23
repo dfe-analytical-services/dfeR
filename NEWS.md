@@ -1,3 +1,18 @@
+# dfeR 0.2.0
+
+Add function for formatting financial years:
+
+- format_fy()
+
+Add reversing functions for academic and financial years:
+
+- format_ay_reverse()
+- format_fy_reverse()
+
+Add function for grabbing and cleaning a SQL script, and vignette for connecting to SQL.
+
+- get_clean_sql()
+
 # dfeR 0.1.1
 
 Add default value to decimal place argument of round_five_up() function.

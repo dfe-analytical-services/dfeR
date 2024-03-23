@@ -1,11 +1,14 @@
 Type: Package
 Package: dfeR
 Title: Common DfE R tasks
-Version: 0.1.1
+Version: 0.2.0
 Authors@R: c(
     person("Cam", "Race", , "cameron.race@education.gov.uk", role = c("aut", "cre")),
     person("Laura", "Selby", , "laura.selby@education.gov.uk", role = "aut"),
-    person("Adam", "Robinson", role = "aut")
+    person("Adam", "Robinson", role = "aut"),
+    person("Jen", "Machin", , "jen.machin@education.gov.uk", role = "ctb"),
+    person("Rich", "Bielby", , "richard.bielby@education.gov.uk", role = "ctb",
+           comment = c(ORCID = "0000-0001-9070-9969"))
   )
 Description: This package contains R functions to allow DfE analysts to
     re-use code for common analytical tasks that are undertaken across the
@@ -17,8 +20,12 @@ BugReports: https://github.com/dfe-analytical-services/dfeR/issues
 Imports: 
     lifecycle
 Suggests:
+    knitr,
+    rmarkdown,
     spelling,
     testthat (>= 3.0.0)
+VignetteBuilder: 
+    knitr
 Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-GB

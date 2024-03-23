@@ -104,3 +104,7 @@ library(dfeR)
 format_ay(202425)
 #> [1] "2024/25"
 ```
+
+For more details on all the functions available in this package, and
+examples of how to use them, please see our [dfeR package reference
+documentation](https://dfe-analytical-services.github.io/dfeR/reference/index.html).

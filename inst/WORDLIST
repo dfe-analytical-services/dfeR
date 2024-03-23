@@ -2,11 +2,14 @@ CMD
 Codecov
 DfE
 Lifecycle
+ORCID
+SSMS
 ay
-ch
+dbplyr
 dfeshiny
-ethz
+fy
 lauraselby
+odbc
 pkgdown
 renv
-stat
+sql
