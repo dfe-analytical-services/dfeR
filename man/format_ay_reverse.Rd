@@ -21,3 +21,10 @@ It accepts character arguments.
 \examples{
 format_ay_reverse("2016/17")
 }
+\seealso{
+Other formatting functions: 
+\code{\link{format_ay}()},
+\code{\link{format_fy}()},
+\code{\link{format_fy_reverse}()}
+}
+\concept{formatting functions}

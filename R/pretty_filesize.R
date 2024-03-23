@@ -19,8 +19,9 @@
 #' @param filesize file size in bytes
 #'
 #' @return string containing prettified file size
+#' @family prettying functions
+#' @seealso [comma_sep()] [round_five_up()]
 #' @export
-#'
 #' @examples
 #' pretty_filesize(2)
 #' pretty_filesize(549302)

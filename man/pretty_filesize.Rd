@@ -37,3 +37,7 @@ pretty_filesize(1000)
 pretty_filesize(1000^2)
 pretty_filesize(10^9)
 }
+\seealso{
+\code{\link[=comma_sep]{comma_sep()}} \code{\link[=round_five_up]{round_five_up()}}
+}
+\concept{prettying functions}
