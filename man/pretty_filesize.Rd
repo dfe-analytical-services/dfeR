@@ -41,6 +41,7 @@ pretty_filesize(10^9)
 \code{\link[=comma_sep]{comma_sep()}} \code{\link[=round_five_up]{round_five_up()}}
 
 Other prettying functions: 
+\code{\link{pretty_num}()},
 \code{\link{pretty_time_taken}()}
 }
 \concept{prettying functions}

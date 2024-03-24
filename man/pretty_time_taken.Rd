@@ -43,6 +43,7 @@ pretty_time_taken(start, end)
 \code{\link[=comma_sep]{comma_sep()}} \code{\link[=round_five_up]{round_five_up()}} \code{\link[=as.POSIXct]{as.POSIXct()}}
 
 Other prettying functions: 
-\code{\link{pretty_filesize}()}
+\code{\link{pretty_filesize}()},
+\code{\link{pretty_num}()}
 }
 \concept{prettying functions}
