@@ -46,6 +46,8 @@ Where possible, we'd recommend following the [Test Driven Development (TDD)](htt
 
 1. Write tests using [testthat](https://r-pkgs.org/testing-basics.html) for the behaviour you want. Either edit an existing test script, or if adding a new function, create a test script using:
 
+Have a look in the /tests/test_that folder for some examples
+
 ``` r
 usethis::use_test("name_of_new_function")
 ```
@@ -56,7 +58,7 @@ usethis::use_test("name_of_new_function")
 usethis::use_r("name_of_new_function")
 ```
 
-3. Add documentation for what you've done. Follow the [roxygen2](https://roxygen2.r-lib.org/articles/rd.html) pattern for comments. Here's an example of what it looks like for a basic `add()` function:
+3. Add documentation for what you've done. Follow the [roxygen2](https://roxygen2.r-lib.org/articles/rd.html) pattern for comments. You can add a standard skeleton using `Code > Insert Roxygen Skeleton` or by `Ctrl+Shift+Alt+R` when in your R script. Here's an example of what it looks like for a basic `add()` function:
 
 ```
 #' @description Add together two numbers
@@ -72,7 +74,9 @@ add <- function(x, y) {
 }
 ```
 
-4. Continue to improve code while keeping tests passing. You can automatically style code using:
+4. Continue to improve code while keeping tests passing. 
+
+5. Automatically style code using:
 
 ``` r
 styler::style_pkg()
