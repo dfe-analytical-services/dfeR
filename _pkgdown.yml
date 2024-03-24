@@ -13,7 +13,7 @@ reference:
   - get_clean_sql
 
 - title: Presentation prettifiers
-  desc: Functions for presenting pretty versions of numbers
+  desc: Functions for presenting pretty versions of numbers with readable code
   contents:
   - starts_with("pretty_")
 

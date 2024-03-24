@@ -14,8 +14,8 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 <!-- badges: end -->
 
 The goal of dfeR is to help standardise R programming across the
-Department for Education (DfE) and facilitate sharing of business
-specific functions.
+Department for Education (DfE), and facilitate sharing of business
+specific functions, making our code easier to read and write.
 
 Credit to [lauraselby](https://github.com/lauraselby) for the logo
 featuring Frederick!
@@ -95,14 +95,44 @@ By contributing to this project, you agree to abide by its terms.
 
 ------------------------------------------------------------------------
 
-## Example
+## Examples
 
-This is a basic example showing the `format_ay()` function:
+Here are some example formatting functions from within the package:
 
 ``` r
 library(dfeR)
+
+# Prettify large numbers
+pretty_num(111111111, gbp = TRUE)
+#> [1] "£111.11 million"
+pretty_num(-11^8, dp = -1)
+#> [1] "-210 million"
+
+# Convert bytes to readable size
+pretty_filesize(77777777)
+#> [1] "77.78 MB"
+
+# Calculate elapsed time and present prettily
+start <- Sys.time()
+end <- Sys.time() + 789890
+pretty_time_taken(start, end)
+#> [1] "219 hours 24 minutes 50 seconds"
+
+# Round 5's up instead of bankers round used by round() in base R
+round_five_up(2.5)
+#> [1] 3
+round(2.5) # base R
+#> [1] 2
+
+# Custom formatting for academic and financial years
 format_ay(202425)
 #> [1] "2024/25"
+format_fy(202425)
+#> [1] "2024-25"
+format_ay_reverse("2024/25")
+#> [1] "202425"
+format_fy_reverse("2024-25")
+#> [1] "202425"
 ```
 
 For more details on all the functions available in this package, and
