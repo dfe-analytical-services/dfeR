@@ -10,7 +10,7 @@ test_that("pretties file size", {
 })
 
 test_that("comma separates", {
-  expect_equal(pretty_filesize(50000000*100000), "5,000 GB")
+  expect_equal(pretty_filesize(50000000 * 100000), "5,000 GB")
 })
 
 test_that("rejects non-numbers", {

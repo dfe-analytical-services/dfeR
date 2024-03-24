@@ -1,4 +1,4 @@
-#' Pretty file size
+#' Pretty numbers into readable file size
 #'
 #' @description
 #' Converts a raw file size from bytes to a more readable format.
