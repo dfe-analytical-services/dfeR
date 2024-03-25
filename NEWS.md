@@ -1,3 +1,15 @@
+# dfeR 0.3.0
+
+Add pretty_* functions for presenting pretty numbers:
+
+- pretty_num()
+- pretty_filesize()
+- pretty_time_taken()
+
+Add helper function for comma separating numbers:
+
+- comma_sep()
+
 # dfeR 0.2.0
 
 Add function for formatting financial years:
@@ -21,5 +33,5 @@ Add default value to decimal place argument of round_five_up() function.
 
 Relaunch of the package with two functions:
 
--   format_ay()
--   round_five_up()
+- format_ay()
+- round_five_up()
