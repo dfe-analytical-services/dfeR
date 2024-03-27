@@ -7,6 +7,7 @@
 #'
 #' @param year Financial year
 #' @return Character vector of formatted financial year
+#' @family formatting functions
 #' @export
 #' @examples
 #' format_fy(201617)
@@ -26,6 +27,7 @@ format_fy <- function(year) {
 #'
 #' @param year Financial year
 #' @return Unformatted 6 digit year as string
+#' @family formatting functions
 #' @export
 #' @examples
 #' format_fy_reverse("2016-17")

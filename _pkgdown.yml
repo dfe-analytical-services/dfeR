@@ -7,14 +7,25 @@ template:
     code-color: "ffffff"
 
 reference:
-- title: Helper functions
+- title: Database connection
+  desc: Helpful functions for connecting to databases in DfE
   contents:
-  - round_five_up
+  - get_clean_sql
 
-- title: Formatting
+- title: Presentation prettifiers
+  desc: Functions for presenting pretty versions of numbers with readable code
+  contents:
+  - starts_with("pretty_")
+
+- title: Specific formats
+  desc: Functions for converting to specific formats
   contents:
   - starts_with("format_")
 
-- title: Database connections
+- title: Helpers
+  desc: >
+    Functions used in other functions across the package, also useful in
+    their own right
   contents:
-  - get_clean_sql
+  - round_five_up
+  - comma_sep

@@ -7,6 +7,7 @@
 #'
 #' @param year Academic year
 #' @return Character vector of formatted academic year
+#' @family formatting functions
 #' @export
 #' @examples
 #' format_ay(201617)
@@ -26,6 +27,7 @@ format_ay <- function(year) {
 #'
 #' @param year Academic year
 #' @return Unformatted 6 digit year as string
+#' @family formatting functions
 #' @export
 #' @examples
 #' format_ay_reverse("2016/17")

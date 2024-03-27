@@ -49,6 +49,8 @@ Where possible, we'd recommend following the [Test Driven Development (TDD)](htt
 ``` r
 usethis::use_test("name_of_new_function")
 ```
+Feel free to have a look in the /tests/test_that folder for some examples if you want to see example tests in practice.
+
 
 2. Write just enough code so that the tests pass. Again, either edit an existing function, or add a new R script using:
 
@@ -56,7 +58,7 @@ usethis::use_test("name_of_new_function")
 usethis::use_r("name_of_new_function")
 ```
 
-3. Add documentation for what you've done. Follow the [roxygen2](https://roxygen2.r-lib.org/articles/rd.html) pattern for comments. Here's an example of what it looks like for a basic `add()` function:
+3. Add documentation for what you've done. Follow the [roxygen2](https://roxygen2.r-lib.org/articles/rd.html) pattern for comments. You can add a standard skeleton using `Code > Insert Roxygen Skeleton` or by `Ctrl+Shift+Alt+R` when in your R script. Here's an example of what it looks like for a basic `add()` function:
 
 ```
 #' @description Add together two numbers
@@ -72,7 +74,9 @@ add <- function(x, y) {
 }
 ```
 
-4. Continue to improve code while keeping tests passing. You can automatically style code using:
+4. Continue to improve code while keeping tests passing. 
+
+5. Automatically style code using:
 
 ``` r
 styler::style_pkg()

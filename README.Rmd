@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
-The goal of dfeR is to help standardise R programming across the Department for Education (DfE) and facilitate sharing of business specific functions.
+The goal of dfeR is to help standardise R programming across the Department for Education (DfE), and facilitate sharing of business specific functions, making our code easier to read and write.
 
 Credit to [lauraselby](https://github.com/lauraselby) for the logo featuring Frederick!
 
@@ -83,13 +83,35 @@ Please note that the dfeR project is released with a [Contributor Code of Conduc
 
 ---
 
-## Example
+## Examples
 
-This is a basic example showing the `format_ay()` function:
+Here are some example formatting functions from within the package:
 
 ```{r example}
 library(dfeR)
+
+# Prettify large numbers
+pretty_num(111111111, gbp = TRUE)
+pretty_num(-11^8, dp = -1)
+
+# Convert bytes to readable size
+pretty_filesize(77777777)
+
+# Calculate elapsed time and present prettily
+start <- Sys.time()
+end <- Sys.time() + 789890
+pretty_time_taken(start, end)
+
+# Round 5's up instead of bankers round used by round() in base R
+round_five_up(2.5)
+round(2.5) # base R
+
+# Custom formatting for academic and financial years
 format_ay(202425)
+format_fy(202425)
+format_ay_reverse("2024/25")
+format_fy_reverse("2024-25")
+
 ```
 
 For more details on all the functions available in this package, and examples of how to use them, please see our [dfeR package reference documentation](https://dfe-analytical-services.github.io/dfeR/reference/index.html).

@@ -23,3 +23,10 @@ It accepts both numerical and character arguments.
 format_ay(201617)
 format_ay("201617")
 }
+\seealso{
+Other formatting functions: 
+\code{\link{format_ay_reverse}()},
+\code{\link{format_fy}()},
+\code{\link{format_fy_reverse}()}
+}
+\concept{formatting functions}
