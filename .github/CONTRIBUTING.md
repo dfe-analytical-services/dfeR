@@ -42,12 +42,12 @@ install.packages("lintr")
 install.packages("styler")
 ```
 
-Where possible, we'd recommend following the [Test Driven Development (TDD)](https://testdriven.io/test-driven-development/) approach:
+Where possible, we'd recommend following the [Test Driven Development (TDD)](https://testdriven.io/test-driven-development/) approach. Though if you're new to package development, or already have code for a specific function feel free to start with step 2, to copy the function into the package and then go back to step 1 afterwards. 
 
-1. Write tests for the behaviour you want. Either edit an existing test script, or if adding a new function, create a test script using:
+1. Write tests using [testthat](https://r-pkgs.org/testing-basics.html) for the behaviour you want. Either edit an existing test script, or if adding a new function, create a test script using:
 
 ``` r
-usethis::usetest("name_of_new_function")
+usethis::use_test("name_of_new_function")
 ```
 
 2. Write just enough code so that the tests pass. Again, either edit an existing function, or add a new R script using:
@@ -56,7 +56,21 @@ usethis::usetest("name_of_new_function")
 usethis::use_r("name_of_new_function")
 ```
 
-3. Add documentation for what you've done. Follow the [roxygen2](https://roxygen2.r-lib.org/articles/rd.html) pattern for comments.
+3. Add documentation for what you've done. Follow the [roxygen2](https://roxygen2.r-lib.org/articles/rd.html) pattern for comments. Here's an example of what it looks like for a basic `add()` function:
+
+```
+#' @description Add together two numbers
+#'
+#' @param x A number.
+#' @param y A number.
+#' @return A number.
+#' @examples
+#' add(1, 1)
+#' add(10, 1)
+add <- function(x, y) {
+  x + y
+}
+```
 
 4. Continue to improve code while keeping tests passing. You can automatically style code using:
 
@@ -64,11 +78,11 @@ usethis::use_r("name_of_new_function")
 styler::style_pkg()
 ```
 
-5. Run a full check of the package. Here's a few ways you can do this:
+5. Run a full check of the package using the following functions:
 
 ``` r
 devtools::check() # General package check, can also use Ctrl-Shift-E
-lintr::lint_pkg() # Check styling of code
+lintr::lint_package() # Check formatting of code
 spelling::spell_check() # Check for spelling mistakes
 ```
 
@@ -76,10 +90,12 @@ spelling::spell_check() # Check for spelling mistakes
 
 Keyboard shortcuts for the `devtools` package to use while in RStudio:
 
-* `load_all()` (Ctrl-Shift-L): Load code with dfeR package
-* `test()` (Ctrl-Shift-T): Run tests
-* `document()` (Ctrl-Shift-D): Rebuild docs and NAMESPACE
-* `check()` (Ctrl-Shift-E): Check complete package
+``` r
+load_all() # (Ctrl-Shift-L): Load code with dfeR package
+test() # (Ctrl-Shift-T): Run tests
+document() # (Ctrl-Shift-D): Rebuild docs and NAMESPACE
+check() # (Ctrl-Shift-E): Check complete package
+```
 
 We recommend using the [usethis](https://usethis.r-lib.org/index.html) package where possible for consistency and simplicity.
 
@@ -87,7 +103,7 @@ We recommend using the [usethis](https://usethis.r-lib.org/index.html) package w
 
 Add any packages the package users will need with:
 ``` r
-usethis::use_package(pkgname, type = "imports")
+usethis::use_package(pkgname)
 ```
 
 Add any packages that package developers only may need with:
@@ -159,7 +175,19 @@ lintr::lint_package()
 
 ### Testing
 
-We use [testthat](https://cran.r-project.org/package=testthat) for unit tests, we expect all new functions to have some level of test coverage.  
+We use [testthat](https://cran.r-project.org/package=testthat) for unit tests, we expect all new functions to have some level of test coverage. 
+
+If you want to see examples of existing tests for inspiration, take a look inside the `tests/testthat/` folder.
+
+### Test coverage
+
+There are GitHub Actions workflows that check and link the package to [codecov.io](https://app.codecov.io/gh/dfe-analytical-services/), this runs automatic scans to check the % of lines in functions that we are testing. On the [dfeR codecov pages](https://app.codecov.io/gh/dfe-analytical-services/dfeR) you can preview the variation by branch and commit to see the impact of changes made.
+
+You will need to create an account or login using GitHub to see the pages.
+
+The current % of coverage is shown as a badge on the package [README on GitHub](https://github.com/dfe-analytical-services/dfeR).
+
+It is worth noting that 100% coverage does not mean that the tests are perfect, it only means that all lines are ran in tests, so it's more a measure of quantity rather than quality. Interesting to see all the same though, and we'd recommend using it to spot any potential elements of more complicated functions that you may have forgotten to test.
 
 ### Spelling
 
@@ -177,6 +205,14 @@ To automatically pick up genuine new words in the package and add to this list, 
 
 ``` r
 spelling::update_wordlist()
+```
+
+## Adding vignettes
+
+Vignettes can be found in the `vignettes/` folder as .Rmd files. To start a new one use:
+
+``` r
+usethis::use_vignette("name_of_vignette")
 ```
 
 ## Code of Conduct

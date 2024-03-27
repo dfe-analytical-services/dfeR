@@ -5,3 +5,16 @@ template:
   bslib:
     pkgdown-nav-height: 81.4468px
     code-color: "ffffff"
+
+reference:
+- title: Helper functions
+  contents:
+  - round_five_up
+
+- title: Formatting
+  contents:
+  - starts_with("format_")
+
+- title: Database connections
+  contents:
+  - get_clean_sql
