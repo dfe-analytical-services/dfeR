@@ -16,6 +16,12 @@
     <loc>https://dfe-analytical-services.github.io/dfeR/PULL_REQUEST_TEMPLATE.html</loc>
   </url>
   <url>
+    <loc>https://dfe-analytical-services.github.io/dfeR/articles/connecting_to_sql.html</loc>
+  </url>
+  <url>
+    <loc>https://dfe-analytical-services.github.io/dfeR/articles/index.html</loc>
+  </url>
+  <url>
     <loc>https://dfe-analytical-services.github.io/dfeR/authors.html</loc>
   </url>
   <url>
@@ -38,6 +44,9 @@
   </url>
   <url>
     <loc>https://dfe-analytical-services.github.io/dfeR/reference/format_fy_reverse.html</loc>
+  </url>
+  <url>
+    <loc>https://dfe-analytical-services.github.io/dfeR/reference/get_clean_sql.html</loc>
   </url>
   <url>
     <loc>https://dfe-analytical-services.github.io/dfeR/reference/index.html</loc>

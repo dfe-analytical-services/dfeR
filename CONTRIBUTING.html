@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="index.html">dfeR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,6 +20,12 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="nav-item">
   <a class="nav-link" href="reference/index.html">Reference</a>
+</li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="articles/connecting_to_sql.html">Connecting to SQL</a>
+  </div>
 </li>
 <li class="nav-item">
   <a class="nav-link" href="news/index.html">Changelog</a>
@@ -75,67 +81,75 @@
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"spelling"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"lintr"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"styler"</span><span class="op">)</span></span></code></pre></div>
-<p>Where possible, we’d recommend following the <a href="https://testdriven.io/test-driven-development/" class="external-link">Test Driven Development (TDD)</a> approach:</p>
-<ol style="list-style-type: decimal"><li>Write tests for the behaviour you want. Either edit an existing test script, or if adding a new function, create a test script using:</li>
+<p>Where possible, we’d recommend following the <a href="https://testdriven.io/test-driven-development/" class="external-link">Test Driven Development (TDD)</a> approach. Though if you’re new to package development, or already have code for a specific function feel free to start with step 2, to copy the function into the package and then go back to step 1 afterwards.</p>
+<ol style="list-style-type: decimal"><li>Write tests using <a href="https://r-pkgs.org/testing-basics.html" class="external-link">testthat</a> for the behaviour you want. Either edit an existing test script, or if adding a new function, create a test script using:</li>
 </ol><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu">usetest</span><span class="op">(</span><span class="st">"name_of_new_function"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu">use_test</span><span class="op">(</span><span class="st">"name_of_new_function"</span><span class="op">)</span></span></code></pre></div>
 <ol start="2" style="list-style-type: decimal"><li>Write just enough code so that the tests pass. Again, either edit an existing function, or add a new R script using:</li>
 </ol><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu">use_r</span><span class="op">(</span><span class="st">"name_of_new_function"</span><span class="op">)</span></span></code></pre></div>
-<ol start="3" style="list-style-type: decimal"><li><p>Add documentation for what you’ve done. Follow the <a href="https://roxygen2.r-lib.org/articles/rd.html" class="external-link">roxygen2</a> pattern for comments.</p></li>
-<li><p>Continue to improve code while keeping tests passing. You can automatically style code using:</p></li>
-</ol><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">styler</span><span class="fu">::</span><span class="fu">style_pkg</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<ol start="5" style="list-style-type: decimal"><li>Run a full check of the package. Here’s a few ways you can do this:</li>
+<ol start="3" style="list-style-type: decimal"><li>Add documentation for what you’ve done. Follow the <a href="https://roxygen2.r-lib.org/articles/rd.html" class="external-link">roxygen2</a> pattern for comments. Here’s an example of what it looks like for a basic <code>add()</code> function:</li>
+</ol><pre><code><span><span class="co">#' @description Add together two numbers</span></span>
+<span><span class="co">#'</span></span>
+<span><span class="co">#' @param x A number.</span></span>
+<span><span class="co">#' @param y A number.</span></span>
+<span><span class="co">#' @return A number.</span></span>
+<span><span class="co">#' @examples</span></span>
+<span><span class="co">#' add(1, 1)</span></span>
+<span><span class="co">#' add(10, 1)</span></span>
+<span><span class="va">add</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">x</span> <span class="op">+</span> <span class="va">y</span></span>
+<span><span class="op">}</span></span></code></pre>
+<ol start="4" style="list-style-type: decimal"><li>Continue to improve code while keeping tests passing. You can automatically style code using:</li>
 </ol><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">styler</span><span class="fu">::</span><span class="fu">style_pkg</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<ol start="5" style="list-style-type: decimal"><li>Run a full check of the package using the following functions:</li>
+</ol><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">check</span><span class="op">(</span><span class="op">)</span> <span class="co"># General package check, can also use Ctrl-Shift-E</span></span>
-<span><span class="fu">lintr</span><span class="fu">::</span><span class="fu">lint_pkg</span><span class="op">(</span><span class="op">)</span> <span class="co"># Check styling of code</span></span>
+<span><span class="fu">lintr</span><span class="fu">::</span><span class="fu">lint_package</span><span class="op">(</span><span class="op">)</span> <span class="co"># Check formatting of code</span></span>
 <span><span class="fu">spelling</span><span class="fu">::</span><span class="fu">spell_check</span><span class="op">(</span><span class="op">)</span> <span class="co"># Check for spelling mistakes</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="handy-workflows">Handy workflows<a class="anchor" aria-label="anchor" href="#handy-workflows"></a></h2>
 <p>Keyboard shortcuts for the <code>devtools</code> package to use while in RStudio:</p>
-<ul><li>
-<code>load_all()</code> (Ctrl-Shift-L): Load code with dfeR package</li>
-<li>
-<code>test()</code> (Ctrl-Shift-T): Run tests</li>
-<li>
-<code>document()</code> (Ctrl-Shift-D): Rebuild docs and NAMESPACE</li>
-<li>
-<code>check()</code> (Ctrl-Shift-E): Check complete package</li>
-</ul><p>We recommend using the <a href="https://usethis.r-lib.org/index.html" class="external-link">usethis</a> package where possible for consistency and simplicity.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">load_all</span><span class="op">(</span><span class="op">)</span> <span class="co"># (Ctrl-Shift-L): Load code with dfeR package</span></span>
+<span><span class="fu">test</span><span class="op">(</span><span class="op">)</span> <span class="co"># (Ctrl-Shift-T): Run tests</span></span>
+<span><span class="fu">document</span><span class="op">(</span><span class="op">)</span> <span class="co"># (Ctrl-Shift-D): Rebuild docs and NAMESPACE</span></span>
+<span><span class="fu">check</span><span class="op">(</span><span class="op">)</span> <span class="co"># (Ctrl-Shift-E): Check complete package</span></span></code></pre></div>
+<p>We recommend using the <a href="https://usethis.r-lib.org/index.html" class="external-link">usethis</a> package where possible for consistency and simplicity.</p>
 </div>
 <div class="section level2">
 <h2 id="adding-package-dependencies">Adding package dependencies<a class="anchor" aria-label="anchor" href="#adding-package-dependencies"></a></h2>
 <p>Add any packages the package users will need with:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu">use_package</span><span class="op">(</span><span class="va">pkgname</span>, type <span class="op">=</span> <span class="st">"imports"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu">use_package</span><span class="op">(</span><span class="va">pkgname</span><span class="op">)</span></span></code></pre></div>
 <p>Add any packages that package developers only may need with:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu">use_package</span><span class="op">(</span><span class="va">pkgname</span>, type <span class="op">=</span> <span class="st">"suggests"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="updating-the-readme">Updating the README<a class="anchor" aria-label="anchor" href="#updating-the-readme"></a></h2>
 <p>There are two README files that are linked with a pre-commit-hook to ensure they are kept in sync.</p>
 <p>Make all changes to the <code>README.Rmd</code> file and then run the following line to rebuild:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">build_readme</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="pkgdown-site">pkgdown site<a class="anchor" aria-label="anchor" href="#pkgdown-site"></a></h2>
 <p>Most of the <code>pkgdown</code> site is automatically generated. The theme is set in the <code>_pkgdown.yml</code> file.</p>
 <p>Custom CSS can be set in <code>pkgdown/extra.css</code> file. If you make any edits to this file you will need to re-initialise the site using the following line:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pkgdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgdown.r-lib.org/reference/init_site.html" class="external-link">init_site</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>The site is hosted on GitHub pages. You build and preview the pkgdown site locally by running:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">build_site</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="updating-the-package-version">Updating the package version<a class="anchor" aria-label="anchor" href="#updating-the-package-version"></a></h2>
 <p>Once changes have been completed, reviewed and are ready for use in the wild, you can increment the package version using:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu">use_version</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>If you are unsure what kind of version to increment, have a look through <a href="https://r-pkgs.org/lifecycle.html#sec-lifecycle-release-type" class="external-link">lifecycle’s guidance on release types</a>.</p>
 <p>Once you’ve incremented the version number, it’ll offer to perform a commit on your behalf. As this happens it will add an update to <code>NEWS.md</code>, which acts as the changelog for the package. Make sure this is updated correctly and then push to GitHub.</p>
@@ -149,27 +163,41 @@
 <h2 id="code-style">Code style<a class="anchor" aria-label="anchor" href="#code-style"></a></h2>
 <p>New code should follow the tidyverse <a href="https://style.tidyverse.org" class="external-link">style guide</a>. We use <a href="https://lintr.r-lib.org/articles/lintr.html" class="external-link">lintr</a> to scan styling on pull requests, this will automatically run and add comments for any code that is failing the standards we’d expect. Where these happen, please proactively resolve these as we are unlikely to approve pull requests that have styling issues.</p>
 <p>You can use the <a href="https://CRAN.R-project.org/package=styler" class="external-link">styler</a> package to apply most of the styling using:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">styler</span><span class="fu">::</span><span class="fu">style_pkg</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>To check for any further styling issues locally, use:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">lintr</span><span class="fu">::</span><span class="fu">lint_package</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><a href="https://CRAN.R-project.org/package=styler" class="external-link">styler</a> will not fix all linting issues, so we recommend using that first, then using <a href="https://lintr.r-lib.org/articles/lintr.html" class="external-link">lintr</a> to check for places you may need to manually fix styling issues such as line length or not using snake_case.</p>
 <div class="section level3">
 <h3 id="testing">Testing<a class="anchor" aria-label="anchor" href="#testing"></a></h3>
 <p>We use <a href="https://cran.r-project.org/package=testthat" class="external-link">testthat</a> for unit tests, we expect all new functions to have some level of test coverage.</p>
+<p>If you want to see examples of existing tests for inspiration, take a look inside the <code>tests/testthat/</code> folder.</p>
+</div>
+<div class="section level3">
+<h3 id="test-coverage">Test coverage<a class="anchor" aria-label="anchor" href="#test-coverage"></a></h3>
+<p>There are GitHub Actions workflows that check and link the package to <a href="https://app.codecov.io/gh/dfe-analytical-services/" class="external-link">codecov.io</a>, this runs automatic scans to check the % of lines in functions that we are testing. On the <a href="https://app.codecov.io/gh/dfe-analytical-services/dfeR" class="external-link">dfeR codecov pages</a> you can preview the variation by branch and commit to see the impact of changes made.</p>
+<p>You will need to create an account or login using GitHub to see the pages.</p>
+<p>The current % of coverage is shown as a badge on the package <a href="https://github.com/dfe-analytical-services/dfeR" class="external-link">README on GitHub</a>.</p>
+<p>It is worth noting that 100% coverage does not mean that the tests are perfect, it only means that all lines are ran in tests, so it’s more a measure of quantity rather than quality. Interesting to see all the same though, and we’d recommend using it to spot any potential elements of more complicated functions that you may have forgotten to test.</p>
 </div>
 <div class="section level3">
 <h3 id="spelling">Spelling<a class="anchor" aria-label="anchor" href="#spelling"></a></h3>
 <p>The <a href="https://docs.ropensci.org/spelling/" class="external-link">spelling</a> package is used to check spelling. A custom word list of exceptions for this package exists in the <code>inst/</code> folder.</p>
 <p>There will be messages in the <code>devtools::check()</code> output if there’s potential spelling errors. Please review and fix any genuine errors.</p>
 <p>You can run a check yourself using:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">spelling</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/spelling/reference/spell_check_package.html" class="external-link">spell_check_package</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>To automatically pick up genuine new words in the package and add to this list, use:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">spelling</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/spelling/reference/wordlist.html" class="external-link">update_wordlist</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
+</div>
+<div class="section level2">
+<h2 id="adding-vignettes">Adding vignettes<a class="anchor" aria-label="anchor" href="#adding-vignettes"></a></h2>
+<p>Vignettes can be found in the <code>vignettes/</code> folder as .Rmd files. To start a new one use:</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu">use_vignette</span><span class="op">(</span><span class="st">"name_of_vignette"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a></h2>
