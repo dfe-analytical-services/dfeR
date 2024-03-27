@@ -46,11 +46,11 @@ Where possible, we'd recommend following the [Test Driven Development (TDD)](htt
 
 1. Write tests using [testthat](https://r-pkgs.org/testing-basics.html) for the behaviour you want. Either edit an existing test script, or if adding a new function, create a test script using:
 
-Have a look in the /tests/test_that folder for some examples
-
 ``` r
 usethis::use_test("name_of_new_function")
 ```
+Feel free to have a look in the /tests/test_that folder for some examples if you want to see example tests in practice.
+
 
 2. Write just enough code so that the tests pass. Again, either edit an existing function, or add a new R script using:
 
