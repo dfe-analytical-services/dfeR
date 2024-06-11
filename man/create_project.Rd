@@ -44,8 +44,9 @@ builds the core project structure, creates a .gitignore file,
 creates a readme, and optionally initializes \code{{renv}}.
 }
 \examples{
+\dontrun{
 # Load the necessary library
-library(dfeR)  # replace with your actual package name
+library(dfeR)
 
 # Define the path for the new project
 path <- "/path/to/your/new/project"  # replace with your actual path
@@ -58,4 +59,5 @@ create_project(
   create_publication_proj = FALSE,
   include_github_gitignore = TRUE
 )
+}
 }
