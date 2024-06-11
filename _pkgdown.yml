@@ -29,3 +29,10 @@ reference:
   contents:
   - round_five_up
   - comma_sep
+
+- title: Pre-populated project
+  desc: >
+    A function to create a new R project with a pre-populated folder and
+    file structure
+  contents:
+  - create_project
