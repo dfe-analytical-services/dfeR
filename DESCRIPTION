@@ -18,12 +18,18 @@ URL: https://dfe-analytical-services.github.io/dfeR/,
     https://github.com/dfe-analytical-services/dfeR
 BugReports: https://github.com/dfe-analytical-services/dfeR/issues
 Imports: 
-    lifecycle
+    lifecycle,
+    usethis,
+    utils,
+    withr,
+    testthat (>= 3.0.0),
+    renv,
+    rmarkdown,
+    stringr
 Suggests:
     knitr,
-    rmarkdown,
     spelling,
-    testthat (>= 3.0.0)
+    waldo
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3
