@@ -81,7 +81,7 @@ create_project <- function(
       'load in data.\n',
       '# Remember to include `source("R/load_data")` at ',
       'the start of\n',
-      'the main script you want to call these functions ',
+      '# the main script you want to call these functions ',
       'into.\n\n',
       '# Database connection ==== \n',
       'con <- DBI::dbConnect(odbc::odbc(),\n',
@@ -241,7 +241,7 @@ create_project <- function(
   # Initialise renv
   if (requireNamespace("renv", quietly = TRUE) & init_renv) {
     renv::init(project = path,
-               bare = TRUE, load = FALSE)
+               bare = TRUE, load = FALSE, restart = FALSE)
     renv::snapshot(project = path, prompt = FALSE,
                    update = TRUE, packages = list("rmarkdown", "testthat",
                                                   "renv", "stringr"))
