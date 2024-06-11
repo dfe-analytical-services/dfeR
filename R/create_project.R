@@ -28,8 +28,9 @@
 #' @import stringr
 #' @export
 #' @examples
+#' \dontrun{
 #' # Load the necessary library
-#' library(dfeR)  # replace with your actual package name
+#' library(dfeR)
 #'
 #' # Define the path for the new project
 #' path <- "/path/to/your/new/project"  # replace with your actual path
@@ -42,6 +43,7 @@
 #'   create_publication_proj = FALSE,
 #'   include_github_gitignore = TRUE
 #' )
+#' }
 create_project <- function(
     path,
     init_renv=TRUE,
