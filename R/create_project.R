@@ -1,22 +1,23 @@
 #' Creates a pre-populated project for DfE R
 #'
 #' @param path Path of the new project
-#' @param init_renv Boolean of whether to initiate renv in the project.
+#' @param init_renv Boolean; initiate renv in the project.
 #' Default is set to true.
-#' @param include_structure_for_pkg Additional structure for package development
+#' @param include_structure_for_pkg Additional folder structure for
+#' package development
 #' @param create_publication_proj Should the folder structure be for a
 #' publication project
 #' @param include_github_gitignore Should a strict .gitignore file for
 #' GitHub be created
 #' @param ... Additional parameters, currently not used
 #'
-#' @details This function creates a new project with a specified structure.
-#' It sets up the R/ folder and template function scripts,
-#' initializes testthat and adds tests for the function scripts,
+#' @details This function creates a new project with a custom folder structure.
+#' It sets up the `R/` folder and template function scripts,
+#' initializes `{testthat}` and adds tests for the function scripts,
 #' builds the core project structure, creates a .gitignore file,
-#' creates a readme, and optionally initializes renv.
+#' creates a readme, and optionally initializes `{renv}`.
 #'
-#' @return no return values, the project and its contents are created
+#' @return No return values, the project and its contents are created
 #' @importFrom utils installed.packages
 #' @importFrom withr with_dir
 #' @importFrom usethis create_package create_project use_testthat use_test
@@ -27,9 +28,8 @@
 #' @import stringr
 #' @export
 #' @examples
-#' \dontrun{
 #' # Load the necessary library
-#' library(your_package_name)  # replace with your actual package name
+#' library(dfeR)  # replace with your actual package name
 #'
 #' # Define the path for the new project
 #' path <- "/path/to/your/new/project"  # replace with your actual path
@@ -42,7 +42,6 @@
 #'   create_publication_proj = FALSE,
 #'   include_github_gitignore = TRUE
 #' )
-#' }
 create_project <- function(
     path,
     init_renv=TRUE,
