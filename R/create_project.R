@@ -26,6 +26,7 @@
 #' @import renv
 #' @import stringr
 #' @export
+#' @examples
 #' \dontrun{
 #' # Load the necessary library
 #' library(your_package_name)  # replace with your actual package name
