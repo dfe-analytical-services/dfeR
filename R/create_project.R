@@ -23,20 +23,20 @@
 #' @importFrom usethis create_package create_project use_testthat use_test
 #' @importFrom usethis proj_set
 #' @import testthat
+#' @rawNamespace import(renv, except = run)
 #' @import rmarkdown
-#' @import renv
 #' @import stringr
 #' @export
 #' @examples
 #' \dontrun{
-#' # Load the necessary library
+#' # Load the dfeR package (or even better call it explicitly)
 #' library(dfeR)
 #'
 #' # Define the path for the new project
 #' path <- "/path/to/your/new/project"  # replace with your actual path
 #'
 #' # Call the function to create a new project
-#' create_project(
+#' dfeR::create_project(
 #'   path = path,
 #'   init_renv = TRUE,
 #'   include_structure_for_pkg = TRUE,
