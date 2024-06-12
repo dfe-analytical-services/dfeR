@@ -34,8 +34,7 @@ test_that("create_project() basic functionality test", {
 })
 
 
-test_that("Test that if init_renv is set to FALSE then the custom warning
-          message is displayed", {
+test_that("init_renv = FALSE displays custom warning message", {
   local({
 
     # Create a non-temporary directory for testing
