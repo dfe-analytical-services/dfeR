@@ -45,14 +45,14 @@ creates a readme, and optionally initializes \code{{renv}}.
 }
 \examples{
 \dontrun{
-# Load the necessary library
+# Load the dfeR package (or even better call it explicitly)
 library(dfeR)
 
 # Define the path for the new project
 path <- "/path/to/your/new/project"  # replace with your actual path
 
 # Call the function to create a new project
-create_project(
+dfeR::create_project(
   path = path,
   init_renv = TRUE,
   include_structure_for_pkg = TRUE,
