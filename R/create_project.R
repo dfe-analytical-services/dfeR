@@ -46,7 +46,7 @@
 #' }
 create_project <- function(
     path,
-    init_renv=TRUE,
+    init_renv = TRUE,
     include_structure_for_pkg,
     create_publication_proj,
     include_github_gitignore,
@@ -63,13 +63,13 @@ create_project <- function(
   usethis::use_r(name = "helpers.R", open = FALSE)
   helpers_content <- c(
     paste0(
-      '# Your functions can go here. ',
-      'Then, when you want to ',
-      'call those functions, run\n',
-      '# `source("R/helpers.R")` at the start of your ',
-      'script.\n\n',
-      'print("Your scripts and functions should be in',
-      'the R folder.")'
+      "# Your functions can go here. ",
+      "Then, when you want to ",
+      "call those functions, run\n",
+      "# `source('R/helpers.R')` at the start of your ",
+      "script.\n\n",
+      "print('Your scripts and functions should be in ",
+      "the R folder.')"
     )
   )
   writeLines(helpers_content, paste0(path, "/R/helpers.R"))
@@ -78,21 +78,21 @@ create_project <- function(
   usethis::use_r(name = "load_data.R", open = FALSE)
   load_content <- c(
     paste0(
-      '# You can use this script to store functions that ',
-      'load in data.\n',
-      '# Remember to include `source("R/load_data")` at ',
-      'the start of\n',
-      '# the main script you want to call these functions ',
-      'into.\n\n',
-      '# Database connection ==== \n',
-      'con <- DBI::dbConnect(odbc::odbc(),\n',
-      '   Driver = "ODBC Driver 17 for SQL Server",\n',
-      '   Server = "server_name",\n',
-      '   Database = "database_name",\n',
-      '   UID = "",\n',
-      '   PWD = "",\n',
-      '   Trusted_Connection = "Yes"\n',
-      ')'
+      "# You can use this script to store functions that ",
+      "load in data.\n",
+      "# Remember to include `source('R/load_data')` at ",
+      "the start of\n",
+      "# the main script you want to call these functions ",
+      "into.\n\n",
+      "# Database connection ==== \n",
+      "con <- DBI::dbConnect(odbc::odbc(),\n",
+      "   Driver = 'ODBC Driver 17 for SQL Server',\n",
+      "   Server = 'server_name',\n",
+      "   Database = 'database_name',\n",
+      "   UID = '',\n",
+      "   PWD = '',\n",
+      "   Trusted_Connection = 'Yes'\n",
+      ")"
     )
   )
   writeLines(load_content, paste0(path, "/R/load_data.R"))
@@ -105,7 +105,7 @@ create_project <- function(
 
 
   # Build the core project structure
-  if(!create_publication_proj) {
+  if (!create_publication_proj) {
     # create ad-hoc project folder structure
     dir.create(paste0(path, "/_analysis/"))
     file.create(paste0(path, "/_analysis/analysis.qmd"))
@@ -213,16 +213,16 @@ create_project <- function(
     "4.  Restart RStudio",
     "5.  Type in the R terminal `bash git add .` to add all files to ",
     "the commit",
-    '5.  Type in the R terminal `bash git commit -m ',
-    '"Your commit message (initial commit)"` to commit those files with ",
-    "a message.',
-    "6.  In the terminal, execute the following command:",
+    "6.  Type in the R terminal `bash git commit -m ",
+    "'Your commit message (initial commit)'` to commit those files with ",
+    "a message.",
+    "7.  In the terminal, execute the following command:",
     "",
     "```bash",
     "git push -u origin main",
     "```",
     "",
-    "7.  For the following commits, repeat this process",
+    "8.  For the following commits, repeat this process",
     "",
     "NOTE: For sharing content on GitHub you should have ticked the ",
     "'Create a .gitignore file for GitHub' checkbox when creating the project.",
@@ -240,7 +240,7 @@ create_project <- function(
 
 
   # Initialise renv
-  if (requireNamespace("renv", quietly = TRUE) & init_renv) {
+  if (requireNamespace("renv", quietly = TRUE) && init_renv) {
     renv::init(project = path,
                bare = TRUE, load = FALSE, restart = FALSE)
     renv::snapshot(project = path, prompt = FALSE,
@@ -254,4 +254,3 @@ create_project <- function(
     )
   }
 }
-
