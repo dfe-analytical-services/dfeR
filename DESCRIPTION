@@ -22,7 +22,7 @@ Imports:
     usethis,
     utils,
     withr,
-    testthat (>= 3.0.0),
+    testthat,
     renv,
     rmarkdown,
     stringr
