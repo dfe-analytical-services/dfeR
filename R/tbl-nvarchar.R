@@ -1,23 +1,35 @@
-#' Title
+#' tbl_nvarchar
 #'
-#' @param con
-#' @param schema
-#' @param table
+#' @param con A DBI connection to a database
+#' @param table A valid table name or Id(schema, table)
 #'
-#' @return
+#' @return lazy_tbl
 #' @export
 #'
 #' @examples
-tbl_nvarchar <- function(con, schema, table) {
-  column_query <- paste0(
-    "SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH FROM INFORMATION_SCHEMA.COLUMNS ",
-    "WHERE TABLE_SCHEMA='", schema, "' AND TABLE_NAME='", table, "'"
-  )
-  column.types <- dbGetQuery(
+#' \dontrun{
+#' tbl_nvarchar(con, Id(schema = 'dbo', table = 'my_sql_data_table'))
+#' }
+#'
+tbl_nvarchar <- function(con, table) {
+  # Retrieve the column names and types
+  if(typeof(table) == "character"){
+    column_query <- paste0(
+      "SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH FROM INFORMATION_SCHEMA.COLUMNS ",
+      "WHERE TABLE_NAME='", table, "'"
+    )
+  } else{
+    column_query <- paste0(
+      "SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH FROM INFORMATION_SCHEMA.COLUMNS ",
+      "WHERE TABLE_SCHEMA='", schema, "' AND TABLE_NAME='", table, "'"
+    )
+  }
+  column.types <- DBI::dbGetQuery(
     con,
     column_query
   )
 
+  # Arrange the columns by type and width
   ct <- column.types %>%
     mutate(cml = case_when(
       is.na(CHARACTER_MAXIMUM_LENGTH) ~ 10,
@@ -27,28 +39,35 @@ tbl_nvarchar <- function(con, schema, table) {
     arrange(cml) %>%
     pull(COLUMN_NAME)
 
-  tbl(con, Id(schema = schema, table = table)) %>% select(all_of(ct))
+  # Run the query with the columns reordered by type and size
+  tbl(con, table) %>% select(all_of(ct))
 }
 
-#' Title
+#' tbl_nvarchar_select
 #'
-#' @param table
-#' @param con
-#' @param schema
-#' @param table_name
+#' @param con A DBI connection to a database
+#' @param table A valid table name or Id(schema, table)
 #' @param selection
 #'
 #' @return
 #' @export
 #'
 #' @examples
-tbl_nvarchar_select <- function(con, schema, table_name, selection) {
-  column.types <- dbGetQuery(
-    con,
-    paste0(
+tbl_nvarchar_select <- function(con, table, selection) {
+  if(typeof(table) == "character"){
+    column_query <- paste0(
+      "SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH FROM INFORMATION_SCHEMA.COLUMNS ",
+      "WHERE TABLE_NAME='", table, "'"
+    )
+  } else{
+    column_query <- paste0(
       "SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH FROM INFORMATION_SCHEMA.COLUMNS ",
       "WHERE TABLE_SCHEMA='", schema, "' AND TABLE_NAME='", table, "'"
     )
+  }
+  column.types <- DBI::dbGetQuery(
+    con,
+    column_query
   )
   ct <- column.types %>%
     mutate(cml = case_when(
@@ -65,20 +84,19 @@ tbl_nvarchar_select <- function(con, schema, table_name, selection) {
 
 #' Restore order tbl_nvarchar output
 #'
-#' @param table
-#' @param con
-#' @param schema
-#' @param table_name
+#' @param data Data to have columns reordered
+#' @param con A DBI connection to a database
+#' @param table A valid table name or Id(schema, table)
 #'
 #' @return
 #' @export
 #'
 #' @examples
-#' tbl_nvarchar(con, shema, table) %>%
+#' tbl_nvarchar(con, table) %>%
 #'   collect() %>%
-#'   restore_order_nvarchar(con, schema, table)
-restore_order_nvarchar <- function(table, con, schema, table_name) {
-  current_column_order <- names(table)
+#'   restore_order_nvarchar(con, table)
+restore_order_nvarchar <- function(data, con, table) {
+  current_column_order <- names(data)
   original_column_order <- tbl(con, Id(schema='INFORMATION_SCHEMA', table='COLUMNS')) %>%
     filter(table_schema == schema, table_name == table_name) %>%
     select(column_name)
@@ -87,5 +105,5 @@ restore_order_nvarchar <- function(table, con, schema, table_name) {
   added_columns <- setdiff(current_column_order, original_column_order)
   # Now re-ordering using the columns from the original table in their original
   # order, followed by any columns that have since been added to the data.
-  table %>% select(all_of(intersecting_columns, added_columns))
+  data %>% select(all_of(intersecting_columns, added_columns))
 }

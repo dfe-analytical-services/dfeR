@@ -20,6 +20,9 @@ BugReports: https://github.com/dfe-analytical-services/dfeR/issues
 Imports: 
     lifecycle
 Suggests:
+    devtools,
+    DBI,
+    RSQLite,
     knitr,
     rmarkdown,
     spelling,
