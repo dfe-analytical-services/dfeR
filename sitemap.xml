@@ -1,69 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://dfe-analytical-services.github.io/dfeR/404.html</loc>
-  </url>
-  <url>
-    <loc>https://dfe-analytical-services.github.io/dfeR/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>https://dfe-analytical-services.github.io/dfeR/CONTRIBUTING.html</loc>
-  </url>
-  <url>
-    <loc>https://dfe-analytical-services.github.io/dfeR/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://dfe-analytical-services.github.io/dfeR/PULL_REQUEST_TEMPLATE.html</loc>
-  </url>
-  <url>
-    <loc>https://dfe-analytical-services.github.io/dfeR/articles/connecting_to_sql.html</loc>
-  </url>
-  <url>
-    <loc>https://dfe-analytical-services.github.io/dfeR/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://dfe-analytical-services.github.io/dfeR/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://dfe-analytical-services.github.io/dfeR/index.html</loc>
-  </url>
-  <url>
-    <loc>https://dfe-analytical-services.github.io/dfeR/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://dfe-analytical-services.github.io/dfeR/reference/comma_sep.html</loc>
-  </url>
-  <url>
-    <loc>https://dfe-analytical-services.github.io/dfeR/reference/dfeR-package.html</loc>
-  </url>
-  <url>
-    <loc>https://dfe-analytical-services.github.io/dfeR/reference/format_ay.html</loc>
-  </url>
-  <url>
-    <loc>https://dfe-analytical-services.github.io/dfeR/reference/format_ay_reverse.html</loc>
-  </url>
-  <url>
-    <loc>https://dfe-analytical-services.github.io/dfeR/reference/format_fy.html</loc>
-  </url>
-  <url>
-    <loc>https://dfe-analytical-services.github.io/dfeR/reference/format_fy_reverse.html</loc>
-  </url>
-  <url>
-    <loc>https://dfe-analytical-services.github.io/dfeR/reference/get_clean_sql.html</loc>
-  </url>
-  <url>
-    <loc>https://dfe-analytical-services.github.io/dfeR/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://dfe-analytical-services.github.io/dfeR/reference/pretty_filesize.html</loc>
-  </url>
-  <url>
-    <loc>https://dfe-analytical-services.github.io/dfeR/reference/pretty_num.html</loc>
-  </url>
-  <url>
-    <loc>https://dfe-analytical-services.github.io/dfeR/reference/pretty_time_taken.html</loc>
-  </url>
-  <url>
-    <loc>https://dfe-analytical-services.github.io/dfeR/reference/round_five_up.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://dfe-analytical-services.github.io/dfeR/404.html</loc></url>
+<url><loc>https://dfe-analytical-services.github.io/dfeR/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://dfe-analytical-services.github.io/dfeR/CONTRIBUTING.html</loc></url>
+<url><loc>https://dfe-analytical-services.github.io/dfeR/LICENSE.html</loc></url>
+<url><loc>https://dfe-analytical-services.github.io/dfeR/PULL_REQUEST_TEMPLATE.html</loc></url>
+<url><loc>https://dfe-analytical-services.github.io/dfeR/articles/connecting_to_sql.html</loc></url>
+<url><loc>https://dfe-analytical-services.github.io/dfeR/articles/index.html</loc></url>
+<url><loc>https://dfe-analytical-services.github.io/dfeR/authors.html</loc></url>
+<url><loc>https://dfe-analytical-services.github.io/dfeR/index.html</loc></url>
+<url><loc>https://dfe-analytical-services.github.io/dfeR/news/index.html</loc></url>
+<url><loc>https://dfe-analytical-services.github.io/dfeR/reference/comma_sep.html</loc></url>
+<url><loc>https://dfe-analytical-services.github.io/dfeR/reference/dfeR-package.html</loc></url>
+<url><loc>https://dfe-analytical-services.github.io/dfeR/reference/format_ay.html</loc></url>
+<url><loc>https://dfe-analytical-services.github.io/dfeR/reference/format_ay_reverse.html</loc></url>
+<url><loc>https://dfe-analytical-services.github.io/dfeR/reference/format_fy.html</loc></url>
+<url><loc>https://dfe-analytical-services.github.io/dfeR/reference/format_fy_reverse.html</loc></url>
+<url><loc>https://dfe-analytical-services.github.io/dfeR/reference/get_clean_sql.html</loc></url>
+<url><loc>https://dfe-analytical-services.github.io/dfeR/reference/index.html</loc></url>
+<url><loc>https://dfe-analytical-services.github.io/dfeR/reference/pretty_filesize.html</loc></url>
+<url><loc>https://dfe-analytical-services.github.io/dfeR/reference/pretty_num.html</loc></url>
+<url><loc>https://dfe-analytical-services.github.io/dfeR/reference/pretty_time_taken.html</loc></url>
+<url><loc>https://dfe-analytical-services.github.io/dfeR/reference/round_five_up.html</loc></url>
 </urlset>
+
