@@ -27,7 +27,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">dfeR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -90,6 +90,14 @@ the connection between R and SQL in the Department for Education (DfE),
 please see the <a href="https://dfe-analytical-services.github.io/analysts-guide/learning-development/r.html#interacting-with-a-sql-database-from-within-r-scripts" class="external-link">Interacting
 with a SQL database section of our Analysts’ Guide</a>.</p>
 <div class="section level2">
+<h2 id="pre-requisites">Pre-requisites<a class="anchor" aria-label="anchor" href="#pre-requisites"></a>
+</h2>
+<p>To connect to SQL you will need SQL drivers installed. These come as
+standard currently with the Microsoft SQL Server Management Studio
+downloads from Department for Education’s software center. Make sure to
+have downloaded the latest version before starting.</p>
+</div>
+<div class="section level2">
 <h2 id="connecting-to-a-database">Connecting to a database<a class="anchor" aria-label="anchor" href="#connecting-to-a-database"></a>
 </h2>
 <p>Usually in the DfE we use a combination of <a href="https://odbc.r-dbi.org/" class="external-link">odbc</a> and <a href="https://dbi.r-dbi.org/" class="external-link">DBI</a> to connect to our SQL
@@ -120,6 +128,13 @@ database from an R Shiny app that is deployed on a server, please
 contact the <a href="mailto:statistics.development@education.gov.uk">Statistics
 Development Team</a> who will be able to advise on the setup and steps
 required.</p>
+<p>Note that your server name may include backslashes, if it does you’ll
+need to make sure to have two backslashes in your R code due to the way
+that special characters are escaped.</p>
+<p>For example, in SQL Server Management Studio (SSMS) or Azure Data
+Studio you might call your server <code>T1PRANMSQL\SQLPROD,60125</code>,
+but in R when adding the server name you’d need to call it
+<code>T1PRANMSQL\\SQLPROD,60125</code>.</p>
 </div>
 <div class="section level2">
 <h2 id="reading-a-sql-script-into-r">Reading a SQL script into R<a class="anchor" aria-label="anchor" href="#reading-a-sql-script-into-r"></a>
@@ -159,8 +174,8 @@ directly into the function such as:</p>
 <h3 id="troubleshooting">Troubleshooting<a class="anchor" aria-label="anchor" href="#troubleshooting"></a>
 </h3>
 <p>Our first advice if you hit an error, would be to check that your SQL
-script runs in SQL Server Management Studio (SSMS) and is a valid SQL
-‘SELECT’ query that returns a single output.</p>
+script runs in SQL Server Management Studio (SSMS) or Azure Data Studio
+and is a valid SQL ‘SELECT’ query that returns a single output.</p>
 <p>Assuming that it runs fine in SSMS, the next thing to try is to set
 additional settings while cleaning the SQL script. You can do this with
 the <code>additional_settings</code> argument in the
