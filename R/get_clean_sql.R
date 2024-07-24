@@ -58,7 +58,8 @@ get_clean_sql <- function(filepath, additional_settings = FALSE) {
     # Prefix with settings that sometimes help
     sql_string <- paste(
       "SET ANSI_PADDING OFF",
-      "SET NOCOUNT ON;"
+      "SET NOCOUNT ON;",
+      sql_string
     )
   }
 
