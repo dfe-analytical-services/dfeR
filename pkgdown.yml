@@ -3,7 +3,7 @@ pkgdown: 2.1.0
 pkgdown_sha: ~
 articles:
   connecting_to_sql: connecting_to_sql.html
-last_built: 2024-07-24T10:23Z
+last_built: 2024-07-24T10:25Z
 urls:
   reference: https://dfe-analytical-services.github.io/dfeR/reference
   article: https://dfe-analytical-services.github.io/dfeR/articles
