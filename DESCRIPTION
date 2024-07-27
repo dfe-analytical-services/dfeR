@@ -20,6 +20,8 @@ URL: https://dfe-analytical-services.github.io/dfeR/,
 BugReports: https://github.com/dfe-analytical-services/dfeR/issues
 Imports: 
     emoji,
+    httr,
+    jsonlite,
     lifecycle,
     renv,
     usethis,

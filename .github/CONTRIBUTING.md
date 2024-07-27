@@ -219,6 +219,10 @@ Vignettes can be found in the `vignettes/` folder as .Rmd files. To start a new 
 usethis::use_vignette("name_of_vignette")
 ```
 
+## ONS API
+
+Add some notes here about the fetch_geog script
+
 ## Code of Conduct
 
 Please note that the dfeR project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this project you agree to abide by its terms.
