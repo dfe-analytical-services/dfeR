@@ -22,6 +22,11 @@ reference:
   contents:
   - starts_with("format_")
 
+- title: Fetch geography lists
+  desc: Pull geography lookups from the ONS Geography Portal
+  contents:
+  - starts_with("fetch_")
+
 - title: Helpers
   desc: >
     Functions used in other functions across the package, also useful in

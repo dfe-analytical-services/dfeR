@@ -18,6 +18,8 @@ URL: https://dfe-analytical-services.github.io/dfeR/,
     https://github.com/dfe-analytical-services/dfeR
 BugReports: https://github.com/dfe-analytical-services/dfeR/issues
 Imports: 
+    httr,
+    jsonlite,
     lifecycle
 Suggests:
     knitr,
