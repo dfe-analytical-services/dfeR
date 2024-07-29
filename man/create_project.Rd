@@ -7,8 +7,8 @@
 create_project(
   path,
   init_renv = TRUE,
-  include_structure_for_pkg,
-  create_publication_proj,
+  include_structure_for_pkg = FALSE,
+  create_publication_proj = FALSE,
   include_github_gitignore,
   ...
 )
@@ -19,14 +19,14 @@ create_project(
 \item{init_renv}{Boolean; initiate renv in the project.
 Default is set to true.}
 
-\item{include_structure_for_pkg}{Additional folder structure for
-package development}
+\item{include_structure_for_pkg}{Boolean; Additional folder structure for
+package development. Default is set to false.}
 
-\item{create_publication_proj}{Should the folder structure be for a
-publication project}
+\item{create_publication_proj}{Boolean; Should the folder structure be for a
+publication project. Default is set to false.}
 
-\item{include_github_gitignore}{Should a strict .gitignore file for
-GitHub be created}
+\item{include_github_gitignore}{Boolean; Should a strict .gitignore file for
+GitHub be created.}
 
 \item{...}{Additional parameters, currently not used}
 }
@@ -45,17 +45,12 @@ creates a readme, and optionally initializes \code{{renv}}.
 }
 \examples{
 \dontrun{
-# Load the dfeR package (or even better call it explicitly)
-library(dfeR)
-
-# Define the path for the new project
-path <- "/path/to/your/new/project"  # replace with your actual path
 
 # Call the function to create a new project
 dfeR::create_project(
-  path = path,
+  path = "C:/path/to/your/new/project",
   init_renv = TRUE,
-  include_structure_for_pkg = TRUE,
+  include_structure_for_pkg = FALSE,
   create_publication_proj = FALSE,
   include_github_gitignore = TRUE
 )
