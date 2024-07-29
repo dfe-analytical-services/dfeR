@@ -59,20 +59,20 @@ create_project <- function(
 
 
   # Setup R/ folder and template function scripts
-  # helpers function script
-  usethis::use_r(name = "helpers.R", open = FALSE)
-  helpers_content <- c(
+  # utils function script
+  usethis::use_r(name = "utils.R", open = FALSE)
+  utils_content <- c(
     paste0(
       "# Your functions can go here. ",
       "Then, when you want to ",
       "call those functions, run\n",
-      "# `source('R/helpers.R')` at the start of your ",
+      "# `source('R/utils.R')` at the start of your ",
       "script.\n\n",
       "print('Your scripts and functions should be in ",
       "the R folder.')"
     )
   )
-  writeLines(helpers_content, paste0(path, "/R/helpers.R"))
+  writeLines(utils_content, paste0(path, "/R/utils.R"))
 
   # load_data functions script
   usethis::use_r(name = "load_data.R", open = FALSE)
@@ -100,7 +100,7 @@ create_project <- function(
 
   # Initialise testthat and add tests for the function scripts
   usethis::use_testthat()
-  usethis::use_test("helpers.R", open = FALSE)
+  usethis::use_test("utils.R", open = FALSE)
   usethis::use_test("load_data.R", open = FALSE)
 
 
