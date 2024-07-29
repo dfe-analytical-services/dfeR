@@ -66,6 +66,19 @@ create_project <- function(
   usethis::create_project(path = path, open = FALSE)
   usethis::proj_set(path)
 
+  # Create a .Rprofile with a custom welcome message
+  file.create(paste0(path, "/.Rprofile"))
+  rprofile_content <- c(
+    paste0(
+      ".First <- function() {\n",
+      "message('Welcome to your dfeR project!')\n",
+      # "praise::praise('${Exclamation}-${Exclamation}! ",
+      # "Time for some ${adjective} R coding!')\n",
+      "}"
+    )
+  )
+  writeLines(rprofile_content, paste0(path, "/.Rprofile"))
+
 
   # Setup R/ folder and template function scripts -----
   ## helper_functions script
@@ -263,6 +276,9 @@ create_project <- function(
     )
   }
 
-  paste0("Your new dfeR project has been successfuly created!",
-         "It exists at the file path: '", path, "'")
+  cat(
+    paste0("Your new dfeR project has been successfuly created! ",
+           emo::ji("mortar_board"), "\n",
+           "It exists at the file path: '", path, "'")
+  )
 }
