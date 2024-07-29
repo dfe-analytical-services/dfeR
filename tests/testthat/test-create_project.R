@@ -18,11 +18,11 @@ test_that("create_project() basic functionality test", {
     expect_true(dir.exists(paste0(temp_dir, "/_output")))
 
     # Function files
-    expect_true(file.exists(paste0(temp_dir, "/R/helpers.R")))
+    expect_true(file.exists(paste0(temp_dir, "/R/utils.R")))
 
     # Test files
     expect_true(file.exists(paste0(temp_dir,
-                                   "/tests/testthat/test-helpers.R")))
+                                   "/tests/testthat/test-utils.R")))
 
     # renv
     expect_true(dir.exists(paste0(temp_dir, "/renv")))
