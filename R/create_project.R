@@ -262,4 +262,7 @@ create_project <- function(
              ".packages('renv')`")
     )
   }
+
+  paste0("Your new dfeR project has been successfuly created!",
+         "It exists at the file path: '", path, "'")
 }
