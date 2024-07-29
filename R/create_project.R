@@ -277,8 +277,11 @@ create_project <- function(
   }
 
   cat(
-    paste0("Your new dfeR project has been successfuly created! ",
+    paste0("\n\n",
+           "****************************************************************\n",
+           "Your new dfeR project has been successfuly created! ",
            emo::ji("mortar_board"), "\n",
-           "It exists at the file path: '", path, "'")
+           "It exists at the file path: '", path, "'\n",
+           "****************************************************************\n")
   )
 }
