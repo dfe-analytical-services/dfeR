@@ -53,13 +53,13 @@ create_project <- function(
     ...) {
 
 
-  # Project creation
+  # Project creation -----
   usethis::create_project(path = path, open = FALSE)
   usethis::proj_set(path)
 
 
-  # Setup R/ folder and template function scripts
-  # utils function script
+  # Setup R/ folder and template function scripts -----
+  ## utils function script
   usethis::use_r(name = "utils.R", open = FALSE)
   utils_content <- c(
     paste0(
@@ -74,7 +74,7 @@ create_project <- function(
   )
   writeLines(utils_content, paste0(path, "/R/utils.R"))
 
-  # load_data functions script
+  ## load_data functions script
   usethis::use_r(name = "load_data.R", open = FALSE)
   load_content <- c(
     paste0(
@@ -98,13 +98,13 @@ create_project <- function(
   writeLines(load_content, paste0(path, "/R/load_data.R"))
 
 
-  # Initialise testthat and add tests for the function scripts
+  # Initialise testthat and add tests for the function scripts -----
   usethis::use_testthat()
   usethis::use_test("utils.R", open = FALSE)
   usethis::use_test("load_data.R", open = FALSE)
 
 
-  # Build the core project structure
+  # Build the core project structure -----
   if (!create_publication_proj) {
     # create ad-hoc project folder structure
     dir.create(paste0(path, "/_analysis/"))
@@ -132,7 +132,7 @@ create_project <- function(
   }
 
 
-  # create a .gitignore file
+  # Create the .gitignore file -----
   if (!include_github_gitignore) {
     # .gitignore for Azure DevOps
     gitignore_content <- c(
@@ -164,7 +164,7 @@ create_project <- function(
   writeLines(gitignore_concat, con = file.path(path, ".gitignore"))
 
 
-  # create a readme
+  # Create the readme -----
   readme_content <- c(
     "# Readme",
     "This is the template for a standard data analysis.",
@@ -239,7 +239,7 @@ create_project <- function(
   writeLines(readme_concat, con = file.path(path, "README.md"))
 
 
-  # Initialise renv
+  # Initialise renv -----
   if (requireNamespace("renv", quietly = TRUE) && init_renv) {
     renv::init(project = path,
                bare = TRUE, load = FALSE, restart = FALSE)
