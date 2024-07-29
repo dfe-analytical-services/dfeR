@@ -28,8 +28,7 @@ Imports:
     stringr
 Suggests:
     knitr,
-    spelling,
-    waldo
+    spelling
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3
