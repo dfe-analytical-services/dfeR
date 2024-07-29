@@ -29,17 +29,12 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' # Load the dfeR package (or even better call it explicitly)
-#' library(dfeR)
-#'
-#' # Define the path for the new project
-#' path <- "/path/to/your/new/project"  # replace with your actual path
 #'
 #' # Call the function to create a new project
 #' dfeR::create_project(
-#'   path = path,
+#'   path = "C:/path/to/your/new/project",
 #'   init_renv = TRUE,
-#'   include_structure_for_pkg = TRUE,
+#'   include_structure_for_pkg = FALSE,
 #'   create_publication_proj = FALSE,
 #'   include_github_gitignore = TRUE
 #' )
@@ -51,6 +46,20 @@ create_project <- function(
     create_publication_proj = FALSE,
     include_github_gitignore,
     ...) {
+
+  # Check if the parameters are 1 length booleans
+  if (!is.logical(init_renv) | length(init_renv) != 1) {
+    stop("init_renv must be a boolean.")
+  } else if (!is.logical(include_structure_for_pkg) |
+               length(include_structure_for_pkg) != 1) {
+    stop("include_structure_for_pkg must be a boolean.")
+  } else if (!is.logical(create_publication_proj) |
+               length(create_publication_proj) != 1) {
+    stop("create_publication_proj must be a boolean.")
+  } else if (!is.logical(include_github_gitignore) |
+               length(include_github_gitignore) != 1) {
+    stop("include_github_gitignore must be a boolean.")
+  }
 
 
   # Project creation -----

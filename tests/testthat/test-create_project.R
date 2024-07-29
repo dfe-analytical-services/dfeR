@@ -55,3 +55,24 @@ test_that("init_renv = FALSE displays custom warning message", {
     })
   })
 })
+
+
+test_that("Empty include_github_gitignore displays boolean error message", {
+  local({
+    # Create a non-temporary directory for testing
+    temp_dir <- withr::local_tempdir()
+
+    # Create project with include_github_gitignore as value 1
+    suppressMessages({
+      expect_error({
+        create_project(
+          path = temp_dir,
+          init_renv = FALSE,
+          include_structure_for_pkg = FALSE,
+          create_publication_proj = FALSE,
+          include_github_gitignore = 1
+        )
+      }, regexp = "include_github_gitignore must be a boolean.")
+    })
+  })
+})
