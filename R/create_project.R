@@ -3,12 +3,12 @@
 #' @param path Path of the new project
 #' @param init_renv Boolean; initiate renv in the project.
 #' Default is set to true.
-#' @param include_structure_for_pkg Additional folder structure for
-#' package development
-#' @param create_publication_proj Should the folder structure be for a
-#' publication project
-#' @param include_github_gitignore Should a strict .gitignore file for
-#' GitHub be created
+#' @param include_structure_for_pkg Boolean; Additional folder structure for
+#' package development. Default is set to false.
+#' @param create_publication_proj Boolean; Should the folder structure be for a
+#' publication project. Default is set to false.
+#' @param include_github_gitignore Boolean; Should a strict .gitignore file for
+#' GitHub be created.
 #' @param ... Additional parameters, currently not used
 #'
 #' @details This function creates a new project with a custom folder structure.
@@ -47,8 +47,8 @@
 create_project <- function(
     path,
     init_renv = TRUE,
-    include_structure_for_pkg,
-    create_publication_proj,
+    include_structure_for_pkg = FALSE,
+    create_publication_proj = FALSE,
     include_github_gitignore,
     ...) {
 
