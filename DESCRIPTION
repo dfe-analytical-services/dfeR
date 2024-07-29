@@ -25,7 +25,8 @@ Imports:
     testthat,
     renv,
     rmarkdown,
-    stringr
+    stringr,
+    emo
 Suggests:
     knitr,
     spelling
