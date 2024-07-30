@@ -51,7 +51,7 @@ test_that("init_renv = FALSE displays custom warning message", {
           create_publication_proj = FALSE,
           include_github_gitignore = FALSE
         )
-      }, regexp = "renv couldn't be used as the `renv` package is not ")
+      }, regexp = "Beware `\\{renv\\}` not in use\\.")
     })
   })
 })
