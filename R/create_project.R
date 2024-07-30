@@ -22,6 +22,7 @@
 #' @importFrom withr with_dir
 #' @importFrom usethis create_package create_project use_testthat use_test
 #' @importFrom usethis proj_set
+#' @importFrom praise praise
 #' @import testthat
 #' @rawNamespace import(renv, except = run)
 #' @import rmarkdown
@@ -47,6 +48,7 @@ create_project <- function(
     include_github_gitignore,
     ...) {
 
+  # Function parameter checks ---
   # Check if the parameters are 1 length booleans
   if (!is.logical(init_renv) | length(init_renv) != 1) {
     stop("init_renv must be a boolean.")
@@ -71,9 +73,9 @@ create_project <- function(
   rprofile_content <- c(
     paste0(
       ".First <- function() {\n",
-      "message('Welcome to your dfeR project!')\n",
-      # "praise::praise('${Exclamation}-${Exclamation}! ",
-      # "Time for some ${adjective} R coding!')\n",
+      "message(praise::praise('${Exclamation}-${Exclamation}! '),\n",
+      "'Welcome to your dfeR project.\n',\n",
+      "praise::praise('Time for some ${adjective} R coding...'))\n",
       "}"
     )
   )
@@ -262,26 +264,73 @@ create_project <- function(
 
 
   # Initialise renv -----
-  if (requireNamespace("renv", quietly = TRUE) && init_renv) {
-    renv::init(project = path,
-               bare = TRUE, load = FALSE, restart = FALSE)
-    renv::snapshot(project = path, prompt = FALSE,
-                   update = TRUE, packages = list("rmarkdown", "testthat",
-                                                  "renv", "stringr"))
+  successful_creation <- TRUE
+
+  if (init_renv) {
+    # Test if renv snapshot works - if not throw informative error and
+    # set project creation as fail
+    tryCatch({
+      if (requireNamespace("renv", quietly = TRUE)) {
+        renv::init(project = path, bare = TRUE, load = FALSE, restart = FALSE)
+        renv::snapshot(
+          project = path,
+          prompt = FALSE,
+          update = TRUE,
+          packages = list("rmarkdown", "testthat", "renv", "stringr")
+        )
+      } else {
+        # Message if renv not installed
+        message(
+          paste0("Warning: ",
+                 "renv couldn't be used as the `{renv}` package is not ",
+                 "installed.\n",
+                 "If you want to use renv, please first install it with ",
+                 "`install.packages('renv')`")
+        )
+        successful_creation <<- FALSE
+      }
+    }, error = function(e) {
+      if (grepl("aborting snapshot due to pre-flight validation failure",
+                e$message)) {
+        # Message if renv snapshot fails
+        message(
+          "Warning: ",
+          "`{renv}` not properly initialised due to the above missing ",
+          "package(s).\n",
+          "Please install the package(s) to successfully create project."
+        )
+
+        successful_creation <<- FALSE
+      } else {
+        # Re-throw original error if it's not related to snapshot
+        message(e$message)
+
+        successful_creation <<- FALSE
+      }
+    })
   } else {
+    # Message for if init_renv is FALSE
     warning(
-      paste0("renv couldn't be used as the `renv` package is not installed.",
-             "If you want to use renv, please first install it with `install",
-             ".packages('renv')`")
+      "Beware `{renv}` not in use."
     )
   }
 
-  cat(
-    paste0("\n\n",
-           "****************************************************************\n",
-           "Your new dfeR project has been successfuly created! ",
-           emo::ji("mortar_board"), "\n",
-           "It exists at the file path: '", path, "'\n",
-           "****************************************************************\n")
-  )
+
+
+
+
+  # Successful project creation message (or delete project if fails)
+  if (successful_creation) {
+    cat(
+      paste0("\n\n",
+             "****************************************************************\n",
+             "Your new dfeR project has been successfuly created! ",
+             emo::ji("mortar_board"), "\n",
+             "It exists at the file path: '", path, "'\n",
+             "****************************************************************\n")
+    )
+  } else {
+    unlink(path, recursive = TRUE)
+  }
+
 }
