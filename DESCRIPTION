@@ -26,7 +26,8 @@ Imports:
     renv,
     rmarkdown,
     stringr,
-    emo
+    emo,
+    praise
 Suggests:
     knitr,
     spelling
