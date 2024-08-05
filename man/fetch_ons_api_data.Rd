@@ -7,7 +7,8 @@
 fetch_ons_api_data(data_id, query_params)
 }
 \arguments{
-\item{data_id}{the id of the dataset to query, can be found from the Open Geography portal}
+\item{data_id}{the id of the dataset to query, can be found from the Open
+Geography Portal}
 
 \item{query_params}{query parameters to pass into the API}
 }
@@ -15,12 +16,19 @@ fetch_ons_api_data(data_id, query_params)
 parsed data.frame of geographic names and codes
 }
 \description{
-Helper function that takes a dataset id and parameters to query and parse data from the ONS API
-TODO: link to documentation
+Helper function that takes a dataset id and parameters to query and parse
+data from the ONS API
+}
+\details{
+On the ONS website, find the dataset you're interested in and then use the
+query explorer to find the information for the query
 }
 \examples{
-fetch_ons_api_data(
-  data_id = "LAD23_RGN23_EN_LU",
-  query_params = list(where = "1=1", outFields = "*", outSR = "4326", f = "json")
-)
+if (interactive()) {
+  fetch_ons_api_data(
+    data_id = "LAD23_RGN23_EN_LU",
+    query_params =
+      list(where = "1=1", outFields = "*", outSR = "4326", f = "json")
+  )
+}
 }
