@@ -6,17 +6,20 @@ test_that("create_project() basic functionality test", {
     temp_dir <- withr::local_tempdir()
 
     # Call the function with a valid path
-    suppressMessages({
+    capture.output(
+      suppressMessages({
       create_project(path = temp_dir,
                      init_renv = TRUE,
                      include_structure_for_pkg = FALSE,
                      create_publication_proj = FALSE,
                      include_github_gitignore = FALSE)
-    })
+      }),
+      file = nullfile()
+    )
 
     # Verify that the project structure is created correctly
     expect_true(dir.exists(paste0(temp_dir, "/_analysis")))
-    expect_true(file.exists(paste0(temp_dir, "/_analysis/analysis.qmd")))
+    expect_true(file.exists(paste0(temp_dir, "/run.R")))
     expect_true(dir.exists(paste0(temp_dir, "/_output")))
 
     # Function files
@@ -42,17 +45,20 @@ test_that("init_renv = FALSE displays custom warning message", {
     temp_dir <- withr::local_tempdir()
 
     # Create project with renv as false
-    suppressMessages({
-      expect_warning({
-        create_project(
-          path = temp_dir,
-          init_renv = FALSE,
-          include_structure_for_pkg = FALSE,
-          create_publication_proj = FALSE,
-          include_github_gitignore = FALSE
-        )
-      }, regexp = "Beware `\\{renv\\}` not in use\\.")
-    })
+    capture.output(
+      suppressMessages({
+        expect_warning({
+          create_project(
+            path = temp_dir,
+            init_renv = FALSE,
+            include_structure_for_pkg = FALSE,
+            create_publication_proj = FALSE,
+            include_github_gitignore = FALSE
+          )
+        }, regexp = "Beware `\\{renv\\}` not in use\\.")
+      }),
+      file = nullfile()
+    )
   })
 })
 
