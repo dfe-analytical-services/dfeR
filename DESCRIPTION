@@ -22,15 +22,13 @@ Imports:
     usethis,
     utils,
     withr,
-    testthat,
     renv,
-    rmarkdown,
-    stringr,
-    emo,
-    praise
+    emo
 Suggests:
     knitr,
-    spelling
+    rmarkdown,
+    spelling,
+    testthat (>= 3.0.0)
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3
