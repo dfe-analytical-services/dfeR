@@ -22,11 +22,8 @@
 #' @importFrom withr with_dir
 #' @importFrom usethis create_package create_project use_testthat use_test
 #' @importFrom usethis proj_set
-#' @importFrom praise praise
-#' @import testthat
+#' @importFrom emo ji
 #' @rawNamespace import(renv, except = run)
-#' @import rmarkdown
-#' @import stringr
 #' @export
 #' @examples
 #' \dontrun{
@@ -67,19 +64,6 @@ create_project <- function(
   # Project creation -----
   usethis::create_project(path = path, open = FALSE)
   usethis::proj_set(path)
-
-  # Create a .Rprofile with a custom welcome message
-  file.create(paste0(path, "/.Rprofile"))
-  rprofile_content <- c(
-    paste0(
-      ".First <- function() {\n",
-      "message(praise::praise('${Exclamation}-${Exclamation}! '),\n",
-      "'Welcome to your dfeR project.\n',\n",
-      "praise::praise('Time for some ${adjective} R coding...'))\n",
-      "}"
-    )
-  )
-  writeLines(rprofile_content, paste0(path, "/.Rprofile"))
 
 
   # Setup R/ folder and template function scripts -----
@@ -123,7 +107,6 @@ create_project <- function(
 
 
   # Initialise testthat and add tests for the function scripts -----
-  usethis::use_testthat()
   usethis::use_test("helper_functions.R", open = FALSE)
   usethis::use_test("load_data.R", open = FALSE)
 
@@ -131,15 +114,17 @@ create_project <- function(
   # Build the core project structure -----
   if (!create_publication_proj) {
     # create ad-hoc project folder structure
+    file.create(paste0(path, "/run.R"))
+    dir.create(paste0(path, "/_data/"))
     dir.create(paste0(path, "/_analysis/"))
-    file.create(paste0(path, "/_analysis/analysis.qmd"))
     dir.create(paste0(path, "/_output/"))
   } else {
     # create large folder structure
     dir.create(paste0(path, "/01_data"))
+    dir.create(paste0(path, "/01_data/01_raw"))
+    dir.create(paste0(path, "/01_data/02_prod"))
 
     dir.create(paste0(path, "/02_analysis"))
-    file.create(paste0(path, "/02_analysis/analysis.qmd"))
 
     dir.create(paste0(path, "/03_documentation"))
     dir.create(paste0(path, "/03_documentation/01_public"))
@@ -163,8 +148,7 @@ create_project <- function(
       ".Rproj.user",
       ".Rhistory",
       ".RData",
-      ".Ruserdata",
-      "*.xlsx"
+      ".Ruserdata"
     )
   } else {
     # .gitignore for GitHub
@@ -172,12 +156,13 @@ create_project <- function(
       ".Rproj.user",
       ".Rhistory",
       ".RData",
+      ".RData*",
       ".Ruserdata",
+      "*unpublished*",
       "_output",
-      "01_Data",
-      "03_Documentation",
       "04_Outputs",
-      "*/02_priv",
+      "*/*_priv",
+      "*/*_raw",
       "*.html",
       "*.xlsx"
     )
@@ -263,6 +248,12 @@ create_project <- function(
   writeLines(readme_concat, con = file.path(path, "README.md"))
 
 
+  # .renvignore
+  file.create(paste0(path, "/.renvignore"))
+  renvignore_content <- "tests/*"
+  writeLines(renvignore_content, paste0(path, "/.renvignore"))
+
+
   # Initialise renv -----
   successful_creation <- TRUE
 
@@ -276,7 +267,7 @@ create_project <- function(
           project = path,
           prompt = FALSE,
           update = TRUE,
-          packages = list("rmarkdown", "testthat", "renv", "stringr")
+          packages = list("renv")
         )
       } else {
         # Message if renv not installed
@@ -314,6 +305,30 @@ create_project <- function(
       "Beware `{renv}` not in use."
     )
   }
+
+
+
+  # Create a .Rprofile with a custom welcome message
+  if (!file.exists(paste0(path, "/.Rprofile"))) {
+    file.create(paste0(path, "/.Rprofile"))
+  }
+  rprofile_content <- script <- paste(
+    ".First <- function() {",
+    "if ('praise' %in% installed.packages()) {",
+    "    message(praise::praise('${Exclamation}-${Exclamation}! '),",
+    "            'Welcome to your dfeR project.\\n',",
+    "            praise::praise('Time for some ${adjective} R coding...'))",
+    "  } else {",
+    "    message('Welcome to your dfeR project!\\n',",
+    "            'To finish setting up renv, please do the following:\\n\\n',",
+    "            '- Run `renv::snapshot()`\\n',",
+    "            '- Select `2: Install the packages, then snapshot.`\\n',",
+    "            '- Finally type `y` to `Do you want to proceed?`\\n')",
+    "  }",
+    "}",
+    "source('renv/activate.R')"
+    , sep = "\n")
+  writeLines(rprofile_content, paste0(path, "/.Rprofile"))
 
 
 
