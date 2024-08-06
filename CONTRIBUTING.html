@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="index.html">dfeR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="logo.png" class="logo" alt=""><h1>Contributing to dfeR</h1>
-      <small class="dont-index">Source: <a href="https://github.com/dfe-analytical-services/dfeR/blob/v0.3.1/.github/CONTRIBUTING.md" class="external-link"><code>.github/CONTRIBUTING.md</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/dfe-analytical-services/dfeR/blob/main/.github/CONTRIBUTING.md" class="external-link"><code>.github/CONTRIBUTING.md</code></a></small>
     </div>
 
 <div id="contributing-to-dfer" class="section level1">
@@ -69,11 +69,11 @@
 <p>Where possible, we’d recommend following the <a href="https://testdriven.io/test-driven-development/" class="external-link">Test Driven Development (TDD)</a> approach. Though if you’re new to package development, or already have code for a specific function feel free to start with step 2, to copy the function into the package and then go back to step 1 afterwards.</p>
 <ol style="list-style-type: decimal"><li>Write tests using <a href="https://r-pkgs.org/testing-basics.html" class="external-link">testthat</a> for the behaviour you want. Either edit an existing test script, or if adding a new function, create a test script using:</li>
 </ol><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu">use_test</span><span class="op">(</span><span class="st">"name_of_new_function"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_r.html" class="external-link">use_test</a></span><span class="op">(</span><span class="st">"name_of_new_function"</span><span class="op">)</span></span></code></pre></div>
 <p>Feel free to have a look in the /tests/test_that folder for some examples if you want to see example tests in practice.</p>
 <ol start="2" style="list-style-type: decimal"><li>Write just enough code so that the tests pass. Again, either edit an existing function, or add a new R script using:</li>
 </ol><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu">use_r</span><span class="op">(</span><span class="st">"name_of_new_function"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_r.html" class="external-link">use_r</a></span><span class="op">(</span><span class="st">"name_of_new_function"</span><span class="op">)</span></span></code></pre></div>
 <ol start="3" style="list-style-type: decimal"><li>Add documentation for what you’ve done. Follow the <a href="https://roxygen2.r-lib.org/articles/rd.html" class="external-link">roxygen2</a> pattern for comments. You can add a standard skeleton using <code>Code &gt; Insert Roxygen Skeleton</code> or by <code>Ctrl+Shift+Alt+R</code> when in your R script. Here’s an example of what it looks like for a basic <code>add()</code> function:</li>
 </ol><pre><code><span><span class="co">#' @description Add together two numbers</span></span>
 <span><span class="co">#'</span></span>
@@ -111,10 +111,10 @@
 <h2 id="adding-package-dependencies">Adding package dependencies<a class="anchor" aria-label="anchor" href="#adding-package-dependencies"></a></h2>
 <p>Add any packages the package users will need with:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu">use_package</span><span class="op">(</span><span class="va">pkgname</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_package.html" class="external-link">use_package</a></span><span class="op">(</span><span class="va">pkgname</span><span class="op">)</span></span></code></pre></div>
 <p>Add any packages that package developers only may need with:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu">use_package</span><span class="op">(</span><span class="va">pkgname</span>, type <span class="op">=</span> <span class="st">"suggests"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_package.html" class="external-link">use_package</a></span><span class="op">(</span><span class="va">pkgname</span>, type <span class="op">=</span> <span class="st">"suggests"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="updating-the-readme">Updating the README<a class="anchor" aria-label="anchor" href="#updating-the-readme"></a></h2>
@@ -137,7 +137,7 @@
 <h2 id="updating-the-package-version">Updating the package version<a class="anchor" aria-label="anchor" href="#updating-the-package-version"></a></h2>
 <p>Once changes have been completed, reviewed and are ready for use in the wild, you can increment the package version using:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu">use_version</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_version.html" class="external-link">use_version</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>If you are unsure what kind of version to increment, have a look through <a href="https://r-pkgs.org/lifecycle.html#sec-lifecycle-release-type" class="external-link">lifecycle’s guidance on release types</a>.</p>
 <p>Once you’ve incremented the version number, it’ll offer to perform a commit on your behalf. As this happens it will add an update to <code>NEWS.md</code>, which acts as the changelog for the package. Make sure this is updated correctly and then push to GitHub.</p>
 <p>Once the version has been updated and pushed, create a new GitHub release version.</p>
@@ -184,7 +184,7 @@
 <h2 id="adding-vignettes">Adding vignettes<a class="anchor" aria-label="anchor" href="#adding-vignettes"></a></h2>
 <p>Vignettes can be found in the <code>vignettes/</code> folder as .Rmd files. To start a new one use:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu">use_vignette</span><span class="op">(</span><span class="st">"name_of_vignette"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_vignette.html" class="external-link">use_vignette</a></span><span class="op">(</span><span class="st">"name_of_vignette"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a></h2>
