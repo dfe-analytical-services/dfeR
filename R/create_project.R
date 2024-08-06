@@ -44,19 +44,18 @@ create_project <- function(
     create_publication_proj = FALSE,
     include_github_gitignore,
     ...) {
-
   # Function parameter checks ---
   # Check if the parameters are 1 length booleans
   if (!is.logical(init_renv) | length(init_renv) != 1) {
     stop("init_renv must be a boolean.")
   } else if (!is.logical(include_structure_for_pkg) |
-               length(include_structure_for_pkg) != 1) {
+    length(include_structure_for_pkg) != 1) {
     stop("include_structure_for_pkg must be a boolean.")
   } else if (!is.logical(create_publication_proj) |
-               length(create_publication_proj) != 1) {
+    length(create_publication_proj) != 1) {
     stop("create_publication_proj must be a boolean.")
   } else if (!is.logical(include_github_gitignore) |
-               length(include_github_gitignore) != 1) {
+    length(include_github_gitignore) != 1) {
     stop("include_github_gitignore must be a boolean.")
   }
 
@@ -260,45 +259,52 @@ create_project <- function(
   if (init_renv) {
     # Test if renv snapshot works - if not throw informative error and
     # set project creation as fail
-    tryCatch({
-      if (requireNamespace("renv", quietly = TRUE)) {
-        renv::init(project = path, bare = TRUE, load = FALSE, restart = FALSE)
-        renv::snapshot(
-          project = path,
-          prompt = FALSE,
-          update = TRUE,
-          packages = list("renv")
-        )
-      } else {
-        # Message if renv not installed
-        message(
-          paste0("Warning: ",
-                 "renv couldn't be used as the `{renv}` package is not ",
-                 "installed.\n",
-                 "If you want to use renv, please first install it with ",
-                 "`install.packages('renv')`")
-        )
-        successful_creation <<- FALSE
-      }
-    }, error = function(e) {
-      if (grepl("aborting snapshot due to pre-flight validation failure",
-                e$message)) {
-        # Message if renv snapshot fails
-        message(
-          "Warning: ",
-          "`{renv}` not properly initialised due to the above missing ",
-          "package(s).\n",
-          "Please install the package(s) to successfully create project."
-        )
+    tryCatch(
+      {
+        if (requireNamespace("renv", quietly = TRUE)) {
+          renv::init(project = path, bare = TRUE, load = FALSE, restart = FALSE)
+          renv::snapshot(
+            project = path,
+            prompt = FALSE,
+            update = TRUE,
+            packages = list("renv")
+          )
+        } else {
+          # Message if renv not installed
+          message(
+            paste0(
+              "Warning: ",
+              "renv couldn't be used as the `{renv}` package is not ",
+              "installed.\n",
+              "If you want to use renv, please first install it with ",
+              "`install.packages('renv')`"
+            )
+          )
+          successful_creation <<- FALSE
+        }
+      },
+      error = function(e) {
+        if (grepl(
+          "aborting snapshot due to pre-flight validation failure",
+          e$message
+        )) {
+          # Message if renv snapshot fails
+          message(
+            "Warning: ",
+            "`{renv}` not properly initialised due to the above missing ",
+            "package(s).\n",
+            "Please install the package(s) to successfully create project."
+          )
 
-        successful_creation <<- FALSE
-      } else {
-        # Re-throw original error if it's not related to snapshot
-        message(e$message)
+          successful_creation <<- FALSE
+        } else {
+          # Re-throw original error if it's not related to snapshot
+          message(e$message)
 
-        successful_creation <<- FALSE
+          successful_creation <<- FALSE
+        }
       }
-    })
+    )
   } else {
     # Message for if init_renv is FALSE
     warning(
@@ -326,8 +332,9 @@ create_project <- function(
     "            '- Finally type `y` to `Do you want to proceed?`\\n')",
     "  }",
     "}",
-    "source('renv/activate.R')"
-    , sep = "\n")
+    "source('renv/activate.R')",
+    sep = "\n"
+  )
   writeLines(rprofile_content, paste0(path, "/.Rprofile"))
 
 
@@ -337,15 +344,16 @@ create_project <- function(
   # Successful project creation message (or delete project if fails)
   if (successful_creation) {
     cat(
-      paste0("\n\n",
-             "****************************************************************\n",
-             "Your new dfeR project has been successfuly created! ",
-             emoji::emoji("mortar_board"), "\n",
-             "It exists at the file path: '", path, "'\n",
-             "****************************************************************\n")
+      paste0(
+        "\n\n",
+        "****************************************************************\n",
+        "Your new dfeR project has been successfuly created! ",
+        emoji::emoji("mortar_board"), "\n",
+        "It exists at the file path: '", path, "'\n",
+        "****************************************************************\n"
+      )
     )
   } else {
     unlink(path, recursive = TRUE)
   }
-
 }
