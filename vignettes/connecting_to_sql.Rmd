@@ -24,6 +24,10 @@ Which you use will depend on how comfortable you are with SQL and R and if you a
 
 For more information on the other two methods, or on troubleshooting the connection between R and SQL in the Department for Education (DfE), please see the [Interacting with a SQL database section of our Analysts' Guide](https://dfe-analytical-services.github.io/analysts-guide/learning-development/r.html#interacting-with-a-sql-database-from-within-r-scripts).
 
+## Pre-requisites
+
+To connect to SQL you will need SQL drivers installed. These come as standard currently with the Microsoft SQL Server Management Studio downloads from Department for Education's software center. Make sure to have downloaded the latest version before starting.
+
 ## Connecting to a database
 
 Usually in the DfE we use a combination of [odbc](https://odbc.r-dbi.org/) and [DBI](https://dbi.r-dbi.org/) to connect to our SQL databases.
@@ -49,6 +53,10 @@ con <- DBI::dbConnect(odbc::odbc(),
 ```
 
 For advice on finding your database details, or connecting to a SQL database from an R Shiny app that is deployed on a server, please contact the [Statistics Development Team](mailto:statistics.development@education.gov.uk) who will be able to advise on the setup and steps required.
+
+Note that your server name may include backslashes, if it does you'll need to make sure to have two backslashes in your R code due to the way that special characters are escaped. 
+
+For example, in SQL Server Management Studio (SSMS) or Azure Data Studio you might call your server `T1PRANMSQL\SQLPROD,60125`, but in R when adding the server name you'd need to call it `T1PRANMSQL\\SQLPROD,60125`.
 
 ## Reading a SQL script into R
 
@@ -79,7 +87,7 @@ sql_query_result <- DBI::dbGetQuery(
 
 ### Troubleshooting
 
-Our first advice if you hit an error, would be to check that your SQL script runs in SQL Server Management Studio (SSMS) and is a valid SQL 'SELECT' query that returns a single output.
+Our first advice if you hit an error, would be to check that your SQL script runs in SQL Server Management Studio (SSMS) or Azure Data Studio and is a valid SQL 'SELECT' query that returns a single output.
 
 Assuming that it runs fine in SSMS, the next thing to try is to set additional settings while cleaning the SQL script. You can do this with the `additional_settings` argument in the `get_clean_sql()` function.
 

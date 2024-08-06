@@ -18,6 +18,16 @@ test_that("Adds additional settings", {
   )
 })
 
+test_that("Keeps the query when adding additional settings", {
+  # Check that the output ends with the desired lines
+  expect_true(
+    grepl(
+      "\\[my_database_table\\]$",
+      get_clean_sql("../sql_scripts/simple.sql", additional_settings = TRUE)
+    )
+  )
+})
+
 test_that("Doesn't add additional settings", {
   # Check that the output doesn't start with the additional lines
   expect_false(

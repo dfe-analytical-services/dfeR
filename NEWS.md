@@ -4,6 +4,10 @@ Add function which creates a DfE R project:
 
 - create_project() 
 
+# dfeR 0.3.1
+
+Fix bug in get_clean_sql() where using the additional settings would lose the original SQL statement
+
 # dfeR 0.3.0
 
 Add pretty_* functions for presenting pretty numbers:
