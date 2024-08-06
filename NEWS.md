@@ -1,5 +1,9 @@
 # dfeR 0.4.0
 
+Add function which creates a DfE R project:
+
+- create_project() 
+
 # dfeR 0.3.0
 
 Add pretty_* functions for presenting pretty numbers:
