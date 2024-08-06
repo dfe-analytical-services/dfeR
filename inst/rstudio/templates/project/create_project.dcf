@@ -1,0 +1,23 @@
+Binding: create_project
+Title: dfeR project template
+Subtitle: A template for dfeR projects.
+OpenFiles: README.md
+Icon: logo.png
+
+Parameter: create_publication_proj
+Widget: CheckboxInput
+Label: Project folder structure for publications.
+Default: Off
+Position: left
+
+Parameter: include_structure_for_pkg
+Widget: CheckboxInput
+Label: Project folder structure required to build an R package.
+Default: Off
+Position: left
+
+Parameter: include_github_gitignore
+Widget: CheckboxInput
+Label: Create a .gitignore file for GitHub.
+Default: Off
+Position: left
