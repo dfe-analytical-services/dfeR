@@ -1,3 +1,5 @@
+# dfeR 0.4.0
+
 # dfeR 0.3.0
 
 Add pretty_* functions for presenting pretty numbers:
