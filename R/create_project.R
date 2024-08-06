@@ -22,7 +22,7 @@
 #' @importFrom withr with_dir
 #' @importFrom usethis create_package create_project use_testthat use_test
 #' @importFrom usethis proj_set
-#' @importFrom emo ji
+#' @importFrom emoji emoji
 #' @rawNamespace import(renv, except = run)
 #' @export
 #' @examples
@@ -340,7 +340,7 @@ create_project <- function(
       paste0("\n\n",
              "****************************************************************\n",
              "Your new dfeR project has been successfuly created! ",
-             emo::ji("mortar_board"), "\n",
+             emoji::emoji("mortar_board"), "\n",
              "It exists at the file path: '", path, "'\n",
              "****************************************************************\n")
     )
