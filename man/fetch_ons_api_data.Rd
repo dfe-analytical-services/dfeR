@@ -7,7 +7,7 @@
 fetch_ons_api_data(data_id, query_params)
 }
 \arguments{
-\item{data_id}{the id of the dataset to query, can be found from the Open
+\item{data_id}{the id of the data set to query, can be found from the Open
 Geography Portal}
 
 \item{query_params}{query parameters to pass into the API}
@@ -16,11 +16,11 @@ Geography Portal}
 parsed data.frame of geographic names and codes
 }
 \description{
-Helper function that takes a dataset id and parameters to query and parse
+Helper function that takes a data set id and parameters to query and parse
 data from the ONS API
 }
 \details{
-On the ONS website, find the dataset you're interested in and then use the
+On the ONS website, find the data set you're interested in and then use the
 query explorer to find the information for the query
 }
 \examples{

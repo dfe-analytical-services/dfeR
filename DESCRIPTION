@@ -21,6 +21,8 @@ Imports:
     httr,
     jsonlite,
     lifecycle,
+    magrittr,
+    rlang,
     tidyselect
 Suggests:
     dplyr,
