@@ -6,11 +6,15 @@
 # If updating the data, follow these steps:
 # 1. Load the package using `devtools::load_all(".")`
 # 2. Add in an extra year for the new year into this script
-# 3. Run this script
+# 3. Add the extra year to descriptions, params and validation code in
+#    fetch_geographies.R
+# 4. Run this script
+# 5. Inspect changes to the dataset, and update its entry in geog_datasets.R as
+#    needed
 #
 # If you hit any errors or issues with the new year, ONS may have used
 # different data set ids, edit the `case_when()` in the `get_wd_pcon_lad_la()`
-# function as needed
+# function to add a new condition for the latest year
 #
 # Files are documented, including source information in the R/ folder
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -76,7 +80,12 @@ get_wd_pcon_lad_la <- function(year) {
   }
 
   # Tidy up the output file (using a helper function)
-  return(tidy_raw_lookup(output))
+  tidy_output <- tidy_raw_lookup(output) %>%
+    dplyr::select("first_available_year_included", "most_recent_year_included",
+                  "ward_name", "pcon_name", "lad_name", "la_name", "ward_code",
+                  "pcon_code", "lad_code", "new_la_code")
+
+  return(tidy_output)
 }
 
 # wd_pcon_lad_la --------------------------------------------------------------
