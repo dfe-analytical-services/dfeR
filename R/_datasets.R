@@ -26,6 +26,9 @@
 #'
 #' @format ## `wd_pcon_lad_la`
 #' A data frame with 11,691 rows and 10 columns:
+
+# TODO: make the order of columns match what we set
+
 #' \describe{
 #'   \item{ward_code}{9 digit ward code}
 #'   \item{pcon_code}{9 digit westminster constituency code}

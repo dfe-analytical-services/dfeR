@@ -80,10 +80,7 @@ get_wd_pcon_lad_la <- function(year) {
   }
 
   # Tidy up the output file (using a helper function)
-  tidy_output <- tidy_raw_lookup(output) %>%
-    dplyr::select("first_available_year_included", "most_recent_year_included",
-                  "ward_name", "pcon_name", "lad_name", "la_name", "ward_code",
-                  "pcon_code", "lad_code", "new_la_code")
+  tidy_output <- tidy_raw_lookup(output)
 
   return(tidy_output)
 }
@@ -91,8 +88,13 @@ get_wd_pcon_lad_la <- function(year) {
 # wd_pcon_lad_la --------------------------------------------------------------
 # Started publishing in 2017, but didn't publish a 2018 file
 wd_pcon_lad_la <- create_time_series_lookup(
-  lapply(c(17, 19:24), get_wd_pcon_lad_la)
-)
+  lapply(c(17, 19:24), get_wd_pcon_lad_la) # list of all individual data frames
+) %>%
+  dplyr::select(
+    "first_available_year_included", "most_recent_year_included",
+    "ward_name", "pcon_name", "lad_name", "la_name",
+    "ward_code", "pcon_code", "lad_code", "new_la_code",
+  )
 
 # Write the data into the package
 usethis::use_data(wd_pcon_lad_la, overwrite = TRUE)

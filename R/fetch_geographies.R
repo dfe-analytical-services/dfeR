@@ -15,34 +15,101 @@
 #'
 #' @examples
 #' if (interactive()) {
+#'   # Specify some parameters
 #'   fetch_ons_api_data(
 #'     data_id = "LAD23_RGN23_EN_LU",
 #'     query_params =
-#'       list(where = "1=1", outFields = "*", outSR = "4326", f = "json")
+#'       list(outFields = "column1, column2", outSR = "4326", f = "json")
 #'   )
+#'
+#'   # Just fetch everything
+#'   fetch_ons_api_data(data_id = "LAD23_RGN23_EN_LU")
 #' }
-fetch_ons_api_data <- function(data_id, query_params) {
+
+# https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/WD17_PCON17_LAD17_UTLA17_UK_LU_7d674672d1be40fdb94f4f26527a937a/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json
+# Expecting 9578 ids
+# WD17_PCON17_LAD17_UTLA17_UK_LU_7d674672d1be40fdb94f4f26527a937a
+# TODO: TESTING query_params <- list(where = "1=1", outFields = "*", outSR = "4326", f = "json")
+
+fetch_ons_api_data <- function(data_id, query_params = list(where = "1=1", outFields = "*", outSR = "4326", f = "json")) {
   # Known URL for ONS API
+  # Split in two parts so that the data_id can be smushed in the middle
   part_1 <-
     "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/"
-
-  # Split in two parts so that the data_id can be smushed in the middle
   part_2 <- "/FeatureServer/0/query"
 
-  # Stitch the data_id in and give the query parameters
-  response <- httr::POST(
-    paste0(part_1, data_id, part_2),
-    query = query_params
-  )
+  dataset_url <- paste0(part_1, data_id, part_2)
 
-  # Get the body of the response
-  body <- httr::content(response, "text")
+  # Initial query to get number of objects in requested data
+  # Force the returnIdsOnly argument
+  message("Checking total number of objects...")
+  id_params <- query_params
+  # TODO: document this
+  id_params$returnIdsOnly <- "TRUE"
+  id_response <- httr::POST(dataset_url, query = id_params)
+  id_body <- httr::content(id_response, "text")
+  id_parsed <- jsonlite::fromJSON(id_body)$objectIds
 
-  # Parse the JSON
-  parsed <- jsonlite::fromJSON(body)
+  # Work out total number of ids
+  total_ids <- max(id_parsed)
+  message(dfeR::pretty_num(total_ids), " objects found for the query")
 
-  # Return flattened data.frame
-  return(jsonlite::flatten(parsed$features))
+  # Create a list of batches of ids
+  # Using 1000 as that's the max recommended number features on the ONS API
+  # 2000 is the maximum limit for a batch
+  batches <- split(1:total_ids, ceiling(seq_along(1:total_ids) / 250))
+  message("Created ", length(batches), " batches of objects to query")
+
+  message("Querying API to get objects...")
+
+  # Set up a blank dataframe to start dumping into
+  full_table <- data.frame()
+
+  # Loop the the main feature query (this gets the locations data itself)
+  for (batch_num in 1:length(batches)){
+    message(
+      "...fetching batch ", batch_num, ": objects ",
+      dfeR::pretty_num(min(batches[[batch_num]])), " to ", dfeR::pretty_num(max(batches[[batch_num]])), "..."
+    )
+
+    # Force the objectIds for the batch into the query
+    # TODO: document this
+    batch_params <- query_params
+    batch_params$where <- NULL
+    batch_params$objectIds <- paste0(batches[[batch_num]], collapse = ",")
+
+    # Stitch the data_id in and give the query parameters
+    batch_response <- httr::POST(
+      dataset_url,
+      query = batch_params
+    )
+
+    # Get the body of the response
+    batch_body <- httr::content(batch_response, "text")
+
+    # Parse the JSON
+    batch_parsed <- jsonlite::fromJSON(batch_body)
+
+    # bind on batch to rest
+    full_table <- rbind(full_table, jsonlite::flatten(batch_parsed$features))
+
+
+    message("...success! There are now ", dfeR::pretty_num(nrow(full_table)), " rows in your table...")
+  }
+
+
+
+
+
+
+  # TODO: query in batches and rbind flattened results
+  # TODO: add messages to users about batching and queries
+  # TODO: add details to documentation on batching
+
+
+  message("...data frame signed sealed and delivered!")
+
+  return(full_table)
 }
 
 #' check_fetch_location_inputs
@@ -118,15 +185,29 @@ fetch_pcons <- function(years = "All", countries = "All") {
   }
   if (paste0(countries, collapse = "") != "All") {
     # Filter every value to its first letter as that matches the ONS code
-    country_shorthands <- unique(substr(countries, 1, 1))
-
-    # Create a regex pattern to filter on
-    country_regex <- paste0("^", country_shorthands, collapse = "|")
-
-    lookup <- with(lookup, subset(lookup, grepl(country_regex, pcon_code)))
+    # then filter the data set to only have codes from the selected countries
+    lookup <- with(
+      lookup,
+      subset(
+        lookup,
+        grepl(
+          paste0("^", unique(substr(countries, 1, 1)), collapse = "|"),
+          pcon_code
+        )
+      )
+    )
   }
 
-  return(dplyr::distinct(lookup))
+  resummarised_lookup <- lookup %>%
+    dplyr::summarise(
+      "first_available_year_included" =
+        min(.data$first_available_year_included),
+      "most_recent_year_included" =
+        max(.data$most_recent_year_included),
+      .by = dplyr::all_of(pcon_cols)
+    )
+
+  return(dplyr::distinct(resummarised_lookup))
 }
 
 #' fetch_lads
