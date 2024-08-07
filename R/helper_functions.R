@@ -189,9 +189,9 @@ create_time_series_lookup <- function(lookups_list) {
       rbind(lookups_list[[lookup_number]]) %>%
       # Then condense the rows, rewriting the first and last years for each row
       dplyr::summarise(
-        first_available_year_included =
+        "first_available_year_included" =
           min(.data$first_available_year_included),
-        most_recent_year_included =
+        "most_recent_year_included" =
           max(.data$most_recent_year_included),
         .by = dplyr::all_of(join_cols)
       )
@@ -203,6 +203,14 @@ create_time_series_lookup <- function(lookups_list) {
 
   # Order the file by year and then code columns
   sorted_lookup <- lookup %>%
+    dplyr::mutate(
+      "first_available_year_included" = as.integer(
+        .data$first_available_year_included
+      ),
+      "most_recent_year_included" = as.integer(
+        .data$most_recent_year_included
+      )
+    ) %>%
     dplyr::arrange(dplyr::desc("most_recent_year_included"), !!!code_cols)
 
   # Return the tidied data frame ==============================================
