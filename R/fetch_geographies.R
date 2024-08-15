@@ -25,13 +25,30 @@
 #'   # Just fetch everything
 #'   fetch_ons_api_data(data_id = "LAD23_RGN23_EN_LU")
 #' }
-
+# TODO: batch size of above 300 tends to break a query, if the number of objects goes above 10000 you may need to go even more conservative
+# reason is because the URL query is effectively all the ids pasted together so the more ids (and more digits they have), the easier they are to go over the URL limit (unknown)
 # https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/WD17_PCON17_LAD17_UTLA17_UK_LU_7d674672d1be40fdb94f4f26527a937a/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json
 # Expecting 9578 ids
 # WD17_PCON17_LAD17_UTLA17_UK_LU_7d674672d1be40fdb94f4f26527a937a
 # TODO: TESTING query_params <- list(where = "1=1", outFields = "*", outSR = "4326", f = "json")
+fetch_ons_api_data <- function(data_id,
+                               query_params =
+                                 list(
+                                   where = "1=1",
+                                   outFields = "*",
+                                   outSR = "4326",
+                                   f = "json"
+                                 ),
+                               batch_size = 200,
+                               verbose = TRUE) {
+  # Quick function for controlling verbosity
+  # TODO: could be it's own function?
+  log_message <- function(..., verbose) {
+    if (verbose) {
+      message(...)
+    }
+  }
 
-fetch_ons_api_data <- function(data_id, query_params = list(where = "1=1", outFields = "*", outSR = "4326", f = "json")) {
   # Known URL for ONS API
   # Split in two parts so that the data_id can be smushed in the middle
   part_1 <-
@@ -42,7 +59,7 @@ fetch_ons_api_data <- function(data_id, query_params = list(where = "1=1", outFi
 
   # Initial query to get number of objects in requested data
   # Force the returnIdsOnly argument
-  message("Checking total number of objects...")
+  log_message("Checking total number of objects...", verbose = verbose)
   id_params <- query_params
   # TODO: document this
   id_params$returnIdsOnly <- "TRUE"
@@ -52,24 +69,32 @@ fetch_ons_api_data <- function(data_id, query_params = list(where = "1=1", outFi
 
   # Work out total number of ids
   total_ids <- max(id_parsed)
-  message(dfeR::pretty_num(total_ids), " objects found for the query")
+  log_message(
+    dfeR::pretty_num(total_ids),
+    " objects found for the query",
+    verbose = verbose
+  )
 
   # Create a list of batches of ids
   # Using 1000 as that's the max recommended number features on the ONS API
   # 2000 is the maximum limit for a batch
-  batches <- split(1:total_ids, ceiling(seq_along(1:total_ids) / 250))
-  message("Created ", length(batches), " batches of objects to query")
+  batches <- split(1:total_ids, ceiling(seq_along(1:total_ids) / batch_size))
+  log_message(
+    "Created ", length(batches), " batches of objects to query",
+    verbose = verbose
+  )
 
-  message("Querying API to get objects...")
+  log_message("Querying API to get objects...", verbose = verbose)
 
   # Set up a blank dataframe to start dumping into
   full_table <- data.frame()
 
   # Loop the the main feature query (this gets the locations data itself)
-  for (batch_num in 1:length(batches)){
-    message(
+  for (batch_num in seq_len(batches)) {
+    log_message(
       "...fetching batch ", batch_num, ": objects ",
-      dfeR::pretty_num(min(batches[[batch_num]])), " to ", dfeR::pretty_num(max(batches[[batch_num]])), "..."
+      dfeR::pretty_num(min(batches[[batch_num]])), " to ", dfeR::pretty_num(max(batches[[batch_num]])), "...",
+      verbose = verbose
     )
 
     # Force the objectIds for the batch into the query
@@ -94,20 +119,13 @@ fetch_ons_api_data <- function(data_id, query_params = list(where = "1=1", outFi
     full_table <- rbind(full_table, jsonlite::flatten(batch_parsed$features))
 
 
-    message("...success! There are now ", dfeR::pretty_num(nrow(full_table)), " rows in your table...")
+    log_message("...success! There are now ", dfeR::pretty_num(nrow(full_table)), " rows in your table...", verbose = verbose)
   }
-
-
-
-
-
 
   # TODO: query in batches and rbind flattened results
   # TODO: add messages to users about batching and queries
   # TODO: add details to documentation on batching
-
-
-  message("...data frame signed sealed and delivered!")
+  log_message("...data frame signed, sealed and delivered!", verbose = verbose)
 
   return(full_table)
 }
@@ -173,23 +191,32 @@ fetch_pcons <- function(years = "All", countries = "All") {
 
   lookup <- dplyr::select(dfeR::wd_pcon_lad_la, dplyr::all_of(pcon_cols))
 
+  resummarised_lookup <- lookup %>%
+    dplyr::summarise(
+      "first_available_year_included" =
+        min(.data$first_available_year_included),
+      "most_recent_year_included" =
+        max(.data$most_recent_year_included),
+      .by = c(pcon_name, pcon_code)
+    )
+
   # Return early without filtering if defaults are used
   if (all(years == "All", countries == "All")) {
-    return(dplyr::distinct(lookup))
+    return(dplyr::distinct(resummarised_lookup))
   }
 
   # Filtering based on years and countries
   if (paste0(years, collapse = "") != "All") {
-    lookup <-
-      with(lookup, subset(lookup, most_recent_year_included %in% years))
+    resummarised_lookup <-
+      with(resummarised_lookup, subset(resummarised_lookup, most_recent_year_included %in% years))
   }
   if (paste0(countries, collapse = "") != "All") {
     # Filter every value to its first letter as that matches the ONS code
     # then filter the data set to only have codes from the selected countries
-    lookup <- with(
-      lookup,
+    resummarised_lookup <- with(
+      resummarised_lookup,
       subset(
-        lookup,
+        resummarised_lookup,
         grepl(
           paste0("^", unique(substr(countries, 1, 1)), collapse = "|"),
           pcon_code
@@ -197,15 +224,6 @@ fetch_pcons <- function(years = "All", countries = "All") {
       )
     )
   }
-
-  resummarised_lookup <- lookup %>%
-    dplyr::summarise(
-      "first_available_year_included" =
-        min(.data$first_available_year_included),
-      "most_recent_year_included" =
-        max(.data$most_recent_year_included),
-      .by = dplyr::all_of(pcon_cols)
-    )
 
   return(dplyr::distinct(resummarised_lookup))
 }
@@ -221,7 +239,52 @@ fetch_pcons <- function(years = "All", countries = "All") {
 #' @examples
 #' fetch_lads()
 fetch_lads <- function(years = "All", countries = "All") {
-  # Validate the inputs
+  # Function to check the inputs are valid
+  check_fetch_location_inputs(years, countries)
+
+  # Filter the lookup to the columns we care about
+  lad_cols <- c(
+    "lad_code", "lad_name", "first_available_year_included",
+    "most_recent_year_included"
+  )
+
+  lookup <- dplyr::select(dfeR::wd_pcon_lad_la, dplyr::all_of(lad_cols))
+
+  resummarised_lookup <- lookup %>%
+    dplyr::summarise(
+      "first_available_year_included" =
+        min(.data$first_available_year_included),
+      "most_recent_year_included" =
+        max(.data$most_recent_year_included),
+      .by = c(lad_name, lad_code)
+    )
+
+  # Return early without filtering if defaults are used
+  if (all(years == "All", countries == "All")) {
+    return(dplyr::distinct(resummarised_lookup))
+  }
+
+  # Filtering based on years and countries
+  if (paste0(years, collapse = "") != "All") {
+    resummarised_lookup <-
+      with(resummarised_lookup, subset(resummarised_lookup, most_recent_year_included %in% years))
+  }
+  if (paste0(countries, collapse = "") != "All") {
+    # Filter every value to its first letter as that matches the ONS code
+    # then filter the data set to only have codes from the selected countries
+    resummarised_lookup <- with(
+      resummarised_lookup,
+      subset(
+        resummarised_lookup,
+        grepl(
+          paste0("^", unique(substr(countries, 1, 1)), collapse = "|"),
+          lad_code
+        )
+      )
+    )
+  }
+
+  return(dplyr::distinct(resummarised_lookup))
 }
 
 #' fetch_las
@@ -235,5 +298,50 @@ fetch_lads <- function(years = "All", countries = "All") {
 #' @examples
 #' fetch_las()
 fetch_las <- function(years = "All", countries = "All") {
-  # Validate the inputs
+  # Function to check the inputs are valid
+  check_fetch_location_inputs(years, countries)
+
+  # Filter the lookup to the columns we care about
+  la_cols <- c(
+    "new_la_code", "la_name", "first_available_year_included",
+    "most_recent_year_included"
+  )
+
+  lookup <- dplyr::select(dfeR::wd_pcon_lad_la, dplyr::all_of(la_cols))
+
+  resummarised_lookup <- lookup %>%
+    dplyr::summarise(
+      "first_available_year_included" =
+        min(.data$first_available_year_included),
+      "most_recent_year_included" =
+        max(.data$most_recent_year_included),
+      .by = c(la_name, new_la_code)
+    )
+
+  # Return early without filtering if defaults are used
+  if (all(years == "All", countries == "All")) {
+    return(dplyr::distinct(resummarised_lookup))
+  }
+
+  # Filtering based on years and countries
+  if (paste0(years, collapse = "") != "All") {
+    lookup <-
+      with(resummarised_lookup, subset(resummarised_lookup, most_recent_year_included %in% years))
+  }
+  if (paste0(countries, collapse = "") != "All") {
+    # Filter every value to its first letter as that matches the ONS code
+    # then filter the data set to only have codes from the selected countries
+    resummarised_lookup <- with(
+      resummarised_lookup,
+      subset(
+        resummarised_lookup,
+        grepl(
+          paste0("^", unique(substr(countries, 1, 1)), collapse = "|"),
+          new_la_code
+        )
+      )
+    )
+  }
+
+  return(dplyr::distinct(resummarised_lookup))
 }

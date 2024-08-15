@@ -19,6 +19,7 @@
 # Files are documented, including source information in the R/ folder
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 library(readxl)
+library(dplyr)
 
 #' get_wd_pcon_lad_la
 #'
@@ -95,6 +96,12 @@ wd_pcon_lad_la <- create_time_series_lookup(
     "ward_name", "pcon_name", "lad_name", "la_name",
     "ward_code", "pcon_code", "lad_code", "new_la_code",
   )
+
+# Manual fixes ----------------------------------------------------------------
+# TODO: document this
+wd_pcon_lad_la <- wd_pcon_lad_la %>%
+  # ONS seemed to miss a 0 in 2017 for this PCON
+  mutate(across(everything(), ~ ifelse(. == "S1400030", "S14000030", .)))
 
 # Write the data into the package
 usethis::use_data(wd_pcon_lad_la, overwrite = TRUE)
