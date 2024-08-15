@@ -2,7 +2,7 @@
 % Please edit documentation in R/fetch_geographies.R
 \name{fetch_lads}
 \alias{fetch_lads}
-\title{fetch_lads}
+\title{Fetch local authority districts}
 \usage{
 fetch_lads(years = "All", countries = "All")
 }
@@ -19,7 +19,7 @@ default is "All", or can be a vector with options of "England", "Scotland",
 data frame of unique locations
 }
 \description{
-fetch_lads
+Fetch local authority districts
 }
 \examples{
 fetch_lads()

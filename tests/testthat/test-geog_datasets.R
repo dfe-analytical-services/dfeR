@@ -51,7 +51,7 @@ test_that("code cols are always a 9 digit code", {
 
 test_that("rows and cols match description", {
   # This test is more of a reminder when updating the dataset, if these change
-  # then we need to update the description in R/geog_datasets.R
+  # then we need to update the description in R/all_datasets.R
   expect_equal(nrow(dfeR::wd_pcon_lad_la), 24629)
   expect_equal(ncol(dfeR::wd_pcon_lad_la), 10)
 })

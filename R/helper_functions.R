@@ -1,218 +1,252 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# INTERNAL ONLY FUNCTIONS #####################################################
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' Tidy a lookup file from the Open Geography Portal
+#' Comma separate
 #'
-#' Takes a file from the open geography portal and tidies it ready for
-#' appending to an existing lookup
+#' @description
+#' Adds separating commas to big numbers.
 #'
-#' @param raw_lookup_file data.frame of a lookup file downloaded from Open
-#' Geography Portal, e.g. the output of `fetch_ons_api_data()`, or any other
-#' data frame from R memory
+#' @param number number to be comma separated
 #'
-#' @keywords internal
-#' @return a data frame of a tidied lookup file
-tidy_raw_lookup <- function(raw_lookup_file) {
-  if (!is.data.frame(raw_lookup_file)) {
-    stop("raw_lookup_file must be a data frame")
+#' @return string containing comma separated number
+#' @export
+#'
+#' @examples
+#' comma_sep(100)
+#' comma_sep(1000)
+#' comma_sep(3567000)
+comma_sep <- function(number) {
+  if (!is.numeric(number)) {
+    stop("number must be a numeric value")
   }
 
-  # Tidy out the attributes. col prefix ---------------------------------------
-  colnames(raw_lookup_file) <- sub(
-    "^attributes\\.", "", colnames(raw_lookup_file)
-  )
-
-  # Extract the year from columns ---------------------------------------------
-  # Remove all non-digits from column names
-  new_year <- unique(gsub("[^0-9]", "", names(raw_lookup_file)))
-
-  # Check there is only one year available ------------------------------------
-  if (length(new_year) != 1) {
-    stop(
-      paste0(
-        "There appears to be either zero or multiple years of data in the ",
-        "selected lookup, the function doesn't know which year to pick"
-      )
-    )
-  }
-
-  #' Function to rename columns using the dfeR::ons_geog_shorthands table
-  #'
-  #' col_name single column name to be updated based on the shorthand
-  #' lookup table
-  #'
-  #' @return string for new column name if a match was found, if no match found
-  #' then the original name is returned
-  generate_new_name <- function(col_name) {
-    # Take the prefix and check it exists
-    prefix <- stringr::str_extract(col_name, "^[A-Z]*")
-    if (prefix %in% dfeR::ons_geog_shorthands$ons_level_shorthands) {
-      # Take the suffix
-      suffix <- stringr::str_sub(col_name, start = -2, end = -1)
-
-      # Replace with either the name or code column as appropriate
-      if (suffix == "NM") {
-        new_name <- dfeR::ons_geog_shorthands[
-          dfeR::ons_geog_shorthands$ons_level_shorthands == prefix,
-        ]$name_column
-      } else {
-        new_name <- dfeR::ons_geog_shorthands[
-          dfeR::ons_geog_shorthands$ons_level_shorthands == prefix,
-        ]$code_column
-      }
-
-      message("Renaming ", col_name, " to ", new_name)
-      return(new_name) # Return replaced name
-    } else {
-      message("No match found for ", col_name, ", returning original name")
-      return(col_name) # Keep original name if no match
-    }
-  }
-
-  # Apply the function to rename columns
-  names(raw_lookup_file) <- unlist(
-    lapply(names(raw_lookup_file), generate_new_name)
-  )
-
-  # Add columns showing years for the codes
-  lookup_with_time <- raw_lookup_file %>%
-    dplyr::distinct() %>%
-    dplyr::mutate(
-      first_available_year_included = paste0("20", new_year),
-      most_recent_year_included = paste0("20", new_year)
-    )
-
-  # Extra tidy up for separating LAs / LADs
-  # This bit is to deal with LAs and UTLAs not being quite the same thing.
-  # The parent UTLA for LADs in metropolitan counties (E11, e.g. Manchester),
-  # and Inner or Outer London (E13) are the Metropolitan counties
-  # and Inner / Outer London.
-  # But in these cases, the LA for our purposes is the LAD itself.
-
-  # So this is using the LAD as it's own parent LA if it's in a metropolitan
-  # county or in London and taking the UTLA otherwise.
-
-  # For example, Barnsley is a metropolitan borough of South Yorkshire
-  # South Yorkshire is the UTLA, but we use Barnsley as the LA and LAD
-
-  lookup_met_la <- lookup_with_time
-
-  if ("new_la_code" %in% names(raw_lookup_file)) {
-    met_swap <- grepl("E11", lookup_met_la$new_la_code) |
-      grepl("E13", lookup_met_la$new_la_code)
-
-    # Update la_name and new_la_code based on the conditions
-    lookup_met_la$la_name[met_swap] <- lookup_met_la$lad_name[met_swap]
-    lookup_met_la$new_la_code[met_swap] <- lookup_met_la$lad_code[met_swap]
-  }
-
-  # Strip out excess white space from name columns
-  tidied_lookup <- lookup_met_la %>%
-    dplyr::mutate(
-      dplyr::across(
-        tidyselect::ends_with("_name"),
-        ~ stringr::str_replace_all(.x, "\\s+", " ")
-      )
-    ) %>%
-    # Also strip out leading and trailing whitespace for belts and braces
-    dplyr::mutate(dplyr::across(dplyr::everything(), ~ stringr::str_trim(.x)))
-
-  return(tidied_lookup)
+  format(number, big.mark = ",", trim = TRUE, scientific = FALSE)
 }
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' Smush lookups together to make a time series
+#' Round five up
 #'
-#' Take a list of tidied files, likely produced by the tidy_downloaded_lookup
-#' function append together
+#' @description
+#' Round any number to a specified number of places, with 5's being rounded up.
 #'
-#' Updates the `first_available_year_included` and `most_recent_year_included`
-#' columns so that they are accurate for the full ser-EES
+#' @details
+#' Rounds to 0 decimal places by default.
 #'
-#' @keywords internal
-#' @param lookups_list list of data frames of new lookup table,
-#' usually the output of tidy_raw_lookup
+#' You can use a negative value for the decimal places. For example:
+#' -1 would round to the nearest 10
+#' -2 would round to the nearest 100
+#' and so on.
 #'
-#' @return single data.frame of all lookup files combined
-
-create_time_series_lookup <- function(lookups_list) {
-  # Input validation ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  # Added some quick checks based on the assumptions we make in this function
-  # Hoping this will prevent rogue error messages taking up lots of time in
-  # future
-
-  # Check if the new_lookups list contains only data frames
-  all_are_data_frames <- all(sapply(lookups_list, is.data.frame))
-
-  if (all_are_data_frames) {
-    # Get the column names for the first data frame (if it exists)
-    if (length(lookups_list) > 0) {
-      reference_cols <- colnames(lookups_list[[1]])
-
-      # Compare column names across all data frames
-      all_same_cols <- all(
-        sapply(
-          lookups_list,
-          function(df) identical(sort(colnames(df)), sort(reference_cols))
-        )
-      )
-
-      if (all_same_cols) {
-        # Nothing to see here
-      } else {
-        stop("data frames within the list have different column names.")
-      }
-    } else {
-      stop("the new_lookups list is empty")
-    }
-  } else {
-    stop("the new_lookups list contains items that are not data frames")
+#' This is as an alternative to round in base R, which uses a bankers round.
+#' For more information see the
+#' [round() documentation](https://rdrr.io/r/base/Round.html).
+#'
+#'
+#' @param number number to be rounded
+#' @param dp number of decimal places to round to, default is 0
+#'
+#' @return Rounded number
+#' @export
+#'
+#' @examples
+#' # No dp set
+#' round_five_up(2485.85)
+#'
+#' # With dp set
+#' round_five_up(2485.85, 2)
+#' round_five_up(2485.85, 1)
+#' round_five_up(2485.85, 0)
+#' round_five_up(2485.85, -1)
+#' round_five_up(2485.85, -2)
+round_five_up <- function(number, dp = 0) {
+  if (!is.numeric(number) && !is.numeric(dp)) {
+    stop("both input arguments must be numeric")
   }
-  # End of input validation ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  if (!is.numeric(number)) {
+    stop("the input number to be rounded must be numeric")
+  }
+  if (!is.numeric(dp)) {
+    stop("the decimal places input must be numeric")
+  }
 
-  # Get the column names from the first dataset as we know they all share the
-  # same cols, these are used to aggregate by when working out the years
-  #
-  # Drop the time cols so we only join on the geography cols
-  join_cols <- setdiff(
-    names(lookups_list[[1]]),
-    c("first_available_year_included", "most_recent_year_included")
+  z <- abs(number) * 10^dp
+  z <- z + 0.5 + sqrt(.Machine$double.eps)
+  z <- trunc(z)
+  z <- z / 10^dp
+  return(z * sign(number))
+}
+
+#' Fetch ONS Open Geography API data
+#'
+#' Helper function that takes a data set id and parameters to query and parse
+#' data from the ONS Open Geography API.
+#'
+#' It does a pre-query to understand the ObjectIds for the query you want, and
+#' then does a query to retrieve those Ids directly in batches before then
+#' stacking the whole thing back together to work around the row limits for a
+#' single query.
+#'
+#' On the \href{https://geoportal.statistics.gov.uk/}{Open Geography Portal},
+#' find the data set you're interested in and then use the query explorer to
+#' find the information for the query.
+#'
+#' @param data_id the id of the data set to query, can be found from the Open
+#' Geography Portal
+#' @param query_params query parameters to pass into the API, see the ESRI
+#' documentation for more information on query parameters -
+#' \href{https://shorturl.at/5xrJT}{ESRI Query (Feature Service/Layer)}
+#' @param batch_size the number of rows per query. This is 250 by default, if
+#' you hit errors then try lowering this. The API has a limit of 1000 to 2000
+#' rows per query, and in truth, the actual limit for our method is lower as
+#' every ObjectId queried is pasted into the query URL so for every row
+#' included in the batch, and especial if those Id's go into the 1,000s or
+#' 10,000s they will increase the size of the URL and risk hitting the limit.
+#' @param verbose TRUE or FALSE boolean. TRUE by default. FALSE will turn off
+#' the messages to the console that update on what the function is doing
+#'
+#' @export
+#' @return parsed data.frame of geographic names and codes
+#'
+#' @examples
+#' if (interactive()) {
+#'   # Specify some parameters
+#'   fetch_ons_api_data(
+#'     data_id = "LAD23_RGN23_EN_LU",
+#'     query_params =
+#'       list(outFields = "column1, column2", outSR = "4326", f = "json")
+#'   )
+#'
+#'   # Just fetch everything
+#'   fetch_ons_api_data(data_id = "LAD23_RGN23_EN_LU")
+#' }
+fetch_ons_api_data <- function(data_id,
+                               query_params =
+                                 list(
+                                   where = "1=1",
+                                   outFields = "*",
+                                   outSR = "4326",
+                                   f = "json"
+                                 ),
+                               batch_size = 200,
+                               verbose = TRUE) {
+  # Known URL for ONS API
+  # Split in two parts so that the data_id can be smushed in the middle
+  part_1 <-
+    "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/"
+  part_2 <- "/FeatureServer/0/query"
+
+  dataset_url <- paste0(part_1, data_id, part_2)
+
+  # Initial query to get number of objects in requested data
+  dfeR::toggle_message("Checking total number of objects...", verbose = verbose)
+
+  # Force the returnIdsOnly argument into the params to get Ids back
+  id_params <- query_params
+  id_params$returnIdsOnly <- "TRUE"
+
+  # Query to get the Ids
+  id_response <- httr::POST(dataset_url, query = id_params)
+  id_body <- httr::content(id_response, "text")
+  id_parsed <- jsonlite::fromJSON(id_body)$objectIds
+
+  # Work out total number of ids
+  total_ids <- max(id_parsed)
+  dfeR::toggle_message(
+    dfeR::pretty_num(total_ids),
+    " objects found for the query",
+    verbose = verbose
   )
 
-  # Start with the first data frame in the list
-  lookup <- lookups_list[[1]]
+  # Create a list of batches of ids
+  # Using 1000 as that's the max recommended number features on the ONS API
+  # 2000 is the maximum limit for a batch
+  batches <- split(1:total_ids, ceiling(seq_along(1:total_ids) / batch_size))
+  dfeR::toggle_message(
+    "Created ", length(batches), " batches of objects to query",
+    verbose = verbose
+  )
 
-  # Append every other lookup in the list, starting with the second data frame
-  for (lookup_number in 2:length(lookups_list)) {
-    lookup <- lookup %>%
-      # Stack the next data frame on
-      rbind(lookups_list[[lookup_number]]) %>%
-      # Then condense the rows, rewriting the first and last years for each row
-      dplyr::summarise(
-        "first_available_year_included" =
-          min(.data$first_available_year_included),
-        "most_recent_year_included" =
-          max(.data$most_recent_year_included),
-        .by = dplyr::all_of(join_cols)
-      )
+  dfeR::toggle_message("Querying API to get objects...", verbose = verbose)
+
+  # Set up a blank dataframe to start dumping into
+  full_table <- data.frame()
+
+  # Loop the the main feature query (this gets the locations data itself)
+  for (batch_num in seq_len(batches)) {
+    dfeR::toggle_message(
+      "...fetching batch ", batch_num, ": objects ",
+      dfeR::pretty_num(min(batches[[batch_num]])), " to ",
+      dfeR::pretty_num(max(batches[[batch_num]])), "...",
+      verbose = verbose
+    )
+
+    # Force the objectIds for the batch into the query
+    # This also blanks out any WHERE filters as we don't need those for getting
+    # the total number of Ids
+    batch_params <- query_params
+    batch_params$where <- NULL
+    batch_params$objectIds <- paste0(batches[[batch_num]], collapse = ",")
+
+    # Stitch the data_id in and give the query parameters
+    batch_response <- httr::POST(
+      dataset_url,
+      query = batch_params
+    )
+
+    # Get the body of the response
+    batch_body <- httr::content(batch_response, "text")
+
+    # Parse the JSON
+    batch_parsed <- jsonlite::fromJSON(batch_body)
+
+    # bind on batch to rest
+    full_table <- rbind(full_table, jsonlite::flatten(batch_parsed$features))
+
+
+    dfeR::toggle_message(
+      "...success! There are now ", dfeR::pretty_num(nrow(full_table)),
+      " rows in your table...",
+      verbose = verbose
+    )
   }
 
-  # Final tidy up of the output file ==========================================
-  # Pull out code columns
-  code_cols <- names(lookup %>% dplyr::select(tidyselect::ends_with("_code")))
+  dfeR::toggle_message(
+    "...data frame batched, stacked and delivered!",
+    verbose = verbose
+  )
 
-  # Order the file by year and then code columns
-  sorted_lookup <- lookup %>%
-    dplyr::mutate(
-      "first_available_year_included" = as.integer(
-        .data$first_available_year_included
-      ),
-      "most_recent_year_included" = as.integer(
-        .data$most_recent_year_included
-      )
-    ) %>%
-    dplyr::arrange(dplyr::desc("most_recent_year_included"), !!!code_cols)
+  return(full_table)
+}
 
-  # Return the tidied data frame ==============================================
-  return(sorted_lookup)
+#' Controllable console messages
+#'
+#' Quick expansion to the `message()` function aimed for use in functions for
+#' an easy addition of a global verbose TRUE / FALSE argument to toggle the
+#' messages on or off
+#'
+#' @param ... any message you would normally pass into `message()`. See
+#' \code{\link{message}} for more details
+#'
+#' @param verbose logical, usually a variable passed from the function you are
+#' using this within
+#'
+#' @export
+#'
+#' @examples
+#' # Usually used in a function
+#' my_function <- function(count_fingers, verbose) {
+#'   toggle_message("I have ", count_fingers, " fingers", verbose = verbose)
+#'   fingers_thumbs <- count_fingers + 2
+#'   toggle_message("I have ", fingers_thumbs, " digits", verbose = verbose)
+#' }
+#'
+#' my_function(5, verbose = FALSE)
+#' my_function(5, verbose = TRUE)
+#'
+#' # Can be used in isolation
+#' toggle_message("I want the world to read this!", verbose = TRUE)
+#' toggle_message("I ain't gonna show this message!", verbose = FALSE)
+#'
+#' count_fingers <- 5
+#' toggle_message("I have ", count_fingers, " fingers", verbose = TRUE)
+toggle_message <- function(..., verbose) {
+  if (verbose) {
+    message(...)
+  }
 }
