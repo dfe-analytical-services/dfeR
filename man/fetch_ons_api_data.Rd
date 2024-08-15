@@ -4,7 +4,12 @@
 \alias{fetch_ons_api_data}
 \title{fetch_ons_api_data}
 \usage{
-fetch_ons_api_data(data_id, query_params)
+fetch_ons_api_data(
+  data_id,
+  query_params = list(where = "1=1", outFields = "*", outSR = "4326", f = "json"),
+  batch_size = 200,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{data_id}{the id of the data set to query, can be found from the Open
@@ -25,10 +30,14 @@ query explorer to find the information for the query
 }
 \examples{
 if (interactive()) {
+  # Specify some parameters
   fetch_ons_api_data(
     data_id = "LAD23_RGN23_EN_LU",
     query_params =
-      list(where = "1=1", outFields = "*", outSR = "4326", f = "json")
+      list(outFields = "column1, column2", outSR = "4326", f = "json")
   )
+
+  # Just fetch everything
+  fetch_ons_api_data(data_id = "LAD23_RGN23_EN_LU")
 }
 }
