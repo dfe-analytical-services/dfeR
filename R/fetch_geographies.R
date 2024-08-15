@@ -3,24 +3,28 @@
 #' Fetch a data frame of all Westminster Parliamentary Constituencies for a
 #' given year and country based on the dfeR::wd_pcon_lad_la file
 #'
-#' @param years vector of years to filter the locations to, default is "All",
-#' options of "2017", "2019", "2020", "2021", "2022", "2023", "2024", can pass
-#' a vector of a custom combination
+#' @param year year to filter the locations to, default is "All",
+#' options of "2017", "2019", "2020", "2021", "2022", "2023", "2024"
 #' @param countries vector of desired countries to filter the locations to,
 #' default is "All", or can be a vector with options of "England", "Scotland",
 #' "Wales" or "Northern Ireland"
 #'
-#' @return data frame of unique locations
+#' @return data frame of unique location names and codes
 #' @export
 #'
+#' @name fetch
 #' @examples
 #' fetch_pcons()
 #' fetch_pcons("2023")
 #' fetch_pcons(countries = "Scotland")
-#' fetch_pcons(years = c("2023", "2024"), countries = c("England", "Wales"))
-fetch_pcons <- function(years = "All", countries = "All") {
+#' fetch_pcons(year = "2023", countries = c("England", "Wales"))
+#'
+#' fetch_las("2024", "Wales")
+#'
+#' fetch_pcons("2022", "Northern Ireland")
+fetch_pcons <- function(year = "All", countries = "All") {
   # Function to check the inputs are valid
-  check_fetch_location_inputs(years, countries)
+  check_fetch_location_inputs(year, countries)
 
   # Filter the lookup to the columns we care about
   pcon_cols <- c(
@@ -40,16 +44,17 @@ fetch_pcons <- function(years = "All", countries = "All") {
     )
 
   # Return early without filtering if defaults are used
-  if (all(years == "All", countries == "All")) {
-    return(dplyr::distinct(resummarised_lookup))
+  if (all(year == "All", countries == "All")) {
+    # Drop the time cols
+    return(dplyr::distinct(resummarised_lookup[, 1:2]))
   }
 
   # Filtering based on years and countries
-  if (paste0(years, collapse = "") != "All") {
+  if (year != "All") {
     resummarised_lookup <-
       with(
         resummarised_lookup,
-        subset(resummarised_lookup, most_recent_year_included %in% years)
+        subset(resummarised_lookup, most_recent_year_included == year)
       )
   }
   if (paste0(countries, collapse = "") != "All") {
@@ -67,22 +72,22 @@ fetch_pcons <- function(years = "All", countries = "All") {
     )
   }
 
-  return(dplyr::distinct(resummarised_lookup))
+  # Drop the time cols
+  return(dplyr::distinct(resummarised_lookup[, 1:2]))
 }
 
 #' Fetch local authority districts
 #'
-#' @inheritParams fetch_pcons
+#' @inheritParams fetch
 #'
 #' @family fetch_locations
-#' @return data frame of unique locations
+#' @return data frame of unique location names and codes
 #' @export
 #'
-#' @examples
-#' fetch_lads()
-fetch_lads <- function(years = "All", countries = "All") {
+#' @inherit fetch examples
+fetch_lads <- function(year = "All", countries = "All") {
   # Function to check the inputs are valid
-  check_fetch_location_inputs(years, countries)
+  check_fetch_location_inputs(year, countries)
 
   # Filter the lookup to the columns we care about
   lad_cols <- c(
@@ -102,16 +107,17 @@ fetch_lads <- function(years = "All", countries = "All") {
     )
 
   # Return early without filtering if defaults are used
-  if (all(years == "All", countries == "All")) {
-    return(dplyr::distinct(resummarised_lookup))
+  if (all(year == "All", countries == "All")) {
+    # Drop the time cols
+    return(dplyr::distinct(resummarised_lookup[, 1:2]))
   }
 
   # Filtering based on years and countries
-  if (paste0(years, collapse = "") != "All") {
+  if (year != "All") {
     resummarised_lookup <-
       with(
         resummarised_lookup,
-        subset(resummarised_lookup, most_recent_year_included %in% years)
+        subset(resummarised_lookup, most_recent_year_included == year)
       )
   }
   if (paste0(countries, collapse = "") != "All") {
@@ -129,22 +135,22 @@ fetch_lads <- function(years = "All", countries = "All") {
     )
   }
 
-  return(dplyr::distinct(resummarised_lookup))
+  # Drop the time cols
+  return(dplyr::distinct(resummarised_lookup[, 1:2]))
 }
 
 #' Fetch local authorities
 #'
-#' @inheritParams fetch_pcons
+#' @inheritParams fetch
 #'
 #' @family fetch_locations
-#' @return data frame of unique locations
+#' @return data frame of unique location names and codes
 #' @export
 #'
-#' @examples
-#' fetch_las()
-fetch_las <- function(years = "All", countries = "All") {
+#' @inherit fetch examples
+fetch_las <- function(year = "All", countries = "All") {
   # Function to check the inputs are valid
-  check_fetch_location_inputs(years, countries)
+  check_fetch_location_inputs(year, countries)
 
   # Filter the lookup to the columns we care about
   la_cols <- c(
@@ -164,16 +170,17 @@ fetch_las <- function(years = "All", countries = "All") {
     )
 
   # Return early without filtering if defaults are used
-  if (all(years == "All", countries == "All")) {
-    return(dplyr::distinct(resummarised_lookup))
+  if (all(year == "All", countries == "All")) {
+    # Drop the time cols
+    return(dplyr::distinct(resummarised_lookup[, 1:2]))
   }
 
   # Filtering based on years and countries
-  if (paste0(years, collapse = "") != "All") {
-    lookup <-
+  if (year != "All") {
+    resummarised_lookup <-
       with(
         resummarised_lookup,
-        subset(resummarised_lookup, most_recent_year_included %in% years)
+        subset(resummarised_lookup, most_recent_year_included == year)
       )
   }
   if (paste0(countries, collapse = "") != "All") {
@@ -191,5 +198,6 @@ fetch_las <- function(years = "All", countries = "All") {
     )
   }
 
-  return(dplyr::distinct(resummarised_lookup))
+  # Drop the time cols
+  return(dplyr::distinct(resummarised_lookup[, 1:2]))
 }
