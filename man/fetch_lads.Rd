@@ -4,25 +4,31 @@
 \alias{fetch_lads}
 \title{Fetch local authority districts}
 \usage{
-fetch_lads(years = "All", countries = "All")
+fetch_lads(year = "All", countries = "All")
 }
 \arguments{
-\item{years}{vector of years to filter the locations to, default is "All",
-options of "2017", "2019", "2020", "2021", "2022", "2023", "2024", can pass
-a vector of a custom combination}
+\item{year}{year to filter the locations to, default is "All",
+options of "2017", "2019", "2020", "2021", "2022", "2023", "2024"}
 
 \item{countries}{vector of desired countries to filter the locations to,
 default is "All", or can be a vector with options of "England", "Scotland",
 "Wales" or "Northern Ireland"}
 }
 \value{
-data frame of unique locations
+data frame of unique location names and codes
 }
 \description{
 Fetch local authority districts
 }
 \examples{
-fetch_lads()
+fetch_pcons()
+fetch_pcons("2023")
+fetch_pcons(countries = "Scotland")
+fetch_pcons(year = "2023", countries = c("England", "Wales"))
+
+fetch_las("2024", "Wales")
+
+fetch_pcons("2022", "Northern Ireland")
 }
 \seealso{
 Other fetch_locations: 
