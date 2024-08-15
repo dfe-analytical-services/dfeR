@@ -25,26 +25,22 @@
 #' DfE use local authorities
 #'
 #' @format ## `wd_pcon_lad_la`
-#' A data frame with 11,691 rows and 10 columns:
-
-# TODO: make the order of columns match what we set
-
+#' A data frame with 24,629 rows and 10 columns:
 #' \describe{
-#'   \item{ward_code}{9 digit ward code}
-#'   \item{pcon_code}{9 digit westminster constituency code}
-#'   \item{lad_code}{9 digit local authority district code}
-#'   \item{new_la_code}{9 digit local authority code}
-#'   \item{ward_name}{Ward name}
-#'   \item{pcon_name}{Parliamentary constituency name}
-#'   \item{lad_name}{Local authority district name}
-#'   \item{la_name}{Local authority name}
 #'   \item{first_available_year_included}{
 #'   First year in the lookups that we see this location
 #'   }
 #'   \item{most_recent_year_included}{
 #'   Last year in the lookups that we see this location
 #'   }
-
+#'   \item{ward_name}{Ward name}
+#'   \item{pcon_name}{Parliamentary constituency name}
+#'   \item{lad_name}{Local authority district name}
+#'   \item{la_name}{Local authority name}
+#'   \item{ward_code}{9 digit ward code}
+#'   \item{pcon_code}{9 digit westminster constituency code}
+#'   \item{lad_code}{9 digit local authority district code}
+#'   \item{new_la_code}{9 digit local authority code}
 #' }
 #' @source https://geoportal.statistics.gov.uk/search?tags=lup_wd_pcon_lad_utla
 "wd_pcon_lad_la"
