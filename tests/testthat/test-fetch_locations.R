@@ -39,3 +39,30 @@ test_that("2024 locations match what we expect", {
   expect_equal(nrow(fetch_las("2024", "Wales")), 22)
   expect_equal(nrow(fetch_las("2024", "Northern Ireland")), 11)
 })
+
+test_that("2022 locations match what we expect", {
+  # PCONs
+  # https://www.parliament.uk/about/how/elections-and-voting/constituencies/
+  expect_equal(nrow(fetch_pcons("2022")), 650)
+  expect_equal(nrow(fetch_pcons("2022", c("England", "Scotland"))), 600)
+  expect_equal(nrow(fetch_pcons("2022", "England")), 543)
+  expect_equal(nrow(fetch_pcons("2022", "Scotland")), 57)
+  expect_equal(nrow(fetch_pcons("2022", "Wales")), 32)
+  expect_equal(nrow(fetch_pcons("2022", "Northern Ireland")), 18)
+
+  # LADs
+  expect_equal(nrow(fetch_lads("2022")), 361)
+  expect_equal(nrow(fetch_lads("2022", c("England", "Wales"))), 318)
+  expect_equal(nrow(fetch_lads("2022", "England")), 296)
+  expect_equal(nrow(fetch_lads("2022", "Scotland")), 32)
+  expect_equal(nrow(fetch_lads("2022", "Wales")), 22)
+  expect_equal(nrow(fetch_lads("2022", "Northern Ireland")), 11)
+
+  # LAs
+  expect_equal(nrow(fetch_las("2022")), 218)
+  expect_equal(nrow(fetch_las("2022", c("England", "Scotland", "Wales"))), 207)
+  expect_equal(nrow(fetch_las("2022", "England")), 153)
+  expect_equal(nrow(fetch_las("2022", "Scotland")), 32)
+  expect_equal(nrow(fetch_las("2022", "Wales")), 22)
+  expect_equal(nrow(fetch_las("2022", "Northern Ireland")), 11)
+})

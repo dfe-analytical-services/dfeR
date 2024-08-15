@@ -22,6 +22,8 @@
 #' fetch_las("2024", "Wales")
 #'
 #' fetch_pcons("2022", "Northern Ireland")
+
+# TODO: prevent the copy and pasting in this script and break out a separate common function to pump stuff into
 fetch_pcons <- function(year = "All", countries = "All") {
   # Function to check the inputs are valid
   check_fetch_location_inputs(year, countries)
@@ -177,6 +179,7 @@ fetch_las <- function(year = "All", countries = "All") {
 
   # Filtering based on years and countries
   if (year != "All") {
+    # TODO: Make this do it fancier to actually get the year!
     resummarised_lookup <-
       with(
         resummarised_lookup,
