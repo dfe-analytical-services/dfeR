@@ -2,7 +2,7 @@
 % Please edit documentation in R/fetch_geographies.R
 \name{fetch_pcons}
 \alias{fetch_pcons}
-\title{fetch_pcons}
+\title{Fetch Westminster parliamentary constituencies}
 \usage{
 fetch_pcons(years = "All", countries = "All")
 }

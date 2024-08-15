@@ -1,4 +1,4 @@
-#' ONS geography shorthand lookup
+#' Lookup for ONS geography columns shorthands
 #'
 #' A lookup of ONS geography shorthands and their respective column names in
 #' line with DfE open data standards
@@ -13,16 +13,22 @@
 #' @source curated by explore.statistics@@education.gov.uk
 "ons_geog_shorthands"
 
-#' wd_pcon_lad_la
+#' Ward to Constituency to LAD to LA lookup
 #'
 #' A lookup showing the hierarchy of ward to Westminster parliamentary
 #' constituency to local authority district to local authority for years
 #' 2017, 2019, 2020, 2021, 2022, 2023 and 2024
 #'
-#' The original lookup from ONS uses the Upper Tier Local Authority, we then
+#' Changes we've made to the lookup:
+#' 1. The original lookup from ONS uses the Upper Tier Local Authority, we then
 #' update this so that where there is a metropolitan local authority we use the
 #' local authority district we use that as the local authority to match how
-#' DfE use local authorities
+#' DfE use local authorities.
+#'
+#' 2. We have noticed that in the 2017 version, the Glasgow East constituency
+#' had a code of S1400030 instead of the usual S14000030, we've assumed this
+#' was an error and have change this in our data so that Glasgow East is
+#' S14000030 in 2017.
 #'
 #' @format ## `wd_pcon_lad_la`
 #' A data frame with 24,629 rows and 10 columns:

@@ -9,7 +9,7 @@
 # 3. Add the extra year to descriptions, params and validation code in
 #    fetch_geographies.R
 # 4. Run this script
-# 5. Inspect changes to the dataset, and update its entry in geog_datasets.R as
+# 5. Inspect changes to the dataset, and update its entry in all_datasets.R as
 #    needed
 #
 # If you hit any errors or issues with the new year, ONS may have used
@@ -98,10 +98,11 @@ wd_pcon_lad_la <- create_time_series_lookup(
   )
 
 # Manual fixes ----------------------------------------------------------------
-# TODO: document this
+# !IMPORTANT! Make sure to log all of these in the description for the file in
+# the `R/all_datasets.R` script
 wd_pcon_lad_la <- wd_pcon_lad_la %>%
-  # ONS seemed to miss a 0 in 2017 for this PCON
+  # ONS seemed to miss a 0 in 2017 for Glasgow East PCon
   mutate(across(everything(), ~ ifelse(. == "S1400030", "S14000030", .)))
 
-# Write the data into the package
+# Write the data into the package ---------------------------------------------
 usethis::use_data(wd_pcon_lad_la, overwrite = TRUE)

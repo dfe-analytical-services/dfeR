@@ -27,13 +27,21 @@ reference:
   contents:
   - starts_with("fetch_")
 
+- title: Data sets
+  desc: Data sets exported in the package
+  contents:
+  - ons_geog_shorthands
+  - wd_pcon_lad_la
+
 - title: Helpers
   desc: >
-    Functions used in other functions across the package, also useful in
-    their own right
+    Functions used in other functions across the package, exported as they can also
+    be useful in their own right
   contents:
   - round_five_up
   - comma_sep
+  - fetch_ons_api_data
+  - toggle_message
 
 - title: Pre-populated project
   desc: >
@@ -41,3 +49,4 @@ reference:
     file structure
   contents:
   - create_project
+

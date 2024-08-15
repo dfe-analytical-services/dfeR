@@ -103,6 +103,14 @@ check() # (Ctrl-Shift-E): Check complete package
 
 We recommend using the [usethis](https://usethis.r-lib.org/index.html) package where possible for consistency and simplicity.
 
+## R/ folder
+
+In an R package you are not allowed to have any sub directories in the R/ folder. Where possible we should have one script per function or per function family if a function belongs to a wider family (for example the fetch_ functions). The script should share the name of the function or family. Given the ever growing number of functions in this package we have made a few specific scripts to contain multiple functions:
+
+* R/internal_functions.R - this contains any internal, non-exported functions that are only for use in package code and not available to users
+* R/helper_functions.R - this contains any functions that are used as helpers in other functions but still exported for users to use if they want
+* R/all_datasets.R - this contains documentation for all data sets exported by the packages
+
 ## Adding package dependencies
 
 Add any packages the package users will need with:
