@@ -37,6 +37,7 @@ Functionality for dfeR is expected to focus around the following:
 3. Templates for analytical projects
 4. Publication R Markdown Templates
 5. API wrappers for use internally
+6. Geography lookup files and helper functions
 
 Documentation for what has been included in the package so far is on our [pkgdown site](http://dfe-analytical-services.github.io/dfeR/).
 
@@ -111,6 +112,22 @@ format_ay(202425)
 format_fy(202425)
 format_ay_reverse("2024/25")
 format_fy_reverse("2024-25")
+
+# Get Ward to PCon to LAD to LA lookup file
+my_data <- dfeR::wd_pcon_lad_la
+head(my_data) # show first 5 rows in console
+
+# Get all PCon names and codes for 2024
+fetch_pcons(2024) |>
+  head() # show first 5 rows only
+
+# Get All LADs in Scotland in 2017
+fetch_lads(2017, "Scotland") |>
+  head() # show first 5 rows only
+
+# Get all LAs in Scotland and Northern Ireland in 2022
+fetch_las(2022, c("Scotland", "Northern Ireland")) |>
+  head() # show first 5 rows only
 ```
 
 For more details on all the functions available in this package, and examples of how to use them, please see our [dfeR package reference documentation](https://dfe-analytical-services.github.io/dfeR/reference/index.html).

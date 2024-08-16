@@ -8,7 +8,7 @@ tidy_raw_lookup(raw_lookup_file)
 }
 \arguments{
 \item{raw_lookup_file}{data.frame of a lookup file downloaded from Open
-Geography Portal, e.g. the output of \code{fetch_ons_api_data()}, or any other
+Geography Portal, e.g. the output of \code{get_ons_api_data()}, or any other
 data frame from R memory}
 }
 \value{

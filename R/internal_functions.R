@@ -127,7 +127,7 @@ fetch_locations <- function(lookup_data, cols, year, countries) {
 #' appending to an existing lookup
 #'
 #' @param raw_lookup_file data.frame of a lookup file downloaded from Open
-#' Geography Portal, e.g. the output of `fetch_ons_api_data()`, or any other
+#' Geography Portal, e.g. the output of `get_ons_api_data()`, or any other
 #' data frame from R memory
 #'
 #' @keywords internal
