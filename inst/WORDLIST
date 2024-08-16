@@ -31,9 +31,12 @@ sep
 ser
 shorthands
 sql
+<<<<<<< HEAD
 gitignore
 sep
 num
+=======
+>>>>>>> 84e8f4a232484f7574efae68737aef7bf8a821d7
 uk
 utla
 wd

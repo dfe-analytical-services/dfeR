@@ -49,13 +49,13 @@ create_project <- function(
   if (!is.logical(init_renv) || length(init_renv) != 1) {
     stop("init_renv must be a boolean.")
   } else if (!is.logical(include_structure_for_pkg) ||
-               length(include_structure_for_pkg) != 1) {
+    length(include_structure_for_pkg) != 1) {
     stop("include_structure_for_pkg must be a boolean.")
   } else if (!is.logical(create_publication_proj) ||
-               length(create_publication_proj) != 1) {
+    length(create_publication_proj) != 1) {
     stop("create_publication_proj must be a boolean.")
   } else if (!is.logical(include_github_gitignore) ||
-               length(include_github_gitignore) != 1) {
+    length(include_github_gitignore) != 1) {
     stop("include_github_gitignore must be a boolean.")
   }
 
