@@ -8,7 +8,7 @@ fetch_las(year = "All", countries = "All")
 }
 \arguments{
 \item{year}{year to filter the locations to, default is "All",
-options of "2017", "2019", "2020", "2021", "2022", "2023", "2024"}
+options of 2017, 2019, 2020, 2021, 2022", 2023, 2024}
 
 \item{countries}{vector of desired countries to filter the locations to,
 default is "All", or can be a vector with options of "England", "Scotland",
@@ -21,14 +21,19 @@ data frame of unique location names and codes
 Fetch local authorities
 }
 \examples{
-fetch_pcons()
-fetch_pcons("2023")
-fetch_pcons(countries = "Scotland")
-fetch_pcons(year = "2023", countries = c("England", "Wales"))
 
-fetch_las("2024", "Wales")
+# Using head() to show only top 5 rows for examples
+head(fetch_pcons())
 
-fetch_pcons("2022", "Northern Ireland")
+head(fetch_pcons(2023))
+
+head(fetch_pcons(countries = "Scotland"))
+
+head(fetch_pcons(year = 2023, countries = c("England", "Wales")))
+
+fetch_lads(2024, "Wales")
+
+fetch_las(2022, "Northern Ireland")
 }
 \seealso{
 Other fetch_locations: 
