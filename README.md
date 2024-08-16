@@ -32,6 +32,7 @@ Functionality for dfeR is expected to focus around the following:
 3.  Templates for analytical projects
 4.  Publication R Markdown Templates
 5.  API wrappers for use internally
+6.  Geography lookup files and helper functions
 
 Documentation for what has been included in the package so far is on our
 [pkgdown site](http://dfe-analytical-services.github.io/dfeR/).
@@ -133,6 +134,64 @@ format_ay_reverse("2024/25")
 #> [1] "202425"
 format_fy_reverse("2024-25")
 #> [1] "202425"
+
+# Get Ward to PCon to LAD to LA lookup file
+my_data <- dfeR::wd_pcon_lad_la
+head(my_data) # show first 5 rows in console
+#>   first_available_year_included most_recent_year_included
+#> 1                          2017                      2017
+#> 2                          2017                      2017
+#> 3                          2017                      2020
+#> 4                          2017                      2017
+#> 5                          2017                      2020
+#> 6                          2017                      2017
+#>                ward_name  pcon_name              lad_name               la_name
+#> 1               Bastwell  Blackburn Blackburn with Darwen Blackburn with Darwen
+#> 2                Ormesby     Redcar  Redcar and Cleveland  Redcar and Cleveland
+#> 3            Burn Valley Hartlepool            Hartlepool            Hartlepool
+#> 4 Beardwood with Lammack  Blackburn Blackburn with Darwen Blackburn with Darwen
+#> 5               De Bruce Hartlepool            Hartlepool            Hartlepool
+#> 6           St Germain's     Redcar  Redcar and Cleveland  Redcar and Cleveland
+#>   ward_code pcon_code  lad_code new_la_code
+#> 1 E05001621 E14000570 E06000008   E06000008
+#> 2 E05001518 E14000891 E06000003   E06000003
+#> 3 E05008942 E14000733 E06000001   E06000001
+#> 4 E05001622 E14000570 E06000008   E06000008
+#> 5 E05008943 E14000733 E06000001   E06000001
+#> 6 E05001519 E14000891 E06000003   E06000003
+
+# Get all PCon names and codes for 2024
+fetch_pcons(2024) |>
+  head() # show first 5 rows only
+#>   pcon_code                pcon_name
+#> 1 S14000021        East Renfrewshire
+#> 2 S14000027     Na h-Eileanan an Iar
+#> 3 S14000045               Midlothian
+#> 4 S14000048 North Ayrshire and Arran
+#> 5 S14000051      Orkney and Shetland
+#> 6 E14001272               Hartlepool
+
+# Get All LADs in Scotland in 2017
+fetch_lads(2017, "Scotland") |>
+  head() # show first 5 rows only
+#>    lad_code          lad_name
+#> 1 S12000008     East Ayrshire
+#> 2 S12000017          Highland
+#> 3 S12000015              Fife
+#> 4 S12000018        Inverclyde
+#> 5 S12000010      East Lothian
+#> 6 S12000011 East Renfrewshire
+
+# Get all LAs in Scotland and Northern Ireland in 2022
+fetch_las(2022, c("Scotland", "Northern Ireland")) |>
+  head() # show first 5 rows only
+#>   new_la_code                              la_name
+#> 1   N09000003                              Belfast
+#> 2   N09000004             Causeway Coast and Glens
+#> 3   N09000002 Armagh City, Banbridge and Craigavon
+#> 4   N09000005              Derry City and Strabane
+#> 5   N09000001              Antrim and Newtownabbey
+#> 6   N09000006                  Fermanagh and Omagh
 ```
 
 For more details on all the functions available in this package, and

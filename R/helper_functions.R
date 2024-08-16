@@ -75,7 +75,8 @@ round_five_up <- function(number, dp = 0) {
 #' Fetch ONS Open Geography API data
 #'
 #' Helper function that takes a data set id and parameters to query and parse
-#' data from the ONS Open Geography API.
+#' data from the ONS Open Geography API. Technically uses a POST request rather
+#' than a GET request.
 #'
 #' It does a pre-query to understand the ObjectIds for the query you want, and
 #' then does a query to retrieve those Ids directly in batches before then
@@ -106,25 +107,25 @@ round_five_up <- function(number, dp = 0) {
 #' @examples
 #' if (interactive()) {
 #'   # Specify some parameters
-#'   fetch_ons_api_data(
+#'   get_ons_api_data(
 #'     data_id = "LAD23_RGN23_EN_LU",
 #'     query_params =
 #'       list(outFields = "column1, column2", outSR = "4326", f = "json")
 #'   )
 #'
 #'   # Just fetch everything
-#'   fetch_ons_api_data(data_id = "LAD23_RGN23_EN_LU")
+#'   get_ons_api_data(data_id = "LAD23_RGN23_EN_LU")
 #' }
-fetch_ons_api_data <- function(data_id,
-                               query_params =
-                                 list(
-                                   where = "1=1",
-                                   outFields = "*",
-                                   outSR = "4326",
-                                   f = "json"
-                                 ),
-                               batch_size = 200,
-                               verbose = TRUE) {
+get_ons_api_data <- function(data_id,
+                             query_params =
+                               list(
+                                 where = "1=1",
+                                 outFields = "*",
+                                 outSR = "4326",
+                                 f = "json"
+                               ),
+                             batch_size = 200,
+                             verbose = TRUE) {
   # Known URL for ONS API
   # Split in two parts so that the data_id can be smushed in the middle
   part_1 <-

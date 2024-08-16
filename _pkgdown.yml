@@ -40,5 +40,5 @@ reference:
   contents:
   - round_five_up
   - comma_sep
-  - fetch_ons_api_data
+  - get_ons_api_data
   - toggle_message

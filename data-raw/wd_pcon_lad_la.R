@@ -69,7 +69,7 @@ get_wd_pcon_lad_la <- function(year) {
     )
     output <- as.data.frame(readxl::read_excel(path = local_file))
   } else {
-    output <- fetch_ons_api_data(
+    output <- get_ons_api_data(
       data_id = paste0(
         "WD", year, "_PCON", year, "_LAD", year, "_UTLA", year, id_end
       ),
