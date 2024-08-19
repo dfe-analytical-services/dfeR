@@ -10,33 +10,25 @@ POSIXct
 SSMS
 Smush
 Sys
-api
 ay
 center
 dbplyr
 dfeshiny
 fy
 geoportal
+gitignore
 gov
-las
 lauraselby
 lup
 num
 odbc
 pcon
-pcons
 pkgdown
 renv
 sep
 ser
 shorthands
 sql
-<<<<<<< HEAD
-gitignore
-sep
-num
-=======
->>>>>>> 84e8f4a232484f7574efae68737aef7bf8a821d7
 uk
 utla
 wd
