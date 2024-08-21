@@ -158,8 +158,9 @@ get_ons_api_data <- function(data_id,
   # Using 1000 as that's the max recommended number features on the ONS API
   # 2000 is the maximum limit for a batch
   batches <- split(1:total_ids, ceiling(seq_along(1:total_ids) / batch_size))
+  num_of_batches <- length(batches)
   dfeR::toggle_message(
-    "Created ", length(batches), " batches of objects to query",
+    "Created ", num_of_batches, " batches of objects to query",
     verbose = verbose
   )
 
@@ -169,7 +170,7 @@ get_ons_api_data <- function(data_id,
   full_table <- data.frame()
 
   # Loop the the main feature query (this gets the locations data itself)
-  for (batch_num in seq_len(batches)) {
+  for (batch_num in seq_along(1:num_of_batches)) {
     dfeR::toggle_message(
       "...fetching batch ", batch_num, ": objects ",
       dfeR::pretty_num(min(batches[[batch_num]])), " to ",
