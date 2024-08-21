@@ -1,15 +1,17 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Created: 05/08/2024, Cam Race
 #
-# This script creates the wd_pcon_lad_la data set
+# This script creates the wd_pcon_lad_la_reg_ctry data set
 #
 # If updating the data, follow these steps:
 # 1. Load the package using `devtools::load_all(".")`
-# 2. Add in an extra year for the new year into this script
-# 3. Add the extra year to descriptions, params and validation code in
+# 2. Add in an extra year for the new year into this script within the
+#    create_timeseries_lookup function
+# 3. Check if we need to add a new year into the LAD to region lookup
+# 4. Add the extra year to descriptions, params and validation code in
 #    fetch_geographies.R
-# 4. Run this script
-# 5. Inspect changes to the dataset, and update its entry in all_datasets.R as
+# 5. Run this script
+# 6. Inspect changes to the dataset, and update its entry in all_datasets.R as
 #    needed
 #
 # If you hit any errors or issues with the new year, ONS may have used
@@ -97,12 +99,51 @@ wd_pcon_lad_la <- create_time_series_lookup(
     "ward_code", "pcon_code", "lad_code", "new_la_code",
   )
 
+# Get LAD to region lookup ----------------------------------------------------
+# Only getting the years needed to give the full coverage, don't need all
+# 2018 - https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/LAD18_RGN18_EN_LU_2789dae82efa497d98e12a0ce1d5586f/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json
+# 2022 -
+
+
+
+# Join on regions -------------------------------------------------------------
+
+# Check if any rows are missing regions
+if(){
+  stop(
+    paste(nrow(), " rows are missing regions, please check if we need an extra LAD to Region lookup file adding")
+  )
+}
+
+# Join on countries -----------------------------------------------------------
+wd_pcon_lad_la <- wd_pcon_lad_la %>%
+  mutate(
+    "country_name" = case_when(
+        startsWith(pcon_code, "E") ~ "England",
+        startsWith(pcon_code, "S") ~ "Scotland",
+        startsWith(pcon_code, "W") ~ "Wales",
+        startsWith(pcon_code, "N") ~ "Northern Ireland",
+        .default = "ERROR"
+    ),
+    "country_code" = case_when(
+      startsWith(pcon_code, "E") ~ "E92000001",
+      startsWith(pcon_code, "S") ~ "S92000003",
+      startsWith(pcon_code, "W") ~ "W92000004",
+      startsWith(pcon_code, "N") ~ "N92000002",
+      .default = "ERROR"
+    )
+  )
+
+if (any(wd_pcon_lad_la$country_code == "ERROR" | wd_pcon_lad_la$country_name == "ERROR")){
+  stop("Country information failing to match, check why this is happening")
+}
+
 # Manual fixes ----------------------------------------------------------------
 # !IMPORTANT! Make sure to log all of these in the description for the file in
 # the `R/all_datasets.R` script
-wd_pcon_lad_la <- wd_pcon_lad_la %>%
+wd_pcon_lad_la_reg_ctry <- wd_pcon_lad_la_reg_ctry %>%
   # ONS seemed to miss a 0 in 2017 for Glasgow East PCon
   mutate(across(everything(), ~ ifelse(. == "S1400030", "S14000030", .)))
 
 # Write the data into the package ---------------------------------------------
-usethis::use_data(wd_pcon_lad_la, overwrite = TRUE)
+usethis::use_data(wd_pcon_lad_la_reg_ctry, overwrite = TRUE)
