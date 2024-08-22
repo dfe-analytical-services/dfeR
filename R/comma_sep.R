@@ -1,11 +1,12 @@
 #' Comma separate
 #'
 #' @description
-#' Adds separating commas to big numbers.
+#' Adds separating commas to big numbers. If a value is not numeric it will
+#' return the value unchanged and as a string.
 #'
 #' @param number number to be comma separated
 #'
-#' @return string containing comma separated number
+#' @return string
 #' @export
 #'
 #' @examples
@@ -13,9 +14,5 @@
 #' comma_sep(1000)
 #' comma_sep(3567000)
 comma_sep <- function(number) {
-  if (!is.numeric(number)) {
-    stop("number must be a numeric value")
-  }
-
   format(number, big.mark = ",", trim = TRUE, scientific = FALSE)
 }
