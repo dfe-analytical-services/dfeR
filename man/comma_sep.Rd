@@ -10,10 +10,11 @@ comma_sep(number)
 \item{number}{number to be comma separated}
 }
 \value{
-string containing comma separated number
+string
 }
 \description{
-Adds separating commas to big numbers.
+Adds separating commas to big numbers. If a value is not numeric it will
+return the value unchanged and as a string.
 }
 \examples{
 comma_sep(100)

@@ -1,3 +1,7 @@
+# dfeR 0.4.1
+
+Update comma_sep() function to allow non-numeric values instead of throwing an error, now returns them unchanged.
+
 # dfeR 0.4.0
 
 Add function which creates a DfE R project:
