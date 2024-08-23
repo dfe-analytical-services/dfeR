@@ -7,17 +7,9 @@ test_that("comma separates", {
   expect_equal(comma_sep(-1000), "-1,000")
 })
 
-test_that("rejects non-numbers", {
-  expect_error(
-    comma_sep("12"),
-    "number must be a numeric value"
-  )
-  expect_error(
-    comma_sep("test"),
-    "number must be a numeric value"
-  )
-  expect_error(
-    comma_sep(TRUE),
-    "number must be a numeric value"
-  )
+test_that("handles non-numbers", {
+  expect_equal(comma_sep("12"), "12")
+  expect_equal(comma_sep("1200"), "1200")
+  expect_equal(comma_sep("test"), "test")
+  expect_equal(comma_sep(TRUE), "TRUE")
 })
