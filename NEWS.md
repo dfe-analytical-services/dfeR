@@ -1,3 +1,20 @@
+# dfeR 0.5.0
+
+Add the following lookup data sets into the package:
+- ons_geog_shorthands
+- countries
+- wd_pcon_lad_la_rgn_ctry
+
+Add the following fetch_locations() functions:
+- fetch_wards()
+- fetch_pcons()
+- fetch_lads()
+- fetch_las()
+- fetch_regions()
+
+Add wrapper for ONS Open Geography Portal API:
+- get_ons_api_data()
+
 # dfeR 0.4.1
 
 Update comma_sep() function to allow non-numeric values instead of throwing an error, now returns them unchanged.
@@ -10,7 +27,7 @@ Add function which creates a DfE R project:
 
 # dfeR 0.3.1
 
-Fix bug in get_clean_sql() where using the additional settings would lose the original SQL statement
+Fix bug in get_clean_sql() where using the additional settings would lose the original SQL statement.
 
 # dfeR 0.3.0
 
