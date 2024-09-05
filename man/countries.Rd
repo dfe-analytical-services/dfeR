@@ -5,7 +5,7 @@
 \alias{countries}
 \title{Lookup for valid country names and codes}
 \format{
-\subsection{\code{coutnries}}{
+\subsection{\code{countries}}{
 
 A data frame with 10 rows and 2 columns:
 \describe{

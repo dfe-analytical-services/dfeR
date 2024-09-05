@@ -23,9 +23,9 @@ ons_geog_shorthands
 }
 \description{
 A lookup of ONS geography shorthands and their respective column names in
-line with DfE open data standards
+line with DfE open data standards.
 }
 \details{
-GOR (Government Office Region) was the predecessor to RGN
+GOR (Government Office Region) was the predecessor to RGN.
 }
 \keyword{datasets}

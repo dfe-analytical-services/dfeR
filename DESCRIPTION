@@ -35,6 +35,7 @@ Imports:
     withr
 Suggests:
     knitr,
+    readxl,
     rmarkdown,
     spelling,
     stringr,

@@ -1,7 +1,7 @@
 #' Fetch Westminster parliamentary constituencies
 #'
 #' Fetch a data frame of all Westminster Parliamentary Constituencies for a
-#' given year and country based on the dfeR::wd_pcon_lad_la file
+#' given year and country based on the dfeR::wd_pcon_lad_la_rgn_ctry file
 #'
 #' @param year year to filter the locations to, default is "All",
 #' options of 2017, 2019, 2020, 2021, 2022", 2023, 2024
@@ -16,6 +16,8 @@
 #' @examples
 #'
 #' # Using head() to show only top 5 rows for examples
+#' head(fetch_wards())
+#'
 #' head(fetch_pcons())
 #'
 #' head(fetch_pcons(2023))
@@ -27,13 +29,15 @@
 #' fetch_lads(2024, "Wales")
 #'
 #' fetch_las(2022, "Northern Ireland")
+#'
+#' fetch_regions(2024)
 fetch_pcons <- function(year = "All", countries = "All") {
   # Helper function to check the inputs are valid
   check_fetch_location_inputs(year, countries)
 
   # Helper function to filter to locations we want
   output <- fetch_locations(
-    lookup_data = dfeR::wd_pcon_lad_la,
+    lookup_data = dfeR::wd_pcon_lad_la_rgn_ctry,
     cols = c("pcon_code", "pcon_name"),
     year = year,
     countries = countries
@@ -57,7 +61,7 @@ fetch_lads <- function(year = "All", countries = "All") {
 
   # Helper function to filter to locations we want
   output <- fetch_locations(
-    lookup_data = dfeR::wd_pcon_lad_la,
+    lookup_data = dfeR::wd_pcon_lad_la_rgn_ctry,
     cols = c("lad_code", "lad_name"),
     year = year,
     countries = countries
@@ -81,8 +85,56 @@ fetch_las <- function(year = "All", countries = "All") {
 
   # Helper function to filter to locations we want
   output <- fetch_locations(
-    lookup_data = dfeR::wd_pcon_lad_la,
+    lookup_data = dfeR::wd_pcon_lad_la_rgn_ctry,
     cols = c("new_la_code", "la_name"),
+    year = year,
+    countries = countries
+  )
+
+  return(output)
+}
+
+#' Fetch regions
+#'
+#' @inheritParams fetch
+#'
+#' @family fetch_locations
+#' @return data frame of unique location names and codes
+#' @export
+#'
+#' @inherit fetch examples
+fetch_regions <- function(year = "All", countries = "All") {
+  # Helper function to check the inputs are valid
+  check_fetch_location_inputs(year, countries)
+
+  # Helper function to filter to locations we want
+  output <- fetch_locations(
+    lookup_data = dfeR::wd_pcon_lad_la_rgn_ctry,
+    cols = c("region_code", "region_name"),
+    year = year,
+    countries = countries
+  )
+
+  return(output)
+}
+
+#' Fetch wards
+#'
+#' @inheritParams fetch
+#'
+#' @family fetch_locations
+#' @return data frame of unique location names and codes
+#' @export
+#'
+#' @inherit fetch examples
+fetch_wards <- function(year = "All", countries = "All") {
+  # Helper function to check the inputs are valid
+  check_fetch_location_inputs(year, countries)
+
+  # Helper function to filter to locations we want
+  output <- fetch_locations(
+    lookup_data = dfeR::wd_pcon_lad_la_rgn_ctry,
+    cols = c("ward_code", "ward_name"),
     year = year,
     countries = countries
   )

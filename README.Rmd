@@ -86,7 +86,7 @@ Please note that the dfeR project is released with a [Contributor Code of Conduc
 
 ## Examples
 
-Here are some example formatting functions from within the package:
+Here are some example functions from within the package:
 
 ```{r example}
 library(dfeR)
@@ -113,9 +113,12 @@ format_fy(202425)
 format_ay_reverse("2024/25")
 format_fy_reverse("2024-25")
 
-# Get Ward to PCon to LAD to LA lookup file
-my_data <- dfeR::wd_pcon_lad_la
+# Get Ward to PCon to LAD to LA to Rgn to Ctry lookup file
+my_data <- dfeR::wd_pcon_lad_la_rgn_ctry
 head(my_data) # show first 5 rows in console
+
+# Get all countries
+dfeR::countries
 
 # Get all PCon names and codes for 2024
 fetch_pcons(2024) |>
@@ -127,6 +130,14 @@ fetch_lads(2017, "Scotland") |>
 
 # Get all LAs in Scotland and Northern Ireland in 2022
 fetch_las(2022, c("Scotland", "Northern Ireland")) |>
+  head() # show first 5 rows only
+
+# Get all regions
+fetch_regions() |>
+  head() # show first 5 rows only
+
+# Get all Welsh wards for 2021
+fetch_wards(2021, "Wales") |>
   head() # show first 5 rows only
 ```
 

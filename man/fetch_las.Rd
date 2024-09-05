@@ -23,6 +23,8 @@ Fetch local authorities
 \examples{
 
 # Using head() to show only top 5 rows for examples
+head(fetch_wards())
+
 head(fetch_pcons())
 
 head(fetch_pcons(2023))
@@ -34,9 +36,13 @@ head(fetch_pcons(year = 2023, countries = c("England", "Wales")))
 fetch_lads(2024, "Wales")
 
 fetch_las(2022, "Northern Ireland")
+
+fetch_regions(2024)
 }
 \seealso{
 Other fetch_locations: 
-\code{\link{fetch_lads}()}
+\code{\link{fetch_lads}()},
+\code{\link{fetch_regions}()},
+\code{\link{fetch_wards}()}
 }
 \concept{fetch_locations}

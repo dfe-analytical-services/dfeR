@@ -98,7 +98,7 @@ By contributing to this project, you agree to abide by its terms.
 
 ## Examples
 
-Here are some example formatting functions from within the package:
+Here are some example functions from within the package:
 
 ``` r
 library(dfeR)
@@ -135,8 +135,8 @@ format_ay_reverse("2024/25")
 format_fy_reverse("2024-25")
 #> [1] "202425"
 
-# Get Ward to PCon to LAD to LA lookup file
-my_data <- dfeR::wd_pcon_lad_la
+# Get Ward to PCon to LAD to LA to Rgn to Ctry lookup file
+my_data <- dfeR::wd_pcon_lad_la_rgn_ctry
 head(my_data) # show first 5 rows in console
 #>   first_available_year_included most_recent_year_included
 #> 1                          2017                      2017
@@ -152,13 +152,34 @@ head(my_data) # show first 5 rows in console
 #> 4 Beardwood with Lammack  Blackburn Blackburn with Darwen Blackburn with Darwen
 #> 5               De Bruce Hartlepool            Hartlepool            Hartlepool
 #> 6           St Germain's     Redcar  Redcar and Cleveland  Redcar and Cleveland
-#>   ward_code pcon_code  lad_code new_la_code
-#> 1 E05001621 E14000570 E06000008   E06000008
-#> 2 E05001518 E14000891 E06000003   E06000003
-#> 3 E05008942 E14000733 E06000001   E06000001
-#> 4 E05001622 E14000570 E06000008   E06000008
-#> 5 E05008943 E14000733 E06000001   E06000001
-#> 6 E05001519 E14000891 E06000003   E06000003
+#>   region_name country_name ward_code pcon_code  lad_code new_la_code
+#> 1  North West      England E05001621 E14000570 E06000008   E06000008
+#> 2  North East      England E05001518 E14000891 E06000003   E06000003
+#> 3  North East      England E05008942 E14000733 E06000001   E06000001
+#> 4  North West      England E05001622 E14000570 E06000008   E06000008
+#> 5  North East      England E05008943 E14000733 E06000001   E06000001
+#> 6  North East      England E05001519 E14000891 E06000003   E06000003
+#>   region_code country_code
+#> 1   E12000002    E92000001
+#> 2   E12000001    E92000001
+#> 3   E12000001    E92000001
+#> 4   E12000002    E92000001
+#> 5   E12000001    E92000001
+#> 6   E12000001    E92000001
+
+# Get all countries
+dfeR::countries
+#>    country_code                              country_name
+#> 1     E92000001                                   England
+#> 2     K02000001                            United Kingdom
+#> 3     K03000001                             Great Britain
+#> 4     K04000001                         England and Wales
+#> 5     N92000002                          Northern Ireland
+#> 6     S92000003                                  Scotland
+#> 7     W92000004                                     Wales
+#> 8             z       England, Wales and Northern Ireland
+#> 9             z            Outside of England and unknown
+#> 10            z Outside of the United Kingdom and unknown
 
 # Get all PCon names and codes for 2024
 fetch_pcons(2024) |>
@@ -192,6 +213,28 @@ fetch_las(2022, c("Scotland", "Northern Ireland")) |>
 #> 4   N09000005              Derry City and Strabane
 #> 5   N09000001              Antrim and Newtownabbey
 #> 6   N09000006                  Fermanagh and Omagh
+
+# Get all regions
+fetch_regions() |>
+  head() # show first 5 rows only
+#>   region_code              region_name
+#> 1   E12000002               North West
+#> 2   E12000001               North East
+#> 3   E12000003 Yorkshire and The Humber
+#> 4   E12000004            East Midlands
+#> 5   E12000005            West Midlands
+#> 6   E12000009               South West
+
+# Get all Welsh wards for 2021
+fetch_wards(2021, "Wales") |>
+  head() # show first 5 rows only
+#>   ward_code                   ward_name
+#> 1 W05000981                      Aethwy
+#> 2 W05000982               Bro Aberffraw
+#> 3 W05000983                  Bro Rhosyr
+#> 4 W05000107 Tregarth & Mynydd Llandygai
+#> 5 W05000984                    Caergybi
+#> 6 W05000985              Canolbarth Môn
 ```
 
 For more details on all the functions available in this package, and

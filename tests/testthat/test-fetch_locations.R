@@ -2,12 +2,16 @@ test_that("fetch_locations gives a data frame", {
   expect_true(is.data.frame(fetch_pcons()))
   expect_true(is.data.frame(fetch_lads()))
   expect_true(is.data.frame(fetch_las()))
+  expect_true(is.data.frame(fetch_regions()))
+  expect_true(is.data.frame(fetch_wards()))
 })
 
 test_that("fetch_locations have no duplicate rows", {
   expect_true(!anyDuplicated(fetch_pcons()))
   expect_true(!anyDuplicated(fetch_lads()))
   expect_true(!anyDuplicated(fetch_las()))
+  expect_true(!anyDuplicated(fetch_regions()))
+  expect_true(!anyDuplicated(fetch_wards()))
 })
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

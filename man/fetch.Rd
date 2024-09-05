@@ -20,11 +20,13 @@ data frame of unique location names and codes
 }
 \description{
 Fetch a data frame of all Westminster Parliamentary Constituencies for a
-given year and country based on the dfeR::wd_pcon_lad_la file
+given year and country based on the dfeR::wd_pcon_lad_la_rgn_ctry file
 }
 \examples{
 
 # Using head() to show only top 5 rows for examples
+head(fetch_wards())
+
 head(fetch_pcons())
 
 head(fetch_pcons(2023))
@@ -36,4 +38,6 @@ head(fetch_pcons(year = 2023, countries = c("England", "Wales")))
 fetch_lads(2024, "Wales")
 
 fetch_las(2022, "Northern Ireland")
+
+fetch_regions(2024)
 }
