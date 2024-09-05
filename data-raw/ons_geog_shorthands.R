@@ -1,8 +1,8 @@
 ## code to prepare `ons_geog_shorthands` dataset goes here
 
-ons_level_shorthands <- c("WD", "PCON", "LAD", "UTLA")
-name_column <- paste0(c("ward", "pcon", "lad", "la"), "_name")
-code_column <- paste0(c("ward", "pcon", "lad", "new_la"), "_code")
+ons_level_shorthands <- c("WD", "PCON", "LAD", "UTLA", "GOR", "RGN", "CTRY")
+name_column <- paste0(c("ward", "pcon", "lad", "la", "region", "region", "country"), "_name")
+code_column <- paste0(c("ward", "pcon", "lad", "new_la", "region", "region", "country"), "_code")
 
 ons_geog_shorthands <- data.frame(
   ons_level_shorthands,

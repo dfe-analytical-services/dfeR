@@ -7,7 +7,7 @@
 \format{
 \subsection{\code{ons_geog_shorthands}}{
 
-A data frame with 4 rows and 3 columns:
+A data frame with 7 rows and 3 columns:
 \describe{
 \item{ons_level_shorthands}{ONS shorthands used in their lookup files}
 \item{name_column}{DfE names for geography name columns}
@@ -24,5 +24,8 @@ ons_geog_shorthands
 \description{
 A lookup of ONS geography shorthands and their respective column names in
 line with DfE open data standards
+}
+\details{
+GOR (Government Office Region) was the predecessor to RGN
 }
 \keyword{datasets}
