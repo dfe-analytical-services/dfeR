@@ -64,7 +64,7 @@
 #'   \item{country_code}{9 digit country code}
 #' }
 #' @source https://geoportal.statistics.gov.uk/search?tags=lup_wd_pcon_lad_utla
-#' and https://geoportal.statistics.gov.uk/search?q=LUP_WD_LAD_CTY_RGN_GOR_CTRY
+#' and https://geoportal.statistics.gov.uk/search?q=lup_wd_lad_cty_rgn_gor_ctry
 "wd_pcon_lad_la_rgn_ctry"
 
 #' Lookup for valid country names and codes

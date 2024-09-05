@@ -32,7 +32,7 @@ Last year in the lookups that we see this location
 }
 \source{
 https://geoportal.statistics.gov.uk/search?tags=lup_wd_pcon_lad_utla
-and https://geoportal.statistics.gov.uk/search?q=LUP_WD_LAD_CTY_RGN_GOR_CTRY
+and https://geoportal.statistics.gov.uk/search?q=lup_wd_lad_cty_rgn_gor_ctry
 }
 \usage{
 wd_pcon_lad_la_rgn_ctry
