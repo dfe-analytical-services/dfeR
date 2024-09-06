@@ -83,3 +83,24 @@
 #' from
 #' https://geoportal.statistics.gov.uk/search?q=countries%20names%20and%20codes
 "countries"
+
+#' Lookup for valid region names and codes
+#'
+#' A lookup of ONS geography region names and codes for England. In their
+#' lookups Northern Ireland, Scotland and Wales are regions.
+#'
+#' Also included inner and outer London county split as DfE frequently publish
+#' those as regions, as well as some custom DfE names and codes. This is used
+#' as the definitive list for the screening of open data before it is published
+#' by the DfE.
+#'
+#' @format ## `regions`
+#' A data frame with 16 rows and 2 columns:
+#' \describe{
+#'   \item{region_name}{Region name}
+#'   \item{region_code}{Region code}
+#' }
+#' @source curated by explore.statistics@@education.gov.uk, ONS codes sourced
+#' from
+#' https://geoportal.statistics.gov.uk/search?q=NAC_RGN
+"regions"

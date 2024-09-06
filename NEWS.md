@@ -3,6 +3,7 @@
 Add the following lookup data sets into the package:
 - ons_geog_shorthands
 - countries
+- regions
 - wd_pcon_lad_la_rgn_ctry
 
 Add the following fetch_locations() functions:
@@ -11,9 +12,13 @@ Add the following fetch_locations() functions:
 - fetch_lads()
 - fetch_las()
 - fetch_regions()
+- fetch_countries()
 
 Add wrapper for ONS Open Geography Portal API:
 - get_ons_api_data()
+
+Add helper for turning messages on or off:
+- toggle_message()
 
 # dfeR 0.4.1
 

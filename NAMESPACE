@@ -2,6 +2,7 @@
 
 export(comma_sep)
 export(create_project)
+export(fetch_countries)
 export(fetch_lads)
 export(fetch_las)
 export(fetch_pcons)

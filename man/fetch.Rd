@@ -39,5 +39,7 @@ fetch_lads(2024, "Wales")
 
 fetch_las(2022, "Northern Ireland")
 
-fetch_regions(2024)
+# The following have no specific years available and return all values
+fetch_regions()
+fetch_countries()
 }

@@ -10,7 +10,7 @@ params <- list(
 ons_countries <- dfeR::get_ons_api_data(
   "CTRY_DEC_2023_UK_NC",
   query_params = params
-) %>%
+) |>
   dplyr::rename(
     "country_name" = attributes.CTRY23NM,
     "country_code" = attributes.CTRY23CD

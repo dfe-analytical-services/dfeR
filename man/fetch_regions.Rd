@@ -4,15 +4,7 @@
 \alias{fetch_regions}
 \title{Fetch regions}
 \usage{
-fetch_regions(year = "All", countries = "All")
-}
-\arguments{
-\item{year}{year to filter the locations to, default is "All",
-options of 2017, 2019, 2020, 2021, 2022", 2023, 2024}
-
-\item{countries}{vector of desired countries to filter the locations to,
-default is "All", or can be a vector with options of "England", "Scotland",
-"Wales" or "Northern Ireland"}
+fetch_regions()
 }
 \value{
 data frame of unique location names and codes
@@ -37,10 +29,13 @@ fetch_lads(2024, "Wales")
 
 fetch_las(2022, "Northern Ireland")
 
-fetch_regions(2024)
+# The following have no specific years available and return all values
+fetch_regions()
+fetch_countries()
 }
 \seealso{
 Other fetch_locations: 
+\code{\link{fetch_countries}()},
 \code{\link{fetch_lads}()},
 \code{\link{fetch_las}()},
 \code{\link{fetch_wards}()}

@@ -132,13 +132,15 @@ fetch_lads(2017, "Scotland") |>
 fetch_las(2022, c("Scotland", "Northern Ireland")) |>
   head() # show first 5 rows only
 
-# Get all regions
-fetch_regions() |>
-  head() # show first 5 rows only
-
 # Get all Welsh wards for 2021
 fetch_wards(2021, "Wales") |>
   head() # show first 5 rows only
+
+# The following have no specific years available and return all values 
+fetch_regions()
+
+fetch_countries()
+
 ```
 
 For more details on all the functions available in this package, and examples of how to use them, please see our [dfeR package reference documentation](https://dfe-analytical-services.github.io/dfeR/reference/index.html).

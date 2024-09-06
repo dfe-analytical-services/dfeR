@@ -214,17 +214,6 @@ fetch_las(2022, c("Scotland", "Northern Ireland")) |>
 #> 5   N09000001              Antrim and Newtownabbey
 #> 6   N09000006                  Fermanagh and Omagh
 
-# Get all regions
-fetch_regions() |>
-  head() # show first 5 rows only
-#>   region_code              region_name
-#> 1   E12000002               North West
-#> 2   E12000001               North East
-#> 3   E12000003 Yorkshire and The Humber
-#> 4   E12000004            East Midlands
-#> 5   E12000005            West Midlands
-#> 6   E12000009               South West
-
 # Get all Welsh wards for 2021
 fetch_wards(2021, "Wales") |>
   head() # show first 5 rows only
@@ -235,6 +224,39 @@ fetch_wards(2021, "Wales") |>
 #> 4 W05000107 Tregarth & Mynydd Llandygai
 #> 5 W05000984                    Caergybi
 #> 6 W05000985              Canolbarth Môn
+
+# The following have no specific years available and return all values 
+fetch_regions()
+#>    region_code                               region_name
+#> 1    E12000001                                North East
+#> 2    E12000002                                North West
+#> 3    E12000003                  Yorkshire and The Humber
+#> 4    E12000004                             East Midlands
+#> 5    E12000005                             West Midlands
+#> 6    E12000006                           East of England
+#> 7    E12000007                                    London
+#> 8    E12000008                                South East
+#> 9    E12000009                                South West
+#> 10   E13000001                              Inner London
+#> 11   E13000002                              Outer London
+#> 12           z            Outside of England and unknown
+#> 13           z Outside of the United Kingdom and unknown
+#> 14           z                        Outside of England
+#> 15           z                 Outside of United Kingdom
+#> 16           z                                   Unknown
+
+fetch_countries()
+#>    country_code                              country_name
+#> 1     E92000001                                   England
+#> 2     K02000001                            United Kingdom
+#> 3     K03000001                             Great Britain
+#> 4     K04000001                         England and Wales
+#> 5     N92000002                          Northern Ireland
+#> 6     S92000003                                  Scotland
+#> 7     W92000004                                     Wales
+#> 8             z       England, Wales and Northern Ireland
+#> 9             z            Outside of England and unknown
+#> 10            z Outside of the United Kingdom and unknown
 ```
 
 For more details on all the functions available in this package, and

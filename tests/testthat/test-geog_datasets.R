@@ -21,7 +21,6 @@ test_that("rows and cols match description", {
   expect_equal(ncol(dfeR::ons_geog_shorthands), 3)
 })
 
-
 # wd_pcon_lad_la_rgn_ctry =====================================================
 test_that("wd_pcon_lad_la_rgn_ctry is a data frame", {
   expect_true(is.data.frame(dfeR::wd_pcon_lad_la_rgn_ctry))
@@ -93,11 +92,30 @@ test_that("rows and cols match description", {
   expect_equal(ncol(dfeR::countries), 2)
 })
 
-
 test_that("There are no blank cells", {
   expect_false(any(is.na(dfeR::countries)))
 })
 
 test_that("There are no duplicate rows", {
   expect_true(!anyDuplicated(dfeR::countries))
+})
+
+# regions =====================================================================
+test_that("regions is a data frame", {
+  expect_true(is.data.frame(dfeR::regions))
+})
+
+test_that("rows and cols match description", {
+  # This test is more of a reminder when updating the dataset, if these change
+  # then we need to update the description in R/all_datasets.R
+  expect_equal(nrow(dfeR::regions), 16)
+  expect_equal(ncol(dfeR::regions), 2)
+})
+
+test_that("There are no blank cells", {
+  expect_false(any(is.na(dfeR::regions)))
+})
+
+test_that("There are no duplicate rows", {
+  expect_true(!anyDuplicated(dfeR::regions))
 })

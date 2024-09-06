@@ -30,7 +30,9 @@
 #'
 #' fetch_las(2022, "Northern Ireland")
 #'
-#' fetch_regions(2024)
+#' # The following have no specific years available and return all values
+#' fetch_regions()
+#' fetch_countries()
 fetch_pcons <- function(year = "All", countries = "All") {
   # Helper function to check the inputs are valid
   check_fetch_location_inputs(year, countries)
@@ -94,30 +96,6 @@ fetch_las <- function(year = "All", countries = "All") {
   return(output)
 }
 
-#' Fetch regions
-#'
-#' @inheritParams fetch
-#'
-#' @family fetch_locations
-#' @return data frame of unique location names and codes
-#' @export
-#'
-#' @inherit fetch examples
-fetch_regions <- function(year = "All", countries = "All") {
-  # Helper function to check the inputs are valid
-  check_fetch_location_inputs(year, countries)
-
-  # Helper function to filter to locations we want
-  output <- fetch_locations(
-    lookup_data = dfeR::wd_pcon_lad_la_rgn_ctry,
-    cols = c("region_code", "region_name"),
-    year = year,
-    countries = countries
-  )
-
-  return(output)
-}
-
 #' Fetch wards
 #'
 #' @inheritParams fetch
@@ -140,4 +118,28 @@ fetch_wards <- function(year = "All", countries = "All") {
   )
 
   return(output)
+}
+
+
+#' Fetch regions
+#'
+#' @family fetch_locations
+#' @return data frame of unique location names and codes
+#' @export
+#'
+#' @inherit fetch examples
+fetch_regions <- function() {
+  dfeR::regions
+}
+
+
+#' Fetch countries
+#'
+#' @family fetch_locations
+#' @return data frame of unique location names and codes
+#' @export
+#'
+#' @inherit fetch examples
+fetch_countries <- function() {
+  dfeR::countries
 }
