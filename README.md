@@ -225,7 +225,7 @@ fetch_wards(2021, "Wales") |>
 #> 5 W05000984                    Caergybi
 #> 6 W05000985              Canolbarth Môn
 
-# The following have no specific years available and return all values 
+# The following have no specific years available and return all values
 fetch_regions()
 #>    region_code                               region_name
 #> 1    E12000001                                North East

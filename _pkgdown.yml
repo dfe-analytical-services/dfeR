@@ -7,26 +7,6 @@ template:
     code-color: "ffffff"
 
 reference:
-- title: Database connection
-  desc: Helpful functions for connecting to databases in DfE
-  contents:
-  - get_clean_sql
-
-- title: Presentation prettifiers
-  desc: Functions for presenting pretty versions of numbers with readable code
-  contents:
-  - starts_with("pretty_")
-
-- title: Specific formats
-  desc: Functions for converting to specific formats
-  contents:
-  - starts_with("format_")
-
-- title: Fetch geography lists
-  desc: Pull geography lookups from the ONS Geography Portal
-  contents:
-  - starts_with("fetch_")
-
 - title: Data sets
   desc: Data sets exported in the package
   contents:
@@ -34,6 +14,33 @@ reference:
   - wd_pcon_lad_la_rgn_ctry
   - countries
   - regions
+
+- title: Database connection
+  desc: Helpful functions for connecting to databases in DfE
+  contents:
+  - get_clean_sql
+
+- title: Fetch geography lists
+  desc: Pull geography lookups from the ONS Geography Portal
+  contents:
+  - starts_with("fetch_")
+
+- title: Presentation prettifiers
+  desc: Functions for presenting pretty versions of numbers with readable code
+  contents:
+  - starts_with("pretty_")
+
+- title: Pre-populated project
+  desc: >
+    A function to create a new R project with a pre-populated folder and
+    file structure
+  contents:
+  - create_project
+
+- title: Specific formats
+  desc: Functions for converting to specific formats
+  contents:
+  - starts_with("format_")
 
 - title: Helpers
   desc: >
@@ -44,10 +51,3 @@ reference:
   - comma_sep
   - get_ons_api_data
   - toggle_message
-
-- title: Pre-populated project
-  desc: >
-    A function to create a new R project with a pre-populated folder and
-    file structure
-  contents:
-  - create_project

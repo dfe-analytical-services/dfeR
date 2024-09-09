@@ -103,14 +103,6 @@ check() # (Ctrl-Shift-E): Check complete package
 
 We recommend using the [usethis](https://usethis.r-lib.org/index.html) package where possible for consistency and simplicity.
 
-## R/ folder
-
-In an R package you are not allowed to have any sub directories in the R/ folder. Where possible we should have one script per function or per function family if a function belongs to a wider family (for example the fetch_ functions). The script should share the name of the function or family. Given the ever growing number of functions in this package we have made a few specific scripts to contain multiple functions:
-
-* R/internal_functions.R - this contains any internal, non-exported functions that are only for use in package code and not available to users
-* R/helper_functions.R - this contains any functions that are used as helpers in other functions but still exported for users to use if they want
-* R/all_datasets.R - this contains documentation for all data sets exported by the packages
-
 ## Adding package dependencies
 
 Add any packages the package users will need with:
@@ -184,6 +176,25 @@ lintr::lint_package()
 ```
 
 [styler](https://CRAN.R-project.org/package=styler) will not fix all linting issues, so we recommend using that first, then using [lintr](https://lintr.r-lib.org/articles/lintr.html) to check for places you may need to manually fix styling issues such as line length or not using snake_case.
+
+## Folder and script structure conventions
+
+In an R package you are not allowed to have any sub directories in the R/ folder. Where possible we should have:
+
+* one script per function 
+or 
+* one script per function family if a function belongs to a family
+
+The script should share the name of the function or family. If needed then a <family>_utils.R script should be used for 
+internal only functions that relate to a specific family.
+
+Documentation for all data shipped with the packages is kept in `R/datasets_documentation.R`. Scripts used for preparing 
+data used in the package is not in the R folder, it is in the `data-raw/` folder, helper functions for this can be found 
+in the `R/datasets_utils.R` folder.
+
+`utils.R` should be used to hold any cross-package helpers that aren't exported as functions or specific to a family.
+
+Every exported function or data set gets its own test script, called `test-<function-name>.R` or `test-data-<data-name>.R` if for a data set.
 
 ### Testing
 

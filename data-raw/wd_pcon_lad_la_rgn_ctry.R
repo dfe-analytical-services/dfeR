@@ -6,20 +6,20 @@
 # If updating the data, follow these steps:
 # 1. Load the package using `devtools::load_all(".")`
 # 2. Add in an extra year for the new year into this script within the
-#    create_timeseries_lookup function
+#    create_timeseries_lookup function (R/datasets_utils.R)
 # 3. Check if we need to add a new year into the LAD to region lookup
 # 4. Add the extra year to descriptions, params and validation code in
-#    fetch_geographies.R
+#    fetch.R
 # 5. Run this script
-# 6. Inspect changes to the dataset, and update its entry in all_datasets.R as
-#    needed
+# 6. Inspect changes to the data set, and update its entry in
+#    datasets_documentation.R as needed
 #
 # If you hit any errors or issues with the new year, ONS may have used
 # different data set ids, edit the `case_when()` in the `get_wd_pcon_lad_la()`
 # or `get_lad_region()` functions to add a new condition for the latest
-# year, both of these are defined in R/internal_functions.R
+# year, both of these are defined in R/datasets_utils.R
 #
-# Data is documented, including source information in the R/ folder
+# Data is documented, including source information in R/datasets_documentation.R
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 library(readxl)
 library(dplyr)
@@ -27,7 +27,10 @@ library(dplyr)
 # Get the main lookup ---------------------------------------------------------
 # Started publishing in 2017, but didn't publish a 2018 file
 wd_pcon_lad_la <- create_time_series_lookup(
-  lapply(c(17, 19:24), get_wd_pcon_lad_la) # list of all individual data frames
+  lapply(
+    c(17, 19:24), # list of all individual data frames
+    get_wd_pcon_lad_la # defined in R/datasets_utils.R
+  )
 ) %>%
   dplyr::select(
     "first_available_year_included", "most_recent_year_included",
@@ -38,7 +41,10 @@ wd_pcon_lad_la <- create_time_series_lookup(
 # Get the regions lookup ------------------------------------------------------
 regions_lookup <- create_time_series_lookup(
   # Skipping 2021 as not published in API
-  lapply(c(17:20, 22:23), get_lad_region) # list of all individual data frames
+  lapply(
+    c(17:20, 22:23), # list of all individual data frames
+    get_lad_region # defined in R/datasets_utils.R
+  )
 ) %>%
   # Half the regions for Scotland in 2017 were missing
   # the other half were just Scotland, so forcing them all to be
@@ -98,7 +104,7 @@ if (nrow(country_error_check) > 0) {
 
 # Manual fixes ----------------------------------------------------------------
 # !IMPORTANT! Make sure to log all of these in the description for the file in
-# the `R/all_datasets.R` script
+# the `R/datasets_documentation.R` script
 wd_pcon_lad_la_rgn_ctry <- wd_pcon_lad_la_rgn_ctry %>%
   # ONS seemed to miss a 0 in 2017 for Glasgow East PCon
   mutate(across(everything(), ~ ifelse(. == "S1400030", "S14000030", .)))

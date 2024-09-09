@@ -1,74 +1,3 @@
-#' Comma separate
-#'
-#' @description
-#' Adds separating commas to big numbers. If a value is not numeric it will
-#' return the value unchanged and as a string.
-#'
-#' @param number number to be comma separated
-#'
-#' @return string
-#' @export
-#'
-#' @examples
-#' comma_sep(100)
-#' comma_sep(1000)
-#' comma_sep(3567000)
-comma_sep <- function(number) {
-  format(number, big.mark = ",", trim = TRUE, scientific = FALSE)
-}
-
-#' Round five up
-#'
-#' @description
-#' Round any number to a specified number of places, with 5's being rounded up.
-#'
-#' @details
-#' Rounds to 0 decimal places by default.
-#'
-#' You can use a negative value for the decimal places. For example:
-#' -1 would round to the nearest 10
-#' -2 would round to the nearest 100
-#' and so on.
-#'
-#' This is as an alternative to round in base R, which uses a bankers round.
-#' For more information see the
-#' [round() documentation](https://rdrr.io/r/base/Round.html).
-#'
-#'
-#' @param number number to be rounded
-#' @param dp number of decimal places to round to, default is 0
-#'
-#' @return Rounded number
-#' @export
-#'
-#' @examples
-#' # No dp set
-#' round_five_up(2485.85)
-#'
-#' # With dp set
-#' round_five_up(2485.85, 2)
-#' round_five_up(2485.85, 1)
-#' round_five_up(2485.85, 0)
-#' round_five_up(2485.85, -1)
-#' round_five_up(2485.85, -2)
-round_five_up <- function(number, dp = 0) {
-  if (!is.numeric(number) && !is.numeric(dp)) {
-    stop("both input arguments must be numeric")
-  }
-  if (!is.numeric(number)) {
-    stop("the input number to be rounded must be numeric")
-  }
-  if (!is.numeric(dp)) {
-    stop("the decimal places input must be numeric")
-  }
-
-  z <- abs(number) * 10^dp
-  z <- z + 0.5 + sqrt(.Machine$double.eps)
-  z <- trunc(z)
-  z <- z / 10^dp
-  return(z * sign(number))
-}
-
 #' Fetch ONS Open Geography API data
 #'
 #' Helper function that takes a data set id and parameters to query and parse
@@ -197,7 +126,6 @@ get_ons_api_data <- function(data_id,
     # bind on batch to rest
     full_table <- rbind(full_table, jsonlite::flatten(batch_parsed$features))
 
-
     dfeR::toggle_message(
       "...success! There are now ", dfeR::pretty_num(nrow(full_table)),
       " rows in your table...",
@@ -211,41 +139,4 @@ get_ons_api_data <- function(data_id,
   )
 
   return(full_table)
-}
-
-#' Controllable console messages
-#'
-#' Quick expansion to the `message()` function aimed for use in functions for
-#' an easy addition of a global verbose TRUE / FALSE argument to toggle the
-#' messages on or off
-#'
-#' @param ... any message you would normally pass into `message()`. See
-#' \code{\link{message}} for more details
-#'
-#' @param verbose logical, usually a variable passed from the function you are
-#' using this within
-#'
-#' @export
-#'
-#' @examples
-#' # Usually used in a function
-#' my_function <- function(count_fingers, verbose) {
-#'   toggle_message("I have ", count_fingers, " fingers", verbose = verbose)
-#'   fingers_thumbs <- count_fingers + 2
-#'   toggle_message("I have ", fingers_thumbs, " digits", verbose = verbose)
-#' }
-#'
-#' my_function(5, verbose = FALSE)
-#' my_function(5, verbose = TRUE)
-#'
-#' # Can be used in isolation
-#' toggle_message("I want the world to read this!", verbose = TRUE)
-#' toggle_message("I ain't gonna show this message!", verbose = FALSE)
-#'
-#' count_fingers <- 5
-#' toggle_message("I have ", count_fingers, " fingers", verbose = TRUE)
-toggle_message <- function(..., verbose) {
-  if (verbose) {
-    message(...)
-  }
 }

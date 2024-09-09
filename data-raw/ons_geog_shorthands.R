@@ -1,4 +1,4 @@
-## code to prepare `ons_geog_shorthands` dataset goes here
+## code to prepare `ons_geog_shorthands` data set goes here
 
 ons_level_shorthands <- c("WD", "PCON", "LAD", "UTLA", "GOR", "RGN", "CTRY")
 name_column <- paste0(
