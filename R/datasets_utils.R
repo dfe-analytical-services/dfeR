@@ -1,8 +1,13 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # INTERNAL ONLY FUNCTIONS #####################################################
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# These functions are used to keep the scripts in `data-raw/` cleaner and
-# easier to use to maintain the data sets provided in the package.
+# These functions are only used by the scripts in data-raw/, but are kept here
+# in order to keep those scripts cleaner and easier to use. To update any of
+# the data used in this app, refer to the scripts kept in data-raw/.
+#
+# For more information on updating the geography data in the package see the
+# 'Maintaining geography data' section of the .github/CONTRIBUTING.md file.
+#
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' Tidy a lookup file from the Open Geography Portal
 #'
@@ -230,14 +235,17 @@ create_time_series_lookup <- function(lookups_list) {
 #'
 #' @keywords internal
 get_wd_pcon_lad_la <- function(year) {
+  # Crude way to grab 2 digits, works for anything that isn't in the noughties
+  year_end <- year %% 100
+
   # Adjusting to the varying ids that ONS have used ~~~~~~~~~~~~~~~~~~~~~~~~~~~
   # If there's any issues with these, double check the queries match up
   # Use the ONS query explorer on each file to check this
   # https://geoportal.statistics.gov.uk/search?tags=lup_wd_pcon_lad_utla
   id_end <- dplyr::case_when(
-    year == 23 ~ "_UK_LU_v1",
-    year == 20 ~ "_UK_LU_v2_d8cbab26914f4dc1980250dbca6409d4",
-    year == 17 ~ "_UK_LU_7d674672d1be40fdb94f4f26527a937a",
+    year_end == 23 ~ "_UK_LU_v1",
+    year_end == 20 ~ "_UK_LU_v2_d8cbab26914f4dc1980250dbca6409d4",
+    year_end == 17 ~ "_UK_LU_7d674672d1be40fdb94f4f26527a937a",
     .default = "_UK_LU"
   )
 
@@ -245,12 +253,12 @@ get_wd_pcon_lad_la <- function(year) {
   levels <- c("WD", "PCON", "LAD", "UTLA")
   cols <- c("CD", "NM")
   field_names <- paste(
-    as.vector(outer(paste0(levels, year), cols, paste0)),
+    as.vector(outer(paste0(levels, year_end), cols, paste0)),
     collapse = ","
   )
 
   # Main API call ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  if (year == 21) {
+  if (year_end == 21) {
     # 2021 was only published as an excel file
     # Get the URL by right clicking to get the link on their download button
     download_21_url <- paste0(
@@ -269,7 +277,8 @@ get_wd_pcon_lad_la <- function(year) {
   } else {
     output <- get_ons_api_data(
       data_id = paste0(
-        "WD", year, "_PCON", year, "_LAD", year, "_UTLA", year, id_end
+        "WD", year_end, "_PCON", year_end, "_LAD", year_end,
+        "_UTLA", year_end, id_end
       ),
       query_params = list(
         where = "1=1", outFields = field_names,
@@ -296,15 +305,18 @@ get_wd_pcon_lad_la <- function(year) {
 #'
 #' @keywords internal
 get_lad_region <- function(year) {
+  # Crude way to grab 2 digits, works for anything that isn't in the noughties
+  year_end <- year %% 100
+
   # Adjusting to the varying ids that ONS have used ~~~~~~~~~~~~~~~~~~~~~~~~~~~
   # If there's any issues with these, double check the queries match up
   # Use the ONS query explorer on each file to check this
   # https://geoportal.statistics.gov.uk/search?tags=LUP_WD_LAD_CTY_RGN_GOR_CTRY
   id_end <- dplyr::case_when(
-    year == 20 ~ "_OTH_UK_LU_v2_27715a77546b4b5a9746baf703dd9a05",
-    year == 19 ~ "_OTH_UK_LU_89ea1f028be347e7a44d71743c96b60d",
-    year == 18 ~ "_OTH_UK_LU_971f977f4a444d09842fcfbfd51f8982",
-    year == 17 ~ "_OTH_UK_LUv2_c8956eca906348fd9e3bb1f6af54f2ce",
+    year_end == 20 ~ "_OTH_UK_LU_v2_27715a77546b4b5a9746baf703dd9a05",
+    year_end == 19 ~ "_OTH_UK_LU_89ea1f028be347e7a44d71743c96b60d",
+    year_end == 18 ~ "_OTH_UK_LU_971f977f4a444d09842fcfbfd51f8982",
+    year_end == 17 ~ "_OTH_UK_LUv2_c8956eca906348fd9e3bb1f6af54f2ce",
     .default = "_OTH_UK_LU"
   )
 
@@ -313,17 +325,17 @@ get_lad_region <- function(year) {
   cols <- c("CD", "NM")
 
   # In their first two years ONS used GOR10NM / CD for regions...
-  if (year %in% c(17, 18)) {
+  if (year_end %in% c(17, 18)) {
     field_names <- paste(
       c(
-        paste0("LAD", year, "CD"), "GOR10CD",
-        paste0("LAD", year, "NM"), "GOR10NM"
+        paste0("LAD", year_end, "CD"), "GOR10CD",
+        paste0("LAD", year_end, "NM"), "GOR10NM"
       ),
       collapse = ","
     )
   } else {
     field_names <- paste(
-      as.vector(outer(paste0(levels, year), cols, paste0)),
+      as.vector(outer(paste0(levels, year_end), cols, paste0)),
       collapse = ","
     )
   }
@@ -331,7 +343,7 @@ get_lad_region <- function(year) {
   # Main API call ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   output <- get_ons_api_data(
     data_id = paste0(
-      "WD", year, "_LAD", year, "_CTY", year, id_end
+      "WD", year_end, "_LAD", year_end, "_CTY", year_end, id_end
     ),
     query_params = list(
       where = "1=1", outFields = field_names,
@@ -340,14 +352,14 @@ get_lad_region <- function(year) {
   )
 
   # Rename the GOR10 cols for earlier years
-  if (year %in% c(17, 18)) {
+  if (year_end %in% c(17, 18)) {
     output <- output %>%
       dplyr::rename_with(
-        ~ ifelse(. == "attributes.GOR10NM", paste0("RGN", year, "NM"), .),
+        ~ ifelse(. == "attributes.GOR10NM", paste0("RGN", year_end, "NM"), .),
         "attributes.GOR10NM"
       ) %>%
       dplyr::rename_with(
-        ~ ifelse(. == "attributes.GOR10CD", paste0("RGN", year, "CD"), .),
+        ~ ifelse(. == "attributes.GOR10CD", paste0("RGN", year_end, "CD"), .),
         "attributes.GOR10CD"
       )
   }

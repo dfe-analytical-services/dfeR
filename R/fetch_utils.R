@@ -6,7 +6,7 @@
 #' @return nothing, unless a failure, and then it will give an error
 #' @keywords internal
 check_fetch_location_inputs <- function(year_input, country_input) {
-  if(year_input != "All"){
+  if (year_input != "All") {
     if (!grepl("^\\d{4}$", as.character(year_input))) {
       stop(
         "year must either be 'All', or a valid 4 digit year e.g. '2024'"
