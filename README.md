@@ -27,20 +27,20 @@ to other programmers and analysts can be contributed.
 
 Functionality for dfeR is expected to focus around the following:
 
-1.  DfE specific formatting
-2.  Working with Microsoft SQL Databases
+1.  DfE specific formatting and helper functions
+2.  Working with DfE databases
 3.  Templates for analytical projects
-4.  Publication R Markdown Templates
-5.  API wrappers for use internally
-6.  Geography lookup files and helper functions
+4.  API wrappers commonly needed in DfE analysis (where they don’t have
+    their own separate package)
+5.  Geography lookup files and helper functions
 
 Documentation for what has been included in the package so far is on our
 [pkgdown site](http://dfe-analytical-services.github.io/dfeR/).
 
 We are also developing the
 [dfeshiny](https://github.com/dfe-analytical-services/dfeshiny) package,
-and expect any functions specific to public facing R Shiny dashboards
-will live there.
+and expect any functions specific to R Shiny applications will live
+there.
 
 ------------------------------------------------------------------------
 
@@ -185,23 +185,23 @@ dfeR::countries
 fetch_pcons(2024) |>
   head() # show first 5 rows only
 #>   pcon_code                pcon_name
-#> 1 S14000021        East Renfrewshire
+#> 1 S14000045               Midlothian
 #> 2 S14000027     Na h-Eileanan an Iar
-#> 3 S14000045               Midlothian
+#> 3 S14000021        East Renfrewshire
 #> 4 S14000048 North Ayrshire and Arran
 #> 5 S14000051      Orkney and Shetland
-#> 6 E14001272               Hartlepool
+#> 6 E14001440                   Redcar
 
 # Get All LADs in Scotland in 2017
 fetch_lads(2017, "Scotland") |>
   head() # show first 5 rows only
-#>    lad_code          lad_name
-#> 1 S12000008     East Ayrshire
-#> 2 S12000017          Highland
-#> 3 S12000015              Fife
-#> 4 S12000018        Inverclyde
-#> 5 S12000010      East Lothian
-#> 6 S12000011 East Renfrewshire
+#>    lad_code           lad_name
+#> 1 S12000019         Midlothian
+#> 2 S12000015               Fife
+#> 3 S12000014            Falkirk
+#> 4 S12000013 Na h-Eileanan Siar
+#> 5 S12000018         Inverclyde
+#> 6 S12000011  East Renfrewshire
 
 # Get all LAs in Scotland and Northern Ireland in 2022
 fetch_las(2022, c("Scotland", "Northern Ireland")) |>

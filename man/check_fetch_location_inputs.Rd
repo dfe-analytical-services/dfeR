@@ -12,7 +12,7 @@ check_fetch_location_inputs(year_input, country_input)
 \item{country_input}{the value of the countries input}
 }
 \value{
-nothing, unless a failure, and then it will return an error
+nothing, unless a failure, and then it will give an error
 }
 \description{
 Validation for fetch location lookups
