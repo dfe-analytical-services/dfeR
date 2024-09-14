@@ -3,11 +3,11 @@
 #' @param year_input the value of the years input
 #' @param country_input the value of the countries input
 #'
-#' @return nothing, unless a failure, and then it will return an error
+#' @return nothing, unless a failure, and then it will give an error
 #' @keywords internal
 check_fetch_location_inputs <- function(year_input, country_input) {
-  if (paste0(year_input, collapse = "") != "All") {
-    if (!all(grepl("^\\d{4}$", as.character(year_input)))) {
+  if(year_input != "All"){
+    if (!grepl("^\\d{4}$", as.character(year_input))) {
       stop(
         "year must either be 'All', or a valid 4 digit year e.g. '2024'"
       )
