@@ -252,6 +252,17 @@ Our general principle is that all data should be created through reproducible co
 
 We try to keep the data-raw/ scripts as tidy as possible, so some helper functions have been created in R/datasets-utils.R. These are not exported for users of the package and are only used by scripts in the data-raw/ folder for the creation of data exported in the package.
 
+Sometimes when running the scripts to create new data sets you might hit this error:
+
+```
+Error in `check_is_package()`:
+i use_data() is designed to work with packages
+X Project "some letts and numbers" is not an R package.
+
+```
+
+If you do, try restarting R, making sure you have the project open, and the package loaded using `devtools::load_all()` and then run again.
+
 For more details on maintaining data with an R package generally, see [chapter 7 Data, from R packages by Hadley Wickham and Jennifer Bryan](https://r-pkgs.org/data.html).
 
 ### Geography data sets
