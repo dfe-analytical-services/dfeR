@@ -257,7 +257,7 @@ Sometimes when running the scripts to create new data sets you might hit this er
 ```
 Error in `check_is_package()`:
 i use_data() is designed to work with packages
-X Project "some letts and numbers" is not an R package.
+X Project "some letters and numbers" is not an R package.
 
 ```
 
