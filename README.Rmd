@@ -32,15 +32,15 @@ This package is open to all of DfE and anything we think could be useful to othe
 
 Functionality for dfeR is expected to focus around the following:
 
-1. DfE specific formatting
-2. Working with Microsoft SQL Databases
+1. DfE specific formatting and helper functions
+2. Working with DfE databases
 3. Templates for analytical projects
-4. Publication R Markdown Templates
-5. API wrappers for use internally
+4. API wrappers commonly needed in DfE analysis (where they don't have their own separate package)
+5. Geography lookup files and helper functions
 
 Documentation for what has been included in the package so far is on our [pkgdown site](http://dfe-analytical-services.github.io/dfeR/).
 
-We are also developing the [dfeshiny](https://github.com/dfe-analytical-services/dfeshiny) package, and expect any functions specific to public facing R Shiny dashboards will live there.
+We are also developing the [dfeshiny](https://github.com/dfe-analytical-services/dfeshiny) package, and expect any functions specific to R Shiny applications will live there.
 
 ---
 
@@ -85,7 +85,7 @@ Please note that the dfeR project is released with a [Contributor Code of Conduc
 
 ## Examples
 
-Here are some example formatting functions from within the package:
+Here are some example functions from within the package:
 
 ```{r example}
 library(dfeR)
@@ -111,6 +111,34 @@ format_ay(202425)
 format_fy(202425)
 format_ay_reverse("2024/25")
 format_fy_reverse("2024-25")
+
+# Get Ward to PCon to LAD to LA to Rgn to Ctry lookup file
+my_data <- dfeR::wd_pcon_lad_la_rgn_ctry
+head(my_data) # show first 5 rows in console
+
+# Get all countries
+dfeR::countries
+
+# Get all PCon names and codes for 2024
+fetch_pcons(2024) |>
+  head() # show first 5 rows only
+
+# Get All LADs in Scotland in 2017
+fetch_lads(2017, "Scotland") |>
+  head() # show first 5 rows only
+
+# Get all LAs in Scotland and Northern Ireland in 2022
+fetch_las(2022, c("Scotland", "Northern Ireland")) |>
+  head() # show first 5 rows only
+
+# Get all Welsh wards for 2021
+fetch_wards(2021, "Wales") |>
+  head() # show first 5 rows only
+
+# The following have no specific years available and return all values
+fetch_regions()
+
+fetch_countries()
 ```
 
 For more details on all the functions available in this package, and examples of how to use them, please see our [dfeR package reference documentation](https://dfe-analytical-services.github.io/dfeR/reference/index.html).

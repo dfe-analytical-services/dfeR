@@ -177,6 +177,25 @@ lintr::lint_package()
 
 [styler](https://CRAN.R-project.org/package=styler) will not fix all linting issues, so we recommend using that first, then using [lintr](https://lintr.r-lib.org/articles/lintr.html) to check for places you may need to manually fix styling issues such as line length or not using snake_case.
 
+## Folder and script structure conventions
+
+In an R package you are not allowed to have any sub directories in the R/ folder. Where possible we should have:
+
+* one script per function 
+or 
+* one script per function family if a function belongs to a family
+
+The script should share the name of the function or family. If needed then a <family>_utils.R script should be used for 
+internal only functions that relate to a specific family.
+
+Documentation for all data shipped with the packages is kept in `R/datasets_documentation.R`. Scripts used for preparing 
+data used in the package is not in the R folder, it is in the `data-raw/` folder, helper functions for this can be found 
+in the `R/datasets_utils.R` folder, and more details on maintaining the data sets can be found under the [Package data](#package-data) header on this page.
+
+`utils.R` should be used to hold any cross-package helpers that aren't exported as functions or specific to a family.
+
+Every exported function or data set gets its own test script, called `test-<function-name>.R` or `test-data-<data-name>.R` if for a data set.
+
 ### Testing
 
 We use [testthat](https://cran.r-project.org/package=testthat) for unit tests, we expect all new functions to have some level of test coverage. 
@@ -218,6 +237,65 @@ Vignettes can be found in the `vignettes/` folder as .Rmd files. To start a new 
 ``` r
 usethis::use_vignette("name_of_vignette")
 ```
+
+## Package data
+
+Our general workflow for data in the package is:
+
+0. Make sure you have everything you need installed and the package is loaded with `devtools::load_all()`
+1. Use the relevant script in data-raw/ to generate and save the data set
+2. Document the data set in R/datasets_documentation.R
+3. Update any relevant fetch_ functions that use the data if appropriate
+4. Run all the usual package checks and re-documenting of the package as you would for any other update
+
+Our general principle is that all data should be created through reproducible code, so if it's custom data you're defining, write it in code. If you're sourcing it from elsewhere, try to make use of API connections. This saves on unnecessary data storage bloat and makes our scripts nice and reproducible without external dependencies to worry about.
+
+We try to keep the data-raw/ scripts as tidy as possible, so some helper functions have been created in R/datasets-utils.R. These are not exported for users of the package and are only used by scripts in the data-raw/ folder for the creation of data exported in the package.
+
+Sometimes when running the scripts to create new data sets you might hit this error:
+
+```
+Error in `check_is_package()`:
+i use_data() is designed to work with packages
+X Project "some letters and numbers" is not an R package.
+
+```
+
+If you do, try restarting R, making sure you have the project open, and the package loaded using `devtools::load_all()` and then run again.
+
+For more details on maintaining data with an R package generally, see [chapter 7 Data, from R packages by Hadley Wickham and Jennifer Bryan](https://r-pkgs.org/data.html).
+
+### Geography data sets
+
+In the package we export a number of data sets derived from the [ONS Open Geography portal](https://geoportal.statistics.gov.uk/) for easy reuse within DfE analysis. Whenever new data appears or we want to make updates to these we need to do those manually.
+
+#### Source
+
+Where we can, we use their API to get the data, so that we have completely reproducible pipelines for this (rather than saving static files manually and then having to check if updates have been made, or having to worry about file storage).
+
+On the [ONS Open Geography portal](https://geoportal.statistics.gov.uk/), you will usually be looking for data published as a feature or feature layer, as these are the ones made available via the API connection. You'll be able to preview the data in the browser and do basic searching / filtering on the table if you want to visualise it. Any feature data should have an option somewhere for 'I want to use this data' (or something similar if they update their website design) where you can get to an API explorer that allows you to run a basic query in the browser. In here you can usually find the dataset_id and also the parameters you want to use to get the data you need.
+
+We have a `get_ons_api_data()` function that acts as a wrapper to the ONS API, it does things like converting readable parameters into a query string and also handles batching and multiple requests if needed, so you get all of the data in one nice neat data frame (there's a limit on the rows per single query for the API).
+
+The way ONS publish has varied over their first few years of publishing, and on top of that each data set has an individual API connection for every year of boundaries. As there's no link over time from the ONS side we have helper functions defined in R/datasets_utils.R that wrap these up into a single neat time series bundle for us. Given the likelihood of further variations, don't be too surprised if adding new years to the data sets results in errors first time around, some manual fudgery is often needed so roll up your sleeves and prepare to get elbow deep into the murky depths of the R/datasets_utils.R file!
+
+There is also some data we just define ourselves in code as we curate that, like custom regions we publish in DfE or our own lookup table for the shorthands used in the column names by ONS.
+
+#### Workflow for updating geography data
+
+Our general workflow for data in the package is:
+
+1. Add a new year into the relevant script in data-raw/ script
+2. Run the script to create a new data set
+3. Run all package checks to make sure the data hasn't gone all funky on you
+4. Update any fetch_ functions that use the data if appropriate
+5. Document any changes to the data set in R/datasets_documentation.R if appropriate
+
+Most data sets have tests that will fail as soon as the number of rows or columns change, this is both to provide a reliable service to users, but also to catch and remind us to maintain the documentation as the row number and all column names are defined in R/datasets_documentation.R. If these tests fail, update the relevant documentation, and then (ONLY THEN!) update the test expectations to match the new documentation.
+
+The fetch_ family of functions in R/fetch.R act as quick helpers that pull from the data sets we export, so users can ees-ily grab say a list of all Scottish Parliamentary Constituencies for 2024, rather than needing to pull in a whole data frame and process it.
+
+Often if adding a new year of data in, you will need to edit the year variables set near the start of the data-raw/ file and then also in the relevant fetch_ function @param year, as well as updating the public documentation of the data set in R/datasets_documentation.R.
 
 ## Code of Conduct
 
