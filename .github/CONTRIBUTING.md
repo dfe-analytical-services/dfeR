@@ -190,7 +190,7 @@ internal only functions that relate to a specific family.
 
 Documentation for all data shipped with the packages is kept in `R/datasets_documentation.R`. Scripts used for preparing 
 data used in the package is not in the R folder, it is in the `data-raw/` folder, helper functions for this can be found 
-in the `R/datasets_utils.R` folder.
+in the `R/datasets_utils.R` folder, and more details on maintaining the data sets can be found under the [Package data](#package-data) header on this page.
 
 `utils.R` should be used to hold any cross-package helpers that aren't exported as functions or specific to a family.
 
