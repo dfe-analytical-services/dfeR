@@ -30,7 +30,7 @@
 
     <a class="navbar-brand me-2" href="index.html">dfeR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,14 +76,14 @@
 <p>This package is open to all of DfE and anything we think could be useful to other programmers and analysts can be contributed.</p>
 <p>Functionality for dfeR is expected to focus around the following:</p>
 <ol style="list-style-type: decimal">
-<li>DfE specific formatting</li>
-<li>Working with Microsoft SQL Databases</li>
+<li>DfE specific formatting and helper functions</li>
+<li>Working with DfE databases</li>
 <li>Templates for analytical projects</li>
-<li>Publication R Markdown Templates</li>
-<li>API wrappers for use internally</li>
+<li>API wrappers commonly needed in DfE analysis (where they don’t have their own separate package)</li>
+<li>Geography lookup files and helper functions</li>
 </ol>
 <p>Documentation for what has been included in the package so far is on our <a href="http://dfe-analytical-services.github.io/dfeR/" class="external-link">pkgdown site</a>.</p>
-<p>We are also developing the <a href="https://github.com/dfe-analytical-services/dfeshiny" class="external-link">dfeshiny</a> package, and expect any functions specific to public facing R Shiny dashboards will live there.</p>
+<p>We are also developing the <a href="https://github.com/dfe-analytical-services/dfeshiny" class="external-link">dfeshiny</a> package, and expect any functions specific to R Shiny applications will live there.</p>
 <hr>
 </div>
 <div class="section level2">
@@ -121,7 +121,7 @@
 <div class="section level2">
 <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
 </h2>
-<p>Here are some example formatting functions from within the package:</p>
+<p>Here are some example functions from within the package:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dfe-analytical-services.github.io/dfeR/">dfeR</a></span><span class="op">)</span></span>
 <span></span>
@@ -155,7 +155,130 @@
 <span><span class="fu"><a href="reference/format_ay_reverse.html">format_ay_reverse</a></span><span class="op">(</span><span class="st">"2024/25"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "202425"</span></span>
 <span><span class="fu"><a href="reference/format_fy_reverse.html">format_fy_reverse</a></span><span class="op">(</span><span class="st">"2024-25"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "202425"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "202425"</span></span>
+<span></span>
+<span><span class="co"># Get Ward to PCon to LAD to LA to Rgn to Ctry lookup file</span></span>
+<span><span class="va">my_data</span> <span class="op">&lt;-</span> <span class="fu">dfeR</span><span class="fu">::</span><span class="va"><a href="reference/wd_pcon_lad_la_rgn_ctry.html">wd_pcon_lad_la_rgn_ctry</a></span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">my_data</span><span class="op">)</span> <span class="co"># show first 5 rows in console</span></span>
+<span><span class="co">#&gt;   first_available_year_included most_recent_year_included</span></span>
+<span><span class="co">#&gt; 1                          2017                      2017</span></span>
+<span><span class="co">#&gt; 2                          2017                      2017</span></span>
+<span><span class="co">#&gt; 3                          2017                      2020</span></span>
+<span><span class="co">#&gt; 4                          2017                      2017</span></span>
+<span><span class="co">#&gt; 5                          2017                      2020</span></span>
+<span><span class="co">#&gt; 6                          2017                      2017</span></span>
+<span><span class="co">#&gt;                ward_name  pcon_name              lad_name               la_name</span></span>
+<span><span class="co">#&gt; 1               Bastwell  Blackburn Blackburn with Darwen Blackburn with Darwen</span></span>
+<span><span class="co">#&gt; 2                Ormesby     Redcar  Redcar and Cleveland  Redcar and Cleveland</span></span>
+<span><span class="co">#&gt; 3            Burn Valley Hartlepool            Hartlepool            Hartlepool</span></span>
+<span><span class="co">#&gt; 4 Beardwood with Lammack  Blackburn Blackburn with Darwen Blackburn with Darwen</span></span>
+<span><span class="co">#&gt; 5               De Bruce Hartlepool            Hartlepool            Hartlepool</span></span>
+<span><span class="co">#&gt; 6           St Germain's     Redcar  Redcar and Cleveland  Redcar and Cleveland</span></span>
+<span><span class="co">#&gt;   region_name country_name ward_code pcon_code  lad_code new_la_code</span></span>
+<span><span class="co">#&gt; 1  North West      England E05001621 E14000570 E06000008   E06000008</span></span>
+<span><span class="co">#&gt; 2  North East      England E05001518 E14000891 E06000003   E06000003</span></span>
+<span><span class="co">#&gt; 3  North East      England E05008942 E14000733 E06000001   E06000001</span></span>
+<span><span class="co">#&gt; 4  North West      England E05001622 E14000570 E06000008   E06000008</span></span>
+<span><span class="co">#&gt; 5  North East      England E05008943 E14000733 E06000001   E06000001</span></span>
+<span><span class="co">#&gt; 6  North East      England E05001519 E14000891 E06000003   E06000003</span></span>
+<span><span class="co">#&gt;   region_code country_code</span></span>
+<span><span class="co">#&gt; 1   E12000002    E92000001</span></span>
+<span><span class="co">#&gt; 2   E12000001    E92000001</span></span>
+<span><span class="co">#&gt; 3   E12000001    E92000001</span></span>
+<span><span class="co">#&gt; 4   E12000002    E92000001</span></span>
+<span><span class="co">#&gt; 5   E12000001    E92000001</span></span>
+<span><span class="co">#&gt; 6   E12000001    E92000001</span></span>
+<span></span>
+<span><span class="co"># Get all countries</span></span>
+<span><span class="fu">dfeR</span><span class="fu">::</span><span class="va"><a href="reference/countries.html">countries</a></span></span>
+<span><span class="co">#&gt;    country_code                              country_name</span></span>
+<span><span class="co">#&gt; 1     E92000001                                   England</span></span>
+<span><span class="co">#&gt; 2     K02000001                            United Kingdom</span></span>
+<span><span class="co">#&gt; 3     K03000001                             Great Britain</span></span>
+<span><span class="co">#&gt; 4     K04000001                         England and Wales</span></span>
+<span><span class="co">#&gt; 5     N92000002                          Northern Ireland</span></span>
+<span><span class="co">#&gt; 6     S92000003                                  Scotland</span></span>
+<span><span class="co">#&gt; 7     W92000004                                     Wales</span></span>
+<span><span class="co">#&gt; 8             z       England, Wales and Northern Ireland</span></span>
+<span><span class="co">#&gt; 9             z            Outside of England and unknown</span></span>
+<span><span class="co">#&gt; 10            z Outside of the United Kingdom and unknown</span></span>
+<span></span>
+<span><span class="co"># Get all PCon names and codes for 2024</span></span>
+<span><span class="fu"><a href="reference/fetch.html">fetch_pcons</a></span><span class="op">(</span><span class="fl">2024</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># show first 5 rows only</span></span>
+<span><span class="co">#&gt;   pcon_code                pcon_name</span></span>
+<span><span class="co">#&gt; 1 S14000045               Midlothian</span></span>
+<span><span class="co">#&gt; 2 S14000027     Na h-Eileanan an Iar</span></span>
+<span><span class="co">#&gt; 3 S14000021        East Renfrewshire</span></span>
+<span><span class="co">#&gt; 4 S14000048 North Ayrshire and Arran</span></span>
+<span><span class="co">#&gt; 5 S14000051      Orkney and Shetland</span></span>
+<span><span class="co">#&gt; 6 E14001440                   Redcar</span></span>
+<span></span>
+<span><span class="co"># Get All LADs in Scotland in 2017</span></span>
+<span><span class="fu"><a href="reference/fetch_lads.html">fetch_lads</a></span><span class="op">(</span><span class="fl">2017</span>, <span class="st">"Scotland"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># show first 5 rows only</span></span>
+<span><span class="co">#&gt;    lad_code           lad_name</span></span>
+<span><span class="co">#&gt; 1 S12000019         Midlothian</span></span>
+<span><span class="co">#&gt; 2 S12000015               Fife</span></span>
+<span><span class="co">#&gt; 3 S12000014            Falkirk</span></span>
+<span><span class="co">#&gt; 4 S12000013 Na h-Eileanan Siar</span></span>
+<span><span class="co">#&gt; 5 S12000018         Inverclyde</span></span>
+<span><span class="co">#&gt; 6 S12000011  East Renfrewshire</span></span>
+<span></span>
+<span><span class="co"># Get all LAs in Scotland and Northern Ireland in 2022</span></span>
+<span><span class="fu"><a href="reference/fetch_las.html">fetch_las</a></span><span class="op">(</span><span class="fl">2022</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Scotland"</span>, <span class="st">"Northern Ireland"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># show first 5 rows only</span></span>
+<span><span class="co">#&gt;   new_la_code                              la_name</span></span>
+<span><span class="co">#&gt; 1   N09000003                              Belfast</span></span>
+<span><span class="co">#&gt; 2   N09000004             Causeway Coast and Glens</span></span>
+<span><span class="co">#&gt; 3   N09000002 Armagh City, Banbridge and Craigavon</span></span>
+<span><span class="co">#&gt; 4   N09000005              Derry City and Strabane</span></span>
+<span><span class="co">#&gt; 5   N09000001              Antrim and Newtownabbey</span></span>
+<span><span class="co">#&gt; 6   N09000006                  Fermanagh and Omagh</span></span>
+<span></span>
+<span><span class="co"># Get all Welsh wards for 2021</span></span>
+<span><span class="fu"><a href="reference/fetch_wards.html">fetch_wards</a></span><span class="op">(</span><span class="fl">2021</span>, <span class="st">"Wales"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># show first 5 rows only</span></span>
+<span><span class="co">#&gt;   ward_code                   ward_name</span></span>
+<span><span class="co">#&gt; 1 W05000981                      Aethwy</span></span>
+<span><span class="co">#&gt; 2 W05000982               Bro Aberffraw</span></span>
+<span><span class="co">#&gt; 3 W05000983                  Bro Rhosyr</span></span>
+<span><span class="co">#&gt; 4 W05000107 Tregarth &amp; Mynydd Llandygai</span></span>
+<span><span class="co">#&gt; 5 W05000984                    Caergybi</span></span>
+<span><span class="co">#&gt; 6 W05000985              Canolbarth Môn</span></span>
+<span></span>
+<span><span class="co"># The following have no specific years available and return all values</span></span>
+<span><span class="fu"><a href="reference/fetch_regions.html">fetch_regions</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    region_code                               region_name</span></span>
+<span><span class="co">#&gt; 1    E12000001                                North East</span></span>
+<span><span class="co">#&gt; 2    E12000002                                North West</span></span>
+<span><span class="co">#&gt; 3    E12000003                  Yorkshire and The Humber</span></span>
+<span><span class="co">#&gt; 4    E12000004                             East Midlands</span></span>
+<span><span class="co">#&gt; 5    E12000005                             West Midlands</span></span>
+<span><span class="co">#&gt; 6    E12000006                           East of England</span></span>
+<span><span class="co">#&gt; 7    E12000007                                    London</span></span>
+<span><span class="co">#&gt; 8    E12000008                                South East</span></span>
+<span><span class="co">#&gt; 9    E12000009                                South West</span></span>
+<span><span class="co">#&gt; 10   E13000001                              Inner London</span></span>
+<span><span class="co">#&gt; 11   E13000002                              Outer London</span></span>
+<span><span class="co">#&gt; 12           z            Outside of England and unknown</span></span>
+<span><span class="co">#&gt; 13           z Outside of the United Kingdom and unknown</span></span>
+<span><span class="co">#&gt; 14           z                        Outside of England</span></span>
+<span><span class="co">#&gt; 15           z                 Outside of United Kingdom</span></span>
+<span><span class="co">#&gt; 16           z                                   Unknown</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/fetch_countries.html">fetch_countries</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    country_code                              country_name</span></span>
+<span><span class="co">#&gt; 1     E92000001                                   England</span></span>
+<span><span class="co">#&gt; 2     K02000001                            United Kingdom</span></span>
+<span><span class="co">#&gt; 3     K03000001                             Great Britain</span></span>
+<span><span class="co">#&gt; 4     K04000001                         England and Wales</span></span>
+<span><span class="co">#&gt; 5     N92000002                          Northern Ireland</span></span>
+<span><span class="co">#&gt; 6     S92000003                                  Scotland</span></span>
+<span><span class="co">#&gt; 7     W92000004                                     Wales</span></span>
+<span><span class="co">#&gt; 8             z       England, Wales and Northern Ireland</span></span>
+<span><span class="co">#&gt; 9             z            Outside of England and unknown</span></span>
+<span><span class="co">#&gt; 10            z Outside of the United Kingdom and unknown</span></span></code></pre></div>
 <p>For more details on all the functions available in this package, and examples of how to use them, please see our <a href="https://dfe-analytical-services.github.io/dfeR/reference/index.html">dfeR package reference documentation</a>.</p>
 </div>
 </div>

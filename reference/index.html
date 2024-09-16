@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">dfeR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,6 +35,41 @@
     </div>
 
     <div class="section level2">
+      <h2 id="data-sets">Data sets<a class="anchor" aria-label="anchor" href="#data-sets"></a></h2>
+
+      <div class="section-desc"><p>Data sets exported in the package</p></div>
+
+
+    </div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="ons_geog_shorthands.html">ons_geog_shorthands</a></code>
+
+        </dt>
+        <dd>Lookup for ONS geography columns shorthands</dd>
+      </dl><dl><dt>
+
+          <code><a href="wd_pcon_lad_la_rgn_ctry.html">wd_pcon_lad_la_rgn_ctry</a></code>
+
+        </dt>
+        <dd>Ward to Constituency to LAD to LA to Region to Country lookup</dd>
+      </dl><dl><dt>
+
+          <code><a href="countries.html">countries</a></code>
+
+        </dt>
+        <dd>Lookup for valid country names and codes</dd>
+      </dl><dl><dt>
+
+          <code><a href="regions.html">regions</a></code>
+
+        </dt>
+        <dd>Lookup for valid region names and codes</dd>
+      </dl></div><div class="section level2">
       <h2 id="database-connection">Database connection<a class="anchor" aria-label="anchor" href="#database-connection"></a></h2>
 
       <div class="section-desc"><p>Helpful functions for connecting to databases in DfE</p></div>
@@ -51,6 +86,53 @@
 
         </dt>
         <dd>Get a cleaned SQL script into R</dd>
+      </dl></div><div class="section level2">
+      <h2 id="fetch-geography-lists">Fetch geography lists<a class="anchor" aria-label="anchor" href="#fetch-geography-lists"></a></h2>
+
+      <div class="section-desc"><p>Pull geography lookups from the ONS Geography Portal</p></div>
+
+
+    </div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="fetch.html">fetch_pcons()</a></code>
+
+        </dt>
+        <dd>Fetch Westminster parliamentary constituencies</dd>
+      </dl><dl><dt>
+
+          <code><a href="fetch_countries.html">fetch_countries()</a></code>
+
+        </dt>
+        <dd>Fetch countries</dd>
+      </dl><dl><dt>
+
+          <code><a href="fetch_lads.html">fetch_lads()</a></code>
+
+        </dt>
+        <dd>Fetch local authority districts</dd>
+      </dl><dl><dt>
+
+          <code><a href="fetch_las.html">fetch_las()</a></code>
+
+        </dt>
+        <dd>Fetch local authorities</dd>
+      </dl><dl><dt>
+
+          <code><a href="fetch_regions.html">fetch_regions()</a></code>
+
+        </dt>
+        <dd>Fetch regions</dd>
+      </dl><dl><dt>
+
+          <code><a href="fetch_wards.html">fetch_wards()</a></code>
+
+        </dt>
+        <dd>Fetch wards</dd>
       </dl></div><div class="section level2">
       <h2 id="presentation-prettifiers">Presentation prettifiers<a class="anchor" aria-label="anchor" href="#presentation-prettifiers"></a></h2>
 
@@ -80,6 +162,23 @@
 
         </dt>
         <dd>Calculate elapsed time between two points and present prettily</dd>
+      </dl></div><div class="section level2">
+      <h2 id="pre-populated-project">Pre-populated project<a class="anchor" aria-label="anchor" href="#pre-populated-project"></a></h2>
+
+      <div class="section-desc"><p>A function to create a new R project with a pre-populated folder and file structure</p></div>
+
+
+    </div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="create_project.html">create_project()</a></code>
+
+        </dt>
+        <dd>Creates a pre-populated project for DfE R</dd>
       </dl></div><div class="section level2">
       <h2 id="specific-formats">Specific formats<a class="anchor" aria-label="anchor" href="#specific-formats"></a></h2>
 
@@ -118,7 +217,7 @@
       </dl></div><div class="section level2">
       <h2 id="helpers">Helpers<a class="anchor" aria-label="anchor" href="#helpers"></a></h2>
 
-      <div class="section-desc"><p>Functions used in other functions across the package, also useful in their own right</p></div>
+      <div class="section-desc"><p>Functions used in other functions across the package, exported as they can also be useful in their own right</p></div>
 
 
     </div><div class="section level2">
@@ -138,23 +237,18 @@
 
         </dt>
         <dd>Comma separate</dd>
-      </dl></div><div class="section level2">
-      <h2 id="pre-populated-project">Pre-populated project<a class="anchor" aria-label="anchor" href="#pre-populated-project"></a></h2>
+      </dl><dl><dt>
 
-      <div class="section-desc"><p>A function to create a new R project with a pre-populated folder and file structure</p></div>
-
-
-    </div><div class="section level2">
-
-
-
-
-      <dl><dt>
-
-          <code><a href="create_project.html">create_project()</a></code>
+          <code><a href="get_ons_api_data.html">get_ons_api_data()</a></code>
 
         </dt>
-        <dd>Creates a pre-populated project for DfE R</dd>
+        <dd>Fetch ONS Open Geography API data</dd>
+      </dl><dl><dt>
+
+          <code><a href="toggle_message.html">toggle_message()</a></code>
+
+        </dt>
+        <dd>Controllable console messages</dd>
       </dl></div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
