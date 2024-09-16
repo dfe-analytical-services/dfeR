@@ -131,7 +131,7 @@ tidy_raw_lookup <- function(raw_lookup_file) {
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' Smush lookups together to make a time series
 #'
-#' Take a list of tidied files, likely produced by the tidy_downloaded_lookup
+#' Take a list of tidied files, likely produced by the tidy_raw_lookup
 #' function append together
 #'
 #' Updates the `first_available_year_included` and `most_recent_year_included`
