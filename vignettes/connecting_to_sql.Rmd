@@ -74,8 +74,6 @@ Now that the SQL query is saved as a variable in the R environment you can pass 
 
 It's important to note that `dbGetQuery()` is intended to work with 'SELECT' style queries only. If you're doing something that isn't a 'SELECT' query, such as writing back into SQL, consider using the `dbExecute()` or `dbSendQuery()` functions from the [DBI package](https://dbi.r-dbi.org/) instead.
 
-
-
 ```{r executing sql query, eval=FALSE}
 sql_query_result <- DBI::dbGetQuery(con, statement = sql_query)
 ```
