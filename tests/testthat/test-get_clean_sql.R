@@ -8,6 +8,16 @@ test_that("Can retrieve basic script", {
   )
 })
 
+test_that("Ignores USE lines", {
+  expect_equal(
+    get_clean_sql("../sql_scripts/use_example.sql"),
+    paste0(
+      " /* Example SQL script use a Use call",
+      " */   SELECT * FROM [my_database_table];"
+    )
+  )
+})
+
 test_that("Adds additional settings", {
   # Check that the output starts with the desired lines
   expect_true(
