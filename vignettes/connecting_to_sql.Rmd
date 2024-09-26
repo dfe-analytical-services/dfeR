@@ -62,6 +62,8 @@ For example, in SQL Server Management Studio (SSMS) or Azure Data Studio you mig
 
 There are a number of standard characters found in SQL scripts that can cause issues when reading in a SQL script within R and we have created the `get_clean_sql()` function to assist with this. Assume you have connected to the database and assigned that connection to a `con` variable, you would then use the following line to read a cleaned version of your SQL script into R.
 
+`get_clean_sql()` will ignore any lines of code that start with `USE` to specify a database, as your database should already be specified in your connection setup.
+
 ```{r reading clean sql, eval=FALSE}
 sql_query <- dfeR::get_clean_sql("path_to_sql_file.sql")
 ```
@@ -71,6 +73,8 @@ sql_query <- dfeR::get_clean_sql("path_to_sql_file.sql")
 Now that the SQL query is saved as a variable in the R environment you can pass that into a function to execute against the database. There's a number of potential ways to do this, though a common way is to use `dbGetQuery()` from the [DBI package](https://dbi.r-dbi.org/), setting the statement as your cleaned SQL query.
 
 It's important to note that `dbGetQuery()` is intended to work with 'SELECT' style queries only. If you're doing something that isn't a 'SELECT' query, such as writing back into SQL, consider using the `dbExecute()` or `dbSendQuery()` functions from the [DBI package](https://dbi.r-dbi.org/) instead.
+
+
 
 ```{r executing sql query, eval=FALSE}
 sql_query_result <- DBI::dbGetQuery(con, statement = sql_query)

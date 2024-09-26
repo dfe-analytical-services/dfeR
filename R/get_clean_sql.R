@@ -44,6 +44,11 @@ get_clean_sql <- function(filepath, additional_settings = FALSE) {
     line <- gsub("\\t", " ", line)
     line <- gsub("\\n", " ", line)
 
+    # Skip over any lines that start with 'Use'
+    if (grepl("^Use", line, ignore.case = TRUE)) {
+      next
+    }
+
     if (grepl("--", line) == TRUE) {
       line <- paste(sub("--", "/*", line), "*/")
     }

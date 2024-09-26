@@ -9,3 +9,5 @@
 ^codecov\.yml$
 ^README\.Rmd$
 ^data-raw$
+^doc$
+^Meta$

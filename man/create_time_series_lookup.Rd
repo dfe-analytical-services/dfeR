@@ -14,7 +14,7 @@ usually the output of tidy_raw_lookup}
 single data.frame of all lookup files combined
 }
 \description{
-Take a list of tidied files, likely produced by the tidy_downloaded_lookup
+Take a list of tidied files, likely produced by the tidy_raw_lookup
 function append together
 }
 \details{
