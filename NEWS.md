@@ -1,6 +1,6 @@
 # dfeR 0.5.1
 
-Patch to update the get_clean_sql() function to ignorel lines starting with 'USE'.
+Patch to update the get_clean_sql() function to ignore lines starting with 'USE'.
 
 # dfeR 0.5.0
 
