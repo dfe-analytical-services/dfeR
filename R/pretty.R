@@ -188,6 +188,7 @@ pretty_time_taken <- function(start_time, end_time) {
 #' @param ignore_na whether to skip function for strings that can't be
 #' converted and return original value
 #' @param alt_na alternative value to return in place of NA, e.g. "x"
+#' @param nsmall minimum number of digits to the right of the decimal point
 #'
 #' @return string featuring prettified value
 #' @family prettying
@@ -223,7 +224,8 @@ pretty_num <- function(
     suffix = "",
     dp = 2,
     ignore_na = FALSE,
-    alt_na = FALSE) {
+    alt_na = FALSE,
+    nsmall = NULL) {
   # Check we're only trying to prettify a single value
   if (length(value) > 1) {
     stop("value must be a single value, multiple values were detected")
@@ -263,11 +265,47 @@ pretty_num <- function(
   }
 
   # Add suffix and prefix, plus convert to million or billion
+
+  # If nsmall is not given, make same value as dp
+
+  if(is.null(nsmall)){
+
+    nsmall <- dp
+
+    if (abs(num_value) >= 1.e9) {
+      paste0(
+        prefix,
+        currency,
+        comma_sep(round_five_up(abs(num_value) / 1.e9, dp = dp), nsmall = nsmall),
+        " billion",
+        suffix
+      )
+    } else if (abs(num_value) >= 1.e6) {
+      paste0(
+        prefix,
+        currency,
+        comma_sep(round_five_up(abs(num_value) / 1.e6, dp = dp), nsmall = nsmall),
+        " million",
+        suffix
+      )
+    } else {
+      paste0(
+        prefix,
+        currency,
+        comma_sep(round_five_up(abs(num_value), dp = dp), nsmall = nsmall),
+        suffix
+      )
+    }
+
+  }else {
+
+  # If nsmall is given, use that value
+
   if (abs(num_value) >= 1.e9) {
     paste0(
       prefix,
       currency,
-      comma_sep(round_five_up(abs(num_value) / 1.e9, dp = dp)),
+      comma_sep(round_five_up(abs(num_value) / 1.e9, dp = dp), nsmall = nsmall),
       " billion",
       suffix
     )
@@ -275,7 +313,7 @@ pretty_num <- function(
     paste0(
       prefix,
       currency,
-      comma_sep(round_five_up(abs(num_value) / 1.e6, dp = dp)),
+      comma_sep(round_five_up(abs(num_value) / 1.e6, dp = dp), nsmall = nsmall),
       " million",
       suffix
     )
@@ -283,8 +321,9 @@ pretty_num <- function(
     paste0(
       prefix,
       currency,
-      comma_sep(round_five_up(abs(num_value), dp = dp)),
+      comma_sep(round_five_up(abs(num_value), dp = dp), nsmall = nsmall),
       suffix
     )
   }
+}
 }

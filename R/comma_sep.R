@@ -13,6 +13,7 @@
 #' comma_sep(100)
 #' comma_sep(1000)
 #' comma_sep(3567000)
-comma_sep <- function(number) {
-  format(number, big.mark = ",", trim = TRUE, scientific = FALSE)
+comma_sep <- function(number,
+                      nsmall = 0L) {
+  format(number, big.mark = ",", nsmall=nsmall, trim = TRUE, scientific = FALSE)
 }
