@@ -226,104 +226,109 @@ pretty_num <- function(
     ignore_na = FALSE,
     alt_na = FALSE,
     nsmall = NULL) {
-  # Check we're only trying to prettify a single value
-  if (length(value) > 1) {
-    stop("value must be a single value, multiple values were detected")
-  }
 
-  # Force to numeric
-  num_value <- suppressWarnings(as.numeric(value))
+  #use lapply to use the function for singular value or a vector
 
-  # Check if should skip function
-  if (is.na(num_value)) {
-    if (ignore_na == TRUE) {
-      return(value) # return original value
-    } else if (alt_na != FALSE) {
-      return(alt_na) # return custom NA value
-    } else {
-      return(num_value) # return NA
-    }
-  }
+  result <- lapply(value, function(value){
+    # Force to numeric
+    num_value <- suppressWarnings(as.numeric(value))
 
-  # Convert GBP to pound symbol
-  if (gbp == TRUE) {
-    currency <- "\U00a3"
-  } else {
-    currency <- ""
-  }
-
-  # Add + / - symbols depending on size of value
-  if (prefix == "+/-") {
-    if (value >= 0) {
-      prefix <- "+"
-    } else {
-      prefix <- "-"
-    }
-    # Add in negative symbol if appropriate and not auto added with +/-
-  } else if (value < 0) {
-    prefix <- paste0("-", prefix)
-  }
-
-  # Add suffix and prefix, plus convert to million or billion
-
-  # If nsmall is not given, make same value as dp
-
-  if(is.null(nsmall)){
-
-    nsmall <- dp
-
-    if (abs(num_value) >= 1.e9) {
-      paste0(
-        prefix,
-        currency,
-        comma_sep(round_five_up(abs(num_value) / 1.e9, dp = dp), nsmall = nsmall),
-        " billion",
-        suffix
-      )
-    } else if (abs(num_value) >= 1.e6) {
-      paste0(
-        prefix,
-        currency,
-        comma_sep(round_five_up(abs(num_value) / 1.e6, dp = dp), nsmall = nsmall),
-        " million",
-        suffix
-      )
-    } else {
-      paste0(
-        prefix,
-        currency,
-        comma_sep(round_five_up(abs(num_value), dp = dp), nsmall = nsmall),
-        suffix
-      )
+    # Check if should skip function
+    if (is.na(num_value)) {
+      if (ignore_na == TRUE) {
+        return(value) # return original value
+      } else if (alt_na != FALSE) {
+        return(alt_na) # return custom NA value
+      } else {
+        return(num_value) # return NA
+      }
     }
 
-  }else {
+    # Convert GBP to pound symbol
+    if (gbp == TRUE) {
+      currency <- "\U00a3"
+    } else {
+      currency <- ""
+    }
 
-  # If nsmall is given, use that value
+    # Add + / - symbols depending on size of value
+    if (prefix == "+/-") {
+      if (value >= 0) {
+        prefix <- "+"
+      } else {
+        prefix <- "-"
+      }
+      # Add in negative symbol if appropriate and not auto added with +/-
+    } else if (value < 0) {
+      prefix <- paste0("-", prefix)
+    }
 
-  if (abs(num_value) >= 1.e9) {
-    paste0(
-      prefix,
-      currency,
-      comma_sep(round_five_up(abs(num_value) / 1.e9, dp = dp), nsmall = nsmall),
-      " billion",
-      suffix
-    )
-  } else if (abs(num_value) >= 1.e6) {
-    paste0(
-      prefix,
-      currency,
-      comma_sep(round_five_up(abs(num_value) / 1.e6, dp = dp), nsmall = nsmall),
-      " million",
-      suffix
-    )
-  } else {
-    paste0(
-      prefix,
-      currency,
-      comma_sep(round_five_up(abs(num_value), dp = dp), nsmall = nsmall),
-      suffix
-    )
+    # Add suffix and prefix, plus convert to million or billion
+
+    # If nsmall is not given, make same value as dp
+
+    if(is.null(nsmall)){
+
+      nsmall <- dp
+
+      if (abs(num_value) >= 1.e9) {
+        paste0(
+          prefix,
+          currency,
+          comma_sep(round_five_up(abs(num_value) / 1.e9, dp = dp), nsmall = nsmall),
+          " billion",
+          suffix
+        )
+      } else if (abs(num_value) >= 1.e6) {
+        paste0(
+          prefix,
+          currency,
+          comma_sep(round_five_up(abs(num_value) / 1.e6, dp = dp), nsmall = nsmall),
+          " million",
+          suffix
+        )
+      } else {
+        paste0(
+          prefix,
+          currency,
+          comma_sep(round_five_up(abs(num_value), dp = dp), nsmall = nsmall),
+          suffix
+        )
+      }
+
+    }else {
+
+      # If nsmall is given, use that value
+
+      if (abs(num_value) >= 1.e9) {
+        paste0(
+          prefix,
+          currency,
+          comma_sep(round_five_up(abs(num_value) / 1.e9, dp = dp), nsmall = nsmall),
+          " billion",
+          suffix
+        )
+      } else if (abs(num_value) >= 1.e6) {
+        paste0(
+          prefix,
+          currency,
+          comma_sep(round_five_up(abs(num_value) / 1.e6, dp = dp), nsmall = nsmall),
+          " million",
+          suffix
+        )
+      } else {
+        paste0(
+          prefix,
+          currency,
+          comma_sep(round_five_up(abs(num_value), dp = dp), nsmall = nsmall),
+          suffix
+        )
+      }
+    }
+
   }
-}
+  )#lapply bracket
+
+  #unlisting the results so that they're all on one line
+  return(unlist(result))
 }
