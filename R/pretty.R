@@ -209,14 +209,15 @@ pretty_time_taken <- function(start_time, end_time) {
 #'
 #' # Applied over an example vector
 #' vector <- c(3998098008, -123421421, "c", "x")
-#' unlist(lapply(vector, pretty_num))
-#' unlist(lapply(vector, pretty_num, prefix = "+/-", gbp = TRUE))
+#' pretty_num(vector)
+#' pretty_num(vector, prefix = "+/-", gbp = TRUE)
 #'
 #' # Return original values if NA
-#' unlist(lapply(vector, pretty_num, ignore_na = TRUE))
+#' pretty_num(vector,ignore_na = TRUE)
 #'
 #' # Return alternative value in place of NA
-#' unlist(lapply(vector, pretty_num, alt_na = "z"))
+#' pretty_num(vector, alt_na = "z")
+
 pretty_num <- function(
     value,
     prefix = "",
