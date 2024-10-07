@@ -270,7 +270,7 @@ pretty_num <- function(
 
     if(is.null(nsmall)){
 
-      nsmall <- dp
+      nsmall <- abs(dp)
 
       if (abs(num_value) >= 1.e9) {
         paste0(
