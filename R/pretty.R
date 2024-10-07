@@ -213,11 +213,10 @@ pretty_time_taken <- function(start_time, end_time) {
 #' pretty_num(vector, prefix = "+/-", gbp = TRUE)
 #'
 #' # Return original values if NA
-#' pretty_num(vector,ignore_na = TRUE)
+#' pretty_num(vector, ignore_na = TRUE)
 #'
 #' # Return alternative value in place of NA
 #' pretty_num(vector, alt_na = "z")
-
 pretty_num <- function(
     value,
     prefix = "",
@@ -227,10 +226,9 @@ pretty_num <- function(
     ignore_na = FALSE,
     alt_na = FALSE,
     nsmall = NULL) {
+  # use lapply to use the function for singular value or a vector
 
-  #use lapply to use the function for singular value or a vector
-
-  result <- lapply(value, function(value){
+  result <- lapply(value, function(value) {
     # Force to numeric
     num_value <- suppressWarnings(as.numeric(value))
 
@@ -267,69 +265,50 @@ pretty_num <- function(
     # Add suffix and prefix, plus convert to million or billion
 
     # If nsmall is not given, make same value as dp
+    # if dp is smaller than 0, make nsmall 0
+    # if nsmall is specified, use that value
 
-    if(is.null(nsmall)){
-
-      nsmall <- abs(dp)
-
-      if (abs(num_value) >= 1.e9) {
-        paste0(
-          prefix,
-          currency,
-          comma_sep(round_five_up(abs(num_value) / 1.e9, dp = dp), nsmall = nsmall),
-          " billion",
-          suffix
-        )
-      } else if (abs(num_value) >= 1.e6) {
-        paste0(
-          prefix,
-          currency,
-          comma_sep(round_five_up(abs(num_value) / 1.e6, dp = dp), nsmall = nsmall),
-          " million",
-          suffix
-        )
-      } else {
-        paste0(
-          prefix,
-          currency,
-          comma_sep(round_five_up(abs(num_value), dp = dp), nsmall = nsmall),
-          suffix
-        )
-      }
-
-    }else {
-
-      # If nsmall is given, use that value
-
-      if (abs(num_value) >= 1.e9) {
-        paste0(
-          prefix,
-          currency,
-          comma_sep(round_five_up(abs(num_value) / 1.e9, dp = dp), nsmall = nsmall),
-          " billion",
-          suffix
-        )
-      } else if (abs(num_value) >= 1.e6) {
-        paste0(
-          prefix,
-          currency,
-          comma_sep(round_five_up(abs(num_value) / 1.e6, dp = dp), nsmall = nsmall),
-          " million",
-          suffix
-        )
-      } else {
-        paste0(
-          prefix,
-          currency,
-          comma_sep(round_five_up(abs(num_value), dp = dp), nsmall = nsmall),
-          suffix
-        )
-      }
+    if (!is.null(nsmall)) {
+      nsmall <- nsmall
+    } else if (dp > 0 & is.null(nsmall)) {
+      nsmall <- dp
+    } else {
+      nsmall <- 0
     }
 
-  }
-  )#lapply bracket
 
-  #unlisting the results so that they're all on one line
+    if (abs(num_value) >= 1.e9) {
+      paste0(
+        prefix,
+        currency,
+        comma_sep(round_five_up(abs(num_value) / 1.e9, dp = dp),
+          nsmall = nsmall
+        ),
+        " billion",
+        suffix
+      )
+    } else if (abs(num_value) >= 1.e6) {
+      paste0(
+        prefix,
+        currency,
+        comma_sep(round_five_up(abs(num_value) / 1.e6, dp = dp),
+          nsmall = nsmall
+        ),
+        " million",
+        suffix
+      )
+    } else {
+      paste0(
+        prefix,
+        currency,
+        comma_sep(round_five_up(abs(num_value), dp = dp),
+          nsmall = nsmall
+        ),
+        suffix
+      )
+    }
+  }) # lapply bracket
+
+  # unlisting the results so that they're all on one line
   return(unlist(result))
 }

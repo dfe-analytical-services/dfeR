@@ -11,7 +11,8 @@ pretty_num(
   suffix = "",
   dp = 2,
   ignore_na = FALSE,
-  alt_na = FALSE
+  alt_na = FALSE,
+  nsmall = NULL
 )
 }
 \arguments{
@@ -30,6 +31,8 @@ assign + or - based on the value}
 converted and return original value}
 
 \item{alt_na}{alternative value to return in place of NA, e.g. "x"}
+
+\item{nsmall}{minimum number of digits to the right of the decimal point}
 }
 \value{
 string featuring prettified value
@@ -66,14 +69,14 @@ pretty_num("nope", alt_na = "x")
 
 # Applied over an example vector
 vector <- c(3998098008, -123421421, "c", "x")
-unlist(lapply(vector, pretty_num))
-unlist(lapply(vector, pretty_num, prefix = "+/-", gbp = TRUE))
+pretty_num(vector)
+pretty_num(vector, prefix = "+/-", gbp = TRUE)
 
 # Return original values if NA
-unlist(lapply(vector, pretty_num, ignore_na = TRUE))
+pretty_num(vector,ignore_na = TRUE)
 
 # Return alternative value in place of NA
-unlist(lapply(vector, pretty_num, alt_na = "z"))
+pretty_num(vector, alt_na = "z")
 }
 \seealso{
 \code{\link[=comma_sep]{comma_sep()}} \code{\link[=round_five_up]{round_five_up()}} \code{\link[=as.numeric]{as.numeric()}}
