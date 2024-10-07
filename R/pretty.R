@@ -202,6 +202,7 @@ pretty_time_taken <- function(start_time, end_time) {
 #' pretty_num(567812343223, gbp = TRUE, prefix = "+/-")
 #' pretty_num(11^9, gbp = TRUE, dp = 3)
 #' pretty_num(-11^8, gbp = TRUE, dp = -1)
+#' pretty_num(43.3, dp = 1, nsmall =2)
 #' pretty_num("56.089", suffix = "%")
 #' pretty_num("x")
 #' pretty_num("x", ignore_na = TRUE)
