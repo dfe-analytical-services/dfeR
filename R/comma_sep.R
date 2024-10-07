@@ -5,6 +5,7 @@
 #' return the value unchanged and as a string.
 #'
 #' @param number number to be comma separated
+#' @param nsmall minimum number of digits to the right of the decimal point
 #'
 #' @return string
 #' @export

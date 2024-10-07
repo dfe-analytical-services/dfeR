@@ -23,7 +23,7 @@ test_that("handles NAs", {
 })
 
 test_that("tests multiple values", {
-  expect_error(
+  expect_equal(
     pretty_num(c(1:4)),
     c("1.00" ,"2.00", "3.00" ,"4.00")
   )
