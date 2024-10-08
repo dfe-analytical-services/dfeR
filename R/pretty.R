@@ -370,6 +370,6 @@ pretty_table <- function(data,
   data %>%
     dplyr::mutate(dplyr::across(
       .cols = dplyr::all_of(cols_to_include),
-      ~ sapply(., pretty_num, ...)
+      ~ pretty_num(.,...)
     ))
 }
