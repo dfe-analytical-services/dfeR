@@ -291,25 +291,32 @@ pretty_num <- function(
 
 #' Format Numeric Columns in a Data Frame with Pretty Numbers
 #'
-#' This function formats numeric columns in a data frame using the `dfeR::pretty_num` function.
-#' Users can specify which columns to format using the `include_columns` or `exclude_columns`
-#' parameters, and customize the number formatting by passing additional arguments to `dfeR::pretty_num`.
+#' This function formats numeric columns in data frames with `dfeR::pretty_num`.
+#' Use parameters `include_columns` or `exclude_columns`
+#' to specify columns for formatting
+#' and pass arguments to `dfeR::pretty_num` for number formatting
 #'
 #' @param data A data frame containing the numeric columns to be formatted.
 #' @param include_columns A character vector specifying which columns to format.
 #' If `NULL` (default), all numeric columns will be considered for formatting.
-#' @param exclude_columns A character vector specifying which columns to exclude from formatting.
+#' @param exclude_columns A character vector specifying columns to exclude
+#' from formatting.
 #' If `NULL` (default), no columns will be excluded.
-#' If both `include_columns` and `exclude_columns` are provided, `include_columns` takes precedence.
-#' @param ... Additional arguments passed to `dfeR::pretty_num`, such as `dp` (decimal places)
+#' If both `include_columns` and `exclude_columns` are provided
+#' , `include_columns` takes precedence.
+#' @param ... Additional arguments passed to `dfeR::pretty_num`
+#' , such as `dp` (decimal places)
 #' for controlling the number of decimal points.
 #'
-#' @return A data frame with the specified numeric columns formatted using `dfeR::pretty_num`.
+#' @return A data frame with the specified numeric columns
+#' formatted using `dfeR::pretty_num`.
 #' Non-numeric columns and excluded numeric columns (if any) are left unchanged.
 #'
 #' @details
-#' The function first checks if any columns are specified for inclusion via `include_columns`.
-#' If none are provided, it checks if columns are specified for exclusion via `exclude_columns`.
+#' The function first checks if any columns are specified for inclusion
+#' via `include_columns`.
+#' If none are provided, it checks if columns are specified for exclusion
+#' via `exclude_columns`.
 #' If neither is specified, all numeric columns in the data frame are formatted.
 #'
 #' @examples
@@ -329,12 +336,10 @@ pretty_num <- function(
 #' # Apply formatting to all numeric columns except specified ones
 #' pretty_table(df, exclude_columns = c("b"), dp = 2)
 #'
-#'
 pretty_table <- function(data,
                          include_columns = NULL,
                          exclude_columns = NULL,
                          ...) {
-
   # Check if the data frame has rows - if not, stop the process
   if (nrow(data) < 1) {
     warning("Data frame is empty or contains no rows.")
@@ -344,17 +349,21 @@ pretty_table <- function(data,
 
   # if the include_columns arg is specified
   if (!is.null(include_columns)) {
-
-    #assign the names to the cols_to_include variable
+    # assign the names to the cols_to_include variable
     cols_to_include <- include_columns
 
     # if the exclude_columns arg is specified
   } else if (!is.null(exclude_columns)) {
-    # we assign the cols_to_include to names of all numeric columns except for ones specified in exclude_columns
-    cols_to_include <- setdiff(names(data)[sapply(data, is.numeric)], exclude_columns)
+    # we assign the cols_to_include to names of all numeric columns
+    # except for ones specified in exclude_columns
+    cols_to_include <- setdiff(
+      names(data),
+      exclude_columns
+    )
   } else {
-    # if none of the previous conditions are met, all numeric cols are assigned to cols_to_include
-    cols_to_include <- names(data)[sapply(data, is.numeric)]
+    # if none of the previous conditions are met
+    # , all numeric cols are assigned to cols_to_include
+    cols_to_include <- names(data)
   }
 
   # Apply pretty_num formatting to the selected numeric columns
