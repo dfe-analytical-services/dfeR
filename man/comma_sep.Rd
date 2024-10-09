@@ -4,10 +4,12 @@
 \alias{comma_sep}
 \title{Comma separate}
 \usage{
-comma_sep(number)
+comma_sep(number, nsmall = 0L)
 }
 \arguments{
 \item{number}{number to be comma separated}
+
+\item{nsmall}{minimum number of digits to the right of the decimal point}
 }
 \value{
 string

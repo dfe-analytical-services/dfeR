@@ -188,6 +188,7 @@ pretty_time_taken <- function(start_time, end_time) {
 #' @param ignore_na whether to skip function for strings that can't be
 #' converted and return original value
 #' @param alt_na alternative value to return in place of NA, e.g. "x"
+#' @param nsmall minimum number of digits to the right of the decimal point
 #'
 #' @return string featuring prettified value
 #' @family prettying
@@ -201,6 +202,7 @@ pretty_time_taken <- function(start_time, end_time) {
 #' pretty_num(567812343223, gbp = TRUE, prefix = "+/-")
 #' pretty_num(11^9, gbp = TRUE, dp = 3)
 #' pretty_num(-11^8, gbp = TRUE, dp = -1)
+#' pretty_num(43.3, dp = 1, nsmall = 2)
 #' pretty_num("56.089", suffix = "%")
 #' pretty_num("x")
 #' pretty_num("x", ignore_na = TRUE)
@@ -208,14 +210,14 @@ pretty_time_taken <- function(start_time, end_time) {
 #'
 #' # Applied over an example vector
 #' vector <- c(3998098008, -123421421, "c", "x")
-#' unlist(lapply(vector, pretty_num))
-#' unlist(lapply(vector, pretty_num, prefix = "+/-", gbp = TRUE))
+#' pretty_num(vector)
+#' pretty_num(vector, prefix = "+/-", gbp = TRUE)
 #'
 #' # Return original values if NA
-#' unlist(lapply(vector, pretty_num, ignore_na = TRUE))
+#' pretty_num(vector, ignore_na = TRUE)
 #'
 #' # Return alternative value in place of NA
-#' unlist(lapply(vector, pretty_num, alt_na = "z"))
+#' pretty_num(vector, alt_na = "z")
 pretty_num <- function(
     value,
     prefix = "",
@@ -223,70 +225,93 @@ pretty_num <- function(
     suffix = "",
     dp = 2,
     ignore_na = FALSE,
-    alt_na = FALSE) {
-  # Check we're only trying to prettify a single value
-  if (length(value) > 1) {
-    stop("value must be a single value, multiple values were detected")
-  }
+    alt_na = FALSE,
+    nsmall = NULL) {
+  # use lapply to use the function for singular value or a vector
 
-  # Force to numeric
-  num_value <- suppressWarnings(as.numeric(value))
+  result <- lapply(value, function(value) {
+    # Force to numeric
+    num_value <- suppressWarnings(as.numeric(value))
 
-  # Check if should skip function
-  if (is.na(num_value)) {
-    if (ignore_na == TRUE) {
-      return(value) # return original value
-    } else if (alt_na != FALSE) {
-      return(alt_na) # return custom NA value
-    } else {
-      return(num_value) # return NA
+    # Check if should skip function
+    if (is.na(num_value)) {
+      if (ignore_na == TRUE) {
+        return(value) # return original value
+      } else if (alt_na != FALSE) {
+        return(alt_na) # return custom NA value
+      } else {
+        return(num_value) # return NA
+      }
     }
-  }
 
-  # Convert GBP to pound symbol
-  if (gbp == TRUE) {
-    currency <- "\U00a3"
-  } else {
-    currency <- ""
-  }
-
-  # Add + / - symbols depending on size of value
-  if (prefix == "+/-") {
-    if (value >= 0) {
-      prefix <- "+"
+    # Convert GBP to pound symbol
+    if (gbp == TRUE) {
+      currency <- "\U00a3"
     } else {
-      prefix <- "-"
+      currency <- ""
     }
-    # Add in negative symbol if appropriate and not auto added with +/-
-  } else if (value < 0) {
-    prefix <- paste0("-", prefix)
-  }
 
-  # Add suffix and prefix, plus convert to million or billion
-  if (abs(num_value) >= 1.e9) {
-    paste0(
-      prefix,
-      currency,
-      comma_sep(round_five_up(abs(num_value) / 1.e9, dp = dp)),
-      " billion",
-      suffix
-    )
-  } else if (abs(num_value) >= 1.e6) {
-    paste0(
-      prefix,
-      currency,
-      comma_sep(round_five_up(abs(num_value) / 1.e6, dp = dp)),
-      " million",
-      suffix
-    )
-  } else {
-    paste0(
-      prefix,
-      currency,
-      comma_sep(round_five_up(abs(num_value), dp = dp)),
-      suffix
-    )
-  }
+    # Add + / - symbols depending on size of value
+    if (prefix == "+/-") {
+      if (value >= 0) {
+        prefix <- "+"
+      } else {
+        prefix <- "-"
+      }
+      # Add in negative symbol if appropriate and not auto added with +/-
+    } else if (value < 0) {
+      prefix <- paste0("-", prefix)
+    }
+
+    # Add suffix and prefix, plus convert to million or billion
+
+    # If nsmall is not given, make same value as dp
+    # if dp is smaller than 0, make nsmall 0
+    # if nsmall is specified, use that value
+
+    if (!is.null(nsmall)) {
+      nsmall <- nsmall
+    } else if (dp > 0 & is.null(nsmall)) {
+      nsmall <- dp
+    } else {
+      nsmall <- 0
+    }
+
+
+    if (abs(num_value) >= 1.e9) {
+      paste0(
+        prefix,
+        currency,
+        comma_sep(round_five_up(abs(num_value) / 1.e9, dp = dp),
+          nsmall = nsmall
+        ),
+        " billion",
+        suffix
+      )
+    } else if (abs(num_value) >= 1.e6) {
+      paste0(
+        prefix,
+        currency,
+        comma_sep(round_five_up(abs(num_value) / 1.e6, dp = dp),
+          nsmall = nsmall
+        ),
+        " million",
+        suffix
+      )
+    } else {
+      paste0(
+        prefix,
+        currency,
+        comma_sep(round_five_up(abs(num_value), dp = dp),
+          nsmall = nsmall
+        ),
+        suffix
+      )
+    }
+  }) # lapply bracket
+
+  # unlisting the results so that they're all on one line
+  return(unlist(result))
 }
 
 #' Format Numeric Columns in a Data Frame with Pretty Numbers
