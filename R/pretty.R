@@ -340,7 +340,7 @@ pretty_num <- function(
 #' If none are provided, it checks if columns are specified for exclusion
 #' via `exclude_columns`.
 #' If neither is specified, all columns in the data frame are formatted.
-#'
+#' @export
 #' @examples
 #' # Example data frame
 #' df <- data.frame(
