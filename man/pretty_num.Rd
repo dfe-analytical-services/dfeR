@@ -74,7 +74,9 @@ pretty_num(vector)
 pretty_num(vector, prefix = "+/-", gbp = TRUE)
 
 # Return original values if NA
+
 pretty_num(vector, ignore_na = TRUE)
+
 
 # Return alternative value in place of NA
 pretty_num(vector, alt_na = "z")

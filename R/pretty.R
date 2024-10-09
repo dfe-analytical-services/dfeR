@@ -265,6 +265,7 @@ pretty_num <- function(
 
     # Add suffix and prefix, plus convert to million or billion
 
+
     # If nsmall is not given, make same value as dp
     # if dp is smaller than 0, make nsmall 0
     # if nsmall is specified, use that value
@@ -398,4 +399,5 @@ pretty_table <- function(data,
       .cols = dplyr::all_of(cols_to_include),
       ~ pretty_num(., ...)
     ))
+
 }
