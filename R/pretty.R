@@ -314,16 +314,15 @@ pretty_num <- function(
   return(unlist(result))
 }
 
-#' Format Numeric Columns in a Data Frame with Pretty Numbers
+#' Format columns in a Data Frame with `dfeR::pretty_num`.
 #'
-#' This function formats numeric columns in data frames with `dfeR::pretty_num`.
 #' Use parameters `include_columns` or `exclude_columns`
 #' to specify columns for formatting
 #' and pass arguments to `dfeR::pretty_num` for number formatting
 #'
 #' @param data A data frame containing the numeric columns to be formatted.
 #' @param include_columns A character vector specifying which columns to format.
-#' If `NULL` (default), all numeric columns will be considered for formatting.
+#' If `NULL` (default), all columns will be considered for formatting.
 #' @param exclude_columns A character vector specifying columns to exclude
 #' from formatting.
 #' If `NULL` (default), no columns will be excluded.
@@ -333,16 +332,14 @@ pretty_num <- function(
 #' , such as `dp` (decimal places)
 #' for controlling the number of decimal points.
 #'
-#' @return A data frame with the specified numeric columns
-#' formatted using `dfeR::pretty_num`.
-#' Non-numeric columns and excluded numeric columns (if any) are left unchanged.
+#' @return A data frame with columns formatted using `dfeR::pretty_num`.
 #'
 #' @details
 #' The function first checks if any columns are specified for inclusion
 #' via `include_columns`.
 #' If none are provided, it checks if columns are specified for exclusion
 #' via `exclude_columns`.
-#' If neither is specified, all numeric columns in the data frame are formatted.
+#' If neither is specified, all columns in the data frame are formatted.
 #'
 #' @examples
 #' # Example data frame
@@ -352,14 +349,18 @@ pretty_num <- function(
 #'   c = c("A", "B", "C")
 #' )
 #'
-#' # Apply formatting to all numeric columns
+#' # Apply formatting to all columns
 #' pretty_table(df, dp = 2)
 #'
 #' # Apply formatting to only selected columns
 #' pretty_table(df, include_columns = c("a"), dp = 2)
 #'
-#' # Apply formatting to all numeric columns except specified ones
+#' # Apply formatting to all columns except specified ones
 #' pretty_table(df, exclude_columns = c("b"), dp = 2)
+#'
+#' # Apply formatting to all columns except specified ones and
+#' # provide alternative value for NAs
+#' pretty_table(df, alt_na = "[z]", exclude_columns = c("b"), dp = 2)
 #'
 pretty_table <- function(data,
                          include_columns = NULL,
@@ -391,10 +392,10 @@ pretty_table <- function(data,
     cols_to_include <- names(data)
   }
 
-  # Apply pretty_num formatting to the selected numeric columns
+  # Apply pretty_num formatting to the selected columns
   data %>%
     dplyr::mutate(dplyr::across(
       .cols = dplyr::all_of(cols_to_include),
-      ~ pretty_num(.,...)
+      ~ pretty_num(., ...)
     ))
 }
