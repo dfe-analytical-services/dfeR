@@ -321,7 +321,7 @@ pretty_num <- function(
 #' to specify columns for formatting
 #' and pass arguments to `dfeR::pretty_num` for number formatting
 #'
-#' @param data A data frame containing the numeric columns to be formatted.
+#' @param data A data frame containing the columns to be formatted.
 #' @param include_columns A character vector specifying which columns to format.
 #' If `NULL` (default), all columns will be considered for formatting.
 #' @param exclude_columns A character vector specifying columns to exclude
@@ -341,6 +341,8 @@ pretty_num <- function(
 #' If none are provided, it checks if columns are specified for exclusion
 #' via `exclude_columns`.
 #' If neither is specified, all columns in the data frame are formatted.
+#' @family prettying
+#' @seealso [pretty_num()]
 #' @export
 #' @examples
 #' # Example data frame
@@ -381,7 +383,7 @@ pretty_table <- function(data,
 
     # if the exclude_columns arg is specified
   } else if (!is.null(exclude_columns)) {
-    # we assign the cols_to_include to names of all numeric columns
+    # we assign the cols_to_include to names of all columns
     # except for ones specified in exclude_columns
     cols_to_include <- setdiff(
       names(data),
@@ -389,7 +391,7 @@ pretty_table <- function(data,
     )
   } else {
     # if none of the previous conditions are met
-    # , all numeric cols are assigned to cols_to_include
+    # , all columns are assigned to cols_to_include
     cols_to_include <- names(data)
   }
 
@@ -399,5 +401,4 @@ pretty_table <- function(data,
       .cols = dplyr::all_of(cols_to_include),
       ~ pretty_num(., ...)
     ))
-
 }

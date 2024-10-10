@@ -74,9 +74,7 @@ pretty_num(vector)
 pretty_num(vector, prefix = "+/-", gbp = TRUE)
 
 # Return original values if NA
-
 pretty_num(vector, ignore_na = TRUE)
-
 
 # Return alternative value in place of NA
 pretty_num(vector, alt_na = "z")
@@ -86,6 +84,7 @@ pretty_num(vector, alt_na = "z")
 
 Other prettying: 
 \code{\link{pretty_filesize}()},
+\code{\link{pretty_table}()},
 \code{\link{pretty_time_taken}()}
 }
 \concept{prettying}

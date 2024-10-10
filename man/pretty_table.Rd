@@ -7,7 +7,7 @@
 pretty_table(data, include_columns = NULL, exclude_columns = NULL, ...)
 }
 \arguments{
-\item{data}{A data frame containing the numeric columns to be formatted.}
+\item{data}{A data frame containing the columns to be formatted.}
 
 \item{include_columns}{A character vector specifying which columns to format.
 If \code{NULL} (default), all columns will be considered for formatting.}
@@ -59,3 +59,12 @@ pretty_table(df, exclude_columns = c("b"), dp = 2)
 pretty_table(df, alt_na = "[z]", exclude_columns = c("b"), dp = 2)
 
 }
+\seealso{
+\code{\link[=pretty_num]{pretty_num()}}
+
+Other prettying: 
+\code{\link{pretty_filesize}()},
+\code{\link{pretty_num}()},
+\code{\link{pretty_time_taken}()}
+}
+\concept{prettying}
