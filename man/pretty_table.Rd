@@ -2,7 +2,7 @@
 % Please edit documentation in R/pretty.R
 \name{pretty_table}
 \alias{pretty_table}
-\title{Format columns in a Data Frame with \code{dfeR::pretty_num}.}
+\title{Format a data frame with \code{dfeR::pretty_num}.}
 \usage{
 pretty_table(data, include_columns = NULL, exclude_columns = NULL, ...)
 }
@@ -26,9 +26,10 @@ for controlling the number of decimal points.}
 A data frame with columns formatted using \code{dfeR::pretty_num}.
 }
 \description{
+You can format number and character values in a data frame
+by passing arguments to \code{dfeR::pretty_num}.
 Use parameters \code{include_columns} or \code{exclude_columns}
-to specify columns for formatting
-and pass arguments to \code{dfeR::pretty_num} for number formatting
+to specify columns for formatting.
 }
 \details{
 The function first checks if any columns are specified for inclusion

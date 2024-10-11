@@ -315,11 +315,12 @@ pretty_num <- function(
   return(unlist(result))
 }
 
-#' Format columns in a Data Frame with `dfeR::pretty_num`.
+#' Format a data frame with `dfeR::pretty_num`.
 #'
+#' You can format number and character values in a data frame
+#' by passing arguments to `dfeR::pretty_num`.
 #' Use parameters `include_columns` or `exclude_columns`
-#' to specify columns for formatting
-#' and pass arguments to `dfeR::pretty_num` for number formatting
+#' to specify columns for formatting.
 #'
 #' @param data A data frame containing the columns to be formatted.
 #' @param include_columns A character vector specifying which columns to format.
