@@ -1,3 +1,13 @@
+# dfeR 0.6.0
+
+Update pretty_num so that: 
+
+- it can take single or multiple values. 
+- it has the argument nsmall that allows control over the number of digits displayed after rounding. 
+
+Add pretty_num_table() which uses pretty_num() to format numbers in a readable format in data frames. 
+It has all the customization provided by pretty_num. 
+
 # dfeR 0.5.1
 
 Patch to update the get_clean_sql() function to ignore lines starting with 'USE'.

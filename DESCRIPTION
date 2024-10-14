@@ -1,7 +1,7 @@
 Type: Package
 Package: dfeR
 Title: Common DfE R tasks
-Version: 0.5.1
+Version: 0.6.0
 Authors@R: c(
     person("Cam", "Race", , "cameron.race@education.gov.uk", role = c("aut", "cre")),
     person("Laura", "Selby", , "laura.selby@education.gov.uk", role = "aut"),
@@ -9,6 +9,7 @@ Authors@R: c(
     person("Jen", "Machin", , "jen.machin@education.gov.uk", role = "ctb"),
     person("Jake", "Tufts", , "jake.tufts@education.gov.uk", role = "ctb"),
     person("Rich", "Bielby", , "richard.bielby@education.gov.uk", role = "ctb",
+    person( "Menna", "Zayed", , "menna.zayed@education.gov.uk", role = "ctb"),
            comment = c(ORCID = "0000-0001-9070-9969"))
   )
 Description: This package contains R functions to allow DfE analysts to
