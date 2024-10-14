@@ -315,10 +315,10 @@ pretty_num <- function(
   return(unlist(result))
 }
 
-#' Format a data frame with `dfeR::pretty_num`.
+#' Format a data frame with `dfeR::pretty_num()`.
 #'
 #' You can format number and character values in a data frame
-#' by passing arguments to `dfeR::pretty_num`.
+#' by passing arguments to `dfeR::pretty_num()`.
 #' Use parameters `include_columns` or `exclude_columns`
 #' to specify columns for formatting.
 #'
@@ -330,11 +330,11 @@ pretty_num <- function(
 #' If `NULL` (default), no columns will be excluded.
 #' If both `include_columns` and `exclude_columns` are provided
 #' , `include_columns` takes precedence.
-#' @param ... Additional arguments passed to `dfeR::pretty_num`
+#' @param ... Additional arguments passed to `dfeR::pretty_num()`
 #' , such as `dp` (decimal places)
 #' for controlling the number of decimal points.
 #'
-#' @return A data frame with columns formatted using `dfeR::pretty_num`.
+#' @return A data frame with columns formatted using `dfeR::pretty_num()`.
 #'
 #' @details
 #' The function first checks if any columns are specified for inclusion
@@ -354,25 +354,33 @@ pretty_num <- function(
 #' )
 #'
 #' # Apply formatting to all columns
-#' pretty_table(df, dp = 2)
+#' pretty_num_table(df, dp = 2)
 #'
 #' # Apply formatting to only selected columns
-#' pretty_table(df, include_columns = c("a"), dp = 2)
+#' pretty_num_table(df, include_columns = c("a"), dp = 2)
 #'
 #' # Apply formatting to all columns except specified ones
-#' pretty_table(df, exclude_columns = c("b"), dp = 2)
+#' pretty_num_table(df, exclude_columns = c("b"), dp = 2)
 #'
 #' # Apply formatting to all columns except specified ones and
 #' # provide alternative value for NAs
-#' pretty_table(df, alt_na = "[z]", exclude_columns = c("b"), dp = 2)
+#' pretty_num_table(df, alt_na = "[z]", exclude_columns = c("b"), dp = 2)
 #'
-pretty_table <- function(data,
-                         include_columns = NULL,
-                         exclude_columns = NULL,
-                         ...) {
+pretty_num_table <- function(data,
+                             include_columns = NULL,
+                             exclude_columns = NULL,
+                             ...) {
+  # Check data is a data frame and throw error if not
+  if (!is.data.frame(data)) {
+    stop(paste0(
+      "Data has the class ", class(data),
+      ", data must be a data.frame object"
+    ))
+  }
+
   # Check if the data frame has rows - if not, stop the process
   if (nrow(data) < 1) {
-    warning("Data frame is empty or contains no rows.")
+    stop("Data frame is empty or contains no rows.")
   }
 
   # Determine which columns to include based on the provided parameters
@@ -392,11 +400,11 @@ pretty_table <- function(data,
     )
   } else {
     # if none of the previous conditions are met
-    # , all columns are assigned to cols_to_include
+    # all columns are assigned to cols_to_include
     cols_to_include <- names(data)
   }
 
-  # Apply pretty_num formatting to the selected columns
+  # Apply pretty_num() formatting to the selected columns
   data %>%
     dplyr::mutate(dplyr::across(
       .cols = dplyr::all_of(cols_to_include),

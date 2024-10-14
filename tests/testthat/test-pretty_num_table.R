@@ -8,21 +8,24 @@ df <- data.frame(
 
 
 test_that("prettifies tables", {
-  expect_equal(pretty_table(df), data.frame(
+  expect_equal(pretty_num_table(df), data.frame(
     a = c("2.59", "-5.89", as.double(NA)),
     b = c("11.20", "45.69", "-78.50"),
     c = c(as.double(NA), as.double(NA), as.double(NA))
   ))
 
-  expect_equal(pretty_table(df, gbp = TRUE, exclude_columns = "c"), data.frame(
-    a = c("£2.59", "-£5.89", as.double(NA)),
-    b = c("£11.20", "£45.69", "-£78.50"),
-    c = c("X", "Y", "Z")
-  ))
+  expect_equal(
+    pretty_num_table(df, gbp = TRUE, exclude_columns = "c"),
+    data.frame(
+      a = c("£2.59", "-£5.89", as.double(NA)),
+      b = c("£11.20", "£45.69", "-£78.50"),
+      c = c("X", "Y", "Z")
+    )
+  )
 
 
   expect_equal(
-    pretty_table(df,
+    pretty_num_table(df,
       suffix = "%", dp = 1, nsmall = 2,
       exclude_columns = c("b", "c")
     ),
@@ -34,7 +37,7 @@ test_that("prettifies tables", {
   )
 
   expect_equal(
-    pretty_table(df,
+    pretty_num_table(df,
       alt_na = "[z]", dp = -1,
       include_columns = c("a", "b")
     ),
@@ -46,7 +49,7 @@ test_that("prettifies tables", {
   )
 
   expect_equal(
-    pretty_table(df,
+    pretty_num_table(df,
       alt_na = "", dp = 2,
       prefix = "+/-", suffix = "g", include_columns = "a"
     ),
@@ -59,7 +62,7 @@ test_that("prettifies tables", {
 
 
   expect_equal(
-    pretty_table(df,
+    pretty_num_table(df,
       dp = 2,
       include_columns = "a", exclude_columns = "b"
     ),
@@ -80,6 +83,25 @@ df <- data.frame(
   c = character()
 )
 
-test_that("pretty_table with empty data frames", {
-  expect_warning(pretty_table(df), "Data frame is empty or contains no rows.")
+test_that("pretty_num_table with empty data frames", {
+  expect_error(pretty_num_table(df), "Data frame is empty or contains no rows.")
+})
+
+# test non data frame objects
+
+test_that("test non data frames", {
+  expect_error(
+    pretty_num_table(1.12),
+    "Data has the class numeric, data must be a data.frame object"
+  )
+
+  expect_error(
+    pretty_num_table("a"),
+    "Data has the class character, data must be a data.frame object"
+  )
+
+  expect_error(
+    pretty_num_table(c("a", 1.2)),
+    "Data has the class character, data must be a data.frame object"
+  )
 })
