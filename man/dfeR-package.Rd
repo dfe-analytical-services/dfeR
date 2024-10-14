@@ -32,7 +32,8 @@ Other contributors:
 \itemize{
   \item Jen Machin \email{jen.machin@education.gov.uk} [contributor]
   \item Jake Tufts \email{jake.tufts@education.gov.uk} [contributor]
-  \item Rich Bielby \email{richard.bielby@education.gov.uk} (\href{https://orcid.org/0000-0001-9070-9969}{ORCID}) [contributor]
+  \item Rich Bielby \email{richard.bielby@education.gov.uk} [contributor]
+  \item Menna Zayed \email{menna.zayed@education.gov.uk} (\href{https://orcid.org/0000-0001-9070-9969}{ORCID}) [contributor]
 }
 
 }

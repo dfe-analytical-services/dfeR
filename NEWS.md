@@ -3,7 +3,7 @@
 Update pretty_num so that: 
 
 - it can take single or multiple values. 
-- it has the argument nsmall that allows control over the number of digits displayed after rounding. 
+- it has the argument `nsmall` that allows control over the number of digits displayed after rounding. 
 
 Add pretty_num_table() which uses pretty_num() to format numbers in a readable format in data frames. 
 It has all the customization provided by pretty_num. 
