@@ -27,7 +27,7 @@ This function silences the warning around NAs being introduced by coercion.'><me
 
     <a class="navbar-brand me-2" href="../index.html">dfeR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -131,6 +131,7 @@ converted and return original value</p></dd>
     <div class="dont-index"><p><code><a href="comma_sep.html">comma_sep()</a></code> <code><a href="round_five_up.html">round_five_up()</a></code> <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric()</a></code></p>
 <p>Other prettying:
 <code><a href="pretty_filesize.html">pretty_filesize</a>()</code>,
+<code><a href="pretty_num_table.html">pretty_num_table</a>()</code>,
 <code><a href="pretty_time_taken.html">pretty_time_taken</a>()</code></p></div>
     </div>
 
@@ -147,6 +148,8 @@ converted and return original value</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "£2.358 billion"</span>
 <span class="r-in"><span><span class="fu">pretty_num</span><span class="op">(</span><span class="op">-</span><span class="fl">11</span><span class="op">^</span><span class="fl">8</span>, gbp <span class="op">=</span> <span class="cn">TRUE</span>, dp <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "-£210 million"</span>
+<span class="r-in"><span><span class="fu">pretty_num</span><span class="op">(</span><span class="fl">43.3</span>, dp <span class="op">=</span> <span class="fl">1</span>, nsmall <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "43.30"</span>
 <span class="r-in"><span><span class="fu">pretty_num</span><span class="op">(</span><span class="st">"56.089"</span>, suffix <span class="op">=</span> <span class="st">"%"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "56.09%"</span>
 <span class="r-in"><span><span class="fu">pretty_num</span><span class="op">(</span><span class="st">"x"</span><span class="op">)</span></span></span>
@@ -164,7 +167,7 @@ converted and return original value</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "+£4.00 billion"   "-£123.42 million" NA                 NA                </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Return original values if NA</span></span></span>
-<span class="r-in"><span><span class="fu">pretty_num</span><span class="op">(</span><span class="va">vector</span>,ignore_na <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_num</span><span class="op">(</span><span class="va">vector</span>, ignore_na <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "4.00 billion"    "-123.42 million" "c"               "x"              </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Return alternative value in place of NA</span></span></span>
