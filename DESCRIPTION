@@ -8,9 +8,9 @@ Authors@R: c(
     person("Adam", "Robinson", role = "aut"),
     person("Jen", "Machin", , "jen.machin@education.gov.uk", role = "ctb"),
     person("Jake", "Tufts", , "jake.tufts@education.gov.uk", role = "ctb"),
-    person("Rich", "Bielby", , "richard.bielby@education.gov.uk", role = "ctb"),
-    person( "Menna", "Zayed", , "menna.zayed@education.gov.uk", role = "ctb",
-           comment = c(ORCID = "0000-0001-9070-9969"))
+    person("Rich", "Bielby", , "richard.bielby@education.gov.uk", role = "ctb",
+           comment = c(ORCID = "0000-0001-9070-9969")),
+    person("Menna", "Zayed", , "menna.zayed@education.gov.uk", role = "ctb")
   )
 Description: This package contains R functions to allow DfE analysts to
     re-use code for common analytical tasks that are undertaken across the
