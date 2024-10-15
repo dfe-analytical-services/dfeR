@@ -42,6 +42,7 @@ pretty_filesize(10^9)
 
 Other prettying: 
 \code{\link{pretty_num}()},
+\code{\link{pretty_num_table}()},
 \code{\link{pretty_time_taken}()}
 }
 \concept{prettying}

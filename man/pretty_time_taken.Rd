@@ -44,6 +44,7 @@ pretty_time_taken(start, end)
 
 Other prettying: 
 \code{\link{pretty_filesize}()},
-\code{\link{pretty_num}()}
+\code{\link{pretty_num}()},
+\code{\link{pretty_num_table}()}
 }
 \concept{prettying}

@@ -62,6 +62,7 @@ pretty_num(564, prefix = "+/-")
 pretty_num(567812343223, gbp = TRUE, prefix = "+/-")
 pretty_num(11^9, gbp = TRUE, dp = 3)
 pretty_num(-11^8, gbp = TRUE, dp = -1)
+pretty_num(43.3, dp = 1, nsmall = 2)
 pretty_num("56.089", suffix = "\%")
 pretty_num("x")
 pretty_num("x", ignore_na = TRUE)
@@ -73,7 +74,7 @@ pretty_num(vector)
 pretty_num(vector, prefix = "+/-", gbp = TRUE)
 
 # Return original values if NA
-pretty_num(vector,ignore_na = TRUE)
+pretty_num(vector, ignore_na = TRUE)
 
 # Return alternative value in place of NA
 pretty_num(vector, alt_na = "z")
@@ -83,6 +84,7 @@ pretty_num(vector, alt_na = "z")
 
 Other prettying: 
 \code{\link{pretty_filesize}()},
+\code{\link{pretty_num_table}()},
 \code{\link{pretty_time_taken}()}
 }
 \concept{prettying}
