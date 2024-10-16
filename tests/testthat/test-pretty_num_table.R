@@ -8,20 +8,20 @@ df <- data.frame(
 
 
 test_that("prettifies tables", {
-  expect_equal(pretty_num_table(df,dp=2), data.frame(
+  expect_equal(pretty_num_table(df, dp = 2), data.frame(
     a = c("2.59", "-5.89", as.double(NA)),
     b = c("11.20", "45.69", "-78.50"),
     c = c(as.double(NA), as.double(NA), as.double(NA))
   ))
 
-  expect_equal(pretty_num_table(df,dp=3), data.frame(
+  expect_equal(pretty_num_table(df, dp = 3), data.frame(
     a = c("2.589", "-5.894", as.double(NA)),
     b = c("11.199", "45.689", "-78.499"),
     c = c(as.double(NA), as.double(NA), as.double(NA))
   ))
 
   expect_equal(
-    pretty_num_table(df,dp=2, gbp = TRUE, exclude_columns = "c"),
+    pretty_num_table(df, dp = 2, gbp = TRUE, exclude_columns = "c"),
     data.frame(
       a = c("£2.59", "-£5.89", as.double(NA)),
       b = c("£11.20", "£45.69", "-£78.50"),
