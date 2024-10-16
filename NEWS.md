@@ -1,3 +1,7 @@
+# dfeR 0.6.1
+
+Patch to update the pretty_num() function so that the `dp` argument's default is 0. 
+
 # dfeR 0.6.0
 
 Update pretty_num so that: 

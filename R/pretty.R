@@ -190,7 +190,8 @@ pretty_time_taken <- function(start_time, end_time) {
 #' @param alt_na alternative value to return in place of NA, e.g. "x"
 #' @param nsmall minimum number of digits to the right of the decimal point.
 #' If NULL, the value of `dp` will be used.
-#' If  value of `dp` is less than 0, then `nsmall` will automatically be set to 0.
+#' If the value of `dp` is less than 0, then `nsmall` will
+#' automatically be set to 0.
 #'
 #' @return string featuring prettified value
 #' @family prettying
