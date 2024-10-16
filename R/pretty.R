@@ -184,7 +184,7 @@ pretty_time_taken <- function(start_time, end_time) {
 #' assign + or - based on the value
 #' @param gbp whether to add the pound symbol or not, defaults to not
 #' @param suffix suffix for the value, e.g. "%"
-#' @param dp number of decimal places to round to, 2 by default
+#' @param dp number of decimal places to round to, 0 by default
 #' @param ignore_na whether to skip function for strings that can't be
 #' converted and return original value
 #' @param alt_na alternative value to return in place of NA, e.g. "x"
@@ -223,7 +223,7 @@ pretty_num <- function(
     prefix = "",
     gbp = FALSE,
     suffix = "",
-    dp = 2,
+    dp = 0,
     ignore_na = FALSE,
     alt_na = FALSE,
     nsmall = NULL) {

@@ -9,7 +9,7 @@ pretty_num(
   prefix = "",
   gbp = FALSE,
   suffix = "",
-  dp = 2,
+  dp = 0,
   ignore_na = FALSE,
   alt_na = FALSE,
   nsmall = NULL
@@ -25,7 +25,7 @@ assign + or - based on the value}
 
 \item{suffix}{suffix for the value, e.g. "\%"}
 
-\item{dp}{number of decimal places to round to, 2 by default}
+\item{dp}{number of decimal places to round to, 0 by default}
 
 \item{ignore_na}{whether to skip function for strings that can't be
 converted and return original value}
