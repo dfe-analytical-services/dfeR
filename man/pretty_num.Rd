@@ -33,8 +33,8 @@ converted and return original value}
 \item{alt_na}{alternative value to return in place of NA, e.g. "x"}
 
 \item{nsmall}{minimum number of digits to the right of the decimal point.
-If NULL, the value of dp will be used.
-If dp's value is less than 0, then nsmall will automatically be set to 0.}
+If NULL, the value of \code{dp} will be used.
+If  value of \code{dp} is less than 0, then \code{nsmall} will automatically be set to 0.}
 }
 \value{
 string featuring prettified value
