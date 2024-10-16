@@ -25,14 +25,16 @@ assign + or - based on the value}
 
 \item{suffix}{suffix for the value, e.g. "\%"}
 
-\item{dp}{number of decimal places to round to, 0 by default}
+\item{dp}{number of decimal places to round to, 0 by default.}
 
 \item{ignore_na}{whether to skip function for strings that can't be
 converted and return original value}
 
 \item{alt_na}{alternative value to return in place of NA, e.g. "x"}
 
-\item{nsmall}{minimum number of digits to the right of the decimal point}
+\item{nsmall}{minimum number of digits to the right of the decimal point.
+If NULL, the value of dp will be used.
+If dp's value is less than 0, then nsmall will automatically be set to 0.}
 }
 \value{
 string featuring prettified value
@@ -41,7 +43,7 @@ string featuring prettified value
 Uses \code{as.numeric()} to force a numeric value and then formats prettily
 for easy presentation in console messages, reports, or dashboards.
 
-This rounds to 2 decimal places by default, and adds in comma separators.
+This rounds to 0 decimal places by default, and adds in comma separators.
 
 Expect that this will commonly be used for adding the pound symbol,
 the percentage symbol, or to have a +/- prefixed based on the value.
