@@ -166,7 +166,7 @@ pretty_time_taken <- function(start_time, end_time) {
 #' Uses `as.numeric()` to force a numeric value and then formats prettily
 #' for easy presentation in console messages, reports, or dashboards.
 #'
-#' This rounds to 2 decimal places by default, and adds in comma separators.
+#' This rounds to 0 decimal places by default, and adds in comma separators.
 #'
 #' Expect that this will commonly be used for adding the pound symbol,
 #' the percentage symbol, or to have a +/- prefixed based on the value.
@@ -184,11 +184,14 @@ pretty_time_taken <- function(start_time, end_time) {
 #' assign + or - based on the value
 #' @param gbp whether to add the pound symbol or not, defaults to not
 #' @param suffix suffix for the value, e.g. "%"
-#' @param dp number of decimal places to round to, 2 by default
+#' @param dp number of decimal places to round to, 0 by default.
 #' @param ignore_na whether to skip function for strings that can't be
 #' converted and return original value
 #' @param alt_na alternative value to return in place of NA, e.g. "x"
-#' @param nsmall minimum number of digits to the right of the decimal point
+#' @param nsmall minimum number of digits to the right of the decimal point.
+#' If NULL, the value of `dp` will be used.
+#' If the value of `dp` is less than 0, then `nsmall` will
+#' automatically be set to 0.
 #'
 #' @return string featuring prettified value
 #' @family prettying
@@ -223,7 +226,7 @@ pretty_num <- function(
     prefix = "",
     gbp = FALSE,
     suffix = "",
-    dp = 2,
+    dp = 0,
     ignore_na = FALSE,
     alt_na = FALSE,
     nsmall = NULL) {
@@ -264,6 +267,7 @@ pretty_num <- function(
     }
 
     # Add suffix and prefix, plus convert to million or billion
+
 
     # If nsmall is not given, make same value as dp
     # if dp is smaller than 0, make nsmall 0
@@ -312,4 +316,101 @@ pretty_num <- function(
 
   # unlisting the results so that they're all on one line
   return(unlist(result))
+}
+
+#' Format a data frame with `dfeR::pretty_num()`.
+#'
+#' You can format number and character values in a data frame
+#' by passing arguments to `dfeR::pretty_num()`.
+#' Use parameters `include_columns` or `exclude_columns`
+#' to specify columns for formatting.
+#'
+#' @param data A data frame containing the columns to be formatted.
+#' @param include_columns A character vector specifying which columns to format.
+#' If `NULL` (default), all columns will be considered for formatting.
+#' @param exclude_columns A character vector specifying columns to exclude
+#' from formatting.
+#' If `NULL` (default), no columns will be excluded.
+#' If both `include_columns` and `exclude_columns` are provided
+#' , `include_columns` takes precedence.
+#' @param ... Additional arguments passed to `dfeR::pretty_num()`
+#' , such as `dp` (decimal places)
+#' for controlling the number of decimal points.
+#'
+#' @return A data frame with columns formatted using `dfeR::pretty_num()`.
+#'
+#' @details
+#' The function first checks if any columns are specified for inclusion
+#' via `include_columns`.
+#' If none are provided, it checks if columns are specified for exclusion
+#' via `exclude_columns`.
+#' If neither is specified, all columns in the data frame are formatted.
+#' @family prettying
+#' @seealso [pretty_num()]
+#' @export
+#' @examples
+#' # Example data frame
+#' df <- data.frame(
+#'   a = c(1.234, 5.678, 9.1011),
+#'   b = c(10.1112, 20.1314, 30.1516),
+#'   c = c("A", "B", "C")
+#' )
+#'
+#' # Apply formatting to all columns
+#' pretty_num_table(df, dp = 2)
+#'
+#' # Apply formatting to only selected columns
+#' pretty_num_table(df, include_columns = c("a"), dp = 2)
+#'
+#' # Apply formatting to all columns except specified ones
+#' pretty_num_table(df, exclude_columns = c("b"), dp = 2)
+#'
+#' # Apply formatting to all columns except specified ones and
+#' # provide alternative value for NAs
+#' pretty_num_table(df, alt_na = "[z]", exclude_columns = c("b"), dp = 2)
+#'
+pretty_num_table <- function(data,
+                             include_columns = NULL,
+                             exclude_columns = NULL,
+                             ...) {
+  # Check data is a data frame and throw error if not
+  if (!is.data.frame(data)) {
+    stop(paste0(
+      "Data has the class ", class(data),
+      ", data must be a data.frame object"
+    ))
+  }
+
+  # Check if the data frame has rows - if not, stop the process
+  if (nrow(data) < 1) {
+    stop("Data frame is empty or contains no rows.")
+  }
+
+  # Determine which columns to include based on the provided parameters
+
+  # if the include_columns arg is specified
+  if (!is.null(include_columns)) {
+    # assign the names to the cols_to_include variable
+    cols_to_include <- include_columns
+
+    # if the exclude_columns arg is specified
+  } else if (!is.null(exclude_columns)) {
+    # we assign the cols_to_include to names of all columns
+    # except for ones specified in exclude_columns
+    cols_to_include <- setdiff(
+      names(data),
+      exclude_columns
+    )
+  } else {
+    # if none of the previous conditions are met
+    # all columns are assigned to cols_to_include
+    cols_to_include <- names(data)
+  }
+
+  # Apply pretty_num() formatting to the selected columns
+  data %>%
+    dplyr::mutate(dplyr::across(
+      .cols = dplyr::all_of(cols_to_include),
+      ~ pretty_num(., ...)
+    ))
 }

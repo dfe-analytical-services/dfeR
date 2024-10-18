@@ -9,7 +9,7 @@ pretty_num(
   prefix = "",
   gbp = FALSE,
   suffix = "",
-  dp = 2,
+  dp = 0,
   ignore_na = FALSE,
   alt_na = FALSE,
   nsmall = NULL
@@ -25,14 +25,16 @@ assign + or - based on the value}
 
 \item{suffix}{suffix for the value, e.g. "\%"}
 
-\item{dp}{number of decimal places to round to, 2 by default}
+\item{dp}{number of decimal places to round to, 0 by default.}
 
 \item{ignore_na}{whether to skip function for strings that can't be
 converted and return original value}
 
 \item{alt_na}{alternative value to return in place of NA, e.g. "x"}
 
-\item{nsmall}{minimum number of digits to the right of the decimal point}
+\item{nsmall}{minimum number of digits to the right of the decimal point.
+If NULL, the value of \code{dp} will be used.
+If  value of \code{dp} is less than 0, then \code{nsmall} will automatically be set to 0.}
 }
 \value{
 string featuring prettified value
@@ -41,7 +43,7 @@ string featuring prettified value
 Uses \code{as.numeric()} to force a numeric value and then formats prettily
 for easy presentation in console messages, reports, or dashboards.
 
-This rounds to 2 decimal places by default, and adds in comma separators.
+This rounds to 0 decimal places by default, and adds in comma separators.
 
 Expect that this will commonly be used for adding the pound symbol,
 the percentage symbol, or to have a +/- prefixed based on the value.
@@ -62,6 +64,7 @@ pretty_num(564, prefix = "+/-")
 pretty_num(567812343223, gbp = TRUE, prefix = "+/-")
 pretty_num(11^9, gbp = TRUE, dp = 3)
 pretty_num(-11^8, gbp = TRUE, dp = -1)
+pretty_num(43.3, dp = 1, nsmall = 2)
 pretty_num("56.089", suffix = "\%")
 pretty_num("x")
 pretty_num("x", ignore_na = TRUE)
@@ -73,7 +76,7 @@ pretty_num(vector)
 pretty_num(vector, prefix = "+/-", gbp = TRUE)
 
 # Return original values if NA
-pretty_num(vector,ignore_na = TRUE)
+pretty_num(vector, ignore_na = TRUE)
 
 # Return alternative value in place of NA
 pretty_num(vector, alt_na = "z")
@@ -83,6 +86,7 @@ pretty_num(vector, alt_na = "z")
 
 Other prettying: 
 \code{\link{pretty_filesize}()},
+\code{\link{pretty_num_table}()},
 \code{\link{pretty_time_taken}()}
 }
 \concept{prettying}
