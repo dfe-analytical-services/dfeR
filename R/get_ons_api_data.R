@@ -13,6 +13,11 @@
 #' find the data set you're interested in and then use the query explorer to
 #' find the information for the query.
 #'
+#' This function has been mostly developed for ease of use for dfeR maintainers
+#' if you're interested in getting data from the Open Geography Portal more
+#' widely you should also look at the
+#' \href{https://github.com/francisbarton/boundr}{boundr package}.
+#'
 #' @param data_id the id of the data set to query, can be found from the Open
 #' Geography Portal
 #' @param query_params query parameters to pass into the API, see the ESRI

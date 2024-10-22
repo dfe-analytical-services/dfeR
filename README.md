@@ -37,10 +37,28 @@ Functionality for dfeR is expected to focus around the following:
 Documentation for what has been included in the package so far is on our
 [pkgdown site](http://dfe-analytical-services.github.io/dfeR/).
 
-We are also developing the
+### Relevant other packages
+
+We also maintain the
 [dfeshiny](https://github.com/dfe-analytical-services/dfeshiny) package,
 and expect any functions specific to R Shiny applications will live
 there.
+
+For connecting to data in the [explore education
+statistics](https://explore-education-statistics.service.gov.uk/), we
+are building the
+[eesyapi](https://github.com/dfe-analytical-services/eesyapi) package.
+
+There is a [giasr](https://github.com/dfe-analytical-services/giasr)
+package, which has been developed for connecting to data in the [get
+information about schools
+service](https://get-information-schools.service.gov.uk/).
+
+While we have some DfE specific data in the dfeR package taken from the
+[Open Geography Portal](https://geoportal.statistics.gov.uk/). If you’re
+looking at getting new data from the portal it is also worth looking at
+the [boundr](https://github.com/francisbarton/boundr) package, as this
+gives more functions for directly extracting data from there.
 
 ------------------------------------------------------------------------
 
