@@ -52,7 +52,7 @@ reference:
   - get_ons_api_data
   - toggle_message
 
- - title: Vectors
+- title: Vectors
   desc: Character vectors exported in the package
   contents:
   - geog_identifiers
