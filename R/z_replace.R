@@ -80,10 +80,10 @@ z_replace <- function(data,
   # check for alt NA replacement
   # if no alt, provided, use z
   if (is.null(replacement_alt)) {
-    replacement <- "z"
+    replacement_alt <- "z"
   } else {
     # otherwise use the provided replacement
-    replacement <- replacement_alt
+    replacement_alt <- replacement_alt
   }
 
   # start loop based on exclude_columns
@@ -104,7 +104,7 @@ z_replace <- function(data,
           time_identifiers, geog_identifiers,
           snake_exclude_cols
         )),
-        ~ dplyr::if_else(is.na(.), replacement, .)
+        ~ dplyr::if_else(is.na(.), replacement_alt, .)
       ))
   } else {
     # if exclude_columns is not specified, then use the saved potential
@@ -117,7 +117,7 @@ z_replace <- function(data,
       # replace NAs
       dplyr::mutate(dplyr::across(
         -tidyselect::any_of(c(time_identifiers, geog_identifiers)),
-        ~ dplyr::if_else(is.na(.), replacement, .)
+        ~ dplyr::if_else(is.na(.), replacement_alt, .)
       ))
   }
 

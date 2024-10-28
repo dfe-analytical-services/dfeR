@@ -51,3 +51,14 @@ reference:
   - comma_sep
   - get_ons_api_data
   - toggle_message
+
+ - title: Vectors
+  desc: Character vectors exported in the package
+  contents:
+  - geog_identifiers
+  - time_identifiers
+
+- title: Replace NA values
+  desc: Replace NA values with the default "z" or an alternative replacement
+  contents:
+  - z_replace
