@@ -2,7 +2,7 @@
 % Please edit documentation in R/z_replace.R
 \name{z_replace}
 \alias{z_replace}
-\title{Replaces \code{NA} values}
+\title{Replaces \code{NA} values in tables}
 \usage{
 z_replace(data, replacement_alt = NULL, exclude_columns = NULL)
 }
@@ -14,24 +14,24 @@ value to be different to "z"}
 
 \item{exclude_columns}{optional - additional columns to exclude from
 NA replacement.
-Column names that match ones found in \code{dfeR::geog_identifiers}and
-\code{dfeR::time_identifiers} will always be excluded.}
+Column names that match ones found in \code{dfeR::geog_time_identifiers}
+will always be excluded because any missing data for these columns
+need more explicit codes to explain why data is not available.}
 }
 \value{
 table with "z" or an alternate replacement value instead of \code{NA}
-values for columns that are not for time or locations.
+values for columns that are not for time or geography.
 }
 \description{
-Replaces \code{NA} values in tables except for time and location columns.
+Replaces \code{NA} values in tables except for the standard time and
+geography columns for the explore education statistics service.
+Click
+\href{https://shorturl.at/chy76}{here}
+to find out more about Open Data Standards.
 }
 \details{
-Names of location and time columns that are used in this function can be
-found in \code{dfeR::geog_identifiers}and \code{dfeR::time_identifiers}.
-Column names from tables put through the function are standardized
-to match the snake case format used in \code{dfeR::geog_identifiers}
-and \code{dfeR::time_identifiers} . This is to allow the function to check
-for their presence but the function returns the column names in
-their original form.
+Names of geography and time columns that are used in this function can be
+found in \code{dfeR::geog_time_identifiers}.
 }
 \examples{
 # Create a table for the example
@@ -39,8 +39,8 @@ their original form.
 df <- data.frame(
   a = c(1, 2, 3, as.double(NA)),
   b = c(1, 2, as.double(NA), 4),
-  LOCAL_AUTHORITY = c(1, 2, as.double(NA), 7),
-  Academic_Year = c(2008, 2023, 2024, as.double(NA))
+  school_urn = c(1, 2, as.double(NA), 7),
+  time_period = c(2008, 2023, 2024, as.double(NA))
 )
 
 z_replace(df)
@@ -50,7 +50,5 @@ z_replace(df, replacement_alt = "c")
 
 }
 \seealso{
-\link{geog_identifiers}
-
-\link{time_identifiers}
+\link{geog_time_identifiers}
 }

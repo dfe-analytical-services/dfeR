@@ -1,0 +1,18 @@
+row_number,geographic_level,code_field,name_field,code_field_secondary
+1,National,country_code,country_name,NA
+2,Regional,region_code,region_name,NA
+3,Local authority,new_la_code,la_name,old_la_code
+4,Local authority district,lad_code,lad_name,NA
+5,RSC region,NA,rsc_region_lead_name,NA
+6,Parliamentary constituency,pcon_code,pcon_name,NA
+7,Local skills improvement plan area,lsip_code,lsip_name,NA
+8,Local enterprise partnership,local_enterprise_partnership_code,local_enterprise_partnership_name,NA
+9,English devolved area,english_devolved_area_code,english_devolved_area_name,NA
+10,Opportunity area,opportunity_area_code,opportunity_area_name,NA
+11,Ward,ward_code,ward_name,NA
+12,MAT,trust_id,trust_name,NA
+13,Sponsor,sponsor_id,sponsor_name,NA
+14,School,school_urn,school_name,school_laestab
+15,Provider,provider_ukprn,provider_name,NA
+16,Institution,institution_id,institution_name,NA
+17,Planning area,planning_area_code,planning_area_name,NA

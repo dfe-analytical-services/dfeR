@@ -1,39 +1,38 @@
-#' Replaces `NA` values
+#' Replaces `NA` values in tables
 #'
 #' @description
-#' Replaces `NA` values in tables except for time and location columns.
+#' Replaces `NA` values in tables except for the standard time and
+#' geography columns for the explore education statistics service.
+#' Click
+#' \href{https://shorturl.at/chy76}{here}
+#' to find out more about Open Data Standards.
 #'
 #' @details
 
-#' Names of location and time columns that are used in this function can be
-#' found in `dfeR::geog_identifiers`and `dfeR::time_identifiers`.
-#' Column names from tables put through the function are standardized
-#' to match the snake case format used in `dfeR::geog_identifiers`
-#' and `dfeR::time_identifiers` . This is to allow the function to check
-#' for their presence but the function returns the column names in
-#' their original form.
+#' Names of geography and time columns that are used in this function can be
+#' found in `dfeR::geog_time_identifiers`.
 #'
 #' @param data name of the table that you want to replace NA values in
 #' @param replacement_alt optional - if you want the NA replacement
 #' value to be different to "z"
 #' @param exclude_columns optional - additional columns to exclude from
 #' NA replacement.
-#' Column names that match ones found in `dfeR::geog_identifiers`and
-#' `dfeR::time_identifiers` will always be excluded.
+#' Column names that match ones found in `dfeR::geog_time_identifiers`
+#' will always be excluded because any missing data for these columns
+#' need more explicit codes to explain why data is not available.
 #'
 #' @return table with "z" or an alternate replacement value instead of `NA`
-#' values for columns that are not for time or locations.
+#' values for columns that are not for time or geography.
 #' @export
-#' @seealso [dfeR::geog_identifiers]
-#' @seealso [dfeR::time_identifiers]
+#' @seealso [dfeR::geog_time_identifiers]
 #' @examples
 #' # Create a table for the example
 #'
 #' df <- data.frame(
 #'   a = c(1, 2, 3, as.double(NA)),
 #'   b = c(1, 2, as.double(NA), 4),
-#'   LOCAL_AUTHORITY = c(1, 2, as.double(NA), 7),
-#'   Academic_Year = c(2008, 2023, 2024, as.double(NA))
+#'   school_urn = c(1, 2, as.double(NA), 7),
+#'   time_period = c(2008, 2023, 2024, as.double(NA))
 #' )
 #'
 #' z_replace(df)
@@ -51,40 +50,63 @@ z_replace <- function(data,
     stop("Table is empty or contains no rows.")
   }
 
-  # standardize column names for the function
-  # but keeping original names so that the data cols are not changed
-  orignal_col_names <- colnames(data)
-
-  # removing punctuation
-  snake_col_names <- gsub("[[:punct:]]", " ", orignal_col_names)
-  # removing extra space
-  snake_col_names <- gsub("  ", " ", snake_col_names)
-  # adding _ instead of spaces
-  snake_col_names <- gsub(" ", "_", tolower(snake_col_names))
-  # replacing original col names with snake case ones
-  colnames(data) <- snake_col_names
-
-  # change exclude_cols to snake case
-  # removing punctuation
-  snake_exclude_cols <- gsub("[[:punct:]]", " ", exclude_columns)
-  # removing extra space
-  snake_exclude_cols <- gsub("  ", " ", snake_exclude_cols)
-  # adding _ instead of spaces
-  snake_exclude_cols <- gsub(" ", "_", tolower(snake_exclude_cols))
 
   # load in potential column names
 
-  time_identifiers <- dfeR::time_identifiers
-  geog_identifiers <- dfeR::geog_identifiers
+  geog_time_identifiers <- dfeR::geog_time_identifiers
+
+  # check for same column names but different case or formatting
+
+  # standardize column names for potential column names
+
+  ref_col_names <- gsub("[[:punct:]]", " ", geog_time_identifiers)
+  # removing extra space
+  ref_col_names <- gsub("  ", " ", ref_col_names)
+  # adding _ instead of spaces
+  ref_col_names <- gsub(" ", "_", tolower(ref_col_names))
+
+
+  # standardize column names for data input
+  data_col_names_og <- colnames(data)
+
+  data_col_names <- gsub("[[:punct:]]", " ", data_col_names_og)
+  # removing extra space
+  data_col_names <- gsub("  ", " ", data_col_names)
+  # adding _ instead of spaces
+  data_col_names <- gsub(" ", "_", tolower(data_col_names))
+
+  # check if the column name exists by comparing standardized names
+
+  col_name_exists <- data_col_names %in% ref_col_names
+  # check if the formatting matches by comparing non-standardized
+  formatting_test <- data_col_names_og %in% geog_time_identifiers
+
+  if (any(col_name_exists %in% TRUE & formatting_test %in% FALSE) == TRUE) {
+    stop("Your table has column(s) that have the same name(s) but with different
+    formatting to the ones in dfeR::geog_time_identifers.
+         Please amend your column names to match the formatting to
+         dfeR::geog_time_identifers.")
+  }
 
   # check for alt NA replacement
   # if no alt, provided, use z
   if (is.null(replacement_alt)) {
     replacement_alt <- "z"
+    # check that replacement_alt is a single character vector
+  } else if (!is.character(replacement_alt)) {
+    stop(paste(
+      "You provided a ", data.class(replacement_alt),
+      "for replacement_alt.
+    Please amend replace it with a character vector"
+    ))
+  } else if (length(replacement_alt) > 1) {
+    stop("You provided multiple values for replacement_alt.
+         Please, only provide a single value.")
   } else {
     # otherwise use the provided replacement
     replacement_alt <- replacement_alt
   }
+
 
   # start loop based on exclude_columns
 
@@ -93,16 +115,16 @@ z_replace <- function(data,
     data <- data %>%
       dplyr::mutate(dplyr::across(
         -tidyselect::any_of(c(
-          time_identifiers, geog_identifiers,
-          snake_exclude_cols
+          geog_time_identifiers,
+          exclude_columns
         )),
         ~ as.character(.)
       )) %>%
       # replace NAs
       dplyr::mutate(dplyr::across(
         -tidyselect::any_of(c(
-          time_identifiers, geog_identifiers,
-          snake_exclude_cols
+          geog_time_identifiers,
+          exclude_columns
         )),
         ~ dplyr::if_else(is.na(.), replacement_alt, .)
       ))
@@ -111,19 +133,15 @@ z_replace <- function(data,
     # location and time columns only
     data <- data %>%
       dplyr::mutate(dplyr::across(
-        -tidyselect::any_of(c(time_identifiers, geog_identifiers)),
+        -tidyselect::any_of(c(geog_time_identifiers)),
         ~ as.character(.)
       )) %>%
       # replace NAs
       dplyr::mutate(dplyr::across(
-        -tidyselect::any_of(c(time_identifiers, geog_identifiers)),
+        -tidyselect::any_of(c(geog_time_identifiers)),
         ~ dplyr::if_else(is.na(.), replacement_alt, .)
       ))
   }
-
-
-  # return cols to original format
-  colnames(data) <- orignal_col_names
 
   return(data)
 }

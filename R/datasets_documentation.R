@@ -105,25 +105,14 @@
 #' https://geoportal.statistics.gov.uk/search?q=NAC_RGN
 "regions"
 
-#' Vector of potential names for time columns
+#' Potential names for geography and time columns
 #'
-#' Vector of potential names for time columns in line with the ones used for
-#' the Explore Education Statistics data screen-er.
-#'
-#'
-#' @format ## `time_identifiers`
-#' A character vector with 85 potential column names in snake case format.
-#' @source curated by explore.statistics@@education.gov.uk
-"time_identifiers"
-
-
-#' Vector of potential names for geography columns
-#'
-#' Vector of potential names for geography columns in line with the ones used
-#' for the Explore Education Statistics data screen-er.
+#' Potential names for geography and time columns in line with the ones used for
+#' the explore education statistics data screener.
 #'
 #'
-#' @format ## `geog_identifiers`
-#' A character vector with 85 potential column names in snake case format.
-#' @source curated by explore.statistics@@education.gov.uk
-"geog_identifiers"
+#' @format ## `geog_time_identifiers`
+#' A character vector with 38 potential column names in snake case format.
+#' @source curated by explore.statistics@@education.gov.uk. Click
+#' \href{here}{https://shorturl.at/j4532} to find out more information.
+"geog_time_identifiers"
