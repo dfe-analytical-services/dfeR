@@ -49,7 +49,7 @@ z_replace <- function(data,
   if (nrow(data) < 1) {
     stop("Table is empty or contains no rows.")
   }
-
+  # check for same column names but different case or formatting
 
   # load in potential column names
 
@@ -82,10 +82,10 @@ z_replace <- function(data,
   formatting_test <- data_col_names_og %in% geog_time_identifiers
 
   if (any(col_name_exists %in% TRUE & formatting_test %in% FALSE) == TRUE) {
-    stop("Your table has column(s) that have the same name(s) but with different
-    formatting to the ones in dfeR::geog_time_identifers.
-         Please amend your column names to match the formatting to
-         dfeR::geog_time_identifers.")
+    stop("Your table has geography and/or time column(s) that are not ",
+      "in snake_case.\nPlease amend your column names to match the formatting",
+      "to dfeR::geog_time_identifers."
+    )
   }
 
   # check for alt NA replacement
@@ -94,14 +94,14 @@ z_replace <- function(data,
     replacement_alt <- "z"
     # check that replacement_alt is a single character vector
   } else if (!is.character(replacement_alt)) {
-    stop(paste(
-      "You provided a ", data.class(replacement_alt),
-      "for replacement_alt.
-    Please amend replace it with a character vector"
-    ))
+    stop("You provided a ", data.class(replacement_alt),
+      " input for replacement_alt.\n",
+      "Please amend replace it with a character vector."
+    )
   } else if (length(replacement_alt) > 1) {
-    stop("You provided multiple values for replacement_alt.
-         Please, only provide a single value.")
+    stop( "You provided multiple values for replacement_alt.\n",
+      "Please, only provide a single value."
+    )
   } else {
     # otherwise use the provided replacement
     replacement_alt <- replacement_alt

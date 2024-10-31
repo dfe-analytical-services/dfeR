@@ -34,6 +34,27 @@ test_that("z_replace outputs are as expected", {
   ))
 })
 
+# check error messages for non-empty data frames
+
+test_that("Error messages are as expected in non-empty frames", {
+  # testing error for non character strings in replacement_alt
+  expect_error(
+    z_replace(df, replacement_alt = 1),
+    cat(
+      "You provided a numeric input for replacement_alt.\n",
+      "Please amend replace it with a character vector."
+    )
+  )
+
+  # testing error for multiple vectors in replacement_alt
+  expect_error(
+    z_replace(df, replacement_alt = c("a", "z", "x")),
+    cat(
+      "You provided multiple values for replacement_alt.\n",
+      "Please, only provide a single value."
+    )
+  )
+})
 # Create a table to text exclude_columns
 
 df <- data.frame(
@@ -103,13 +124,34 @@ test_that("Speed of the function", {
   expect_equal(test_time < 1, TRUE)
 })
 
-# Check error message
+# Check error message for empty data frame
 
 # create table
 df <- data.frame()
 
 test_that("Error messages are as expected", {
-  expect_error(z_replace(df))
+  expect_error(z_replace(df),"Table is empty or contains no rows.")
 
-  expect_error(z_replace(df, replacement_alt = "x"))
+  expect_error(z_replace(df, replacement_alt = "x"),
+               "Table is empty or contains no rows.")
+})
+
+
+# Check error messages for when tables contain geography
+# and time columns from th ees screener but different formatting
+
+df <- data.frame(
+  GEOGRAPHIC_LEVEL = c("level1", "level2", "level3", NA_character_),
+  time_period = c(2008, 2023, 2024, as.double(NA))
+)
+
+test_that("Formatting of column names are checked", {
+  expect_error(
+    z_replace(df),
+    cat(
+      "Your table has geography and/or time column(s) that are not",
+      "in snake_case.\nPlease amend your column names to match the formatting",
+      "to dfeR::geog_time_identifers."
+    )
+  )
 })

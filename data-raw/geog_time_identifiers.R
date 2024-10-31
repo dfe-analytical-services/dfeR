@@ -2,31 +2,20 @@
 # Get a list of potential location and time columns
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-library(dplyr)
 
-# get geography column names from geography_matrix.csv
-
-geog_levels <- read.csv("data/geography_matrix.csv")
-
-# extract relevant column names from geography_matrix.csv
-geog_col_names <- c(
-  "geographic_level",
-  geog_levels$code_field,
-  geog_levels$name_field,
-  geog_levels$code_field_secondary
+# create a vector of possible time and geography column names
+geog_time_identifiers <- c(
+  "geographic_level", "country_code", "region_code", "new_la_code", "lad_code",
+  "pcon_code", "lsip_code", "local_enterprise_partnership_code",
+  "english_devolved_area_code", "opportunity_area_code", "ward_code",
+  "trust_id", "sponsor_id", "school_urn", "provider_ukprn", "institution_id",
+  "planning_area_code", "country_name", "region_name", "la_name", "lad_name",
+  "rsc_region_lead_name", "pcon_name", "lsip_name",
+  "local_enterprise_partnership_name", "english_devolved_area_name",
+  "opportunity_area_name", "ward_name", "trust_name", "sponsor_name",
+  "school_name", "provider_name", "institution_name", "planning_area_name",
+  "old_la_code", "school_laestab", "time_period", "time_identifier"
 )
-
-# remove NA values
-
-geog_col_names <- geog_col_names[!is.na(geog_col_names)]
-
-# write column names for time
-
-time_col_names <- c("time_period", "time_identifier")
-
-# put the time and location vectors together
-
-geog_time_identifiers <- c(geog_col_names, time_col_names)
 
 # write it out to the data folder
 

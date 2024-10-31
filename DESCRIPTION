@@ -40,6 +40,7 @@ Suggests:
     rmarkdown,
     spelling,
     stringr,
+    microbenchmark,
     testthat (>= 3.0.0)
 VignetteBuilder: 
     knitr
