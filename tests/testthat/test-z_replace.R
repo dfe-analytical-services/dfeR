@@ -1,36 +1,52 @@
 # Create a data frame for testing
 
 df <- data.frame(
-  a = c(1, 2, 3, as.double(NA)),
-  b = c(1, 2, as.double(NA), 4),
-  school_name = c("school1", "school2", NA_character_, "school3"),
-  time_period = c(2008, 2023, 2024, as.double(NA))
+  time_period = c(2022, 2022, 2022),
+  time_identifier = c("Calendar year", "Calendar year", "Calendar year"),
+  geographic_level = c("National", "Regional", "Regional"),
+  country_code = c("E92000001", "E92000001", "E92000001"),
+  country_name = c("England", "England", "England"),
+  region_code = c(NA, "E12000001", "E12000002"),
+  region_name = c(NA, "North East", "North West"),
+  mystery_count = c(42, 25, NA)
 )
 
 test_that("z_replace outputs are as expected", {
   # testing standard functionality
   expect_equal(z_replace(df), data.frame(
-    a = c("1", "2", "3", "z"),
-    b = c("1", "2", "z", "4"),
-    school_name = c("school1", "school2", NA_character_, "school3"),
-    time_period = c(2008, 2023, 2024, as.double(NA))
+    time_period = c(2022, 2022, 2022),
+    time_identifier = c("Calendar year", "Calendar year", "Calendar year"),
+    geographic_level = c("National", "Regional", "Regional"),
+    country_code = c("E92000001", "E92000001", "E92000001"),
+    country_name = c("England", "England", "England"),
+    region_code = c(NA, "E12000001", "E12000002"),
+    region_name = c(NA, "North East", "North West"),
+    mystery_count = c(42, 25, "z")
   ))
 
   # testing alternative replacement
 
   expect_equal(z_replace(df, replacement_alt = "x"), data.frame(
-    a = c("1", "2", "3", "x"),
-    b = c("1", "2", "x", "4"),
-    school_name = c("school1", "school2", NA_character_, "school3"),
-    time_period = c(2008, 2023, 2024, as.double(NA))
+    time_period = c(2022, 2022, 2022),
+    time_identifier = c("Calendar year", "Calendar year", "Calendar year"),
+    geographic_level = c("National", "Regional", "Regional"),
+    country_code = c("E92000001", "E92000001", "E92000001"),
+    country_name = c("England", "England", "England"),
+    region_code = c(NA, "E12000001", "E12000002"),
+    region_name = c(NA, "North East", "North West"),
+    mystery_count = c(42, 25, "x")
   ))
 
 
   expect_equal(z_replace(df, replacement_alt = "c"), data.frame(
-    a = c("1", "2", "3", "c"),
-    b = c("1", "2", "c", "4"),
-    school_name = c("school1", "school2", NA_character_, "school3"),
-    time_period = c(2008, 2023, 2024, as.double(NA))
+    time_period = c(2022, 2022, 2022),
+    time_identifier = c("Calendar year", "Calendar year", "Calendar year"),
+    geographic_level = c("National", "Regional", "Regional"),
+    country_code = c("E92000001", "E92000001", "E92000001"),
+    country_name = c("England", "England", "England"),
+    region_code = c(NA, "E12000001", "E12000002"),
+    region_name = c(NA, "North East", "North West"),
+    mystery_count = c(42, 25, "c")
   ))
 })
 

@@ -23,8 +23,8 @@ table with "z" or an alternate replacement value instead of \code{NA}
 values for columns that are not for time or geography.
 }
 \description{
-Replaces \code{NA} values in tables except for the standard time and
-geography columns for the explore education statistics service.
+Replaces \code{NA} values in tables except for ones in time and geography
+columns that must be included in DfE official statistics.
 Click
 \href{https://shorturl.at/chy76}{here}
 to find out more about Open Data Standards.
@@ -37,10 +37,14 @@ found in \code{dfeR::geog_time_identifiers}.
 # Create a table for the example
 
 df <- data.frame(
-  a = c(1, 2, 3, as.double(NA)),
-  b = c(1, 2, as.double(NA), 4),
-  school_urn = c(1, 2, as.double(NA), 7),
-  time_period = c(2008, 2023, 2024, as.double(NA))
+time_period = c(2022, 2022, 2022),
+time_identifier = c("Calendar year", "Calendar year", "Calendar year"),
+geographic_level = c("National", "Regional", "Regional"),
+country_code = c("E92000001", "E92000001", "E92000001"),
+country_name = c("England", "England", "England"),
+region_code = c(NA, "E12000001", "E12000002"),
+region_name = c(NA, "North East", "North West"),
+mystery_count = c(42, 25, NA)
 )
 
 z_replace(df)
