@@ -29,14 +29,14 @@
 #' # Create a table for the example
 #'
 #' df <- data.frame(
-#' time_period = c(2022, 2022, 2022),
-#' time_identifier = c("Calendar year", "Calendar year", "Calendar year"),
-#' geographic_level = c("National", "Regional", "Regional"),
-#' country_code = c("E92000001", "E92000001", "E92000001"),
-#' country_name = c("England", "England", "England"),
-#' region_code = c(NA, "E12000001", "E12000002"),
-#' region_name = c(NA, "North East", "North West"),
-#' mystery_count = c(42, 25, NA)
+#'   time_period = c(2022, 2022, 2022),
+#'   time_identifier = c("Calendar year", "Calendar year", "Calendar year"),
+#'   geographic_level = c("National", "Regional", "Regional"),
+#'   country_code = c("E92000001", "E92000001", "E92000001"),
+#'   country_name = c("England", "England", "England"),
+#'   region_code = c(NA, "E12000001", "E12000002"),
+#'   region_name = c(NA, "North East", "North West"),
+#'   mystery_count = c(42, 25, NA)
 #' )
 #'
 #' z_replace(df)
@@ -89,7 +89,7 @@ z_replace <- function(data,
     stop(
       "Your table has geography and/or time column(s) that are not ",
       "in snake_case.\nPlease amend your column names to match the formatting",
-      "to dfeR::geog_time_identifers."
+      "to dfeR::geog_time_identifiers."
     )
   }
 

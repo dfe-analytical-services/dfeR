@@ -169,7 +169,7 @@ test_that("Formatting of column names are checked", {
     cat(
       "Your table has geography and/or time column(s) that are not",
       "in snake_case.\nPlease amend your column names to match the formatting",
-      "to dfeR::geog_time_identifers."
+      "to dfeR::geog_time_identifiers."
     )
   )
 })
