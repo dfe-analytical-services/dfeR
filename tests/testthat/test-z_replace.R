@@ -130,10 +130,12 @@ test_that("Speed of the function", {
 df <- data.frame()
 
 test_that("Error messages are as expected", {
-  expect_error(z_replace(df),"Table is empty or contains no rows.")
+  expect_error(z_replace(df), "Table is empty or contains no rows.")
 
-  expect_error(z_replace(df, replacement_alt = "x"),
-               "Table is empty or contains no rows.")
+  expect_error(
+    z_replace(df, replacement_alt = "x"),
+    "Table is empty or contains no rows."
+  )
 })
 
 

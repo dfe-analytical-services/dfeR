@@ -82,7 +82,8 @@ z_replace <- function(data,
   formatting_test <- data_col_names_og %in% geog_time_identifiers
 
   if (any(col_name_exists %in% TRUE & formatting_test %in% FALSE) == TRUE) {
-    stop("Your table has geography and/or time column(s) that are not ",
+    stop(
+      "Your table has geography and/or time column(s) that are not ",
       "in snake_case.\nPlease amend your column names to match the formatting",
       "to dfeR::geog_time_identifers."
     )
@@ -94,12 +95,14 @@ z_replace <- function(data,
     replacement_alt <- "z"
     # check that replacement_alt is a single character vector
   } else if (!is.character(replacement_alt)) {
-    stop("You provided a ", data.class(replacement_alt),
+    stop(
+      "You provided a ", data.class(replacement_alt),
       " input for replacement_alt.\n",
       "Please amend replace it with a character vector."
     )
   } else if (length(replacement_alt) > 1) {
-    stop( "You provided multiple values for replacement_alt.\n",
+    stop(
+      "You provided multiple values for replacement_alt.\n",
       "Please, only provide a single value."
     )
   } else {
