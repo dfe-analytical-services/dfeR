@@ -136,15 +136,10 @@ end_time <- Sys.time()
 test_time <- difftime(end_time, start_time, units = "secs")
 
 # calculating the time it takes
-test_time <- summary(microbenchmark::microbenchmark(z_replace(df),
-  unit = "seconds", times = 100
-))$max
 
-print(test_time)
-
-# testing that the speed is less than 1 second
+# testing that the speed is less than 0.25 second
 test_that("Speed of the function", {
-  expect_equal(test_time < 1, TRUE)
+  expect_equal(test_time < 0.25, TRUE)
 })
 
 # Check error message for empty data frame

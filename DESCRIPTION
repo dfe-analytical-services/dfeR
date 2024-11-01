@@ -36,7 +36,6 @@ Imports:
     withr
 Suggests:
     knitr,
-    microbenchmark,
     readxl,
     rmarkdown,
     spelling,
