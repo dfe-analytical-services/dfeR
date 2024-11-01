@@ -130,10 +130,17 @@ df <- df %>%
     ~ dplyr::if_else(. < 300, as.double(NA), .)
   ))
 
+start_time <- Sys.time()
+z_replace(df)
+end_time <- Sys.time()
+test_time <- difftime(end_time, start_time, units = "secs")
+
 # calculating the time it takes
 test_time <- summary(microbenchmark::microbenchmark(z_replace(df),
   unit = "seconds", times = 100
 ))$max
+
+cat(test_time)
 
 # testing that the speed is less than 1 second
 test_that("Speed of the function", {
