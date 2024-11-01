@@ -140,7 +140,7 @@ test_time <- summary(microbenchmark::microbenchmark(z_replace(df),
   unit = "seconds", times = 100
 ))$max
 
-cat(test_time)
+print(test_time)
 
 # testing that the speed is less than 1 second
 test_that("Speed of the function", {
