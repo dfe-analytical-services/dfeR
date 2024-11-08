@@ -24,10 +24,12 @@ Depends:
 Imports: 
     dplyr,
     emoji,
+    git2r,
     httr,
     jsonlite,
     lifecycle,
     magrittr,
+    purrr,
     renv,
     rlang,
     tidyselect,
