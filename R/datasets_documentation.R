@@ -113,6 +113,6 @@
 #'
 #' @format ## `geog_time_identifiers`
 #' A character vector with 38 potential column names in snake case format.
-#' @source curated by explore.statistics@@education.gov.uk. Click
-#' \href{here}{https://shorturl.at/j4532} to find out more information.
+#' @source curated by explore.statistics@@education.gov.uk.
+#' \href{https://shorturl.at/j4532}{Get guidance on time and geography data.}
 "geog_time_identifiers"
