@@ -60,3 +60,62 @@ check_proxy_settings <- function(
   }
   return(proxy_config)
 }
+
+#' Check renv download method
+#'
+#' @return
+#' @export
+#'
+#' @examples
+check_renv_download_method <- function(renviron_file = "~/.Renviron", user_input = TRUE) {
+  if (file.exists(renviron_file)) {
+    .renviron <- readLines(renviron_file)
+  } else {
+    .renviron <- c()
+  }
+  rdm_present <- .renviron %>% stringr::str_detect("RENV_DOWNLOAD_METHOD")
+  if (any(rdm_present)) {
+    message("Found RENV_DOWNLOAD_METHOD in .Renviron:")
+    message("   ", .renviron[rdm_present])
+    detected_method <- .renviron[rdm_present] |>
+      stringr::str_split("=") |>
+      unlist() |>
+      magrittr::extract(2)
+  } else {
+    detected_method <- NA
+  }
+  if (is.na(detected_method) || detected_method != "\"curl\"") {
+    message("RENV_DOWNLOAD_METHOD is not set to curl. This may cause issues on DfE systems.")
+    message("==============================================================================")
+    if (user_input) {
+      accept <- readline(prompt = "Do you wish to set the RENV_DOWNLOAD_METHOD in .Renviron (Y/n)? ")
+    } else {
+      accept <- "n"
+    }
+    if (accept %in% c("", "Y", "y", "Yes", "YES", TRUE)) {
+      if (any(rdm_present)) {
+        .renviron <- .renviron[!rdm_present]
+      }
+      .renviron <- c(
+        .renviron,
+        "RENV_DOWNLOAD_METHOD=\"curl\""
+      )
+      print(.renviron)
+      cat(.renviron, file = renviron_file, sep = "\n")
+      message("The curl download method has automatically been set in your .Renviron file.")
+      readRenviron(renviron_file)
+    } else {
+      message("If you wish to manually update your .Renviron file, follow these steps:")
+      message("  - Run the following command in the R console to open the .Renviron file:")
+      message("      usethis::edit_r_environ()")
+      if (any(rdm_present)) {
+        message("  - Remove the following line from .Renviron:")
+        message("      ", .renviron[rdm_present])
+      }
+      message("  - Add the following line to .Renviron:")
+      message("      RENV_DOWNLOAD_METHOD=\"curl\"")
+    }
+  } else {
+    message("Your RENV_DOWNLOAD_METHOD checks out as expected.")
+  }
+}
