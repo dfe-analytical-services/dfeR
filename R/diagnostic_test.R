@@ -1,25 +1,39 @@
 #' Diagnostic testing
 #'
+#' @description
+#' Run a set of diagnostic tests to check for common issues found when setting up R on a DfE
+#' system. This includes:
+#'   - Checking for proxy settings in the Git configuration
+#'   - Checking for correct download method used by renv (curl)
+#'
 #' @inheritParams check_proxy_settings
 #'
-#' @return NULL
+#' @return List object of detected parameters
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #' diagnostic_test()
 #' }
-diagnostic_test <- function(user_input = TRUE) {
-  check_proxy_settings(user_input = user_input)
+diagnostic_test <- function(
+    clean = FALSE,
+    verbose = FALSE
+    ) {
+  results <- c(
+      check_proxy_settings(clean = clean, verbose = verbose),
+  check_renv_download_method(clean = clean, verbose = verbose)
+  )
+  return(results)
 }
 
 #' Check proxy settings
 #'
 #' @param proxy_setting_names Vector of proxy parameters to check for. Default: c("http.proxy",
 #' "https.proxy")
-#' @param user_input Ask for user choices on cleaning actions (TRUE / FALSE)
+#' @param clean Attempt to clean settings
+#' @param verbose Run in verbose mode
 #'
-#' @return NULL
+#' @return List of problem proxy settings
 #' @export
 #'
 #' @examples
@@ -28,46 +42,47 @@ diagnostic_test <- function(user_input = TRUE) {
 #' }
 check_proxy_settings <- function(
     proxy_setting_names = c("http.proxy", "https.proxy"),
-    user_input = FALSE) {
+    clean = FALSE,
+    verbose = FALSE) {
   git_config <- git2r::config()
   proxy_config <- git_config |>
     magrittr::extract2("global") |>
     magrittr::extract(proxy_setting_names)
   proxy_config <- purrr::keep(proxy_config, !is.na(names(proxy_config)))
   if (any(!is.na(names(proxy_config)))) {
-    message("Found proxy settings:")
+    dfeR::toggle_message("Found proxy settings:", verbose = verbose)
     paste(names(proxy_config), "=", proxy_config, collapse = "\n") |>
-      message()
-    if (user_input) {
-      accept <- readline(
-        prompt = "Do you wish to remove the proxy settings (Y/n)? "
-      )
+      toggle_message(verbose = verbose)
+    if (clean) {
+        proxy_args <- proxy_config |>
+          lapply(function(list) {
+            NULL
+          })
+        rlang::inject(git2r::config(!!!proxy_args, global = TRUE))
+        message("FIXED: Git proxy settings have been cleared.")
     } else {
-      accept <- TRUE
-    }
-    if (accept %in% c("Y", "y", "Yes", "yes", "YES", "TRUE", "")) {
-      proxy_args <- proxy_config |>
-        lapply(function(list) {
-          NULL
-        })
-      rlang::inject(git2r::config(!!!proxy_args, global = TRUE))
-      message("Git proxy settings have been cleared.")
-    } else {
-      message("Git proxy setting have been left in place.")
+      message("FAIL: Git proxy setting have been left in place.")
     }
   } else {
-    message("No proxy settings found in your Git configuration.")
+    message("PASS: No proxy settings found in your Git configuration.")
   }
   return(proxy_config)
 }
 
 #' Check renv download method
 #'
-#' @return
+#' @param renviron_file Location of .Renviron file. Default: ~/.Renviron
+#' @inheritParams check_proxy_settings
+#'
+#' @return List object containing RENV_DOWNLOAD_METHOD
 #' @export
 #'
 #' @examples
-check_renv_download_method <- function(renviron_file = "~/.Renviron", user_input = TRUE) {
+#' check_renv_download_method()
+check_renv_download_method <- function(
+    renviron_file = "~/.Renviron",
+    clean = FALSE,
+    verbose = FALSE) {
   if (file.exists(renviron_file)) {
     .renviron <- readLines(renviron_file)
   } else {
@@ -75,8 +90,8 @@ check_renv_download_method <- function(renviron_file = "~/.Renviron", user_input
   }
   rdm_present <- .renviron %>% stringr::str_detect("RENV_DOWNLOAD_METHOD")
   if (any(rdm_present)) {
-    message("Found RENV_DOWNLOAD_METHOD in .Renviron:")
-    message("   ", .renviron[rdm_present])
+    dfeR::toggle_message("Found RENV_DOWNLOAD_METHOD in .Renviron:", verbose = verbose)
+    dfeR::toggle_message(message("   ", .renviron[rdm_present]), verbose = verbose)
     detected_method <- .renviron[rdm_present] |>
       stringr::str_split("=") |>
       unlist() |>
@@ -85,26 +100,19 @@ check_renv_download_method <- function(renviron_file = "~/.Renviron", user_input
     detected_method <- NA
   }
   if (is.na(detected_method) || detected_method != "\"curl\"") {
-    message("RENV_DOWNLOAD_METHOD is not set to curl. This may cause issues on DfE systems.")
-    message("==============================================================================")
-    if (user_input) {
-      accept <- readline(prompt = "Do you wish to set the RENV_DOWNLOAD_METHOD in .Renviron (Y/n)? ")
-    } else {
-      accept <- "n"
-    }
-    if (accept %in% c("", "Y", "y", "Yes", "YES", TRUE)) {
-      if (any(rdm_present)) {
-        .renviron <- .renviron[!rdm_present]
-      }
-      .renviron <- c(
-        .renviron,
-        "RENV_DOWNLOAD_METHOD=\"curl\""
-      )
-      print(.renviron)
-      cat(.renviron, file = renviron_file, sep = "\n")
-      message("The curl download method has automatically been set in your .Renviron file.")
-      readRenviron(renviron_file)
-    } else {
+    if (clean) {
+        if (any(rdm_present)) {
+          .renviron <- .renviron[!rdm_present]
+        }
+        .renviron <- c(
+          .renviron,
+          "RENV_DOWNLOAD_METHOD=\"curl\""
+        )
+        cat(.renviron, file = renviron_file, sep = "\n")
+        message("FIXED: The curl download method has automatically been set in your .Renviron file.")
+        readRenviron(renviron_file)
+        cleaned <- TRUE
+      } else {
       message("If you wish to manually update your .Renviron file, follow these steps:")
       message("  - Run the following command in the R console to open the .Renviron file:")
       message("      usethis::edit_r_environ()")
@@ -116,6 +124,7 @@ check_renv_download_method <- function(renviron_file = "~/.Renviron", user_input
       message("      RENV_DOWNLOAD_METHOD=\"curl\"")
     }
   } else {
-    message("Your RENV_DOWNLOAD_METHOD checks out as expected.")
+    message("PASS: Your RENV_DOWNLOAD_METHOD is set to curl.")
   }
+  return(list(RENV_DOWNLOAD_METHOD = detected_method))
 }

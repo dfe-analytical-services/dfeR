@@ -6,14 +6,20 @@
 \usage{
 check_proxy_settings(
   proxy_setting_names = c("http.proxy", "https.proxy"),
-  user_input = FALSE
+  clean = FALSE,
+  verbose = FALSE
 )
 }
 \arguments{
 \item{proxy_setting_names}{Vector of proxy parameters to check for. Default: c("http.proxy",
 "https.proxy")}
 
-\item{user_input}{Ask for user choices on cleaning actions (TRUE / FALSE)}
+\item{clean}{Attempt to clean settings}
+
+\item{verbose}{Run in verbose mode}
+}
+\value{
+List of problem proxy settings
 }
 \description{
 Check proxy settings

@@ -4,13 +4,23 @@
 \alias{diagnostic_test}
 \title{Diagnostic testing}
 \usage{
-diagnostic_test(user_input = TRUE)
+diagnostic_test(clean = FALSE, verbose = FALSE)
 }
 \arguments{
-\item{user_input}{Ask for user choices on cleaning actions (TRUE / FALSE)}
+\item{clean}{Attempt to clean settings}
+
+\item{verbose}{Run in verbose mode}
+}
+\value{
+List object of detected parameters
 }
 \description{
-Diagnostic testing
+Run a set of diagnostic tests to check for common issues found when setting up R on a DfE
+system. This includes:
+\itemize{
+\item Checking for proxy settings in the Git configuration
+\item Checking for correct download method used by renv (curl)
+}
 }
 \examples{
 \dontrun{

@@ -4,12 +4,22 @@ test_that("Check proxy settings identifies and removes proxy setting", {
   # Check that check_proxy_settings identifies the rogue entry
   expect_equal(
     check_proxy_settings(
-      proxy_setting_names = c("http.proxy.test", "https.proxy.test")
+      proxy_setting_names = c("http.proxy.test", "https.proxy.test"),
+      clean = FALSE
     ) |>
       suppressMessages(),
     list(http.proxy.test = "this-is-a-test-entry")
   )
-  # Now double check that it cleared out the entry by running again...
+  # Run the check in clean mode
+  expect_equal(
+    check_proxy_settings(
+      proxy_setting_names = c("http.proxy.test", "https.proxy.test"),
+      clean = TRUE
+    ) |>
+      suppressMessages(),
+    list(http.proxy.test = "this-is-a-test-entry")
+  )
+  # And now run again to see if clean mode worked in removing the rogue setting
   expect_equal(
     check_proxy_settings(
       proxy_setting_names = c("http.proxy.test", "https.proxy.test")
