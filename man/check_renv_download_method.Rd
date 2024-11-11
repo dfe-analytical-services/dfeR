@@ -6,7 +6,6 @@
 \usage{
 check_renv_download_method(
   renviron_file = "~/.Renviron",
-  user_input = TRUE,
   clean = FALSE,
   verbose = FALSE
 )
@@ -22,7 +21,10 @@ check_renv_download_method(
 List object containing RENV_DOWNLOAD_METHOD
 }
 \description{
-Check renv download method
+The renv package can retrieve packages either using curl or wininet, but
+wininet doesn't work from within the DfE network. This script checks for
+the parameter controlling which of these is used (RENV_DOWNLOAD_METHOD) and
+sets it to use curl.
 }
 \examples{
 check_renv_download_method()

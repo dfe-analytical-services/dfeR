@@ -11,8 +11,8 @@ check_proxy_settings(
 )
 }
 \arguments{
-\item{proxy_setting_names}{Vector of proxy parameters to check for. Default: c("http.proxy",
-"https.proxy")}
+\item{proxy_setting_names}{Vector of proxy parameters to check for. Default:
+c("http.proxy", "https.proxy")}
 
 \item{clean}{Attempt to clean settings}
 
@@ -22,7 +22,11 @@ check_proxy_settings(
 List of problem proxy settings
 }
 \description{
-Check proxy settings
+This script checks for "bad" proxy settings. Prior to the pandemic, analysts
+in the DfE would need to add some proxy settings to their GitHub config.
+These settings now prevent Git from connecting to remote archives on GitHub
+and Azure DevOps if present, so this script identifies and (if clean=TRUE is
+set) removes them.
 }
 \examples{
 \dontrun{

@@ -28,3 +28,15 @@ test_that("Check proxy settings identifies and removes proxy setting", {
     purrr::keep(list(x = NULL), names(list(x = NULL)) != "x")
   )
 })
+
+test_that("Check RENV_DOWNLOAD_METHOD", {
+  # Check that check_proxy_settings identifies the rogue entry
+  expect_equal(
+    check_renv_download_method(
+      ".Renviron_test",
+      clean = FALSE
+    ) |>
+      suppressMessages(),
+    list(RENV_DOWNLOAD_METHOD = NA)
+  )
+})

@@ -15,7 +15,8 @@ diagnostic_test(clean = FALSE, verbose = FALSE)
 List object of detected parameters
 }
 \description{
-Run a set of diagnostic tests to check for common issues found when setting up R on a DfE
+Run a set of diagnostic tests to check for common issues found when setting
+up R on a DfE
 system. This includes:
 \itemize{
 \item Checking for proxy settings in the Git configuration

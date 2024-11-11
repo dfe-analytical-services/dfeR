@@ -103,16 +103,16 @@ check_renv_download_method <- function(
   }
   rdm_present <- .renviron %>% stringr::str_detect("RENV_DOWNLOAD_METHOD")
   if (any(rdm_present)) {
-    dfeR::toggle_message(
-      "Found RENV_DOWNLOAD_METHOD in .Renviron:",
-      verbose = verbose
+    current_setting_message <- paste0(
+      "RENV_DOWNLOAD_METHOD is currently set to:\n   ",
+      .renviron[rdm_present]
     )
-    dfeR::toggle_message("   ", .renviron[rdm_present], verbose = verbose)
     detected_method <- .renviron[rdm_present] |>
       stringr::str_split("=") |>
       unlist() |>
       magrittr::extract(2)
   } else {
+    current_setting_message <- "RENV_DOWNLOAD_METHOD is not currently set."
     detected_method <- NA
   }
   if (is.na(detected_method) || detected_method != "\"curl\"") {
@@ -133,6 +133,9 @@ check_renv_download_method <- function(
       )
       readRenviron(renviron_file)
     } else {
+      dfeR::toggle_message(current_setting_message,
+        verbose = verbose
+      )
       message("If you wish to manually update your .Renviron file:")
       message("  - Run the command in the R console to open .Renviron:")
       message("      usethis::edit_r_environ()")
@@ -142,6 +145,7 @@ check_renv_download_method <- function(
       }
       message("  - Add the following line to .Renviron:")
       message("      RENV_DOWNLOAD_METHOD=\"curl\"")
+      message("Or run `dfeR::check_renv_download_method(clean=TRUE)`")
     }
   } else {
     message("PASS: Your RENV_DOWNLOAD_METHOD is set to curl.")
