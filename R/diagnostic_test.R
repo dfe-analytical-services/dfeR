@@ -28,6 +28,13 @@ diagnostic_test <- function(
 
 #' Check proxy settings
 #'
+#' @description
+#' This script checks for "bad" proxy settings. Prior to the pandemic, analysts
+#' in the DfE would need to add some proxy settings to their GitHub config.
+#' These settings now prevent Git from connecting to remote archives on GitHub
+#' and Azure DevOps if present, so this script identifies and (if clean=TRUE is
+#' set) removes them.
+#'
 #' @param proxy_setting_names Vector of proxy parameters to check for. Default:
 #' c("http.proxy", "https.proxy")
 #' @param clean Attempt to clean settings
@@ -70,6 +77,12 @@ check_proxy_settings <- function(
 }
 
 #' Check renv download method
+#'
+#' @description
+#' The renv package can retrieve packages either using curl or wininet, but
+#' wininet doesn't work from within the DfE network. This script checks for
+#' the parameter controlling which of these is used (RENV_DOWNLOAD_METHOD) and
+#' sets it to use curl.
 #'
 #' @param renviron_file Location of .Renviron file. Default: ~/.Renviron
 #' @inheritParams check_proxy_settings
