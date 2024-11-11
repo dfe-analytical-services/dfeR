@@ -1,7 +1,8 @@
 #' Diagnostic testing
 #'
 #' @description
-#' Run a set of diagnostic tests to check for common issues found when setting up R on a DfE
+#' Run a set of diagnostic tests to check for common issues found when setting
+#' up R on a DfE
 #' system. This includes:
 #'   - Checking for proxy settings in the Git configuration
 #'   - Checking for correct download method used by renv (curl)
@@ -27,8 +28,8 @@ diagnostic_test <- function(
 
 #' Check proxy settings
 #'
-#' @param proxy_setting_names Vector of proxy parameters to check for. Default: c("http.proxy",
-#' "https.proxy")
+#' @param proxy_setting_names Vector of proxy parameters to check for. Default:
+#' c("http.proxy", "https.proxy")
 #' @param clean Attempt to clean settings
 #' @param verbose Run in verbose mode
 #'
@@ -89,8 +90,11 @@ check_renv_download_method <- function(
   }
   rdm_present <- .renviron %>% stringr::str_detect("RENV_DOWNLOAD_METHOD")
   if (any(rdm_present)) {
-    dfeR::toggle_message("Found RENV_DOWNLOAD_METHOD in .Renviron:", verbose = verbose)
-    dfeR::toggle_message(message("   ", .renviron[rdm_present]), verbose = verbose)
+    dfeR::toggle_message(
+      "Found RENV_DOWNLOAD_METHOD in .Renviron:",
+      verbose = verbose
+    )
+    dfeR::toggle_message("   ", .renviron[rdm_present], verbose = verbose)
     detected_method <- .renviron[rdm_present] |>
       stringr::str_split("=") |>
       unlist() |>
@@ -108,11 +112,16 @@ check_renv_download_method <- function(
         "RENV_DOWNLOAD_METHOD=\"curl\""
       )
       cat(.renviron, file = renviron_file, sep = "\n")
-      message("FIXED: The renv download method has been set to curl in your .Renviron file.")
+      message(
+        paste0(
+          "FIXED: The renv download method has been set to curl in your ",
+          ".Renviron file."
+        )
+      )
       readRenviron(renviron_file)
     } else {
-      message("If you wish to manually update your .Renviron file, follow these steps:")
-      message("  - Run the following command in the R console to open the .Renviron file:")
+      message("If you wish to manually update your .Renviron file:")
+      message("  - Run the command in the R console to open .Renviron:")
       message("      usethis::edit_r_environ()")
       if (any(rdm_present)) {
         message("  - Remove the following line from .Renviron:")
