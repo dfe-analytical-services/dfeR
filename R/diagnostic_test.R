@@ -13,9 +13,7 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' diagnostic_test()
-#' }
 diagnostic_test <- function(
     clean = FALSE,
     verbose = FALSE) {
@@ -133,7 +131,7 @@ check_renv_download_method <- function(
       )
       readRenviron(renviron_file)
     } else {
-      dfeR::toggle_message(current_setting_message,
+      dfeR::toggle_message(paste("FAIL:", current_setting_message),
         verbose = verbose
       )
       message("If you wish to manually update your .Renviron file:")

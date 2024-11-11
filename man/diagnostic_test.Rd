@@ -24,7 +24,5 @@ system. This includes:
 }
 }
 \examples{
-\dontrun{
 diagnostic_test()
-}
 }
