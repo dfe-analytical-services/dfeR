@@ -17,11 +17,10 @@
 #' }
 diagnostic_test <- function(
     clean = FALSE,
-    verbose = FALSE
-    ) {
+    verbose = FALSE) {
   results <- c(
-      check_proxy_settings(clean = clean, verbose = verbose),
-  check_renv_download_method(clean = clean, verbose = verbose)
+    check_proxy_settings(clean = clean, verbose = verbose),
+    check_renv_download_method(clean = clean, verbose = verbose)
   )
   return(results)
 }
@@ -54,12 +53,12 @@ check_proxy_settings <- function(
     paste(names(proxy_config), "=", proxy_config, collapse = "\n") |>
       toggle_message(verbose = verbose)
     if (clean) {
-        proxy_args <- proxy_config |>
-          lapply(function(list) {
-            NULL
-          })
-        rlang::inject(git2r::config(!!!proxy_args, global = TRUE))
-        message("FIXED: Git proxy settings have been cleared.")
+      proxy_args <- proxy_config |>
+        lapply(function(list) {
+          NULL
+        })
+      rlang::inject(git2r::config(!!!proxy_args, global = TRUE))
+      message("FIXED: Git proxy settings have been cleared.")
     } else {
       message("FAIL: Git proxy setting have been left in place.")
     }
@@ -101,18 +100,17 @@ check_renv_download_method <- function(
   }
   if (is.na(detected_method) || detected_method != "\"curl\"") {
     if (clean) {
-        if (any(rdm_present)) {
-          .renviron <- .renviron[!rdm_present]
-        }
-        .renviron <- c(
-          .renviron,
-          "RENV_DOWNLOAD_METHOD=\"curl\""
-        )
-        cat(.renviron, file = renviron_file, sep = "\n")
-        message("FIXED: The curl download method has automatically been set in your .Renviron file.")
-        readRenviron(renviron_file)
-        cleaned <- TRUE
-      } else {
+      if (any(rdm_present)) {
+        .renviron <- .renviron[!rdm_present]
+      }
+      .renviron <- c(
+        .renviron,
+        "RENV_DOWNLOAD_METHOD=\"curl\""
+      )
+      cat(.renviron, file = renviron_file, sep = "\n")
+      message("FIXED: The renv download method has been set to curl in your .Renviron file.")
+      readRenviron(renviron_file)
+    } else {
       message("If you wish to manually update your .Renviron file, follow these steps:")
       message("  - Run the following command in the R console to open the .Renviron file:")
       message("      usethis::edit_r_environ()")
