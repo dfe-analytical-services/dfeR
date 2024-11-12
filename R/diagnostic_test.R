@@ -92,16 +92,13 @@ check_proxy_settings <- function(
 #'
 #' @examples
 #' check_github_pat()
-check_github_pat <- function(clean = FALSE,
-                             verbose = FALSE) {
-  github_pat <- Sys.getenv("GITHUB_PAT", unset = NA) |>
-    stringr::str_replace_all(stringr::regex("\\W+"), "")
+check_github_pat <- function(
+    clean = FALSE,
+                             verbose = FALSE
+    ) {
+  github_pat <- Sys.getenv("GITHUB_PAT")
   # Replace above to remove non alphanumeric characters when run on GitHub
   # Actions
-  print(Sys.info())
-  print(github_pat)
-  print(pillar::type_sum(github_pat))
-  print(typeof(github_pat))
   cat("==================================")
   if (!is.na(github_pat)) {
     message(
@@ -120,7 +117,6 @@ check_github_pat <- function(clean = FALSE,
     }
   } else {
     message("PASS: The GITHUB_PAT system variable is clear.")
-    github_pat <- ""
   }
   return(list(GITHUB_PAT = github_pat))
 }

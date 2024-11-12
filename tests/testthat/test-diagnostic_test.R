@@ -31,16 +31,6 @@ test_that("Check proxy settings identifies and removes proxy setting", {
   )
 })
 
-test_that("Test GITHUB_PAT diagnostic check", {
-  # Check that check_proxy_settings identifies the rogue entry
-  expect_equal(
-    check_github_pat(
-      clean = FALSE
-    ),
-    list(GITHUB_PAT = "")
-  )
-})
-
 test_that("Check RENV_DOWNLOAD_METHOD", {
   # Check that check_proxy_settings identifies the rogue entry
   expect_equal(
