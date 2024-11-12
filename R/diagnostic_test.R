@@ -98,6 +98,7 @@ check_github_pat <- function(clean = FALSE,
     stringr::str_replace_all(stringr::regex("\\W+"), "")
   # Replace above to remove non alphanumeric characters when run on GitHub
   # Actions
+  print(Sys.info())
   print(github_pat)
   print(pillar::type_sum(github_pat))
   print(typeof(github_pat))
