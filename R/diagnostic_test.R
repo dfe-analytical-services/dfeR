@@ -99,6 +99,8 @@ check_github_pat <- function(clean = FALSE,
   # Replace above to remove non alphanumeric characters when run on GitHub
   # Actions
   print(github_pat)
+  print(pillar::type_sum(github_pat))
+  print(typeof(github_pat))
   if(github_pat == "***"){print("Found *** GITHUB_PAT")}
   cat("==================================")
   if (github_pat != "") {
