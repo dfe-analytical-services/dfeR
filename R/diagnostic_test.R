@@ -95,7 +95,9 @@ check_proxy_settings <- function(
 check_github_pat <- function(clean = FALSE,
                              verbose = FALSE) {
   github_pat <- Sys.getenv("GITHUB_PAT") |>
-    stringr::str_replace_all("\\*", "") # Accounting for GitHub Actions "***"
+    stringr::str_replace_all(stringr::regex("\\W+"), "")
+  # Replace above to remove non alphanumeric characters when run on GitHub
+  # Actions
   print(github_pat)
   if(github_pat == "***"){print("Found *** GITHUB_PAT")}
   cat("==================================")
