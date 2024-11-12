@@ -69,6 +69,8 @@ check_proxy_settings <- function(
     }
   } else {
     message("PASS: No proxy settings found in your Git configuration.")
+    proxy_config <- as.list(rep("", length(proxy_setting_names))) |>
+      setNames(proxy_setting_names)
   }
   return(proxy_config)
 }

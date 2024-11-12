@@ -1,10 +1,11 @@
 test_that("Check proxy settings identifies and removes proxy setting", {
   # Set a dummy config parameter for the purposes of testing
   git2r::config(http.proxy.test = "this-is-a-test-entry", global = TRUE)
+  proxy_setting_names = c("http.proxy.test", "https.proxy.test")
   # Check that check_proxy_settings identifies the rogue entry
   expect_equal(
     check_proxy_settings(
-      proxy_setting_names = c("http.proxy.test", "https.proxy.test"),
+      proxy_setting_names = proxy_setting_names,
       clean = FALSE
     ) |>
       suppressMessages(),
@@ -13,7 +14,7 @@ test_that("Check proxy settings identifies and removes proxy setting", {
   # Run the check in clean mode
   expect_equal(
     check_proxy_settings(
-      proxy_setting_names = c("http.proxy.test", "https.proxy.test"),
+      proxy_setting_names = proxy_setting_names,
       clean = TRUE
     ) |>
       suppressMessages(),
@@ -22,10 +23,22 @@ test_that("Check proxy settings identifies and removes proxy setting", {
   # And now run again to see if clean mode worked in removing the rogue setting
   expect_equal(
     check_proxy_settings(
-      proxy_setting_names = c("http.proxy.test", "https.proxy.test")
+      proxy_setting_names = proxy_setting_names
     ) |>
       suppressMessages(),
-    purrr::keep(list(x = NULL), names(list(x = NULL)) != "x")
+    proxy_config <- as.list(rep("", length(proxy_setting_names))) |>
+      setNames(proxy_setting_names)
+  )
+})
+
+test_that("Test GITHUB_PAT diagnostic check", {
+  # Check that check_proxy_settings identifies the rogue entry
+  expect_equal(
+    check_github_pat(
+      clean = FALSE
+    ) |>
+      suppressMessages(),
+    list(GITHUB_PAT = "")
   )
 })
 
