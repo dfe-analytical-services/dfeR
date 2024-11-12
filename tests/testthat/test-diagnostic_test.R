@@ -36,8 +36,7 @@ test_that("Test GITHUB_PAT diagnostic check", {
   expect_equal(
     check_github_pat(
       clean = FALSE
-    ) |>
-      suppressMessages(),
+    ),
     list(GITHUB_PAT = "")
   )
 })
