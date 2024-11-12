@@ -96,6 +96,9 @@ check_github_pat <- function(clean = FALSE,
                              verbose = FALSE) {
   github_pat <- Sys.getenv("GITHUB_PAT") |>
     stringr::str_replace_all("\\*", "") # Accounting for GitHub Actions "***"
+  print(github_pat)
+  if(github_pat == "***"){print("Found *** GITHUB_PAT")}
+  cat("==================================")
   if (github_pat != "") {
     message(
       "FAIL: GITHUB_PAT is set to ",
