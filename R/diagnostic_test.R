@@ -19,6 +19,7 @@ diagnostic_test <- function(
     verbose = FALSE) {
   results <- c(
     check_proxy_settings(clean = clean, verbose = verbose),
+    check_github_pat(clean = clean, verbose = verbose),
     check_renv_download_method(clean = clean, verbose = verbose)
   )
   return(results)
@@ -42,9 +43,7 @@ diagnostic_test <- function(
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' check_proxy_settings()
-#' }
 check_proxy_settings <- function(
     proxy_setting_names = c("http.proxy", "https.proxy"),
     clean = FALSE,
@@ -72,6 +71,47 @@ check_proxy_settings <- function(
     message("PASS: No proxy settings found in your Git configuration.")
   }
   return(proxy_config)
+}
+
+#' Check GITHUB_PAT setting
+#'
+#' @description
+#' If the GITHUB_PAT keyword is set, then it can cause issues with R installing
+#' packages from GitHub (usually with an error of "ERROR [curl: (22) The
+#' requested URL returned error: 401]"). This script checks whether the keyword
+#' is set and can then clear it (if clear=TRUE).
+#' The user will then need to identify where the "GITHUB_PAT" variable is being
+#' set from and remove it to permanently fix the issue.
+#'
+#' @inheritParams check_proxy_settings
+#'
+#' @return List object containing the github_pat keyword content.
+#' @export
+#'
+#' @examples
+#' check_github_pat()
+check_github_pat <- function(clean = FALSE,
+                             verbose = FALSE) {
+  github_pat <- Sys.getenv("GITHUB_PAT")
+  if (github_pat != "") {
+    message(
+      "FAIL: GITHUB_PAT is set to ",
+      github_pat,
+      ". This may cause issues with installing packages from GitHub",
+      " such as dfeR and dfeshiny."
+    )
+    if (clean) {
+      message("Clearing GITHUB_PAT keyword from system settings.")
+      Sys.unsetenv("GITHUB_PAT")
+      message(
+        "This issue may recur if you have some software that is",
+        "initialising the GITHUB_PAT keyword automatically."
+      )
+    }
+  } else {
+    message("PASS: The GITHUB_PAT system variable is clear.")
+  }
+  return(list(GITHUB_PAT = github_pat))
 }
 
 #' Check renv download method
