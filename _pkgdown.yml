@@ -47,6 +47,7 @@ reference:
   contents:
   - diagnostic_test
   - check_proxy_settings
+  - check_github_pat
   - check_renv_download_method
 
 - title: Helpers

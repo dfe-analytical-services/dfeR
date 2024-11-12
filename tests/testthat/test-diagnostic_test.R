@@ -1,7 +1,7 @@
 test_that("Check proxy settings identifies and removes proxy setting", {
   # Set a dummy config parameter for the purposes of testing
   git2r::config(http.proxy.test = "this-is-a-test-entry", global = TRUE)
-  proxy_setting_names = c("http.proxy.test", "https.proxy.test")
+  proxy_setting_names <- c("http.proxy.test", "https.proxy.test")
   # Check that check_proxy_settings identifies the rogue entry
   expect_equal(
     check_proxy_settings(
@@ -27,7 +27,7 @@ test_that("Check proxy settings identifies and removes proxy setting", {
     ) |>
       suppressMessages(),
     proxy_config <- as.list(rep("", length(proxy_setting_names))) |>
-      setNames(proxy_setting_names)
+      stats::setNames(proxy_setting_names)
   )
 })
 

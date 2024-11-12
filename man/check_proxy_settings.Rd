@@ -29,7 +29,5 @@ and Azure DevOps if present, so this script identifies and (if clean=TRUE is
 set) removes them.
 }
 \examples{
-\dontrun{
 check_proxy_settings()
-}
 }

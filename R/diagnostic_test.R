@@ -70,7 +70,7 @@ check_proxy_settings <- function(
   } else {
     message("PASS: No proxy settings found in your Git configuration.")
     proxy_config <- as.list(rep("", length(proxy_setting_names))) |>
-      setNames(proxy_setting_names)
+      stats::setNames(proxy_setting_names)
   }
   return(proxy_config)
 }
@@ -79,8 +79,8 @@ check_proxy_settings <- function(
 #'
 #' @description
 #' If the GITHUB_PAT keyword is set, then it can cause issues with R installing
-#' packages from GitHub (usually with an error of "ERROR [curl: (22) The
-#' requested URL returned error: 401]"). This script checks whether the keyword
+#' packages from GitHub (usually with an error of "ERROR \[curl: (22) The
+#' requested URL returned error: 401\]"). This script checks whether the keyword
 #' is set and can then clear it (if clear=TRUE).
 #' The user will then need to identify where the "GITHUB_PAT" variable is being
 #' set from and remove it to permanently fix the issue.
