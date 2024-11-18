@@ -104,3 +104,15 @@
 #' from
 #' https://geoportal.statistics.gov.uk/search?q=NAC_RGN
 "regions"
+
+#' Potential names for geography and time columns
+#'
+#' Potential names for geography and time columns in line with the ones used for
+#' the explore education statistics data screener.
+#'
+#'
+#' @format ## `geog_time_identifiers`
+#' A character vector with 38 potential column names in snake case format.
+#' @source curated by explore.statistics@@education.gov.uk.
+#' \href{https://shorturl.at/j4532}{Get guidance on time and geography data.}
+"geog_time_identifiers"

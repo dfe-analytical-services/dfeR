@@ -1,3 +1,8 @@
+# dfeR (development version)
+
+Added lookup data geog_time_identifiers
+Added z_replace() to replace NA values in tables except for ones in geography and time columns that match ones in geog_time_identifiers. 
+
 # dfeR 0.6.1
 
 Patch to update the pretty_num() function so that the `dp` argument's default is 0. 
