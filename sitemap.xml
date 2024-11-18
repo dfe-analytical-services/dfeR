@@ -26,6 +26,7 @@
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/format_ay_reverse.html</loc></url>
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/format_fy.html</loc></url>
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/format_fy_reverse.html</loc></url>
+<url><loc>https://dfe-analytical-services.github.io/dfeR/reference/geog_time_identifiers.html</loc></url>
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/get_clean_sql.html</loc></url>
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/get_lad_region.html</loc></url>
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/get_ons_api_data.html</loc></url>
@@ -41,5 +42,6 @@
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/tidy_raw_lookup.html</loc></url>
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/toggle_message.html</loc></url>
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/wd_pcon_lad_la_rgn_ctry.html</loc></url>
+<url><loc>https://dfe-analytical-services.github.io/dfeR/reference/z_replace.html</loc></url>
 </urlset>
 
