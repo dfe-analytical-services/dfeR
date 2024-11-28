@@ -175,7 +175,7 @@ create_project <- function(
 
 
   # Create the readme -----
-  file.copy("README_template.Rmd", file.path(path, "README.md"))
+  file.copy("README_template.md", file.path(path, "README.md"))
 
   # .renvignore
   file.create(paste0(path, "/.renvignore"))
