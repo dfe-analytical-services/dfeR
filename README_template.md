@@ -1,36 +1,32 @@
-# Readme
+# Readme template
 
-This is the template for a standard data analysis.
+*This is the README template for a publication project. Please update the italicised text in each section below with the specific details for your publication. You can find more information on why you should have a README file on the* [RAP for statistics](https://dfe-analytical-services.github.io/analysts-guide/RAP/rap-statistics.html) *page of the Analysts' Guide.*
 
-Please give an overview what you do in this project and how to navigate it.
+*Once you have added your information, ensure all italicised text is deleted.*
 
 ## Introduction
 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project.
+-   Purpose: *briefly explain the purpose of the code.*
+-   Overview: *Provide a high-level summary of the contents and structure of the repository.*
 
-## Getting Started
+## Requirements
 
-TODO: Guide users through getting your code up and running on their own system.
+-   Access: *Detail any permissions or access needed to use the repository at the top of this section, e.g. access to specific SQL databases. This is crucial for enabling new users to use the repository.*
+-   Skills/knowledge: *Outline the required skills or knowledge, such as familiarity with specific packages in R, or SQL.*
+-   Version control/Renv: *State how version control is managed and whether Renv is being used.*
 
-In this section you can talk about: 1. Installation process 2. Software dependencies 3. Latest releases 4. API references
+## Getting started
 
-# Build and Test
+-   Setup instructions: *Provide step-by-step instructions on how to set up the environment, including installing dependencies.*
+-   Data input/output: *Describe the expected input data and where it can be found, as well as what output should be expected from the code.*
 
-TODO: Describe and show how to build your code and run the tests.
+## How to run and update
 
-# Contribute
+-   Running the code: *Explain how users can best run the code, for example by running a run all script.*
+-   Updating guidelines: *Outline the process for updating and contributing to the repository, including specific scripts and lines where updates are frequently needed. Describe how to get changes reviewed.*
+-   Issue reporting: *Explain how to report issues or suggest improvements. This could be through issues if using GitHub, boards in Azure DevOps or by emailing the team.*
 
-TODO: Explain how other users and developers can contribute to make your code better.
+## Contact details
 
-## Git integration
-
-If you want to use git with your project (you should!), please do the following steps (replace `<name of your repository>` with the actual name)
-
-1.  Go to your git repository provider (GitHub/Azure DevOps) and create a new repository
-2.  DON'T check 'Add a README file'",
-3.  Go to the Terminal within RStudio and type the following commands ", (for the URL, e.g. <https://github.com>): \`\`\`bash "git init "git branch -M main "git remote add origin <URL of your GitHub/Azure DevOps instance>/\<name ", "of your repository\>.git
-4.  Restart RStudio
-5.  Type in the R terminal `bash git add .` to add all files to the commit
-6.  Type in the R terminal `bash git commit -m, Your commit message (initial commit)'` to commit those files with a message.
-7.  In the terminal, execute the following command: \`\`\`bash" git push -u origin main'''
-8.  For the following commits, repeat this process NOTE: For sharing content on GitHub you should have ticked the Create a .gitignore file for GitHub' checkbox when creating the project. "his will give create a strict .gitignore which is suitable for sharing code to the public. Please also review to ensure no sensitive information is shared. For more information about the integration of git and RStudio, check out <https://happygitwithr.com>.
+-   Main contacts: *List the names and contact information of people who maintain the repository.*
+-   Support channels: *Provide any information on how to get support, such as email addresses or teams channels.*
