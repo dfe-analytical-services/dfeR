@@ -22,7 +22,7 @@
 #' Geography Portal
 #' @param query_params query parameters to pass into the API, see the ESRI
 #' documentation for more information on query parameters -
-#' \href{https://shorturl.at/5xrJT}{ESRI Query (Feature Service/Layer)}
+#' \href{https://www.shorturl.at/5xrJT}{ESRI Query (Feature Service/Layer)}
 #' @param batch_size the number of rows per query. This is 250 by default, if
 #' you hit errors then try lowering this. The API has a limit of 1000 to 2000
 #' rows per query, and in truth, the actual limit for our method is lower as

@@ -4,11 +4,11 @@
 \name{dfeR-package}
 \alias{dfeR}
 \alias{dfeR-package}
-\title{dfeR: Common DfE R tasks}
+\title{dfeR: Common Department for Education Analysis Tasks}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-This package contains R functions to allow DfE analysts to re-use code for common analytical tasks that are undertaken across the Department.
+Preferred methods for common analytical tasks that are undertaken across the Department, including number formatting, project templates and curated reference data.
 }
 \seealso{
 Useful links:
@@ -30,6 +30,7 @@ Authors:
 
 Other contributors:
 \itemize{
+  \item Department for Education, UK statistics.development@education.gov.uk [copyright holder]
   \item Jen Machin \email{jen.machin@education.gov.uk} [contributor]
   \item Jake Tufts \email{jake.tufts@education.gov.uk} [contributor]
   \item Rich Bielby \email{richard.bielby@education.gov.uk} (\href{https://orcid.org/0000-0001-9070-9969}{ORCID}) [contributor]

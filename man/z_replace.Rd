@@ -25,7 +25,7 @@ values for columns that are not for time or geography.
 \description{
 Replaces \code{NA} values in tables except for ones in time and geography
 columns that must be included in DfE official statistics.
-\href{https://shorturl.at/chy76}{Get more guidance on Open Data Standards.}
+\href{https://www.shorturl.at/chy76}{Guidance on our Open Data Standards.}
 }
 \details{
 Names of geography and time columns that are used in this function can be

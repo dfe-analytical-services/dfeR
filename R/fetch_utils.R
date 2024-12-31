@@ -5,6 +5,7 @@
 #'
 #' @return nothing, unless a failure, and then it will give an error
 #' @keywords internal
+#' @noRd
 check_fetch_location_inputs <- function(year_input, country_input) {
   if (year_input != "All") {
     if (!grepl("^\\d{4}$", as.character(year_input))) {
@@ -39,6 +40,7 @@ check_fetch_location_inputs <- function(year_input, country_input) {
 #'
 #' @return a data frame of location names and codes
 #' @keywords internal
+#' @noRd
 fetch_locations <- function(lookup_data, cols, year, countries) {
   # Return only the cols we specified
   # We know their position from the dplyr selection of the lookup
