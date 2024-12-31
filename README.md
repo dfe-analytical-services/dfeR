@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# dfeR <a href="http://dfe-analytical-services.github.io/dfeR/"><img src="man/figures/logo.png" align="right" height="138" /></a>
+# dfeR <a href="https://dfe-analytical-services.github.io/dfeR/"><img src="man/figures/logo.png" align="right" height="138" /></a>
 
 <!-- badges: start -->
 
@@ -35,7 +35,7 @@ Functionality for dfeR is expected to focus around the following:
 5.  Geography lookup files and helper functions
 
 Documentation for what has been included in the package so far is on our
-[pkgdown site](http://dfe-analytical-services.github.io/dfeR/).
+[pkgdown site](https://dfe-analytical-services.github.io/dfeR/).
 
 ### Relevant other packages
 
@@ -64,8 +64,13 @@ gives more functions for directly extracting data from there.
 
 ## Installation
 
-dfeR is not currently available on CRAN. For the time being you can
-install the development version from GitHub.
+dfeR is available on CRAN and you can install directly from there:
+
+``` r
+install.packages("dfeR")
+```
+
+You can install the development version from GitHub.
 
 If you are using
 [renv](https://rstudio.github.io/renv/articles/renv.html) in your
@@ -123,7 +128,7 @@ library(dfeR)
 
 # Prettify large numbers
 pretty_num(111111111, gbp = TRUE)
-#> [1] "£111.11 million"
+#> [1] "£111 million"
 pretty_num(-11^8, dp = -1)
 #> [1] "-210 million"
 

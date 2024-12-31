@@ -12,7 +12,7 @@ A character vector with 38 potential column names in snake case format.
 }
 \source{
 curated by explore.statistics@education.gov.uk.
-\href{https://shorturl.at/j4532}{Get guidance on time and geography data.}
+\href{https://www.shorturl.at/j4532}{Guidance on time and geography data.}
 }
 \usage{
 geog_time_identifiers
