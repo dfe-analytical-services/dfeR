@@ -3,7 +3,7 @@ Package: dfeR
 Title: Common DfE R tasks
 Version: 0.6.1.9000
 Authors@R: c(
-    person("Cam", "Race", , "cameron.race@education.gov.uk", role = c("aut", "cre")),
+    person("Cam", "Race", , "cameron.race@education.gov.uk", role = c("aut", "cre", "cph")),
     person("Laura", "Selby", , "laura.selby@education.gov.uk", role = "aut"),
     person("Adam", "Robinson", role = "aut"),
     person("Jen", "Machin", , "jen.machin@education.gov.uk", role = "ctb"),
