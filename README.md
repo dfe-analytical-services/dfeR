@@ -94,8 +94,9 @@ devtools::install_github("dfe-analytical-services/dfeR")
 The need for setting proxy settings in order to be able to work with R
 and Git within the DfE estate has now ended. If you previously run the
 proxy script in previous versions of the dfeR package, then contact the
-[Statistics Development Team](statistics.development@education.gov.uk)
-to assist in cleaning out your system settings.
+[Statistics Development
+Team](mailto:statistics.development@education.gov.uk) to assist in
+cleaning out your system settings.
 
 ------------------------------------------------------------------------
 
