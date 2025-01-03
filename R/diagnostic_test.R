@@ -19,6 +19,7 @@ diagnostic_test <- function(
     verbose = FALSE) {
   results <- c(
     check_proxy_settings(clean = clean, verbose = verbose),
+    check_git_sslverify(clean = clean, verbose = verbose),
     check_github_pat(clean = clean, verbose = verbose),
     check_renv_download_method(clean = clean, verbose = verbose)
   )
@@ -113,6 +114,65 @@ check_proxy_settings <- function(
   }
   return(list(git = proxy_config, system = proxy_system))
 }
+
+#' Check Git sslverify setting
+#'
+#' @description
+#' This script checks the values of the specified settings in the Git config and
+#' if they're set to FALSE, it changes them to "TRUE" if clean=TRUE.
+#' The defaut is to check for "http.sslVerify" and "https.sslVerify"
+#'
+#' @param ssl_verify_vars Vector of variables to check for in the Git config
+#' @param clean Attempt to clean settings
+#' @param verbose Run in verbose mode
+#'
+#' @return List of sslverify settings
+#' @export
+#'
+#' @examples
+#' check_git_sslverify()
+check_git_sslverify <- function(
+    ssl_verify_vars = c("http.sslverify", "https.sslverify"),
+    clean = FALSE,
+    verbose = FALSE) {
+  # Check for proxy settings in the Git configuration
+  git_config <- git2r::config() |>
+    magrittr::extract2("global") |>
+    magrittr::extract(ssl_verify_vars)
+  git_config <- git_config[!is.na(names(git_config))]
+  if (any(!is.na(names(git_config)))) {
+    dfeR::toggle_message(
+      "Found specified settings in Git config:",
+      verbose = verbose
+    )
+    paste(names(git_config), "=", git_config, collapse = "\n") |>
+      toggle_message(verbose = verbose)
+    if (any(tolower(git_config) == "false")) {
+      if (clean) {
+        git_args <- git_config[tolower(git_config) == "false"] |>
+          lapply(function(list) {
+            "TRUE"
+          })
+        rlang::inject(git2r::config(!!!git_args, global = TRUE))
+        message("FIXED: Specified Git settings have been set")
+      } else {
+        message("FAIL: sslverify is set to FALSE.")
+        message("Specified Git settings have been left in place.")
+      }
+    } else {
+      message(
+        "PASS: sslverify is set to TRUE."
+      )
+    }
+  } else {
+    git_config <- NULL
+    message(
+      "PASS: sslverify is not explicitly set."
+    )
+  }
+  return(list(ssl_verify=git_config))
+}
+
 
 #' Check GITHUB_PAT setting
 #'
