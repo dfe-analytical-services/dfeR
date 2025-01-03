@@ -29,7 +29,6 @@ Imports:
     jsonlite,
     lifecycle,
     magrittr,
-    purrr,
     renv,
     rlang,
     tidyselect,

@@ -55,7 +55,7 @@ check_proxy_settings <- function(
   proxy_config <- git_config |>
     magrittr::extract2("global") |>
     magrittr::extract(proxy_setting_names)
-  proxy_config <- purrr::keep(proxy_config, !is.na(names(proxy_config)))
+  proxy_config <- proxy_config[!is.na(names(proxy_config))]
   if (any(!is.na(names(proxy_config)))) {
     dfeR::toggle_message(
       "Found proxy settings in Git config:",
@@ -78,9 +78,11 @@ check_proxy_settings <- function(
     proxy_config <- NULL
   }
   # Check for proxy settings set in the system environment (dfeR version)
-  proxy_system <- Sys.getenv(proxy_setting_names) |>
+  # The sys variables have a slightly different syntax with "_" rather than "."
+  proxy_sysvar_names <- gsub("\\.", "_", proxy_setting_names)
+  proxy_system <- Sys.getenv(proxy_sysvar_names) |>
     as.list()
-  proxy_system <- purrr::keep(proxy_system, proxy_system != "")
+  proxy_system <- proxy_system[proxy_system != ""]
   if (any(proxy_system != "")) {
     dfeR::toggle_message(
       "Found proxy settings in system environment:",
@@ -135,8 +137,7 @@ check_github_pat <- function(
   github_pat <- Sys.getenv("GITHUB_PAT")
   # Replace above to remove non alphanumeric characters when run on GitHub
   # Actions
-  cat("==================================")
-  if (!is.na(github_pat)) {
+  if (github_pat != "") {
     message(
       "FAIL: GITHUB_PAT is set to ",
       github_pat,

@@ -39,7 +39,7 @@ test_that("Check proxy settings identifies and removes proxy setting", {
     )
   )
   # Check functionality with system environment variables
-  Sys.setenv(http.proxy.test = "this-is-a-test-entry")
+  Sys.setenv(http_proxy_test = "this-is-a-test-entry")
   # Check that check_proxy_settings identifies the rogue entry
   expect_equal(
     check_proxy_settings(
@@ -49,7 +49,7 @@ test_that("Check proxy settings identifies and removes proxy setting", {
       suppressMessages(),
     list(
       git = NULL,
-      system = list(http.proxy.test = "this-is-a-test-entry")
+      system = list(http_proxy_test = "this-is-a-test-entry")
     )
   )
   # Run the check in clean mode
@@ -61,7 +61,7 @@ test_that("Check proxy settings identifies and removes proxy setting", {
       suppressMessages(),
     list(
       git = NULL,
-      system = list(http.proxy.test = "this-is-a-test-entry")
+      system = list(http_proxy_test = "this-is-a-test-entry")
     )
   )
   # And now run again to see if clean mode worked in removing the rogue setting
