@@ -29,10 +29,11 @@ diagnostic_test <- function(
 #'
 #' @description
 #' This script checks for "bad" proxy settings. Prior to the pandemic, analysts
-#' in the DfE would need to add some proxy settings to their GitHub config.
+#' in the DfE would need to add some proxy settings to either their GitHub
+#' config or environment variables.
 #' These settings now prevent Git from connecting to remote archives on GitHub
-#' and Azure DevOps if present, so this script identifies and (if clean=TRUE is
-#' set) removes them.
+#' and Azure DevOps, so this script identifies and (if clean=TRUE is set)
+#' removes them.
 #'
 #' @param proxy_setting_names Vector of proxy parameters to check for. Default:
 #' c("http.proxy", "https.proxy")
@@ -48,15 +49,21 @@ check_proxy_settings <- function(
     proxy_setting_names = c("http.proxy", "https.proxy"),
     clean = FALSE,
     verbose = FALSE) {
+  proxy_settings_detected <- FALSE
+  # Check for proxy settings in the Git configuration
   git_config <- git2r::config()
   proxy_config <- git_config |>
     magrittr::extract2("global") |>
     magrittr::extract(proxy_setting_names)
   proxy_config <- purrr::keep(proxy_config, !is.na(names(proxy_config)))
   if (any(!is.na(names(proxy_config)))) {
-    dfeR::toggle_message("Found proxy settings:", verbose = verbose)
+    dfeR::toggle_message(
+      "Found proxy settings in Git config:",
+      verbose = verbose
+    )
     paste(names(proxy_config), "=", proxy_config, collapse = "\n") |>
       toggle_message(verbose = verbose)
+    proxy_settings_detected <- TRUE
     if (clean) {
       proxy_args <- proxy_config |>
         lapply(function(list) {
@@ -68,11 +75,41 @@ check_proxy_settings <- function(
       message("FAIL: Git proxy setting have been left in place.")
     }
   } else {
-    message("PASS: No proxy settings found in your Git configuration.")
-    proxy_config <- as.list(rep("", length(proxy_setting_names))) |>
-      stats::setNames(proxy_setting_names)
+    proxy_config <- NULL
   }
-  return(proxy_config)
+  # Check for proxy settings set in the system environment (dfeR version)
+  proxy_system <- Sys.getenv(proxy_setting_names) |>
+    as.list()
+  proxy_system <- purrr::keep(proxy_system, proxy_system != "")
+  if (any(proxy_system != "")) {
+    dfeR::toggle_message(
+      "Found proxy settings in system environment:",
+      verbose = verbose
+    )
+    paste(names(proxy_system), "=", proxy_system, collapse = "\n") |>
+      toggle_message(verbose = verbose)
+    proxy_settings_detected <- TRUE
+    if (clean) {
+      proxy_args <- proxy_system |>
+        lapply(function(list) {
+          ""
+        })
+      rlang::inject(Sys.setenv(!!!proxy_args))
+      message("FIXED: System environment proxy settings have been cleared.")
+    } else {
+      message(
+        "FAIL: System environment proxy settings have been left in place."
+      )
+    }
+  } else {
+    proxy_system <- NULL
+  }
+  if (!proxy_settings_detected) {
+    message(
+      "PASS: No proxy settings found in your Git config or system environment."
+    )
+  }
+  return(list(git = proxy_config, system = proxy_system))
 }
 
 #' Check GITHUB_PAT setting

@@ -23,10 +23,11 @@ List of problem proxy settings
 }
 \description{
 This script checks for "bad" proxy settings. Prior to the pandemic, analysts
-in the DfE would need to add some proxy settings to their GitHub config.
+in the DfE would need to add some proxy settings to either their GitHub
+config or environment variables.
 These settings now prevent Git from connecting to remote archives on GitHub
-and Azure DevOps if present, so this script identifies and (if clean=TRUE is
-set) removes them.
+and Azure DevOps, so this script identifies and (if clean=TRUE is set)
+removes them.
 }
 \examples{
 check_proxy_settings()
