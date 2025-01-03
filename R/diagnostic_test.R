@@ -26,6 +26,34 @@ diagnostic_test <- function(
   return(results)
 }
 
+#' Title
+#'
+#' @param clean
+#'
+#' @returns MULL
+#' @export
+#'
+#' @examples
+#' check_gitconfig_location()
+check_gitconfig_location <- function(
+    clean = FALSE) {
+  config_files <- git2r:::git_config_files()
+  global_path <- config_files |>
+    dplyr::filter(file == "global") |>
+    dplyr::pull("path")
+  if (grepl("Users", global_path)) {
+    message(
+      "FAIL: Your global .gitconfig file is saved in a non-standard location."
+    )
+    message("It may not be recognised and read in when using Git.")
+    message("We recommend using the standard location:")
+    message("   C:/Users/<username>/.gitconfig")
+    message("It contains the following settings:")
+    print(git2r::config() |> magrittr::extract2("global"))
+  }
+}
+
+
 #' Check proxy settings
 #'
 #' @description
@@ -170,7 +198,7 @@ check_git_sslverify <- function(
       "PASS: sslverify is not explicitly set."
     )
   }
-  return(list(ssl_verify=git_config))
+  return(list(ssl_verify = git_config))
 }
 
 
