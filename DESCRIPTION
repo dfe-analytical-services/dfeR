@@ -17,8 +17,7 @@ Description: Preferred methods for common analytical tasks that are
     undertaken across the Department, including number formatting, project
     templates and curated reference data.
 License: GPL (>= 3)
-URL: https://dfe-analytical-services.github.io/dfeR/,
-    https://github.com/dfe-analytical-services/dfeR
+URL: https://dfe-analytical-services.github.io/dfeR/, https://github.com/dfe-analytical-services/dfeR
 BugReports: https://github.com/dfe-analytical-services/dfeR/issues
 Depends: 
     R (>= 2.10)

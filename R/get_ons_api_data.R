@@ -36,17 +36,19 @@
 #' @return parsed data.frame of geographic names and codes
 #'
 #' @examples
-#' if (interactive()) {
-#'   # Specify some parameters
-#'   get_ons_api_data(
-#'     data_id = "LAD23_RGN23_EN_LU",
-#'     query_params =
-#'       list(outFields = "column1, column2", outSR = "4326", f = "json")
-#'   )
+#' # Fetch everything from a data set
+#' dfeR::get_ons_api_data(data_id = "LAD23_RGN23_EN_LU")
 #'
-#'   # Just fetch everything
-#'   get_ons_api_data(data_id = "LAD23_RGN23_EN_LU")
-#' }
+#' # Specify the columns you want
+#' dfeR::get_ons_api_data(
+#'   "RGN_DEC_2023_EN_NC",
+#'   query_params = list(
+#'     where = "1=1",
+#'     outFields = "RGN23CD,RGN23NM",
+#'     outSR = 4326,
+#'     f = "json"
+#'   )
+#' )
 get_ons_api_data <- function(data_id,
                              query_params =
                                list(

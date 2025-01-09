@@ -13,6 +13,9 @@ toggle_message(..., verbose)
 \item{verbose}{logical, usually a variable passed from the function you are
 using this within}
 }
+\value{
+No return value, called for side effects
+}
 \description{
 Quick expansion to the \code{message()} function aimed for use in functions for
 an easy addition of a global verbose TRUE / FALSE argument to toggle the

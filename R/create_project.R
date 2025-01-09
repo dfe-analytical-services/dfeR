@@ -77,7 +77,7 @@ create_project <- function(
       "call those functions, run\n",
       "# `source('R/helper_functions.R')` at the start of your ",
       "script.\n\n",
-      "print('Your scripts and functions should be in ",
+      "message('Your scripts and functions should be in ",
       "the R folder.')"
     )
   )
@@ -245,8 +245,6 @@ create_project <- function(
     )
   }
 
-
-
   # Create a .Rprofile with a custom welcome message
   if (!file.exists(paste0(path, "/.Rprofile"))) {
     file.create(paste0(path, "/.Rprofile"))
@@ -270,13 +268,9 @@ create_project <- function(
   )
   writeLines(rprofile_content, paste0(path, "/.Rprofile"))
 
-
-
-
-
   # Successful project creation message (or delete project if fails)
   if (successful_creation) {
-    cat(
+    message(
       paste0(
         "\n\n",
         "****************************************************************\n",
