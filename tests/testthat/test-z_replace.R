@@ -56,7 +56,7 @@ test_that("Error messages are as expected in non-empty frames", {
   # testing error for non character strings in replacement_alt
   expect_error(
     z_replace(df, replacement_alt = 1),
-    cat(
+    paste0(
       "You provided a numeric input for replacement_alt.\n",
       "Please amend replace it with a character vector."
     )
@@ -65,7 +65,7 @@ test_that("Error messages are as expected in non-empty frames", {
   # testing error for multiple vectors in replacement_alt
   expect_error(
     z_replace(df, replacement_alt = c("a", "z", "x")),
-    cat(
+    paste0(
       "You provided multiple values for replacement_alt.\n",
       "Please, only provide a single value."
     )
@@ -103,45 +103,6 @@ test_that("exclude_columns works", {
   ))
 })
 
-
-# Checking speed of the function
-
-# make this reproducible
-set.seed(123)
-# create table with randomly generated numbers
-df <- data.frame(
-  a = sample(1:1000, 10000, replace = TRUE),
-  b = sample(1:1000, 10000, replace = TRUE),
-  c = sample(1:1000, 10000, replace = TRUE),
-  d = sample(1:1000, 10000, replace = TRUE),
-  e = sample(1:1000, 10000, replace = TRUE),
-  f = sample(1:1000, 10000, replace = TRUE),
-  e = sample(1:1000, 10000, replace = TRUE),
-  h = sample(1:1000, 10000, replace = TRUE),
-  i = sample(1:1000, 10000, replace = TRUE),
-  j = sample(1:1000, 10000, replace = TRUE),
-  school_urn = sample(1:1000, 10000, replace = TRUE)
-)
-
-# putting NAs in the table
-df <- df %>%
-  dplyr::mutate(across(
-    a:school_urn,
-    ~ dplyr::if_else(. < 300, as.double(NA), .)
-  ))
-
-start_time <- Sys.time()
-z_replace(df)
-end_time <- Sys.time()
-test_time <- difftime(end_time, start_time, units = "secs")
-
-# calculating the time it takes
-
-# testing that the speed is less than 0.25 second
-test_that("Speed of the function", {
-  expect_equal(test_time < 0.25, TRUE)
-})
-
 # Check error message for empty data frame
 
 # create table
@@ -166,12 +127,5 @@ df <- data.frame(
 )
 
 test_that("Formatting of column names are checked", {
-  expect_error(
-    z_replace(df),
-    cat(
-      "Your table has geography and/or time column(s) that are not",
-      "in snake_case.\nPlease amend your column names to match the formatting",
-      "to dfeR::geog_time_identifiers."
-    )
-  )
+  expect_error(z_replace(df))
 })

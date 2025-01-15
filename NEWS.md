@@ -1,3 +1,7 @@
+# dfeR 1.0.1
+
+Fix the spacing and printing of the z_replace() warning message, updating the eesyapi URL in the README and removed extraneous package tests.
+
 # dfeR 1.0.0
 
 Initial CRAN release.

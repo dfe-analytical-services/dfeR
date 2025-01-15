@@ -30,11 +30,12 @@ Authors:
 
 Other contributors:
 \itemize{
-  \item Department for Education, UK statistics.development@education.gov.uk [copyright holder]
+  \item Department for Education, England \email{statistics.development@education.gov.uk} [copyright holder]
   \item Jen Machin \email{jen.machin@education.gov.uk} [contributor]
   \item Jake Tufts \email{jake.tufts@education.gov.uk} [contributor]
   \item Rich Bielby \email{richard.bielby@education.gov.uk} (\href{https://orcid.org/0000-0001-9070-9969}{ORCID}) [contributor]
   \item Menna Zayed \email{menna.zayed@education.gov.uk} [contributor]
+  \item Lauren Snaathorst \email{lauren.snaathorst@education.gov.uk} [contributor]
 }
 
 }

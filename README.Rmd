@@ -44,7 +44,7 @@ Documentation for what has been included in the package so far is on our [pkgdow
 
 We also maintain the [dfeshiny](https://github.com/dfe-analytical-services/dfeshiny) package, and expect any functions specific to R Shiny applications will live there.
 
-For connecting to data in the [explore education statistics](https://explore-education-statistics.service.gov.uk/), we are building the [eesyapi](https://github.com/dfe-analytical-services/eesyapi) package. 
+For connecting to data in the [explore education statistics](https://explore-education-statistics.service.gov.uk/), we are building the [eesyapi](https://github.com/dfe-analytical-services/eesyapi.R) package. 
 
 There is a [giasr](https://github.com/dfe-analytical-services/giasr) package, which has been developed for connecting to data in the [get information about schools service](https://get-information-schools.service.gov.uk/).
 

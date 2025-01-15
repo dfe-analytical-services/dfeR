@@ -87,7 +87,7 @@ z_replace <- function(data,
     stop(
       "Your table has geography and/or time column(s) that are not ",
       "in snake_case.\nPlease amend your column names to match the formatting",
-      "to dfeR::geog_time_identifiers."
+      " of dfeR::geog_time_identifiers."
     )
   }
 
