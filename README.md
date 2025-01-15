@@ -47,7 +47,7 @@ there.
 For connecting to data in the [explore education
 statistics](https://explore-education-statistics.service.gov.uk/), we
 are building the
-[eesyapi](https://github.com/dfe-analytical-services/eesyapi) package.
+[eesyapi](https://github.com/dfe-analytical-services/eesyapi.R) package.
 
 There is a [giasr](https://github.com/dfe-analytical-services/giasr)
 package, which has been developed for connecting to data in the [get
