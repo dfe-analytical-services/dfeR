@@ -143,7 +143,9 @@ devtools::build_site()
 
 ## Updating the package version
 
-Once changes have been completed, reviewed and are ready for use in the wild, you can increment the package version using:
+In general, we'll be working on a 'development' version (x.x.x.9000) of the package in between CRAN releases, which should happen no more than every 1-2 months (CRAN recommendation).
+
+Once changes have been completed, reviewed and are ready for use in the wild, you should review the R packages guidance for submitting a new version to CRAN. You can increment the package version using:
 
 ``` r
 usethis::use_version()
@@ -153,7 +155,9 @@ If you are unsure what kind of version to increment, have a look through [lifecy
 
 Once you've incremented the version number, it'll offer to perform a commit on your behalf. As this happens it will add an update to `NEWS.md`, which acts as the changelog for the package. Make sure this is updated correctly and then push to GitHub.
 
-Once the version has been updated and pushed, create a new GitHub release version.
+Once the version has been updated and pushed, and is accepted and working on CRAN create a new GitHub release version.
+
+In case it's useful, we documented some of the initial CRAN release process and tweaks in https://github.com/dfe-analytical-services/dfeR/pull/103.
 
 ### Lifecyles
 
