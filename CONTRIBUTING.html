@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="index.html">dfeR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -135,12 +135,14 @@
 </div>
 <div class="section level2">
 <h2 id="updating-the-package-version">Updating the package version<a class="anchor" aria-label="anchor" href="#updating-the-package-version"></a></h2>
-<p>Once changes have been completed, reviewed and are ready for use in the wild, you can increment the package version using:</p>
+<p>In general, we’ll be working on a ‘development’ version (x.x.x.9000) of the package in between CRAN releases, which should happen no more than every 1-2 months (CRAN recommendation).</p>
+<p>Once changes have been completed, reviewed and are ready for use in the wild, you should review the R packages guidance for submitting a new version to CRAN. You can increment the package version using:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_version.html" class="external-link">use_version</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>If you are unsure what kind of version to increment, have a look through <a href="https://r-pkgs.org/lifecycle.html#sec-lifecycle-release-type" class="external-link">lifecycle’s guidance on release types</a>.</p>
 <p>Once you’ve incremented the version number, it’ll offer to perform a commit on your behalf. As this happens it will add an update to <code>NEWS.md</code>, which acts as the changelog for the package. Make sure this is updated correctly and then push to GitHub.</p>
-<p>Once the version has been updated and pushed, create a new GitHub release version.</p>
+<p>Once the version has been updated and pushed, and is accepted and working on CRAN create a new GitHub release version.</p>
+<p>In case it’s useful, we documented some of the initial CRAN release process and tweaks in <a href="https://github.com/dfe-analytical-services/dfeR/pull/103" class="external-link uri">https://github.com/dfe-analytical-services/dfeR/pull/103</a>.</p>
 <div class="section level3">
 <h3 id="lifecyles">Lifecyles<a class="anchor" aria-label="anchor" href="#lifecyles"></a></h3>
 <p>The package has <a href="https://r-pkgs.org/lifecycle.html" class="external-link">lifecycle</a> imported, follow their guidance for the process around deprecating any functions or arguments.</p>
