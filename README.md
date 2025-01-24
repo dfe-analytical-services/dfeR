@@ -11,6 +11,7 @@
 coverage](https://codecov.io/gh/dfe-analytical-services/dfeR/graph/badge.svg)](https://app.codecov.io/gh/dfe-analytical-services/dfeR)
 [![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![](https://cranlogs.r-pkg.org/badges/dfeR)](https://cran.r-project.org/package=dfeR)
 <!-- badges: end -->
 
 The goal of dfeR is to help standardise R programming across the
