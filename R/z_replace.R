@@ -3,7 +3,7 @@
 #' @description
 #' Replaces `NA` values in tables except for ones in time and geography
 #' columns that must be included in DfE official statistics.
-#' \href{https://shorturl.at/chy76}{Get more guidance on Open Data Standards.}
+#' \href{https://www.shorturl.at/chy76}{Guidance on our Open Data Standards.}
 #'
 #' @details
 
@@ -87,7 +87,7 @@ z_replace <- function(data,
     stop(
       "Your table has geography and/or time column(s) that are not ",
       "in snake_case.\nPlease amend your column names to match the formatting",
-      "to dfeR::geog_time_identifiers."
+      " of dfeR::geog_time_identifiers."
     )
   }
 

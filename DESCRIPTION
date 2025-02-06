@@ -1,20 +1,22 @@
 Type: Package
 Package: dfeR
-Title: Common DfE R tasks
-Version: 0.6.1.9000
+Title: Common Department for Education Analysis Tasks
+Version: 1.0.1.9000
 Authors@R: c(
     person("Cam", "Race", , "cameron.race@education.gov.uk", role = c("aut", "cre")),
+    person("Department for Education, England", , , "statistics.development@education.gov.uk", role = "cph"),
     person("Laura", "Selby", , "laura.selby@education.gov.uk", role = "aut"),
     person("Adam", "Robinson", role = "aut"),
     person("Jen", "Machin", , "jen.machin@education.gov.uk", role = "ctb"),
     person("Jake", "Tufts", , "jake.tufts@education.gov.uk", role = "ctb"),
     person("Rich", "Bielby", , "richard.bielby@education.gov.uk", role = "ctb",
            comment = c(ORCID = "0000-0001-9070-9969")),
-    person("Menna", "Zayed", , "menna.zayed@education.gov.uk", role = "ctb")
+    person("Menna", "Zayed", , "menna.zayed@education.gov.uk", role = "ctb"),
+    person("Lauren", "Snaathorst", , "lauren.snaathorst@education.gov.uk", role = "ctb")
   )
-Description: This package contains R functions to allow DfE analysts to
-    re-use code for common analytical tasks that are undertaken across the
-    Department.
+Description: Preferred methods for common analytical tasks that are
+    undertaken across the Department, including number formatting, project
+    templates and curated reference data.
 License: GPL (>= 3)
 URL: https://dfe-analytical-services.github.io/dfeR/,
     https://github.com/dfe-analytical-services/dfeR

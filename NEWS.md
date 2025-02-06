@@ -1,6 +1,13 @@
 # dfeR (development version)
 
-Added lookup data geog_time_identifiers
+# dfeR 1.0.1
+
+Fix the spacing and printing of the z_replace() warning message, updating the eesyapi URL in the README and removed extraneous package tests.
+
+# dfeR 1.0.0
+
+Initial CRAN release.
+Added lookup data geog_time_identifiers.
 Added z_replace() to replace NA values in tables except for ones in geography and time columns that match ones in geog_time_identifiers. 
 
 # dfeR 0.6.1

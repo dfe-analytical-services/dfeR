@@ -1,4 +1,10 @@
-comment: false
+comment:
+  layout: "header, diff, footer"
+  behavior: default
+  require_changes: false
+  require_base: false
+  require_head: true
+  hide_project_coverage: false
 
 coverage:
   status:
@@ -12,3 +18,6 @@ coverage:
         target: auto
         threshold: 1%
         informational: true
+
+github_checks:
+  annotations: false

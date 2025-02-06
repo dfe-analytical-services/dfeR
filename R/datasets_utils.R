@@ -19,6 +19,7 @@
 #' data frame from R memory
 #'
 #' @keywords internal
+#' @noRd
 #' @return a data frame of a tidied lookup file
 tidy_raw_lookup <- function(raw_lookup_file) {
   if (!is.data.frame(raw_lookup_file)) {
@@ -142,6 +143,7 @@ tidy_raw_lookup <- function(raw_lookup_file) {
 #' usually the output of tidy_raw_lookup
 #'
 #' @return single data.frame of all lookup files combined
+#' @noRd
 create_time_series_lookup <- function(lookups_list) {
   # Input validation ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   # Added some quick checks based on the assumptions we make in this function
@@ -234,6 +236,7 @@ create_time_series_lookup <- function(lookups_list) {
 #' @return data.frame for the individual year of the lookup
 #'
 #' @keywords internal
+#' @noRd
 get_wd_pcon_lad_la <- function(year) {
   # Crude way to grab 2 digits, works for anything that isn't in the noughties
   year_end <- year %% 100
@@ -304,6 +307,7 @@ get_wd_pcon_lad_la <- function(year) {
 #' @return data.frame for the individual year of the lookup
 #'
 #' @keywords internal
+#' @noRd
 get_lad_region <- function(year) {
   # Crude way to grab 2 digits, works for anything that isn't in the noughties
   year_end <- year %% 100

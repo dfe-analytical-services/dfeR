@@ -10,6 +10,8 @@
 #' @param verbose logical, usually a variable passed from the function you are
 #' using this within
 #'
+#' @return No return value, called for side effects
+#'
 #' @export
 #'
 #' @examples

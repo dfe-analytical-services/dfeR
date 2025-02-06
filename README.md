@@ -1,16 +1,16 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# dfeR <a href="http://dfe-analytical-services.github.io/dfeR/"><img src="man/figures/logo.png" align="right" height="138" /></a>
+# dfeR <a href="https://dfe-analytical-services.github.io/dfeR/"><img src="man/figures/logo.png" align="right" height="138" /></a>
 
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/dfe-analytical-services/dfeR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/dfe-analytical-services/dfeR/actions/workflows/R-CMD-check.yaml)
 [![pkgdown](https://github.com/dfe-analytical-services/dfeR/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/dfe-analytical-services/dfeR/actions/workflows/pkgdown.yaml)
 [![Codecov test
-coverage](https://codecov.io/gh/dfe-analytical-services/dfeR/branch/main/graph/badge.svg)](https://app.codecov.io/gh/dfe-analytical-services/dfeR?branch=main)
+coverage](https://codecov.io/gh/dfe-analytical-services/dfeR/graph/badge.svg)](https://app.codecov.io/gh/dfe-analytical-services/dfeR)
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 <!-- badges: end -->
 
 The goal of dfeR is to help standardise R programming across the
@@ -35,7 +35,7 @@ Functionality for dfeR is expected to focus around the following:
 5.  Geography lookup files and helper functions
 
 Documentation for what has been included in the package so far is on our
-[pkgdown site](http://dfe-analytical-services.github.io/dfeR/).
+[pkgdown site](https://dfe-analytical-services.github.io/dfeR/).
 
 ### Relevant other packages
 
@@ -47,7 +47,7 @@ there.
 For connecting to data in the [explore education
 statistics](https://explore-education-statistics.service.gov.uk/), we
 are building the
-[eesyapi](https://github.com/dfe-analytical-services/eesyapi) package.
+[eesyapi](https://github.com/dfe-analytical-services/eesyapi.R) package.
 
 There is a [giasr](https://github.com/dfe-analytical-services/giasr)
 package, which has been developed for connecting to data in the [get
@@ -64,8 +64,13 @@ gives more functions for directly extracting data from there.
 
 ## Installation
 
-dfeR is not currently available on CRAN. For the time being you can
-install the development version from GitHub.
+dfeR is available on CRAN and you can install directly from there:
+
+``` r
+install.packages("dfeR")
+```
+
+You can install the development version from GitHub.
 
 If you are using
 [renv](https://rstudio.github.io/renv/articles/renv.html) in your
@@ -89,8 +94,9 @@ devtools::install_github("dfe-analytical-services/dfeR")
 The need for setting proxy settings in order to be able to work with R
 and Git within the DfE estate has now ended. If you previously run the
 proxy script in previous versions of the dfeR package, then contact the
-[Statistics Development Team](statistics.development@education.gov.uk)
-to assist in cleaning out your system settings.
+[Statistics Development
+Team](mailto:statistics.development@education.gov.uk) to assist in
+cleaning out your system settings.
 
 ------------------------------------------------------------------------
 
@@ -123,7 +129,7 @@ library(dfeR)
 
 # Prettify large numbers
 pretty_num(111111111, gbp = TRUE)
-#> [1] "£111.11 million"
+#> [1] "£111 million"
 pretty_num(-11^8, dp = -1)
 #> [1] "-210 million"
 
