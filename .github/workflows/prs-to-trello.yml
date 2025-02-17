@@ -1,0 +1,17 @@
+name: Create card from PR
+on:
+  pull_request_target:
+    types:
+      - opened
+
+jobs:
+  create-card:
+    runs-on: ubuntu-latest
+    steps:
+      - name: create a card
+        uses: nentgroup/pr-trello-action@v1
+        with:
+          api-key: '${{ secrets.TRELLO_API_KEY }}'
+          api-token: '${{ secrets.TRELLO_API_TOKEN }}'
+          list-id: '63ce5064a4859b0387f46b9b'
+          title-format: 'dfeR PR: ${title}'
