@@ -43,6 +43,14 @@ reference:
   contents:
   - starts_with("format_")
 
+- title: System diagnostics
+  desc: Functions to diagnose and fix common system issues
+  contents:
+  - diagnostic_test
+  - check_proxy_settings
+  - check_github_pat
+  - check_renv_download_method
+
 - title: Helpers
   desc: >
     Functions used in other functions across the package, exported as they can also
