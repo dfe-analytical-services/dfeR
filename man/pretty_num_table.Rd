@@ -66,6 +66,7 @@ pretty_num_table(df, alt_na = "[z]", exclude_columns = c("b"), dp = 2)
 Other prettying: 
 \code{\link{pretty_filesize}()},
 \code{\link{pretty_num}()},
+\code{\link{pretty_time}()},
 \code{\link{pretty_time_taken}()}
 }
 \concept{prettying}

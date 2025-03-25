@@ -54,6 +54,85 @@ pretty_filesize <- function(filesize) {
   }
 }
 
+#' Pretty time
+#'
+#' @description
+#' Convert seconds into a human readable format
+#'
+#' @details
+#' Recognises when to present as:
+#' - seconds
+#' - minutes and seconds
+#' - hours, minutes and seconds
+#'
+#' It will show seconds until 119 seconds, then minutes until
+#' 119 minutes, then hours. It doesn't do days or higher yet,
+#' but could be adapted to do so if there's demand.
+#'
+#' @param seconds number of seconds to prettify
+#' @returns string containing the 'pretty' time
+#' @family prettying
+#' @seealso [comma_sep()] [round_five_up()] [as.POSIXct()]
+#' @export
+#'
+#' @examples
+#' pretty_time(1)
+#' pretty_time(8)
+#' pretty_time(888)
+#' pretty_time(88888888)
+#' pretty_time(c(60, 2, 88, 88888888))
+pretty_time <- function(seconds) {
+  # Check if value is numeric or a vector of numeric values
+  if (!is.numeric(seconds)) {
+    stop("seconds must be a numeric value or vector of numeric values")
+  }
+
+  pretty_time_singular <- function(seconds) {
+    # Present as seconds
+    if (seconds < 120) {
+      if (seconds == 1) {
+        return("1 second")
+      } else {
+        return(paste0(seconds, " seconds"))
+      }
+    } else {
+      # Present as minutes and seconds
+      if (seconds < 7140) {
+        mins <- seconds %/% 60
+        secs <- dfeR::round_five_up(seconds %% 60)
+
+        min_desc <- ifelse(mins == 1, " minute ", " minutes ")
+        sec_desc <- ifelse(secs == 1, " second", " seconds")
+
+        return(
+          paste0(
+            mins, min_desc, secs, sec_desc
+          )
+        )
+        # Present as hours, minutes and seconds
+      } else {
+        hours <- seconds %/% 3600
+        mins <- seconds %/% 60 - hours * 60
+        secs <- round_five_up(seconds %% 60)
+
+        hour_desc <- ifelse(hours == 1, " hour ", " hours ")
+        min_desc <- ifelse(mins == 1, " minute ", " minutes ")
+        sec_desc <- ifelse(secs == 1, " second", " seconds")
+
+        return(
+          paste0(
+            dfeR::comma_sep(hours), hour_desc, mins, min_desc, secs, sec_desc
+          )
+        )
+      }
+    }
+  }
+
+  all_results <- lapply(seconds, pretty_time_singular)
+
+  return(unlist(all_results))
+}
+
 #' Calculate elapsed time between two points and present prettily
 #'
 #' @description
@@ -120,44 +199,10 @@ pretty_time_taken <- function(start_time, end_time) {
   # Find the elapsed time in seconds
   raw_time <- round_five_up(end_secs - start_secs, 2)
 
-  # Format elapsed time neatly
-  # This section could be broken into its own function
-  # ...that takes in raw seconds
-  if (raw_time < 120) {
-    if (raw_time == 1) {
-      return("1 second")
-    } else {
-      return(paste0(raw_time, " seconds"))
-    }
-  } else {
-    if (raw_time < 7140) {
-      mins <- raw_time %/% 60
-      secs <- round_five_up(raw_time %% 60)
+  # Prettify the time taken
+  pretty_time <- pretty_time(raw_time)
 
-      min_desc <- ifelse(mins == 1, " minute ", " minutes ")
-      sec_desc <- ifelse(secs == 1, " second", " seconds")
-
-      return(
-        paste0(
-          mins, min_desc, secs, sec_desc
-        )
-      )
-    } else {
-      hours <- raw_time %/% 3600
-      mins <- raw_time %/% 60 - hours * 60
-      secs <- round_five_up(raw_time %% 60)
-
-      hour_desc <- ifelse(hours == 1, " hour ", " hours ")
-      min_desc <- ifelse(mins == 1, " minute ", " minutes ")
-      sec_desc <- ifelse(secs == 1, " second", " seconds")
-
-      return(
-        paste0(
-          comma_sep(hours), hour_desc, mins, min_desc, secs, sec_desc
-        )
-      )
-    }
-  }
+  return(pretty_time)
 }
 
 #' Prettify big numbers into a readable format
