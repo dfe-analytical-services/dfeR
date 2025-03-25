@@ -35,18 +35,18 @@ pretty_filesize <- function(filesize) {
     stop("file size must be a numeric value")
   } else {
     if (round_five_up(filesize / 10^9, 2) >= 1) {
-      return(paste0(comma_sep(round_five_up(filesize / 10^9, 2)), " GB"))
+      paste0(comma_sep(round_five_up(filesize / 10^9, 2)), " GB")
     } else {
       if (round_five_up(filesize / 1000^2, 2) >= 1) {
-        return(paste0(round_five_up(filesize / 1000^2, 2), " MB"))
+        paste0(round_five_up(filesize / 1000^2, 2), " MB")
       } else {
         if (round_five_up(filesize, 2) >= 1000) {
-          return(paste0(round_five_up(filesize / 1000, 2), " KB"))
+          paste0(round_five_up(filesize / 1000, 2), " KB")
         } else {
           if (filesize == 1) {
             "1 byte"
           } else {
-            return(paste0(round_five_up(filesize, 2), " bytes"))
+            paste0(round_five_up(filesize, 2), " bytes")
           }
         }
       }
@@ -91,9 +91,9 @@ pretty_time <- function(seconds) {
     # Present as seconds
     if (seconds < 120) {
       if (seconds == 1) {
-        return("1 second")
+        "1 second"
       } else {
-        return(paste0(seconds, " seconds"))
+        paste0(seconds, " seconds")
       }
     } else {
       # Present as minutes and seconds
@@ -104,11 +104,11 @@ pretty_time <- function(seconds) {
         min_desc <- ifelse(mins == 1, " minute ", " minutes ")
         sec_desc <- ifelse(secs == 1, " second", " seconds")
 
-        return(
-          paste0(
-            mins, min_desc, secs, sec_desc
-          )
+
+        paste0(
+          mins, min_desc, secs, sec_desc
         )
+
         # Present as hours, minutes and seconds
       } else {
         hours <- seconds %/% 3600
@@ -119,18 +119,15 @@ pretty_time <- function(seconds) {
         min_desc <- ifelse(mins == 1, " minute ", " minutes ")
         sec_desc <- ifelse(secs == 1, " second", " seconds")
 
-        return(
-          paste0(
-            dfeR::comma_sep(hours), hour_desc, mins, min_desc, secs, sec_desc
-          )
+        paste0(
+          dfeR::comma_sep(hours), hour_desc, mins, min_desc, secs, sec_desc
         )
       }
     }
   }
 
-  all_results <- lapply(seconds, pretty_time_singular)
-
-  return(unlist(all_results))
+  lapply(seconds, pretty_time_singular) |>
+    unlist()
 }
 
 #' Calculate elapsed time between two points and present prettily
@@ -200,9 +197,7 @@ pretty_time_taken <- function(start_time, end_time) {
   raw_time <- round_five_up(end_secs - start_secs, 2)
 
   # Prettify the time taken
-  pretty_time <- pretty_time(raw_time)
-
-  return(pretty_time)
+  pretty_time(raw_time)
 }
 
 #' Prettify big numbers into a readable format
