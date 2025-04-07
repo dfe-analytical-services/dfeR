@@ -1,5 +1,5 @@
-test_that("air_formatter runs Air", {
-  air_install(update_global_settings = FALSE, verbose = TRUE)
+test_that("air_style runs Air", {
+  air_install(update_global_settings = FALSE, verbose = FALSE)
   temp_dir <- tempdir()
   test_script <- file(file.path(temp_dir, "air_test.R"))
   writeLines(
@@ -8,12 +8,12 @@ test_that("air_formatter runs Air", {
   )
   close(test_script)
 
-  air_formatter(file.path(temp_dir, "air_test.R"), verbose = TRUE)
+  air_style(file.path(temp_dir, "air_test.R"), verbose = FALSE)
 
-  formatted_code <- readLines(file.path(temp_dir, "air_test.R"))
+  styled_code <- readLines(file.path(temp_dir, "air_test.R"))
 
   expect_equal(
-    formatted_code |>
+    styled_code |>
       paste(collapse = "\n"),
     "test_function = function(\n  param = NULL\n) {\n  print(\n    param\n  )\n}"
   )

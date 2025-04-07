@@ -14,7 +14,7 @@
 #' air_install()
 #' }
 
-air_install <- function(update_global_settings = TRUE, verbose = FALSE) {
+air_install <- function(update_global_settings = TRUE, verbose = TRUE) {
   platform <- Sys.info()[1]
 
   if (platform == "Windows") {
@@ -26,14 +26,24 @@ air_install <- function(update_global_settings = TRUE, verbose = FALSE) {
   }
 
   if (verbose) {
-    message("Looking for", air_executable, "in", user_home, "/.local/bin/")
+    toggle_message(
+      "Looking for",
+      air_executable,
+      "in",
+      user_home,
+      "/.local/bin/",
+      verbose = verbose
+    )
   }
 
   # Check for air and settings - need package data.table to do this
   if (file.exists(paste0(user_home, "/.local/bin/", air_executable))) {
-    message("Air is already installed on your system")
+    toggle_message("Air is already installed on your system", verbose = verbose)
   } else {
-    message("Air does not appear to be installed, installing now")
+    toggle_message(
+      "Air does not appear to be installed, installing now",
+      verbose = TRUE
+    )
     if (platform == "Windows") {
       system(
         paste(
@@ -92,7 +102,11 @@ air_style <- function(target = ".", verbose = FALSE) {
 
   air_path <- paste0(user_home, "/.local/bin/", air_executable)
   if (verbose) {
-    message("Expecting air executable to be in", air_path)
+    toggle_message(
+      "Expecting air executable to be in",
+      air_path,
+      verbose = verbose
+    )
   }
 
   # check air is installed
@@ -102,12 +116,16 @@ air_style <- function(target = ".", verbose = FALSE) {
         paste0(air_path, " format ", target)
       )
     } else {
-      message(paste0("Target file ", target, " does not exist"))
+      toggle_message(
+        paste0("Target file ", target, " does not exist"),
+        verbose = verbose
+      )
     }
   } else {
-    message(
+    toggle_message(
       "Air does not appear to be installed on your system.\n",
-      "Run install_air() before formatting again"
+      "Run install_air() before formatting again",
+      verbose = verbose
     )
   }
   return(NULL)
