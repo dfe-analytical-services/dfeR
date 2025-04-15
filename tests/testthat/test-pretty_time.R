@@ -31,6 +31,6 @@ test_that("handles vector inputs", {
 test_that("fails if not numeric", {
   expect_error(
     pretty_time("a"),
-    "seconds must be a numeric value or vector of numeric values"
+    "Seconds must be a numeric value or vector of numeric values."
   )
 })
