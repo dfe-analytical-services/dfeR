@@ -84,7 +84,7 @@ pretty_filesize <- function(filesize) {
 pretty_time <- function(seconds) {
   # Check if value is numeric or a vector of numeric values
   if (!is.numeric(seconds)) {
-    stop("seconds must be a numeric value or vector of numeric values")
+    stop("Seconds must be a numeric value or vector of numeric values.")
   }
 
   pretty_time_singular <- function(seconds) {
