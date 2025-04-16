@@ -71,10 +71,12 @@ tidy_raw_lookup <- function(raw_lookup_file) {
       }
 
       message("Renaming ", col_name, " to ", new_name)
-      return(new_name) # Return replaced name
+
+      new_name # Return replaced name
     } else {
       message("No match found for ", col_name, ", returning original name")
-      return(col_name) # Keep original name if no match
+
+      col_name # Keep original name if no match
     }
   }
 
@@ -116,7 +118,7 @@ tidy_raw_lookup <- function(raw_lookup_file) {
   }
 
   # Strip out excess white space from name columns
-  tidied_lookup <- lookup_met_la %>%
+  lookup_met_la %>%
     dplyr::mutate(
       dplyr::across(
         tidyselect::ends_with("_name"),
@@ -125,8 +127,6 @@ tidy_raw_lookup <- function(raw_lookup_file) {
     ) %>%
     # Also strip out leading and trailing whitespace for belts and braces
     dplyr::mutate(dplyr::across(dplyr::everything(), ~ stringr::str_trim(.x)))
-
-  return(tidied_lookup)
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -211,7 +211,7 @@ create_time_series_lookup <- function(lookups_list) {
   code_cols <- names(lookup %>% dplyr::select(tidyselect::ends_with("_code")))
 
   # Order the file by year and then code columns
-  sorted_lookup <- lookup %>%
+  lookup %>%
     dplyr::mutate(
       "first_available_year_included" = as.integer(
         .data$first_available_year_included
@@ -221,8 +221,6 @@ create_time_series_lookup <- function(lookups_list) {
       )
     ) %>%
     dplyr::arrange(dplyr::desc("most_recent_year_included"), !!!code_cols)
-
-  return(sorted_lookup)
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -291,9 +289,7 @@ get_wd_pcon_lad_la <- function(year) {
   }
 
   # Tidy up the output file (defined earlier in this script)
-  tidy_output <- tidy_raw_lookup(output)
-
-  return(tidy_output)
+  tidy_raw_lookup(output)
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -369,7 +365,5 @@ get_lad_region <- function(year) {
   }
 
   # Tidy up the output file (defined earlier in this script)
-  tidy_output <- tidy_raw_lookup(output)
-
-  return(tidy_output)
+  tidy_raw_lookup(output)
 }
