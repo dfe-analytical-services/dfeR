@@ -1,0 +1,71 @@
+---
+title: "Creating a new dfeR project"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{create_new_project}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+The dfeR package can be used to create a new R project using the create_project function. This function helps you set up a pre-populated project with a custom folder structure, making it easier to start your analysis or publication. In order to use this function, you will need to have an understanding of R projects, and renv.
+
+## Prerequisites
+Before you begin, ensure you have the following installed:
+
+- R (version 4.0.0 or higher)
+- RStudio
+- The dfeR package
+
+*how to install dfeR* 
+
+## What is R studio? 
+RStudio is an integrated development environment (IDE) for R. It provides a user-friendly interface for writing and running R code, managing files, and visualising data. 
+
+## What is an R Project?
+An R project is a working directory designated for a specific analysis or project. It keeps all your scripts, data, functions and outputs together in one place. Rstudio allows you to switch between your projects easily, meaning you can keep your different pieces of work separete from each other. 
+
+Whenever you are using R, you should work in an RProject. This also makes sure you are set up in the correct working directory, so your code is pointing at the right folders and files. You can find out more about Projects in RStudio in [An Introuction to R](https://intro2r.com/rsprojs.html). 
+
+## What is renv? 
+
+Packages and versions of R regularly update. Over time, this can cause code to break - e.g. if different dependencies are required for later versions of packages to work. Using renv creates a “snapshot” of your code and packages at the time you created it, which anyone can then recreate when they come to use your code. This means that you can be sure that the code you wrote will work in the future, even if packages are updated.
+
+You should use the renv package for package version control in R. It creates a project-specific library, meaning that installing a new or updated package for one project won't break your other projects. This is particularly useful for reproducibility and collaboration, as it ensures that your project will work with the same package versions on different machines. You can find out more about renv on the the [RStudio website](https://rstudio.r-universe.dev/renv#:~:text=A%20dependency%20management%20toolkit%20for%20R.%20Using%20%27renv%27%2C,make%20your%20projects%20more%20isolated%2C%20portable%2C%20and%20reproducible._)
+
+## Using the create_project function
+
+The create_project function from the dfeR package creates a new project with a custom folder structure. Here is the basic code you will need to use, having installed dfeR:
+
+```{r, eval = FALSE}
+dfeR::create_project(
+  path = "C:/path/to/your/new/project",
+ init_renv = TRUE,
+ include_structure_for_pkg = FALSE,
+ create_publication_proj = FALSE,
+ include_github_gitignore = TRUE
+)
+```
+
+
+### Parameters
+
+```{r, echo = FALSE}
+library(knitr)
+parameter_data <- data.frame(
+Parameter = c("Path", "init_renv", "include_structure_for_pkg", "create_publication_proj", "include_github_gitignore"),
+Meaning = c("Folder pathway", "Initiate renv in the project", "Additional folder for package development", "Should the folder structure be for a publication project", "Shuld a strict .gitignore file be created"),
+Expected_input = c("A folder path e.g.", "Boolean (TRUE/FALSE)", "Boolean (TRUE/FALSE)", "Boolean (TRUE/FALSE)", "Boolean (TRUE/FALSE)"), 
+What_to_consider = c("A folder path e.g.", "Boolean (TRUE/FALSE)", "Boolean (TRUE/FALSE)", "Boolean (TRUE/FALSE)", "Boolean (TRUE/FALSE)")
+)
+
+kable(parameter_data, format = "markdown")
+
+```
