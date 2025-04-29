@@ -24,10 +24,19 @@ Before you begin, ensure you have the following installed:
 - RStudio
 - The dfeR package
 
-*how to install dfeR* 
-
 ## What is R studio? 
 RStudio is an integrated development environment (IDE) for R. It provides a user-friendly interface for writing and running R code, managing files, and visualising data. 
+
+# How do I install dfeR? 
+
+dfeR is available on CRAN and you can install directly from there by typing the below code into the console window in R studio: 
+
+```{r, eval = FALSE}
+install.packages("dfeR")
+```
+
+The [dfeR documentation](https://dfe-analytical-services.github.io/dfeR/index.html) gives more details on options for installing. 
+
 
 ## What is an R Project?
 An R project is a working directory designated for a specific analysis or project. It keeps all your scripts, data, functions and outputs together in one place. Rstudio allows you to switch between your projects easily, meaning you can keep your different pieces of work separate from each other. 
@@ -42,7 +51,9 @@ You should use the renv package for package version control in R. It creates a p
 
 ## Using the create_project function
 
-The create_project function from the dfeR package creates a new project with a custom folder structure. Here is the basic code you will need to use, having installed dfeR:
+This function creates a new project with a custom folder structure. It sets up the R/ folder and template function scripts, initializes {testthat} and adds tests for the function scripts, builds the core project structure, creates a .gitignore file, creates a readme, and optionally initializes {renv}.
+
+Here is the basic code you will need to use, having installed dfeR:
 
 ```{r, eval = FALSE}
 dfeR::create_project(
@@ -91,13 +102,13 @@ kable(parameter_data, format = "markdown", col.names = c("Parameter", "Meaning",
 ```
 
 ### Example
-Using the create_project function from the dfeR package, you can quickly set up a new R project with a custom folder structure. By leveraging RStudio and renv, you can ensure your projects are well-organised and reproducible
+
 ```{r, eval = FALSE}
 # Load the dfeR package
 library(dfeR)
 # Create a new project with the desired parameters
 dfeR::create_project(
-  path = "C:/Users/MSmith/repos/my_new_project",
+  path = "C:/Users/MSmith/repos/",
   init_renv = TRUE,
   include_structure_for_pkg = FALSE,
   create_publication_proj = TRUE,
