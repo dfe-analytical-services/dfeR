@@ -91,7 +91,7 @@ Meaning = c("Folder pathway",
 Considerations = c("Where do you want to store your project?. You should store any projects that use Git outside of OneDrive. To                       create a folder in your C drive, type: 'C:/Users/username' into the file explorer search bar and create a folder                     called 'repos'.",
                   "Do you want to use renv? renv helps manage the packages your project needs. Set to TRUE if you want to use it.", 
                   "Are you creating this project to work on a package? Set to TRUE if yes. This will create an additional folder for package development.", 
-                  "Should the folder structure be for a publication project? Set to TRUE if yes.", 
+                  "Should the folder structure be for a publication project? Set to TRUE if yes or FALSE if it is for another type of analysis.", 
                   "Boolean (TRUE/FALSE)")
 )
 
