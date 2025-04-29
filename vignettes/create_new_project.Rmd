@@ -30,9 +30,9 @@ Before you begin, ensure you have the following installed:
 RStudio is an integrated development environment (IDE) for R. It provides a user-friendly interface for writing and running R code, managing files, and visualising data. 
 
 ## What is an R Project?
-An R project is a working directory designated for a specific analysis or project. It keeps all your scripts, data, functions and outputs together in one place. Rstudio allows you to switch between your projects easily, meaning you can keep your different pieces of work separete from each other. 
+An R project is a working directory designated for a specific analysis or project. It keeps all your scripts, data, functions and outputs together in one place. Rstudio allows you to switch between your projects easily, meaning you can keep your different pieces of work separate from each other. 
 
-Whenever you are using R, you should work in an RProject. This also makes sure you are set up in the correct working directory, so your code is pointing at the right folders and files. You can find out more about Projects in RStudio in [An Introuction to R](https://intro2r.com/rsprojs.html). 
+Whenever you are using R studio, you should work in an R Project. This also makes sure you are set up in the correct working directory, so your code is pointing at the right folders and files. You can find out more in [this guide for using projects in R](https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects). 
 
 ## What is renv? 
 
@@ -57,15 +57,52 @@ dfeR::create_project(
 
 ### Parameters
 
+Below is a table describing the parameters used within the code. When using the create_project function, you will need to make a decision on what to enter for each in order to create the appropriate type of project. 
+
 ```{r, echo = FALSE}
 library(knitr)
 parameter_data <- data.frame(
-Parameter = c("Path", "init_renv", "include_structure_for_pkg", "create_publication_proj", "include_github_gitignore"),
-Meaning = c("Folder pathway", "Initiate renv in the project", "Additional folder for package development", "Should the folder structure be for a publication project", "Shuld a strict .gitignore file be created"),
-Expected_input = c("A folder path e.g.", "Boolean (TRUE/FALSE)", "Boolean (TRUE/FALSE)", "Boolean (TRUE/FALSE)", "Boolean (TRUE/FALSE)"), 
-What_to_consider = c("A folder path e.g.", "Boolean (TRUE/FALSE)", "Boolean (TRUE/FALSE)", "Boolean (TRUE/FALSE)", "Boolean (TRUE/FALSE)")
+Parameter = c("Path", 
+              "init_renv", 
+              "include_structure_for_pkg",
+              "create_publication_proj", 
+              "include_github_gitignore"),
+Meaning = c("Folder pathway", 
+            "Initiate renv in the project", 
+            "Additional folder for package development", 
+            "Create project with structure for publications", 
+            "Include a github gitignore file"),
+`Expected input`  = c("A folder path e.g. 'C:/Users/username/repos'", 
+                      "Boolean (TRUE/FALSE)",
+                      "Boolean (TRUE/FALSE)",
+                      "Boolean (TRUE/FALSE)", 
+                      "Boolean (TRUE/FALSE)"), 
+Considerations = c("Where do you want to store your project?. You should store any projects that use Git outside of OneDrive. To                       create a folder in your C drive, type: 'C:/Users/username' into the file explorer search bar and create a folder                     called 'repos'.",
+                  "Do you want to use renv? renv helps manage the packages your project needs. Set to TRUE if you want to use it.", 
+                  "Are you creating this project to work on a package? Set to TRUE if yes. This will create an additional folder for package development.", 
+                  "Should the folder structure be for a publication project? Set to TRUE if yes.", 
+                  "Boolean (TRUE/FALSE)")
 )
 
-kable(parameter_data, format = "markdown")
+
+kable(parameter_data, format = "markdown", col.names = c("Parameter", "Meaning", "Expected input", "Considerations"))
+
 
 ```
+
+### Example
+Using the create_project function from the dfeR package, you can quickly set up a new R project with a custom folder structure. By leveraging RStudio and renv, you can ensure your projects are well-organised and reproducible
+```{r, eval = FALSE}
+# Load the dfeR package
+library(dfeR)
+# Create a new project with the desired parameters
+dfeR::create_project(
+  path = "C:/Users/MSmith/repos/my_new_project",
+  init_renv = TRUE,
+  include_structure_for_pkg = FALSE,
+  create_publication_proj = TRUE,
+  include_github_gitignore = TRUE
+)
+```
+
+The above code will create a new project in the specified folder path, with renv initialised, a publication project structure, and a GitHub gitignore file included. You can then open the project in RStudio and start working on your analysis or publication.
