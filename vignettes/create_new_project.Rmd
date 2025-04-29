@@ -14,36 +14,37 @@ knitr::opts_chunk$set(
 )
 ```
 
-
 The dfeR package can be used to create a new R project using the create_project function. This function helps you set up a pre-populated project with a custom folder structure, making it easier to start your analysis or publication. In order to use this function, you will need to have an understanding of R projects, and renv.
 
 ## Prerequisites
+
 Before you begin, ensure you have the following installed:
 
-- R (version 4.0.0 or higher)
-- RStudio
-- The dfeR package
+-   R (version 4.0.0 or higher)
+-   RStudio
+-   The dfeR package
 
-## What is R studio? 
-RStudio is an integrated development environment (IDE) for R. It provides a user-friendly interface for writing and running R code, managing files, and visualising data. 
+## What is R studio?
 
-# How do I install dfeR? 
+RStudio is an integrated development environment (IDE) for R. It provides a user-friendly interface for writing and running R code, managing files, and visualising data.
 
-dfeR is available on CRAN and you can install directly from there by typing the below code into the console window in R studio: 
+# How do I install dfeR?
+
+dfeR is available on CRAN and you can install directly from there by typing the below code into the console window in R studio:
 
 ```{r, eval = FALSE}
 install.packages("dfeR")
 ```
 
-The [dfeR documentation](https://dfe-analytical-services.github.io/dfeR/index.html) gives more details on options for installing. 
-
+The [dfeR documentation](https://dfe-analytical-services.github.io/dfeR/index.html) gives more details on options for installing.
 
 ## What is an R Project?
-An R project is a working directory designated for a specific analysis or project. It keeps all your scripts, data, functions and outputs together in one place. Rstudio allows you to switch between your projects easily, meaning you can keep your different pieces of work separate from each other. 
 
-Whenever you are using R studio, you should work in an R Project. This also makes sure you are set up in the correct working directory, so your code is pointing at the right folders and files. You can find out more in [this guide for using projects in R](https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects). 
+An R project is a working directory designated for a specific analysis or project. It keeps all your scripts, data, functions and outputs together in one place. Rstudio allows you to switch between your projects easily, meaning you can keep your different pieces of work separate from each other.
 
-## What is renv? 
+Whenever you are using R studio, you should work in an R Project. This also makes sure you are set up in the correct working directory, so your code is pointing at the right folders and files. You can find out more in [this guide for using projects in R](https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects).
+
+## What is renv?
 
 Packages and versions of R regularly update. Over time, this can cause code to break - e.g. if different dependencies are required for later versions of packages to work. Using renv creates a “snapshot” of your code and packages at the time you created it, which anyone can then recreate when they come to use your code. This means that you can be sure that the code you wrote will work in the future, even if packages are updated.
 
@@ -65,10 +66,9 @@ dfeR::create_project(
 )
 ```
 
-
 ### Parameters
 
-Below is a table describing the parameters used within the code. When using the create_project function, you will need to make a decision on what to enter for each in order to create the appropriate type of project. 
+Below is a table describing the parameters used within the code. When using the create_project function, you will need to make a decision on what to enter for each in order to create the appropriate type of project.
 
 ```{r, echo = FALSE}
 library(knitr)
@@ -101,6 +101,12 @@ kable(parameter_data, format = "markdown", col.names = c("Parameter", "Meaning",
 
 ```
 
+You will also need to think about what you want your project to be called and include this in your file path. You can always amend this later.
+
+For example, if you want to create a project called “my-new-project” in the folder you created above, your file path (with the username changed to your username) would be "C:/Users/Msmith/repos/my-new-project".
+
+You can create a project in a different location, but you will need to change the file path accordingly.
+
 ### Example
 
 ```{r, eval = FALSE}
@@ -108,7 +114,7 @@ kable(parameter_data, format = "markdown", col.names = c("Parameter", "Meaning",
 library(dfeR)
 # Create a new project with the desired parameters
 dfeR::create_project(
-  path = "C:/Users/MSmith/repos/",
+  path = "C:/Users/MSmith/repos/my-new-project",
   init_renv = TRUE,
   include_structure_for_pkg = FALSE,
   create_publication_proj = TRUE,
@@ -116,4 +122,8 @@ dfeR::create_project(
 )
 ```
 
-The above code will create a new project in the specified folder path, with renv initialised, a publication project structure, and a GitHub gitignore file included. You can then open the project in RStudio and start working on your analysis or publication.
+The above code will create a new project in the specified folder path, with renv initialised, a publication project structure, and a GitHub gitignore file included. You can view this by going to the location of the pathway you chose in file explorer. You should find your new project there, inside a folder with the name you added at the end of your pathway, as below.
+
+![Newly created contents of project folder in file explorer](create_new_project_screenshot.png)
+
+You can then open the project by going to file \> open project in RStudio and start coding! You can amend the file structure and names to suit the particular project you are working on, use the file structure created as a template.
