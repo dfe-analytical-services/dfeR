@@ -80,10 +80,10 @@ Here is the basic code you will need to use, having installed dfeR:
 ```{r, eval = FALSE}
 dfeR::create_project(
   path = "C:/path/to/your/new/project",
- init_renv = TRUE,
- include_structure_for_pkg = FALSE,
- create_publication_proj = FALSE,
- include_github_gitignore = TRUE
+  init_renv = TRUE,
+  include_structure_for_pkg = FALSE,
+  create_publication_proj = FALSE,
+  include_github_gitignore = TRUE
 )
 ```
 
@@ -108,7 +108,7 @@ parameter_data <- data.frame(
     "Create project with structure for publications",
     "Include a github gitignore file"
   ),
-  `Expected input`  = c(
+  `Expected input` = c(
     "A folder path e.g. 'C:/Users/username/repos'",
     "Boolean (TRUE/FALSE), default = TRUE",
     "Boolean (TRUE/FALSE), default = FALSE",
@@ -137,8 +137,6 @@ kable(
   format = "markdown",
   col.names = c("Parameter", "Meaning", "Expected input", "Considerations", "Output")
 )
-
-
 ```
 
 You will also need to think about what you want your project to be called and include this in your file path. You can always amend this later.
