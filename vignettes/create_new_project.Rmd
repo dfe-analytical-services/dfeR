@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(dfeR)
+library(knitr)
 ```
 ---
 title: "Creating a new dfeR project"
@@ -53,7 +54,7 @@ RStudio is an integrated development environment (IDE) for R. It provides a user
 
 dfeR is available on CRAN and you can install directly from there by typing the below code into the console window in R studio:
 
-```{r, eval = FALSE}
+```{r install_dfer, eval = FALSE}
 install.packages("dfeR")
 ```
 
@@ -77,7 +78,7 @@ This function creates a new project with a custom folder structure. It sets up t
 
 Here is the basic code you will need to use, having installed dfeR:
 
-```{r, eval = FALSE}
+```{r_create_project, eval = FALSE}
 dfeR::create_project(
   path = "C:/path/to/your/new/project",
   init_renv = TRUE,
@@ -92,7 +93,6 @@ dfeR::create_project(
 Below is a table describing the parameters used within the code. When using the create_project function, you will need to make a decision on what to enter for each in order to create the appropriate type of project.
 
 ```{r, echo = FALSE}
-library(knitr)
 parameter_data <- data.frame(
   Parameter = c(
     "Path",
@@ -120,7 +120,7 @@ parameter_data <- data.frame(
     "Do you want to use renv? renv helps manage the packages your project needs. Set to TRUE if you want to use it.",
     "Are you creating this project to work on a package? Set to TRUE if yes.",
     "Should the folder structure be for a publication project? Set to TRUE if yes or FALSE if it is for another type of analysis.",
-    "Boolean (TRUE/FALSE)"
+    "Do you want to exclude certain files from being tracked by Git? Including a GitHub .gitignore file helps manage which files should not be included in version control, such as temporary files and sensitive information."
   ),
   Outout = c(
     "This will be the folder your new project is created within",
@@ -147,7 +147,7 @@ You can create a project in a different location, but you will need to change th
 
 ### Example
 
-```{r, eval = FALSE}
+```{r_function_example, eval = FALSE}
 # Load the dfeR package
 library(dfeR)
 # Create a new project with the desired parameters
