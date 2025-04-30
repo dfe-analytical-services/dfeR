@@ -1,4 +1,23 @@
 ---
+title: "create_new_project"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{create_new_project}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(dfeR)
+```
+---
 title: "Creating a new dfeR project"
 output: rmarkdown::html_vignette
 vignette: >
