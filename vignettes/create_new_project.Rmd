@@ -77,9 +77,12 @@ You should use the renv package for package version control in R. It creates a p
 
 ### What is testthat?
 
-{testthat} is an R package that helps you write and run tests to ensure your code works correctly. It allows you to create tests that check if your functions produce the expected results, run these tests to catch errors early, and gives you confidence that your code is reliable and behaves as intended. It's a valuable tool for maintaining high-quality, bug-free code.
+`{testthat}` is an R package that helps you write and run tests to ensure your code works correctly. It allows you to create tests that check if your functions produce the expected results, run these tests to catch errors early, and gives you confidence that your code is reliable and behaves as intended. It's a valuable tool for maintaining high-quality, bug-free code.
 
-See the [coffee and coding resources](https://educationgovuk.sharepoint.com/sites/sarpi/g/WorkplaceDocuments/Induction%20learning%20and%20career%20development/Coffee%20and%20Coding/190306_peter_autotesting?csf=1&web=1&e=F945Xq&CID=bb26da68-5589-4c82-9892-7fb3b7adf1eb) or this [guide on testing](https://r-pkgs.org/testing-basics.html) by Hadley Wickham for getting started. 
+See the [coffee and coding resources](https://educationgovuk.sharepoint.com/sites/sarpi/g/WorkplaceDocuments/Induction%20learning%20and%20career%20development/Coffee%20and%20Coding/190306_peter_autotesting?csf=1&web=1&e=F945Xq&CID=bb26da68-5589-4c82-9892-7fb3b7adf1eb) or this [guide on testing](https://r-pkgs.org/testing-basics.html) by Hadley Wickham for getting started.
+
+### What is a github gitignore file?
+A gitignore file is a text file that tells Git which files or directories to ignore in a project. It helps you avoid committing sensitive information, temporary files, or other unnecessary files to your Git repository. By creating a gitignore file, you can keep your repository clean and focused on the essential files needed for your project.
 
 ## Using the create_project function
 
@@ -87,7 +90,7 @@ The create_project function is a part of the dfeR package and is used to create 
 
 The function works by:
 
-1.  **Setting up the core project structure** The core project structure will either create an ad-hoc project folder structure, which includes folders for data, analysis and output, or a larger folder structure for publication projects, which includes more folders for different data, analysis, documentation and outputs. 
+1.  **Setting up the core project structure** The core project structure will either create an ad-hoc project folder structure, which includes folders for data, analysis and output, or a larger folder structure for publication projects, which includes more folders for different data, analysis, documentation and outputs.
 
 2.  **Adding initial files** The script creates some initial files, such as a template README file to help you get started with your project. It also initialises the {testthat} package, which is used for unit testing in R.
 
@@ -104,6 +107,10 @@ dfeR::create_project(
   include_github_gitignore = TRUE
 )
 ```
+
+### Where to save your project 
+
+You should store any projects that use Git outside of OneDrive. To create a folder in your C drive, type: 'C:/Users/username' into the file explorer search bar and create a folder called 'repos'.
 
 ### Parameters
 
@@ -133,17 +140,17 @@ parameter_data <- data.frame(
     "Boolean (TRUE/FALSE)"
   ),
   Considerations = c(
-    "Where do you want to store your project?. You should store any projects that use Git outside of OneDrive. To create a folder in your C drive, type: 'C:/Users/username' into the file explorer search bar and create a folder                     called 'repos'.",
-    "Do you want to use renv? renv helps manage the packages your project needs. Set to TRUE if you want to use it.",
+    "Where do you want to store your project?",
+    "Do you want to use renv for package version control? Set to TRUE if you want to use it.",
     "Are you creating this project to work on a package? Set to TRUE if yes.",
     "Should the folder structure be for a publication project? Set to TRUE if yes or FALSE if it is for another type of analysis.",
-    "Do you want to exclude certain files from being tracked by Git? Including a GitHub .gitignore file helps manage which files should not be included in version control, such as temporary files and sensitive information."
+    "Do you want to exclude certain files from being tracked by Git?"
   ),
   Outout = c(
     "This will be the folder your new project is created within",
     "If set to TRUE, renv will be initialised in your project. A renv folder will be created, as well               as a renv.lock file.",
     "If set to TRUE, an additonal folder will be created specifically for package development",
-    "If set to TRUE, a publication template folder structure will be created, with folders for data,                analysis, documentation etc. If set to FALSE, a basic analysis folder structure will be created,               with folders for data, analyis and output",
+    "If set to TRUE, a publication template folder structure will be created, with folders for data,                analysis, documentation and misc. If set to FALSE, a basic analysis folder structure will be created,               with folders for data, analyis and output",
     "If set to TRUE, a github gitignore file will be created."
   )
 )
@@ -181,7 +188,9 @@ The above code will create a new project in the specified folder path, with renv
 
 ![Newly created contents of project folder in file explorer](create_new_project_screenshot.png)
 
-You can then open the project by going to file \> open project in RStudio. You can amend the file structure and names to suit the particular project you are working on, using the file structure created as a template.
+You can then open the project by going to file \> open project in RStudio. If you have set create_publication_proj to FALSE, you will find your folders will look a little different to the above.
+
+You can amend the file structure and names to suit the particular project you are working on, using the file structure created as a template.
 
 ### Troubleshooting
 
