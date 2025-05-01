@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
 library(dfeR)
 library(knitr)
 ```
+
 ---
 title: "Creating a new dfeR project"
 output: rmarkdown::html_vignette
@@ -40,7 +41,7 @@ The dfeR package can be used to create a new R project using the create_project 
 
 ### Pre-requisites
 
-Before you begin, ensure you have the following installed. 
+Before you begin, ensure you have the following installed.
 
 -   R (version 4.0.0 or higher)
 -   RStudio
@@ -72,23 +73,25 @@ Whenever you are using R studio, you should work in an R Project. This makes sur
 
 Packages and versions of R regularly update. Over time, this can cause code to break - e.g. if different dependencies are required for later versions of packages to work. Using renv creates a “snapshot” of your code and packages at the time you created it, which anyone can then recreate when they come to use your code. This means that you can be sure that the code you wrote will work in the future, even if packages are updated.
 
-You should use the renv package for package version control in R. It creates a project-specific library, meaning that installing a new or updated package for one project won't break your other projects. This is particularly useful for reproducibility and collaboration, as it ensures that your project will work with the same package versions on different machines. You can find out more about renv on the the [RStudio website](https://rstudio.r-universe.dev/renv#:~:text=A%20dependency%20management%20toolkit%20for%20R.%20Using%20%27renv%27%2C,make%20your%20projects%20more%20isolated%2C%20portable%2C%20and%20reproducible._). 
+You should use the renv package for package version control in R. It creates a project-specific library, meaning that installing a new or updated package for one project won't break your other projects. This is particularly useful for reproducibility and collaboration, as it ensures that your project will work with the same package versions on different machines. You can find out more about renv on the the [RStudio website](https://rstudio.r-universe.dev/renv#:~:text=A%20dependency%20management%20toolkit%20for%20R.%20Using%20%27renv%27%2C,make%20your%20projects%20more%20isolated%2C%20portable%2C%20and%20reproducible._).
 
-### What is testthat? 
+### What is testthat?
+
+{testthat} is an R package that helps you write and run tests to ensure your code works correctly. It allows you to create tests that check if your functions produce the expected results, run these tests to catch errors early, and gives you confidence that your code is reliable and behaves as intended. It's a valuable tool for maintaining high-quality, bug-free code.
+
+See the [coffee and coding resources](https://educationgovuk.sharepoint.com/sites/sarpi/g/WorkplaceDocuments/Induction%20learning%20and%20career%20development/Coffee%20and%20Coding/190306_peter_autotesting?csf=1&web=1&e=F945Xq&CID=bb26da68-5589-4c82-9892-7fb3b7adf1eb) or this [guide on testing](https://r-pkgs.org/testing-basics.html) by Hadley Wickham for getting started. 
 
 ## Using the create_project function
 
 The create_project function is a part of the dfeR package and is used to create a new R project with a custom folder structure. It is designed to help you set up your project quickly and efficiently, with all the necessary components in place.
 
-The function works by: 
+The function works by:
 
-1. *Setting up the core project structure* Depending on the parameters you choose, this may include folders for data, analysis, documentation, and output.
+1.  **Setting up the core project structure** The core project structure will either create an ad-hoc project folder structure, which includes folders for data, analysis and output, or a larger folder structure for publication projects, which includes more folders for different data, analysis, documentation and outputs. 
 
-2. *Adding initial files* The script creates some initial files, such as a README file and a .gitignore file, to help you get started with your project. It also initialises the {testthat} package, which is used for unit testing in R. 
+2.  **Adding initial files** The script creates some initial files, such as a template README file to help you get started with your project. It also initialises the {testthat} package, which is used for unit testing in R.
 
-3. *Adding documentation* The function creates a README, which will be a template for a publication project or analysis, depending on the setting for create_publication_project. 
-
-4. *Customisation* The project creates a github gitignore file if set to TRUE and initialises the {renv} package if set to TRUE.
+3.  ***Customisation*** The project creates a github gitignore file if set to TRUE and initialises the {renv} package if set to TRUE.
 
 Here is the basic code you will need to use, having installed dfeR:
 
