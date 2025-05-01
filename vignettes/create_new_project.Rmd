@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+```{r setup, include =  FALSE}
 library(dfeR)
 library(knitr)
 ```
@@ -36,15 +36,17 @@ knitr::opts_chunk$set(
 
 ## Introduction and pre-requisites
 
-The dfeR package can be used to create a new R project using the create_project function. This function helps you set up a pre-populated project with a custom folder structure, making it easier to start your analysis or publication. In order to use this function, you will need to have an understanding of R projects and renv.
+The dfeR package can be used to create a new R project using the create_project function. This function helps you set up a pre-populated project with a custom folder structure, making it easier to start your analysis or publication. In order to use this function, you will need to ensure you have the right software installed, and have an understanding of R projects and renv.
 
 ### Pre-requisites
 
-Before you begin, ensure you have the following installed:
+Before you begin, ensure you have the following installed. 
 
 -   R (version 4.0.0 or higher)
 -   RStudio
 -   The dfeR package
+
+See information below for installing if you don't have these already.
 
 ### What is R studio?
 
@@ -70,11 +72,23 @@ Whenever you are using R studio, you should work in an R Project. This makes sur
 
 Packages and versions of R regularly update. Over time, this can cause code to break - e.g. if different dependencies are required for later versions of packages to work. Using renv creates a “snapshot” of your code and packages at the time you created it, which anyone can then recreate when they come to use your code. This means that you can be sure that the code you wrote will work in the future, even if packages are updated.
 
-You should use the renv package for package version control in R. It creates a project-specific library, meaning that installing a new or updated package for one project won't break your other projects. This is particularly useful for reproducibility and collaboration, as it ensures that your project will work with the same package versions on different machines. You can find out more about renv on the the [RStudio website](https://rstudio.r-universe.dev/renv#:~:text=A%20dependency%20management%20toolkit%20for%20R.%20Using%20%27renv%27%2C,make%20your%20projects%20more%20isolated%2C%20portable%2C%20and%20reproducible._)
+You should use the renv package for package version control in R. It creates a project-specific library, meaning that installing a new or updated package for one project won't break your other projects. This is particularly useful for reproducibility and collaboration, as it ensures that your project will work with the same package versions on different machines. You can find out more about renv on the the [RStudio website](https://rstudio.r-universe.dev/renv#:~:text=A%20dependency%20management%20toolkit%20for%20R.%20Using%20%27renv%27%2C,make%20your%20projects%20more%20isolated%2C%20portable%2C%20and%20reproducible._). 
+
+### What is testthat? 
 
 ## Using the create_project function
 
-This function creates a new project with a custom folder structure. It sets up the R/ folder and template function scripts, initializes {testthat} and adds tests for the function scripts, builds the core project structure, creates a .gitignore file, creates a readme, and optionally initializes {renv}.
+The create_project function is a part of the dfeR package and is used to create a new R project with a custom folder structure. It is designed to help you set up your project quickly and efficiently, with all the necessary components in place.
+
+The function works by: 
+
+1. *Setting up the core project structure* Depending on the parameters you choose, this may include folders for data, analysis, documentation, and output.
+
+2. *Adding initial files* The script creates some initial files, such as a README file and a .gitignore file, to help you get started with your project. It also initialises the {testthat} package, which is used for unit testing in R. 
+
+3. *Adding documentation* The function creates a README, which will be a template for a publication project or analysis, depending on the setting for create_publication_project. 
+
+4. *Customisation* The project creates a github gitignore file if set to TRUE and initialises the {renv} package if set to TRUE.
 
 Here is the basic code you will need to use, having installed dfeR:
 
