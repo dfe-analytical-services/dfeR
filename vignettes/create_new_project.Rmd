@@ -98,7 +98,7 @@ The function works by:
 
 Here is the basic code you will need to use, having installed dfeR:
 
-```{r_create_project, eval = FALSE}
+```{r create_project, eval = FALSE}
 dfeR::create_project(
   path = "C:/path/to/your/new/project",
   init_renv = TRUE,
@@ -171,7 +171,7 @@ You can create a project in a different location, but you will need to change th
 
 ### Example
 
-```{r_function_example, eval = FALSE}
+```{r function_example, eval = FALSE}
 # Load the dfeR package
 library(dfeR)
 # Create a new project with the desired parameters
