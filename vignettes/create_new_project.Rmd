@@ -141,16 +141,24 @@ parameter_data <- data.frame(
   ),
   Considerations = c(
     "Where do you want to store your project?",
-    "Do you want to use renv for package version control? Set to TRUE if you want to use it.",
-    "Are you creating this project to work on a package? Set to TRUE if yes.",
-    "Should the folder structure be for a publication project? Set to TRUE if yes or FALSE if it is for another type of analysis.",
+    "Do you want to use renv for package version control? 
+    Set to TRUE if you want to use it.",
+    "Are you creating this project to work on a package?
+    Set to TRUE if yes.",
+    "Should the folder structure be for a publication project?
+    Set to TRUE if yes or FALSE if it is for another type of analysis.",
     "Do you want to exclude certain files from being tracked by Git?"
   ),
   Outout = c(
     "This will be the folder your new project is created within",
-    "If set to TRUE, renv will be initialised in your project. A renv folder will be created, as well               as a renv.lock file.",
-    "If set to TRUE, an additonal folder will be created specifically for package development",
-    "If set to TRUE, a publication template folder structure will be created, with folders for data,                analysis, documentation and misc. If set to FALSE, a basic analysis folder structure will be created,               with folders for data, analyis and output",
+    "If set to TRUE, renv will be initialised in your project.
+    A renv folder will be created, as well as a renv.lock file.",
+    "If set to TRUE, an additonal folder will be created specifically
+    for package development",
+    "If set to TRUE, a publication template folder structure will be created,
+    with folders for data, analysis, documentation and misc. 
+    If set to FALSE, a basic analysis folder structure will be created,
+    with folders for data, analyis and output",
     "If set to TRUE, a github gitignore file will be created."
   )
 )
@@ -159,7 +167,8 @@ parameter_data <- data.frame(
 kable(
   parameter_data,
   format = "markdown",
-  col.names = c("Parameter", "Meaning", "Expected input", "Considerations", "Output")
+  col.names = c("Parameter", "Meaning", "Expected input",
+                "Considerations", "Output")
 )
 ```
 
