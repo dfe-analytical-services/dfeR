@@ -77,7 +77,7 @@ You should use the renv package for package version control in R. It creates a p
 
 ### What is testthat?
 
-`{testthat}` is an R package that helps you write and run tests to ensure your code works correctly. It allows you to create tests that check if your functions produce the expected results, run these tests to catch errors early, and gives you confidence that your code is reliable and behaves as intended. It's a valuable tool for maintaining high-quality, bug-free code.
+`testthat` is an R package that helps you write and run tests to ensure your code works correctly. It allows you to create tests that check if your functions produce the expected results, run these tests to catch errors early, and gives you confidence that your code is reliable and behaves as intended. It's a valuable tool for maintaining high-quality, bug-free code.
 
 See the [coffee and coding resources](https://educationgovuk.sharepoint.com/sites/sarpi/g/WorkplaceDocuments/Induction%20learning%20and%20career%20development/Coffee%20and%20Coding/190306_peter_autotesting?csf=1&web=1&e=F945Xq&CID=bb26da68-5589-4c82-9892-7fb3b7adf1eb) or this [guide on testing](https://r-pkgs.org/testing-basics.html) by Hadley Wickham for getting started.
 
