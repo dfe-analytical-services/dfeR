@@ -51,7 +51,7 @@ See information below for installing if you don't have these already.
 
 ### What is RStudio?
 
-RStudio is an integrated development environment (IDE) for R. It provides a user-friendly interface for writing and running R code, managing files, and visualising data. You can download R (language) and RStudio (IDE) from the DfE software center. We also recommend that you download RTools (a helpful R extension) at the same time.
+RStudio is an integrated development environment (IDE) for R. It provides a user-friendly interface for writing and running R code, managing files, and visualising data. You can download R (language) and RStudio (IDE) from the DfE software center. You also must download RTools (a helpful R extension) at the same time to use renv.
 
 ### How do I install dfeR?
 
