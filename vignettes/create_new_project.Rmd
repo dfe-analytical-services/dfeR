@@ -76,7 +76,7 @@ Whenever you are using R studio, you should work in an R Project. This makes sur
 
 Packages and versions of R regularly update. Over time, this can cause code to break - e.g. if different dependencies are required for later versions of packages to work. Using renv creates a “snapshot” of your code and packages at the time you created it, which anyone can then recreate when they come to use your code. This means that you can be sure that the code you wrote will work in the future, even if packages are updated.
 
-You should use the renv package for package version control in R. It creates a project-specific library, meaning that installing a new or updated package for one project won't break your other projects. This is particularly useful for reproducibility and collaboration, as it ensures that your project will work with the same package versions on different machines. You can find out more about renv on the the [Analysts' Guide](https://dfe-analytical-services.github.io/analysts-guide/learning-development/r.html#renv).
+You should use the renv package for package version control in R. It creates a project-specific library, meaning that installing a new or updated package for one project won't break your other projects. This is particularly useful for reproducibility and collaboration, as it ensures that your project will work with the same package versions on different machines. You can find out more about renv on the [Analysts' Guide](https://dfe-analytical-services.github.io/analysts-guide/learning-development/r.html#renv).
 
 ### What is testthat?
 
