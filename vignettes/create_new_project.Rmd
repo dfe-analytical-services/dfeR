@@ -66,7 +66,7 @@ install.packages("dfeR")
 
 The [dfeR documentation](https://dfe-analytical-services.github.io/dfeR/index.html) gives more details on options for installing.
 
-### What is an R Project?
+### What is an R project?
 
 An R project is a working directory designated for a specific analysis or project. It keeps all your scripts, data, functions and outputs together in one place. Rstudio allows you to switch between your projects easily, meaning you can keep your different pieces of work separate from each other.
 
