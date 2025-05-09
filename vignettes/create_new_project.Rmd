@@ -192,7 +192,7 @@ The above code will create a new project in the specified folder path, with renv
 
 ![Newly created contents of project folder in file explorer](create_new_project_screenshot.png)
 
-You can then open the project by going to file \> open project in RStudio. If you have set create_publication_proj to FALSE, you will find your folders will look a little different to the above.
+You can then open the project by going to file \> open project in RStudio. If you have set create_publication_proj to `FALSE`, you will find your folders will look a little different to the above.
 
 You can amend the file structure and names to suit the particular project you are working on, using the file structure created as a template.
 
