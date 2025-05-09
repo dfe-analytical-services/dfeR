@@ -133,7 +133,7 @@ parameter_data <- data.frame(
     "Initiate renv in the project",
     "Additional folder for package development",
     "Create project with structure for publications",
-    "Include a github .gitignore file"
+    "Include a GitHub .gitignore file"
   ),
   `Expected input` = c(
     "A folder path e.g. 'C:/Users/username/repos'",
