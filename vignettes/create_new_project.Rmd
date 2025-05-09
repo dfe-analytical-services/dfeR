@@ -87,7 +87,7 @@ See the [coffee and coding resources](https://educationgovuk.sharepoint.com/site
 ### What is a GitHub .gitignore file?
 A .gitignore file is a text file that tells Git which files or directories to ignore in a project. It helps you avoid committing sensitive information, temporary files, or other unnecessary files to your Git repository. By creating a .gitignore file, you can keep your repository clean and focused on the essential files needed for your project. Find more guidance on how to avoid revealing sensitive information on the [Analysts' Guide](https://dfe-analytical-services.github.io/analysts-guide/RAP/rap-statistics.html#avoid-revealing-sensitive-information). 
 
-## Using the create_project function
+## Using the `create_project()` function
 
 The create_project function is a part of the dfeR package and is used to create a new R project with a custom folder structure. It is designed to help you set up your project quickly and efficiently, with all the necessary components in place. 
 
