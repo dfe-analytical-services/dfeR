@@ -45,7 +45,7 @@ If you are familiar with all of the above, you can go to the [Using the `create_
 
 Before you begin, ensure you have the following installed.
 
--   R for Windows(x64) - version 4.0.0 or higher 
+-   R for Windows (x64) - version 4.0.0 or higher 
 -   RTools (for Windows users)
 -   RStudio
 -   The dfeR package
