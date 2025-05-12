@@ -50,7 +50,7 @@ Before you begin, ensure you have the following installed.
 -   RStudio
 -   The dfeR package
 
-See information below for installing if you don't have these already.
+See the information below for installing if you don't have these already.
 
 ### What is RStudio?
 
