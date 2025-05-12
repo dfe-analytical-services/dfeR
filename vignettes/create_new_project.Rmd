@@ -89,7 +89,7 @@ A .gitignore file is a text file that tells Git which files or directories to ig
 
 ## Using the `create_project()` function
 
-The create_project function is a part of the dfeR package and is used to create a new R project with a custom folder structure. It is designed to help you set up your project quickly and efficiently, with all the necessary components in place. 
+The `create_project()` function is a part of the dfeR package and is used to create a new R project with a custom folder structure. It is designed to help you set up your project quickly and efficiently, with all the necessary components in place. 
 
 The function works by:
 
