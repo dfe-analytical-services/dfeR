@@ -70,7 +70,7 @@ The [dfeR documentation](https://dfe-analytical-services.github.io/dfeR/index.ht
 
 An R project is a working directory designated for a specific analysis or project. It keeps all your scripts, data, functions and outputs together in one place. RStudio allows you to switch between your projects easily, meaning you can keep your different pieces of work separate from each other.
 
-Whenever you are using R studio, you should work in an R Project. This makes sure you are set up in the correct working directory, so your code is pointing at the right folders and files. You can find out more in [this guide for using projects in R](https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects).
+Whenever you are using RStudio, you should work in an R project. This makes sure you are set up in the correct working directory, so your code is pointing at the right folders and files. You can find out more in [this guide for using projects in R](https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects).
 
 ### What is renv?
 
