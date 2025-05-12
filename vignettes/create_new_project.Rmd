@@ -41,7 +41,7 @@ The dfeR package can be used to create a new R project using the `create_project
 
 If you are familiar with all of the above, you can go to the [Using the `create_project()` function](#using-the-create_project-function) section of this page or the [`create_project()` reference](https://dfe-analytical-services.github.io/dfeR/reference/create_project.html) for an overview of the usage, arguments and examples.
 
-### Pre-requisites
+### Prerequisites
 
 Before you begin, ensure you have the following installed.
 
