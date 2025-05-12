@@ -190,7 +190,7 @@ dfeR::create_project(
 
 The above code will create a new project in the specified folder path, with renv initialised, a publication project structure, and a GitHub .gitignore file included. You can view this by going to the location of the pathway you chose in file explorer. You should find your new project there, inside a folder with the name you added at the end of your pathway, as below.
 
-![Newly created contents of project folder in file explorer](create_new_project_screenshot.png)
+![](../vignettes/create_new_project_screenshot.png){fig-alt="Newly created contents of project folder in file explorer."}
 
 You can then open the project by going to file \> open project in RStudio. If you have set create_publication_proj to `FALSE`, you will find your folders will look a little different to the above.
 
