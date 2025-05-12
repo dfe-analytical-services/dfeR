@@ -117,7 +117,7 @@ You should store any projects that use Git outside of OneDrive. To create a fold
 
 ### Parameters
 
-Below is a table describing the parameters used within the code. When using the create_project function, you will need to make a decision on what to enter for each in order to create the appropriate type of project.
+Below is a table describing the parameters used within the code. When using the `create_project()` function, you will need to make a decision on what to enter for each in order to create the appropriate type of project.
 
 ```{r, echo = FALSE}
 parameter_data <- data.frame(
