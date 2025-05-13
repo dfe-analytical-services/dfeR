@@ -48,7 +48,7 @@ Before you begin, ensure you have the following installed.
 -   R for Windows (x64) - version 4.0.0 or higher 
 -   RTools (for Windows users and the version must match the R version)
 -   RStudio
--   The dfeR package
+-   The `dfeR` package
 
 See the information below for installing if you don't have these already.
 
