@@ -198,7 +198,7 @@ You can amend the file structure and names to suit the particular project you ar
 
 ### Troubleshooting
 
-You may hit an error if the `init_renv` parameter is not set to FALSE. This initiates `renv` in the created project, which is best practice. However, the `renv.lock` is set up to record several packages (`rmarkdown, testthat, renv, stringr`). You may get the following error message, letting you know that none of these packages are installed:
+You may hit an error if the `init_renv` parameter is not set to FALSE. This initiates `renv` in the created project, which is best practice. However, the `renv.lock` is set up to record several packages (`rmarkdown`, `testthat`, `renv`, `stringr`). You may get the following error message, letting you know that none of these packages are installed:
 
 *"None of the packages recorded in the lockfile are currently installed."*
 
