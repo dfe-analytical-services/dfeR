@@ -58,7 +58,7 @@ RStudio is an integrated development environment (IDE) for R. It provides a user
 
 ### How do I install dfeR?
 
-dfeR is available on CRAN and you can install directly from there by typing the below code into the console window in RStudio:
+`dfeR` is available on CRAN and you can install directly from there by typing the below code into the console window in RStudio:
 
 ```{r install_dfer, eval = FALSE}
 install.packages("dfeR")
