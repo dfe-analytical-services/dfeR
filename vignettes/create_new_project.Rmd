@@ -93,7 +93,7 @@ The `create_project()` function is a part of the `dfeR` package and is used to c
 
 The function works by:
 
-1.  **Setting up the core project structure** The core project structure will either create an ad-hoc project folder structure, which includes folders for data, analysis and output, or a larger folder structure for publication projects, which includes more folders for different data, analysis, documentation and outputs.
+1.  **Setting up the core project structure**: The core project structure will either create an ad-hoc project folder structure, which includes folders for data, analysis and output, or a larger folder structure for publication projects, which includes more folders for different data, analysis, documentation and outputs.
 
 2.  **Adding initial files**: The script creates some initial files, such as a template README file to help you get started with your project. It also initialises the `testthat` package, which is used for unit testing in R.
 
@@ -137,10 +137,10 @@ parameter_data <- data.frame(
   ),
   `Expected input` = c(
     "A folder path e.g. 'C:/Users/username/repos'",
-    "Boolean (TRUE/FALSE), default = TRUE",
-    "Boolean (TRUE/FALSE), default = FALSE",
-    "Boolean (TRUE/FALSE), default = FALSE",
-    "Boolean (TRUE/FALSE)"
+    "Boolean (`TRUE`/`FALSE`), default = `TRUE`",
+    "Boolean (`TRUE`/`FALSE`), default = `FALSE`",
+    "Boolean (`TRUE`/`FALSE`), default = `FALSE`",
+    "Boolean (`TRUE`/`FALSE`)"
   ),
   Considerations = c(
     "Where do you want to store your project?",
@@ -151,10 +151,10 @@ parameter_data <- data.frame(
   ),
   Output = c(
     "This will be the folder your new project is created within.",
-    "If set to TRUE, renv will be initialised in your project.",
-    "If set to TRUE, an additional package development folder will be created",
-    "If set to TRUE, extra publication specific folders will be created",
-    "If set to TRUE, a GitHub .gitignore file will be created."
+    "If set to `TRUE`, renv will be initialised in your project.",
+    "If set to `TRUE`, an additional package development folder will be created",
+    "If set to `TRUE`, extra publication specific folders will be created",
+    "If set to `TRUE`, a GitHub .gitignore file will be created."
   )
 )
 
