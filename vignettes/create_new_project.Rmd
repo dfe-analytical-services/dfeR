@@ -152,7 +152,7 @@ parameter_data <- data.frame(
   Output = c(
     "This will be the folder your new project is created within.",
     "If set to `TRUE`, renv will be initialised in your project.",
-    "If set to `TRUE`, an additional package development folder will be created",
+    "If set to `TRUE`, an extra package development folder will be created",
     "If set to `TRUE`, extra publication specific folders will be created",
     "If set to `TRUE`, a GitHub .gitignore file will be created."
   )
