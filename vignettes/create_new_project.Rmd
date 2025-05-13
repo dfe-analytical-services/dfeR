@@ -99,7 +99,7 @@ The function works by:
 
 3.  **Customisation**:  Other files or processes can be initialised as well depending on whether you set extra arguments as `TRUE` or `FALSE`. For example, you can use customisation to create a GitHub .gitignore file or initialise the `renv` package.
 
-Here is the basic code you will need to use, having installed dfeR:
+Here is the basic code you will need to use, having installed `dfeR`:
 
 ```{r create_project, eval = FALSE}
 dfeR::create_project(
