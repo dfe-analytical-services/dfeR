@@ -97,7 +97,7 @@ The function works by:
 
 2.  **Adding initial files**: The script creates some initial files, such as a template README file to help you get started with your project. It also initialises the `testthat` package, which is used for unit testing in R.
 
-3.  **Customisation**:  Other files or processes can be initialised as well depending on whether you set extra arguments as `TRUE` or `FALSE`. For example, you can use customisation to create a GitHub .gitignore file or initialise the `renv` package.
+3.  **Customisation**:  Other files or processes can also be initialised depending on whether you set extra arguments as `TRUE` or `FALSE`. For example, you can use customisation to create a GitHub .gitignore file or initialise the `renv` package.
 
 Here is the basic code you will need to use, having installed `dfeR`:
 
@@ -192,7 +192,7 @@ The above code will create a new project in the specified folder path, with renv
 
 ![](../vignettes/create_new_project_screenshot.png){fig-alt="Newly created contents of project folder in file explorer."}
 
-You can then open the project by going to file \> open project in RStudio. If you have set create_publication_proj to `FALSE`, you will find your folders will look a little different to the above.
+You can then open the project by going to file \> open project in RStudio. If you have set `create_publication_proj` to `FALSE`, you will find your folders will look a little different to the above.
 
 You can amend the file structure and names to suit the particular project you are working on, using the file structure created as a template.
 
