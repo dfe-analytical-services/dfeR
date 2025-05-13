@@ -192,7 +192,7 @@ The above code will create a new project in the specified folder path, with renv
 
 ![](../vignettes/create_new_project_screenshot.png){fig-alt="Newly created contents of project folder in file explorer."}
 
-You can then open the project by going to file \> open project in RStudio. If you have set `create_publication_proj` to `FALSE`, you will find your folders will look a little different to the above.
+You can then open the project by double clicking on the R project file. You should be able to identify it as it has an R symbol in a cube and the file type will be shown as 'R Project'. If you have set `create_publication_proj` to `FALSE`, you will find your folders will look a little different to the above.
 
 You can amend the file structure and names to suit the particular project you are working on, using the file structure created as a template.
 
