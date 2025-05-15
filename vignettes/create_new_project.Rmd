@@ -14,11 +14,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup, include =  FALSE}
-library(dfeR)
-library(knitr)
-```
-
 ## Introduction and prerequisites
 
 The `dfeR` package can be used to create a new R project using the `create_project()` function. This function helps you set up a pre-populated project with a custom folder structure, making it easier to start your analysis or publication. In order to use this function, you will need to ensure you have the right software installed, and have an understanding of R projects and `renv`.
