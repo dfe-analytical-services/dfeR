@@ -1,5 +1,5 @@
 ---
-title: "create_new_project"
+title: "Creating a new dfeR project"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{create_new_project}
@@ -17,22 +17,6 @@ knitr::opts_chunk$set(
 ```{r setup, include =  FALSE}
 library(dfeR)
 library(knitr)
-```
-
----
-title: "Creating a new dfeR project"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{create_new_project}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
----
-
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
 ```
 
 ## Introduction and prerequisites
@@ -82,7 +66,7 @@ You should use the renv package for package version control in R. It creates a p
 
 `testthat` is an R package that helps you write and run tests to ensure your code works correctly. It allows you to create tests that check if your functions produce the expected results, run these tests to catch errors early, and gives you confidence that your code is reliable and behaves as intended. It's a valuable tool for maintaining high-quality, bug-free code.
 
-See the [coffee and coding resources](https://educationgovuk.sharepoint.com/sites/sarpi/g/WorkplaceDocuments/Induction%20learning%20and%20career%20development/Coffee%20and%20Coding/190306_peter_autotesting?csf=1&web=1&e=F945Xq&CID=bb26da68-5589-4c82-9892-7fb3b7adf1eb) or this [guide on testing](https://r-pkgs.org/testing-basics.html) by Hadley Wickham for getting started.
+See this [guide on testing](https://r-pkgs.org/testing-basics.html) by Hadley Wickham for getting started.
 
 ### What is a GitHub .gitignore file?
 A .gitignore file is a text file that tells Git which files or directories to ignore in a project. It helps you avoid committing sensitive information, temporary files, or other unnecessary files to your Git repository. By creating a .gitignore file, you can keep your repository clean and focused on the essential files needed for your project. Find more guidance on how to avoid revealing sensitive information on the [Analysts' Guide](https://dfe-analytical-services.github.io/analysts-guide/RAP/rap-statistics.html#avoid-revealing-sensitive-information). 
@@ -119,10 +103,12 @@ You should store any projects that use Git outside of OneDrive. To create a fold
 
 Below is a table describing the parameters used within the code. When using the `create_project()` function, you will need to make a decision on what to enter for each in order to create the appropriate type of project.
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
+library(dplyr)
+library(kableExtra)
 parameter_data <- data.frame(
   Parameter = c(
-    "Path",
+    "path",
     "init_renv",
     "include_structure_for_pkg",
     "create_publication_proj",
@@ -136,7 +122,7 @@ parameter_data <- data.frame(
     "Include a GitHub .gitignore file"
   ),
   `Expected input` = c(
-    "A folder path e.g. 'C:/Users/username/repos'",
+    "A folder path e.g., 'C:/Users/user name/repos'",
     "Boolean (`TRUE`/`FALSE`), default = `TRUE`",
     "Boolean (`TRUE`/`FALSE`), default = `FALSE`",
     "Boolean (`TRUE`/`FALSE`), default = `FALSE`",
@@ -161,10 +147,14 @@ parameter_data <- data.frame(
 
 kable(
   parameter_data,
-  format = "markdown",
+  format = "html",
   col.names = c("Parameter", "Meaning", "Expected input",
                 "Considerations", "Output")
-)
+) %>% kable_styling(full_width = FALSE, font_size = 17)%>% 
+  column_spec(c(1,3), width="5em") %>% 
+  column_spec(c(2,4), width="7em") %>% 
+  column_spec(5, width="10em")
+
 ```
 
 You will also need to think about what you want your project to be called and include this in your file path. You can always amend this later.
@@ -190,7 +180,8 @@ dfeR::create_project(
 
 The above code will create a new project in the specified folder path, with renv initialised, a publication project structure, and a GitHub .gitignore file included. You can view this by going to the location of the pathway you chose in file explorer. You should find your new project there, inside a folder with the name you added at the end of your pathway, as below.
 
-![](../vignettes/create_new_project_screenshot.png){fig-alt="Newly created contents of project folder in file explorer."}
+
+![](../man/figures/create_new_project_screenshot.png)
 
 You can then open the project by double clicking on the R project file. You should be able to identify it as it has an R symbol in a cube and the file type will be shown as 'R Project'. If you have set `create_publication_proj` to `FALSE`, you will find your folders will look a little different to the above.
 
