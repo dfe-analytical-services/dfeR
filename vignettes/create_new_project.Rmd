@@ -20,6 +20,8 @@ The `dfeR` package can be used to create a new R project using the `create_proje
 
 If you are familiar with all of the above, you can go to the [Using the create_project() function](#using-the-create_project-function) section of this page or the [create_project() reference](https://dfe-analytical-services.github.io/dfeR/reference/create_project.html) for an overview of the usage, arguments and examples.
 
+You can create a project using the `create_project()` function using code or using the project wizard in RStudio. The project wizard is a user-friendly way to set up a new project without writing any code. This vignette covers both methods. 
+
 ### Prerequisites
 
 Before you begin, ensure you have the following installed.
@@ -78,17 +80,6 @@ The function works by:
 
 3.  **Customisation**:  Other files or processes can also be initialised depending on whether you set extra arguments as `TRUE` or `FALSE`. For example, you can use customisation to create a GitHub .gitignore file or initialise the `renv` package.
 
-Here is the basic code you will need to use, having installed `dfeR`:
-
-```{r create_project, eval = FALSE}
-dfeR::create_project(
-  path = "C:/path/to/your/new/project",
-  init_renv = TRUE,
-  include_structure_for_pkg = FALSE,
-  create_publication_proj = FALSE,
-  include_github_gitignore = TRUE
-)
-```
 
 ### Where to save your project 
 
@@ -96,7 +87,7 @@ You should store any projects that use Git outside of OneDrive. To create a fold
 
 ### Parameters
 
-Below is a table describing the parameters used within the code. When using the `create_project()` function, you will need to make a decision on what to enter for each in order to create the appropriate type of project.
+When creating a project using the `create_project()` function, you will need to decide on several parameters. These parameters are necessary whether you use code or the New Project Wizard to create your project. The table below explains each of the parameters and the expected input for each parameter when using code. 
 
 ```{r, echo = FALSE, warning=FALSE, message=FALSE}
 library(dplyr)
@@ -116,13 +107,6 @@ parameter_data <- data.frame(
     "Create project with structure for publications",
     "Include a GitHub .gitignore file"
   ),
-  `Expected input` = c(
-    "A folder path e.g., 'C:/Users/user name/repos'",
-    "Boolean (`TRUE`/`FALSE`), default = `TRUE`",
-    "Boolean (`TRUE`/`FALSE`), default = `FALSE`",
-    "Boolean (`TRUE`/`FALSE`), default = `FALSE`",
-    "Boolean (`TRUE`/`FALSE`)"
-  ),
   Considerations = c(
     "Where do you want to store your project?",
     "Do you want to use renv for package version control?",
@@ -132,10 +116,19 @@ parameter_data <- data.frame(
   ),
   Output = c(
     "This will be the folder your new project is created within.",
-    "If set to `TRUE`, renv will be initialised in your project.",
-    "If set to `TRUE`, an extra package development folder will be created",
-    "If set to `TRUE`, extra publication specific folders will be created",
-    "If set to `TRUE`, a GitHub .gitignore file will be created."
+    "If set to `TRUE` or selected, renv will be initialised in your project.",
+    "If set to `TRUE` or selected, an extra package development folder will 
+be created",
+    "If set to `TRUE` or selected, extra publication specific folders will
+be created",
+    "If set to `TRUE` or selected, a GitHub .gitignore file will be created."
+  ),
+  `Expected input` = c(
+    "A folder path e.g., 'C:/Users/user name/repos'",
+    "Boolean (`TRUE`/`FALSE`), default = `TRUE`",
+    "Boolean (`TRUE`/`FALSE`), default = `FALSE`",
+    "Boolean (`TRUE`/`FALSE`), default = `FALSE`",
+    "Boolean (`TRUE`/`FALSE`)"
   )
 )
 
@@ -144,8 +137,9 @@ kable(
   parameter_data,
   format = "html",
   col.names = c(
-    "Parameter", "Meaning", "Expected input",
-    "Considerations", "Output"
+    "Parameter", "Meaning",
+    "Considerations", "Output",
+    "Expected code input"
   )
 ) %>%
   kable_styling(full_width = FALSE, font_size = 17) %>%
@@ -154,13 +148,25 @@ kable(
   column_spec(5, width = "10em")
 ```
 
-You will also need to think about what you want your project to be called and include this in your file path. You can always amend this later.
+When using the New Project Wizard, you will be prompted to enter these parameters manually by filling in provided boxes or ticking the appropriate checkboxes. Regardless of the method you choose, you will need to make a decision for each parameter to create the appropriate type of project.
 
-For example, if you want to create a project called “my-new-project” in the folder you created above, your file path (with the username changed to your username) would be "C:/Users/Msmith/repos/my-new-project".
+## Creating a project using code
 
-You can create a project in a different location, but you will need to change the file path accordingly.
+Here is the basic code you will need to use, having installed `dfeR`:
 
-### Example
+```{r create_project, eval = FALSE}
+dfeR::create_project(
+  path = "C:/path/to/your/new/project",
+  init_renv = TRUE,
+  include_structure_for_pkg = FALSE,
+  create_publication_proj = FALSE,
+  include_github_gitignore = TRUE
+)
+```
+
+### Example use
+
+The below code will create a new project in the specified folder path, with renv initialised, a publication project structure, and a GitHub .gitignore file included.
 
 ```{r function_example, eval = FALSE}
 # Load the dfeR package
@@ -175,14 +181,38 @@ dfeR::create_project(
 )
 ```
 
-The above code will create a new project in the specified folder path, with renv initialised, a publication project structure, and a GitHub .gitignore file included. You can view this by going to the location of the pathway you chose in file explorer. You should find your new project there, inside a folder with the name you added at the end of your pathway, as below.
+
+You can view this by going to the location of the pathway you chose in file explorer. You should find your new project there, inside a folder with the name you added at the end of your pathway, as below.
 
 
 ![](../man/figures/create_new_project_screenshot.png){fig-alt="Newly created contents of project folder in file explorer."}
+You will also need to think about what you want your project to be called and include this in your file path. You can always amend this later.
+
+For example, if you want to create a project called “my-new-project” in the folder you created above, your file path (with the username changed to your username) would be "C:/Users/Msmith/repos/my-new-project".
+
+You can create a project in a different location, but you will need to change the file path accordingly.
 
 You can then open the project by double clicking on the R project file. You should be able to identify it as it has an R symbol in a cube and the file type will be shown as 'R Project'. If you have set `create_publication_proj` to `FALSE`, you will find your folders will look a little different to the above.
 
 You can amend the file structure and names to suit the particular project you are working on, using the file structure created as a template.
+
+## Creating a project using the project wizard 
+
+If you are using RStudio, you can also create a new project using the project wizard. This is a user-friendly way to set up a new project without writing any code. To do this, follow these steps:
+
+1.  Open RStudio and go to the 'File' menu.
+2.  Select 'New Project' from the dropdown menu.
+3.  Choose 'New Directory' and then scroll down to find 'dfeR project template'.
+4.  Enter the name of your project under 'Directory name' and choose a location to save it.
+5.  Decide whether you want to have a project structure specifically for publications or a package. Leaving these both unticked will give you a project with a generic analysis project structure. You then need to decide whether you would like a GitHub .gitignore file. 
+6.  Click 'Create Project' to set up your new project.
+
+
+![](../man/figures/project_wizard_screenshot.png){fig-alt="New Project Wizard with option to create dfeR project template open."}
+
+You can also access the project wizard by clicking on the project that you are currently in, in the top-right hand corner and then selecting 'new project'.
+
+As above, you can access your new project by going to the location of the pathway you chose in file explorer. You should find your new project there, inside a folder with the name you added at the end of your pathway.
 
 ### Troubleshooting
 
