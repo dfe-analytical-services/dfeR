@@ -20,13 +20,13 @@ The `dfeR` package can be used to create a new R project using the `create_proje
 
 If you are familiar with all of the above, you can go to the [Using the create_project() function](#using-the-create_project-function) section of this page or the [create_project() reference](https://dfe-analytical-services.github.io/dfeR/reference/create_project.html) for an overview of the usage, arguments and examples.
 
-You can create a project using the `create_project()` function using code or using the project wizard in RStudio. The project wizard is a user-friendly way to set up a new project without writing any code. This vignette covers both methods. 
+You can create a project using the `create_project()` function using code or using the 'New Project Wizard' in RStudio. The 'New Project Wizard' is a user-friendly way to set up a new project without writing any code. This guide covers both methods.
 
 ### Prerequisites
 
 Before you begin, ensure you have the following installed.
 
--   R for Windows (x64) - version 4.0.0 or higher 
+-   R for Windows (x64) - version 4.0.0 or higher
 -   RTools (for Windows users and the version must match the R version)
 -   RStudio
 -   The `dfeR` package
@@ -66,11 +66,12 @@ You should use the renv package for package version control in R. It creates a p
 See this [guide on testing](https://r-pkgs.org/testing-basics.html) by Hadley Wickham for getting started.
 
 ### What is a GitHub .gitignore file?
-A .gitignore file is a text file that tells Git which files or directories to ignore in a project. It helps you avoid committing sensitive information, temporary files, or other unnecessary files to your Git repository. By creating a .gitignore file, you can keep your repository clean and focused on the essential files needed for your project. Find more guidance on how to avoid revealing sensitive information on the [Analysts' Guide](https://dfe-analytical-services.github.io/analysts-guide/RAP/rap-statistics.html#avoid-revealing-sensitive-information). 
 
-## Using the create_project() function
+A .gitignore file is a text file that tells Git which files or directories to ignore in a project. It helps you avoid committing sensitive information, temporary files, or other unnecessary files to your Git repository. By creating a .gitignore file, you can keep your repository clean and focused on the essential files needed for your project. Find more guidance on how to avoid revealing sensitive information on the [Analysts' Guide](https://dfe-analytical-services.github.io/analysts-guide/RAP/rap-statistics.html#avoid-revealing-sensitive-information).
 
-The `create_project()` function is a part of the `dfeR` package and is used to create a new R project with a custom folder structure. It is designed to help you set up your project quickly and efficiently, with all the necessary components in place. 
+## Using the create_project() function {#using-the-create_project-function}
+
+The `create_project()` function is a part of the `dfeR` package and is used to create a new R project with a custom folder structure. It is designed to help you set up your project quickly and efficiently, with all the necessary components in place.
 
 The function works by:
 
@@ -78,20 +79,18 @@ The function works by:
 
 2.  **Adding initial files**: The script creates some initial files, such as a template README file to help you get started with your project. It also initialises the `testthat` package, which is used for unit testing in R.
 
-3.  **Customisation**:  Other files or processes can also be initialised depending on whether you set extra arguments as `TRUE` or `FALSE`. For example, you can use customisation to create a GitHub .gitignore file or initialise the `renv` package.
+3.  **Customisation**: Other files or processes can also be initialised depending on whether you set extra arguments as `TRUE` or `FALSE`. For example, you can use customisation to create a GitHub .gitignore file or initialise the `renv` package.
 
+### Where to save your project
 
-### Where to save your project 
-
-You should store any projects that use Git outside of OneDrive. To create a folder in your C drive, type: 'C:/Users/username' into the file explorer search bar and create a folder called 'repos'.
+You should store any projects that use Git outside of OneDrive. To create a folder in your C drive, type: 'C:/Users/username' into the File Explorer search bar and create a folder called 'repos'.
 
 ### Parameters
 
-When creating a project using the `create_project()` function, you will need to decide on several parameters. These parameters are necessary whether you use code or the New Project Wizard to create your project. If you are using the New Project Wizard, the parameters which need a `TRUE`/`FALSE` input will be set to `TRUE` by ticking a checkbox. The table below explains each of the parameters, their meaning and what you should take into account for each. 
+When creating a project using the `create_project()` function, you will need to decide on several parameters. These parameters are necessary whether you use code or the 'New Project Wizard' to create your project. If you are using the 'New Project Wizard', the parameters which need a `TRUE`/`FALSE` input will be set to `TRUE` by ticking a checkbox. The table below explains each of the parameters, their meaning and what you should take into account for each.
 
 ```{r, echo = FALSE, warning=FALSE, message=FALSE}
-library(dplyr)
-library(kableExtra)
+library(knitr)
 parameter_data <- data.frame(
   Parameter = c(
     "path",
@@ -117,7 +116,7 @@ parameter_data <- data.frame(
   Output = c(
     "This will be the folder your new project is created within.",
     "If set to `TRUE`, renv will be initialised in your project.",
-    "If set to `TRUE`, an extra package development folder will 
+    "If set to `TRUE`, an extra package development folder will
 be created",
     "If set to `TRUE`, extra publication specific folders will
 be created",
@@ -133,14 +132,10 @@ kable(
     "Parameter", "Meaning",
     "Considerations", "Output"
   )
-) %>%
-  kable_styling(full_width = FALSE, font_size = 17) %>%
-  column_spec(1, width = "5em") %>%
-  column_spec(2, width = "7em") %>%
-  column_spec(c(4, 3), width = "10em")
+)
 ```
 
-When using the New Project Wizard, you will be prompted to enter these parameters manually by filling in provided boxes or ticking the appropriate checkboxes. Regardless of the method you choose, you will need to make a decision for each parameter to create the appropriate type of project.
+When using the 'New Project Wizard', you will be prompted to enter these parameters manually by filling in provided boxes or ticking the appropriate checkboxes. Regardless of the method you choose, you will need to make a decision for each parameter to create the appropriate type of project.
 
 ## Creating a project using code
 
@@ -173,38 +168,43 @@ dfeR::create_project(
 )
 ```
 
+You can view this by going to the location of the pathway you chose in File Explorer. You should find your new project there, inside a folder with the name you added at the end of your pathway, as below.
 
-You can view this by going to the location of the pathway you chose in file explorer. You should find your new project there, inside a folder with the name you added at the end of your pathway, as below.
-
-
-![](../man/figures/create_new_project_screenshot.png){fig-alt="Newly created contents of project folder in file explorer."}
-You will also need to think about what you want your project to be called and include this in your file path. You can always amend this later.
+![](../man/figures/create_new_project_screenshot.png){fig-alt="Newly created contents of project folder in File Explorer."} You will also need to think about what you want your project to be called and include this in your file path. You can always amend this later.
 
 For example, if you want to create a project called “my-new-project” in the folder you created above, your file path (with the username changed to your username) would be "C:/Users/Msmith/repos/my-new-project".
 
 You can create a project in a different location, but you will need to change the file path accordingly.
 
-You can then open the project by double clicking on the R project file. You should be able to identify it as it has an R symbol in a cube and the file type will be shown as 'R Project'. If you have set `create_publication_proj` to `FALSE`, you will find your folders will look a little different to the above.
+You can then open the project by double-clicking on the R project file. You should be able to identify it, as it has an R symbol in a cube, and the file type will be shown as 'R Project'. If you have set `create_publication_proj` to `FALSE`, you will find your folders will look a little different to the above.
 
 You can amend the file structure and names to suit the particular project you are working on, using the file structure created as a template.
 
-## Creating a project using the project wizard 
+## Creating a project using the 'New Project Wizard'
 
-If you are using RStudio, you can also create a new project using the project wizard. This is a user-friendly way to set up a new project without writing any code. To do this, follow these steps:
+If you are using RStudio, you can also create a new project using the 'New Project Wizard'. This is a user-friendly way to set up a new project without writing any code. To do this, follow these steps:
 
-1.  Open RStudio and go to the 'File' menu.
-2.  Select 'New Project' from the dropdown menu.
-3.  Choose 'New Directory' and then scroll down to find 'dfeR project template'.
-4.  Enter the name of your project under 'Directory name' and choose a location to save it.
-5.  Decide whether you want to have a project structure specifically for publications or a package. Leaving these both unticked will give you a project with a generic analysis project structure. You then need to decide whether you would like a GitHub .gitignore file. 
+1.  Open RStudio and go to 'File' \> 'New Project' \> 'New Directory'
+
+2.  Scroll down and click on 'dfeR project template'.
+
+3.  Enter the name of your project under 'Directory name'
+            
+    -  You can choose a location to save your project by clicking 'Browse'.
+
+4.  Decide whether you want to have a project structure specifically for publications or a package.
+
+    - Leaving these both unticked will give you a project with a generic analysis project structure.
+
+5.  Decide whether you would like a GitHub .gitignore file by ticking or unticking the box.
+
 6.  Click 'Create Project' to set up your new project.
 
+![](../man/figures/project_wizard_screenshot.png){fig-alt="New 'New Project Wizard' with option to create dfeR project template open."}
 
-![](../man/figures/project_wizard_screenshot.png){fig-alt="New Project Wizard with option to create dfeR project template open."}
+You can also access the 'New Project Wizard' by clicking on the project that you are currently in, in the top-right hand corner and then selecting 'New Project'.
 
-You can also access the project wizard by clicking on the project that you are currently in, in the top-right hand corner and then selecting 'new project'.
-
-As above, you can access your new project by going to the location of the pathway you chose in file explorer. You should find your new project there, inside a folder with the name you added at the end of your pathway.
+As above, you can access your new project by going to the location of the pathway you chose in File Explorer. You should find your new project there, inside a folder with the name you added at the end of your pathway.
 
 ### Troubleshooting
 
@@ -212,4 +212,4 @@ You may hit an error if the `init_renv` parameter is not set to FALSE. This init
 
 *"None of the packages recorded in the lockfile are currently installed."*
 
-This can be rectified by executing `'renv::restore()'` in your console which will install those packages.
+This can be rectified by executing `'renv::restore()'` in your console, which will install those packages.

@@ -38,7 +38,6 @@ Imports:
     withr
 Suggests:
     knitr,
-    kableExtra,
     readxl,
     rmarkdown,
     spelling,
