@@ -87,7 +87,7 @@ You should store any projects that use Git outside of OneDrive. To create a fold
 
 ### Parameters
 
-When creating a project using the `create_project()` function, you will need to decide on several parameters. These parameters are necessary whether you use code or the New Project Wizard to create your project. The table below explains each of the parameters and the expected input for each parameter when using code. 
+When creating a project using the `create_project()` function, you will need to decide on several parameters. These parameters are necessary whether you use code or the New Project Wizard to create your project. If you are using the New Project Wizard, the parameters which need a `TRUE`/`FALSE` input will be set to `TRUE` by ticking a checkbox. The table below explains each of the parameters, their meaning and what you should take into account for each. 
 
 ```{r, echo = FALSE, warning=FALSE, message=FALSE}
 library(dplyr)
@@ -116,19 +116,12 @@ parameter_data <- data.frame(
   ),
   Output = c(
     "This will be the folder your new project is created within.",
-    "If set to `TRUE` or selected, renv will be initialised in your project.",
-    "If set to `TRUE` or selected, an extra package development folder will 
+    "If set to `TRUE`, renv will be initialised in your project.",
+    "If set to `TRUE`, an extra package development folder will 
 be created",
-    "If set to `TRUE` or selected, extra publication specific folders will
+    "If set to `TRUE`, extra publication specific folders will
 be created",
-    "If set to `TRUE` or selected, a GitHub .gitignore file will be created."
-  ),
-  `Expected input` = c(
-    "A folder path e.g., 'C:/Users/user name/repos'",
-    "Boolean (`TRUE`/`FALSE`), default = `TRUE`",
-    "Boolean (`TRUE`/`FALSE`), default = `FALSE`",
-    "Boolean (`TRUE`/`FALSE`), default = `FALSE`",
-    "Boolean (`TRUE`/`FALSE`)"
+    "If set to `TRUE`, a GitHub .gitignore file will be created."
   )
 )
 
@@ -138,14 +131,13 @@ kable(
   format = "html",
   col.names = c(
     "Parameter", "Meaning",
-    "Considerations", "Output",
-    "Expected code input"
+    "Considerations", "Output"
   )
 ) %>%
   kable_styling(full_width = FALSE, font_size = 17) %>%
-  column_spec(c(1, 3), width = "5em") %>%
-  column_spec(c(2, 4), width = "7em") %>%
-  column_spec(5, width = "10em")
+  column_spec(1, width = "5em") %>%
+  column_spec(2, width = "7em") %>%
+  column_spec(c(4,3), width = "10em")
 ```
 
 When using the New Project Wizard, you will be prompted to enter these parameters manually by filling in provided boxes or ticking the appropriate checkboxes. Regardless of the method you choose, you will need to make a decision for each parameter to create the appropriate type of project.
