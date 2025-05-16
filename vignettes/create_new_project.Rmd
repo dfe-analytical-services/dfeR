@@ -137,7 +137,7 @@ kable(
   kable_styling(full_width = FALSE, font_size = 17) %>%
   column_spec(1, width = "5em") %>%
   column_spec(2, width = "7em") %>%
-  column_spec(c(4,3), width = "10em")
+  column_spec(c(4, 3), width = "10em")
 ```
 
 When using the New Project Wizard, you will be prompted to enter these parameters manually by filling in provided boxes or ticking the appropriate checkboxes. Regardless of the method you choose, you will need to make a decision for each parameter to create the appropriate type of project.
