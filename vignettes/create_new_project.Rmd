@@ -172,7 +172,7 @@ You can view this by going to the location of the pathway you chose in File Expl
 
 ![](../man/figures/create_new_project_screenshot.png){fig-alt="Newly created contents of project folder in File Explorer."} You will also need to think about what you want your project to be called and include this in your file path. You can always amend this later.
 
-For example, if you want to create a project called “my-new-project” in the folder you created above, your file path (with the username changed to your username) would be "C:/Users/Msmith/repos/my-new-project".
+For example, if you want to create a project called “my-new-project” in the folder you created above, your file path (with the username changed to your username) would be "C:/Users/JBLOGGS/repos/my-new-project".
 
 You can create a project in a different location, but you will need to change the file path accordingly.
 
