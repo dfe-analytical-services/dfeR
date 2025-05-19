@@ -1,9 +1,10 @@
 pandoc: 3.1.11
-pkgdown: 2.1.1
+pkgdown: 2.1.2
 pkgdown_sha: ~
 articles:
   connecting_to_sql: connecting_to_sql.html
-last_built: 2025-04-16T10:48Z
+  create_new_project: create_new_project.html
+last_built: 2025-05-19T10:04Z
 urls:
   reference: https://dfe-analytical-services.github.io/dfeR/reference
   article: https://dfe-analytical-services.github.io/dfeR/articles
