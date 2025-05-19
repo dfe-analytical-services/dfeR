@@ -83,7 +83,7 @@ The function works by:
 
 ### Where to save your project
 
-You should store any projects that use Git outside of OneDrive. To create a folder in your C drive, type: 'C:/Users/username' into the File Explorer search bar and create a folder called 'repos'.
+You should store any projects that use Git outside of OneDrive. To create a folder in your C drive, type: 'C:/Users/[username]' into the File Explorer search bar and create a folder called 'repos'. For example, if your user was JBLOGGS, you'd type 'C:/Users/JBLOGGS'.
 
 ### Parameters
 
