@@ -204,7 +204,7 @@ If you are using RStudio, you can also create a new project using the 'New Proje
 
 You can also access the 'New Project Wizard' by clicking on the project that you are currently in, in the top-right hand corner and then selecting 'New Project'.
 
-As above, you can access your new project by going to the location of the pathway you chose in File Explorer. You should find your new project there, inside a folder with the name you added at the end of your pathway.
+As above, you can access your new project by going to the location of the pathway you chose in File Explorer. You should find your new project there, inside a folder with the name you added as the directory name.
 
 ### Troubleshooting
 
