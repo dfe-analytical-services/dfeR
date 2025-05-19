@@ -160,7 +160,7 @@ The below code will create a new project in the specified folder path, with renv
 library(dfeR)
 # Create a new project with the desired parameters
 dfeR::create_project(
-  path = "C:/Users/MSmith/repos/my-new-project",
+  path = "C:/Users/JBLOGGS/repos/my-new-project",
   init_renv = TRUE,
   include_structure_for_pkg = FALSE,
   create_publication_proj = TRUE,
