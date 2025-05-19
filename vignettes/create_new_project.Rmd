@@ -200,7 +200,7 @@ If you are using RStudio, you can also create a new project using the 'New Proje
 
 6.  Click 'Create Project' to set up your new project.
 
-![](../man/figures/project_wizard_screenshot.png){fig-alt="New 'New Project Wizard' with option to create dfeR project template open."}
+![](../man/figures/project_wizard_screenshot.png){fig-alt="'New Project Wizard' window with option to create dfeR project template open."}
 
 You can also access the 'New Project Wizard' by clicking on the project that you are currently in, in the top-right hand corner and then selecting 'New Project'.
 
