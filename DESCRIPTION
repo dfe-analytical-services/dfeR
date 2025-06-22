@@ -26,6 +26,7 @@ Depends:
 Imports: 
     dplyr,
     emoji,
+    git2r,
     httr,
     jsonlite,
     lifecycle,
