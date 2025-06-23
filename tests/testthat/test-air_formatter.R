@@ -21,5 +21,10 @@ test_that("air_style runs Air", {
     )
   )
 
+  expect_error(
+    air_style("./this/file/does/not/exist.R"),
+    "Target file ./this/file/does/not/exist.R does not exist"
+  )
+
   unlink(temp_dir, recursive = TRUE)
 })
