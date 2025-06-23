@@ -4,7 +4,7 @@
 \alias{air_install}
 \title{Air Install}
 \usage{
-air_install(update_global_settings = TRUE, verbose = FALSE)
+air_install(update_global_settings = FALSE, verbose = TRUE)
 }
 \arguments{
 \item{update_global_settings}{auto update global settings, or don't}
