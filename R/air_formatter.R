@@ -45,17 +45,20 @@ air_install <- function(update_global_settings = FALSE, verbose = TRUE) {
     )
     if (platform == "Windows") {
       system(
-        paste(
-          "powershell -ExecutionPolicy Bypass",
-          "-c \"irm https://github.com/posit-dev/air/releases/latest/download/air-installer.ps1",
+        paste0(
+          "powershell -ExecutionPolicy Bypass ",
+          "-c \"irm ",
+          "https://github.com/posit-dev/air/releases/latest/download/",
+          "air-installer.ps1",
           " | iex\""
         )
       )
     } else {
       system(
-        paste(
+        paste0(
           "curl -LsSf ",
-          "https://github.com/posit-dev/air/releases/latest/download/air-installer.sh",
+          "https://github.com/posit-dev/air/releases/latest/download/",
+          "air-installer.sh ",
           "| sh"
         )
       )
@@ -63,8 +66,8 @@ air_install <- function(update_global_settings = FALSE, verbose = TRUE) {
   }
   if (update_global_settings == TRUE) {
     warning(
-      "Updating global RStudio settings to use Air and reformat scripts on save.",
-      "You can turn this off from Tools > global options > Code > Saving.",
+      "Updating global RStudio settings to use Air and reformat scripts on",
+      "save. You can turn this off from Tools > global options > Code > Saving",
       "Note that Air currently mis-formats yaml scripts, so reformatting on",
       "save should be avoided if you work with yaml."
     )

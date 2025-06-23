@@ -15,7 +15,10 @@ test_that("air_style runs Air", {
   expect_equal(
     styled_code |>
       paste(collapse = "\n"),
-    "test_function = function(\n  param = NULL\n) {\n  print(\n    param\n  )\n}"
+    paste0(
+      "test_function = function(\n  param = NULL\n) ",
+      "{\n  print(\n    param\n  )\n}"
+    )
   )
 
   unlink(temp_dir, recursive = TRUE)
