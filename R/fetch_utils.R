@@ -117,5 +117,5 @@ fetch_locations <- function(lookup_data, cols, year, countries) {
       )
   }
 
-  return(dplyr::distinct(resummarised_lookup[, cols_to_return]))
+  dplyr::distinct(resummarised_lookup[, cols_to_return])
 }

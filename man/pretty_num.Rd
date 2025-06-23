@@ -88,6 +88,7 @@ pretty_num(vector, alt_na = "z")
 Other prettying: 
 \code{\link{pretty_filesize}()},
 \code{\link{pretty_num_table}()},
+\code{\link{pretty_time}()},
 \code{\link{pretty_time_taken}()}
 }
 \concept{prettying}
