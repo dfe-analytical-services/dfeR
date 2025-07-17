@@ -132,6 +132,20 @@ wd_pcon_lad_la_rgn_ctry <- wd_pcon_lad_la_rgn_ctry %>%
     "region_code", "country_code"
   )
 
+
+# Add 3 digit local authority codes from GIAs  ----------------------------
+
+wd_pcon_lad_la_rgn_ctry <- wd_pcon_lad_la_rgn_ctry%>%
+
+#join the data onto the GIAs LA 3 digit code data
+dplyr::left_join(gias_3_digit_la_codes, by=c("la_name"="la_name",
+                                                      "new_la_code"="new_la_code")) %>%
+
+
+  dplyr::mutate(old_la_code=dplyr::if_else(is.na(old_la_code), "x", old_la_code)) %>%
+  dplyr::distinct()
+
+
 # QA the joining --------------------------------------------------------------
 # Check for any regions that failed to join
 region_error_check <- wd_pcon_lad_la_rgn_ctry %>%
