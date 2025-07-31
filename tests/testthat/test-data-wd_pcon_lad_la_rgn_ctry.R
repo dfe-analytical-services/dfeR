@@ -24,12 +24,18 @@ test_that("time cols are always 4 digit numbers", {
   )
 })
 
-test_that("code cols are always a 9 digit code", {
+test_that("code cols are always a 9 digit code except old_la_code", {
+
+  #get all column names
+
+  code_columns <- colnames(dfeR::wd_pcon_lad_la_rgn_ctry)
+
   # Get column names ending in _code
-  code_columns <- tidyselect::ends_with(
-    "_code",
-    vars = colnames(dfeR::wd_pcon_lad_la_rgn_ctry)
-  )
+  code_columns <- code_columns[grepl("_code$", code_columns)]
+
+  #remove old_la_code
+
+  code_columns <- code_columns[code_columns != "old_la_code"]
 
   # Check the format for each code column
   for (col in code_columns) {
@@ -50,7 +56,7 @@ test_that("rows and cols match description", {
     "ward_name", "pcon_name", "lad_name", "la_name",
     "region_name", "country_name",
     "ward_code", "pcon_code", "lad_code", "new_la_code",
-    "region_code", "country_code"
+    "region_code", "country_code", "old_la_code"
   )
 
   expect_equal(names(dfeR::wd_pcon_lad_la_rgn_ctry), expected_columns)

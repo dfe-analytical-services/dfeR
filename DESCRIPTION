@@ -22,7 +22,7 @@ URL: https://dfe-analytical-services.github.io/dfeR/,
     https://github.com/dfe-analytical-services/dfeR
 BugReports: https://github.com/dfe-analytical-services/dfeR/issues
 Depends: 
-    R (>= 2.10)
+    R (>= 3.5)
 Imports: 
     dplyr,
     emoji,
