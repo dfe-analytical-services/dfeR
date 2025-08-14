@@ -20,6 +20,7 @@ reference:
   desc: Helpful functions for connecting to databases in DfE
   contents:
   - get_clean_sql
+  - setup_databricks_odbc
 
 - title: Fetch geography lists
   desc: Pull geography lookups from the ONS Geography Portal
