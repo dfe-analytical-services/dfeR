@@ -7,10 +7,12 @@ get_odbc_version <- function() {
 
 #' Setup Databricks ODBC connection
 #'
-#' Checks if the required environment variables for connecting to Databricks are set,
-#' and if the `odbc` package version is sufficient.
+#' Checks if the required environment variables for connecting to
+#' Databricks are set, and if the `odbc` package version is sufficient.
 #' @export
-setup_databricks_odbc <- function() {
+#' @return TRUE if the connection is set up correctly, FALSE otherwise.
+#' Prints instructions for fixing common problems to the console.
+check_databricks_odbc <- function() {
   # odbc::databricks is introduced in odbc 1.4.0
   if (get_odbc_version() < "1.4.0") {
     cli::cli_alert_danger(
