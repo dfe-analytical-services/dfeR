@@ -88,7 +88,7 @@ fetch_las <- function(year = "All", countries = "All") {
   # Helper function to filter to locations we want
   output <- fetch_locations(
     lookup_data = dfeR::wd_pcon_lad_la_rgn_ctry,
-    cols = c("new_la_code", "la_name","old_la_code"),
+    cols = c("new_la_code", "la_name", "old_la_code"),
     year = year,
     countries = countries
   )

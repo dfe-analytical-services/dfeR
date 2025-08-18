@@ -25,15 +25,14 @@ test_that("time cols are always 4 digit numbers", {
 })
 
 test_that("code cols are always a 9 digit code except old_la_code", {
-
-  #get all column names
+  # get all column names
 
   code_columns <- colnames(dfeR::wd_pcon_lad_la_rgn_ctry)
 
   # Get column names ending in _code
   code_columns <- code_columns[grepl("_code$", code_columns)]
 
-  #remove old_la_code
+  # remove old_la_code
 
   code_columns <- code_columns[code_columns != "old_la_code"]
 
@@ -47,11 +46,10 @@ test_that("code cols are always a 9 digit code except old_la_code", {
 
 # Test that old_la_code is a 3 digit code after 'z' values are filtered out
 test_that("old_la_code is always a 3 digit code", {
-
-  #filter out z values from the old_la_code column
+  # filter out z values from the old_la_code column
   old_la_code_test <- dfeR::wd_pcon_lad_la_rgn_ctry |>
     dplyr::filter(old_la_code != "z")
-  #do the test using filtered data
+  # do the test using filtered data
   expect_true(
     all(grepl("\\d{3}", old_la_code_test$old_la_code))
   )
