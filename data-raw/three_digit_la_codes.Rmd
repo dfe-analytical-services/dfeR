@@ -36,9 +36,9 @@ The following is a step by step guide to how the data for the local authorities 
 ```{r}
 # Load and clean LA code data from a file
 load_la_codes <- function(file_path) {
-  #read in data 
+  # read in data
   data.table::fread(file_path) %>%
-    #rename columns 
+    # rename columns
     dplyr::rename(
       la_name = 1,
       old_la_code = 2,
@@ -52,7 +52,7 @@ all_la_codes <- dplyr::bind_rows(
   load_la_codes("data/WelshLaNameCodes.csv"),
   load_la_codes("data/OtherLaNameCodes.csv")
 ) %>%
-  #clean up the strings in the la_name column 
+  # clean up the strings in the la_name column
   dplyr::mutate(
     la_name = gsub("^[A-Za-z]+ [A-Za-z]+ \\([^)]*\\) ", "", la_name),
     la_name = gsub("^[A-Za-z]+-LGR [0-9]+ ", "", la_name),
