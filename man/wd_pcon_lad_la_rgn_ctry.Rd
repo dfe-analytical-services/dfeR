@@ -27,12 +27,15 @@ Last year in the lookups that we see this location
 \item{new_la_code}{9 digit local authority code}
 \item{region_code}{9 digit region code}
 \item{country_code}{9 digit country code}
+\item{old_la_code}{old 3 digit local authority code}
 }
 }
 }
 \source{
 https://geoportal.statistics.gov.uk/search?tags=lup_wd_pcon_lad_utla
-and https://geoportal.statistics.gov.uk/search?q=lup_wd_lad_cty_rgn_gor_ctry
+https://geoportal.statistics.gov.uk/search?q=lup_wd_lad_cty_rgn_gor_ctry
+https://get-information-schools.service.gov.uk/Guidance/LaNameCodes and
+https://tinyurl.com/EESScreenerLAs
 }
 \usage{
 wd_pcon_lad_la_rgn_ctry

@@ -45,11 +45,23 @@ test_that("code cols are always a 9 digit code except old_la_code", {
   }
 })
 
+# Test that old_la_code is a 3 digit code after 'z' values are filtered out
+test_that("old_la_code is always a 3 digit code", {
+
+  #filter out z values from the old_la_code column
+  old_la_code_test <- dfeR::wd_pcon_lad_la_rgn_ctry |>
+    dplyr::filter(old_la_code != "z")
+  #do the test using filtered data
+  expect_true(
+    all(grepl("\\d{3}", old_la_code_test$old_la_code))
+  )
+})
+
 test_that("rows and cols match description", {
   # This test is more of a reminder when updating the data set, if these change
   # then we need to update the description in R/datasets_documentation.R
   expect_equal(nrow(dfeR::wd_pcon_lad_la_rgn_ctry), 24629)
-  expect_equal(ncol(dfeR::wd_pcon_lad_la_rgn_ctry), 14)
+  expect_equal(ncol(dfeR::wd_pcon_lad_la_rgn_ctry), 15)
 
   expected_columns <- c(
     "first_available_year_included", "most_recent_year_included",

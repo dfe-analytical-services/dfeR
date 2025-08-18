@@ -1,9 +1,11 @@
 CMD
 Codecov
 DfE
+EESScreenerLAs
 GOR
+JBLOGGS
+LaNameCodes
 Lifecycle
-Msmith
 NAC
 ORCID
 ObjectId
@@ -19,6 +21,7 @@ api
 ay
 boundr
 center
+com
 ctry
 cty
 dbplyr
@@ -45,6 +48,7 @@ sep
 shorthands
 sql
 testthat
+tinyurl
 uk
 utla
 wd
