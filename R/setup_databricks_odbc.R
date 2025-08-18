@@ -50,7 +50,7 @@ setup_databricks_odbc <- function() {
     cli::cli_ul(
       "Please set them in your {.file .Renviron} file
       or in your Windows account environment variables.
-      Follow the instructions on the DfE Analyst guide: \n
+      Follow the instructions on the linked DfE Analyst guide below: \n
       {.url https://shorturl.at/SCHru }"
     )
     return(invisible(FALSE))
