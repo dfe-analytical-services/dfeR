@@ -145,7 +145,6 @@ wd_pcon_lad_la_rgn_ctry <- wd_pcon_lad_la_rgn_ctry %>%
   )) %>%
   dplyr::distinct()
 
-
 # QA the joining --------------------------------------------------------------
 # Check for any regions that failed to join
 region_error_check <- wd_pcon_lad_la_rgn_ctry %>%
