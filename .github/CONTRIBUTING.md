@@ -87,7 +87,7 @@ styler::style_pkg()
 ``` r
 devtools::check() # General package check, can also use Ctrl-Shift-E
 lintr::lint_package() # Check formatting of code
-spelling::spell_check() # Check for spelling mistakes
+spelling::spell_check_package() # Check for spelling mistakes
 ```
 
 ## Handy workflows
