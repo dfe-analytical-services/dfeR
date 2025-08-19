@@ -133,8 +133,7 @@ wd_pcon_lad_la_rgn_ctry <- wd_pcon_lad_la_rgn_ctry %>%
   )
 
 
-# Add 3 digit local authority codes from GIAs  ----------------------------
-
+# Add 3 digit local authority codes from GIAS  ----------------------------
 wd_pcon_lad_la_rgn_ctry <- wd_pcon_lad_la_rgn_ctry %>%
   # join the data onto the GIAs LA 3 digit code data
   dplyr::left_join(gias_3_digit_la_codes, by = c(
