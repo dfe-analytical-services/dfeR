@@ -7,7 +7,7 @@ knitr:
 
 ## Background
 
-This is documentation that shows the process used to add the three digit local authority codes to the wd_pcon_lad_la_rgn_ctry look up. It contains a step by step guide followed by the code used throughout the process.
+This is a step by step guide to adding the three digit local authority codes to the wd_pcon_lad_la_rgn_ctry lookup, including the code you'll need to use.
 
 ## Step by step guide
 
