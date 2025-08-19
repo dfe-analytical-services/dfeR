@@ -28,7 +28,7 @@ This is a step by step guide to adding the three digit local authority codes to 
 
 6.  Write the data into the package using `usethis::use_data()` .
 
-7.  Remove the screener and GIAs CSV files saved in the data folder.
+7.  Remove the screener and GIAS CSV files saved in the data folder.
 
 8.  Update the [contributing documentation](https://dfe-analytical-services.github.io/dfeR/CONTRIBUTING.html) and package using the workflow in package documentation.
 
