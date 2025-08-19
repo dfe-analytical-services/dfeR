@@ -11,7 +11,6 @@ This is a step by step guide to adding the three digit local authority codes to 
 
 ## Step by step guide
 
-The following is a step by step guide to how the data for the local authorities is generated. There is a code chunk after the steps that shows the code used to get the three digit codes for local authorities and join them on to the wd_pcon_lad_la_rgn_ctry look up.
 
 1.  Download the three digit local authority code tables from the [Get Information about Schools](https://get-information-schools.service.gov.uk/) (GIAs) website by going to the [Local authority name and associated codes page](https://get-information-schools.service.gov.uk/Guidance/LaNameCodes), scrolling to the bottom and clicking on the 'Download' button.
 
