@@ -20,7 +20,7 @@ This is a step by step guide to adding the three digit local authority codes to 
 
     1.  Save this file in the 'data' folder of the dfeR repo. This step is temporary.
 
-3.  Carry out the necessary data processing and check if there is any data missing from the GIAs tables that we can obtain from the screener file.
+3.  Carry out the necessary data processing and check if there is any data missing from the GIAS tables that we can obtain from the screener file.
 
 4.  Combine the data to create a master list of local authorities with three and nine digit codes.
 
