@@ -33,6 +33,9 @@ This is a step by step guide to adding the three digit local authority codes to 
 8.  Update the [contributing documentation](https://dfe-analytical-services.github.io/dfeR/CONTRIBUTING.html) and package using the workflow in package documentation.
 
 ```{r}
+# Load package and dependencies
+devtools::load_all()
+
 # Load and clean LA code data from a file
 load_la_codes <- function(file_path) {
   # read in data
