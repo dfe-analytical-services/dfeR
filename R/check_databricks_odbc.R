@@ -5,7 +5,7 @@ get_odbc_version <- function() {
   utils::packageVersion("odbc")
 }
 
-#' Setup Databricks ODBC connection
+#' Check Databricks ODBC connection variables
 #'
 #' Checks if the required environment variables for connecting to
 #' Databricks are set, and if the `odbc` package version is sufficient.
