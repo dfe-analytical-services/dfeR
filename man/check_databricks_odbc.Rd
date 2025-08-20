@@ -2,11 +2,20 @@
 % Please edit documentation in R/check_databricks_odbc.R
 \name{check_databricks_odbc}
 \alias{check_databricks_odbc}
-\title{Setup Databricks ODBC connection}
+\title{Check Databricks ODBC connection variables}
 \usage{
 check_databricks_odbc()
 }
+\value{
+TRUE if the connection is set up correctly, FALSE otherwise.
+}
 \description{
-Checks if the required environment variables for connecting to Databricks are set,
-and if the \code{odbc} package version is sufficient.
+Checks if the required environment variables for connecting to
+Databricks are set, and if the \code{odbc} package version is sufficient.
+}
+\details{
+Prints instructions for fixing common problems to the console.
+}
+\examples{
+check_databricks_odbc()
 }

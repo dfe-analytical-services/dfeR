@@ -16,8 +16,25 @@ get_odbc_version <- function() {
 #' @examples
 #' check_databricks_odbc()
 check_databricks_odbc <- function() {
+  odbc_version <- tryCatch(
+    get_odbc_version(),
+    error = function(e) NA
+  )
+
+  # Exit gracefully if odbc is not installed
+  if (is.na(odbc_version)) {
+    cli::cli_alert_danger(
+      "The {.pkg odbc} package is not installed.
+    \n
+    Please install it by running:
+    \n
+    {.code install.packages('odbc')}"
+    )
+    return(invisible(FALSE))
+  }
+
   # odbc::databricks is introduced in odbc 1.4.0
-  if (get_odbc_version() < "1.4.0") {
+  if (odbc_version < "1.4.0") {
     cli::cli_alert_danger(
       "The odbc::databricks() function is not available
       in your version of the odbc package.
