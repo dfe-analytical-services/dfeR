@@ -89,12 +89,11 @@ wd_pcon_lad_la_rgn_ctry <- dfeR::wd_pcon_lad_la_rgn_ctry %>%
   ) %>%
   # if there are NA values in old_la_code, change them to 'z'
   dplyr::mutate(old_la_code = dplyr::if_else(is.na(old_la_code),
-                                             "z", old_la_code)) %>% 
+                                             "z", old_la_code)) %>%
   #put old_la_code before new_la_code
   dplyr::relocate(old_la_code, .before = new_la_code)
 
 
 # Write the data into the package ---------------------------------------------
 usethis::use_data(wd_pcon_lad_la_rgn_ctry, overwrite = TRUE)
-
 ```
