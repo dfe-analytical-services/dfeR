@@ -22,11 +22,6 @@ This is a step by step guide to adding the three digit local authority codes to 
 
 3.  Run the code supplied below to join the data and save a new version of the lookup.
 
-4.  Combine the data to create a master list of local authorities with three and nine digit codes.
-
-5.  Join the local authorities data onto the wd_pcon_lad_la_rgn_ctry look up
-
-6.  Write the data into the package using `usethis::use_data()` .
 
 7.  Remove the screener and GIAS CSV files saved in the data folder.
 
