@@ -1,5 +1,6 @@
 CMD
 Codecov
+Databricks
 DfE
 EESScreenerLAs
 GOR
@@ -7,6 +8,7 @@ JBLOGGS
 LaNameCodes
 Lifecycle
 NAC
+ODBC
 ORCID
 ObjectId
 ObjectIds
