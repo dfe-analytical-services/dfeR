@@ -1,3 +1,9 @@
+# dfeR 1.1.0
+
+- Added a function that checks Databricks variables for ODBC connections: `check_databricks_odbc()`.
+- Added three digit local authority codes (also known as old_la_codes) to the `wd_pcon_lad_la_rgn_ctry` lookup data.
+- Updated the dfeR contribution guidance to correct the spelling for the `spell_check_package()` function.
+
 # dfeR (development version)
 
 # dfeR 1.0.1

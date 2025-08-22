@@ -30,7 +30,10 @@ test_that("code cols are always a 9 digit code except old_la_code", {
   code_columns <- colnames(dfeR::wd_pcon_lad_la_rgn_ctry)
 
   # Get column names ending in _code
-  code_columns <- code_columns[grepl("_code$", code_columns)]
+  code_columns <- tidyselect::ends_with(
+    "_code",
+    vars = colnames(dfeR::wd_pcon_lad_la_rgn_ctry)
+  )
 
   # remove old_la_code
 
@@ -65,8 +68,8 @@ test_that("rows and cols match description", {
     "first_available_year_included", "most_recent_year_included",
     "ward_name", "pcon_name", "lad_name", "la_name",
     "region_name", "country_name",
-    "ward_code", "pcon_code", "lad_code", "new_la_code",
-    "region_code", "country_code", "old_la_code"
+    "ward_code", "pcon_code", "lad_code", "old_la_code", "new_la_code",
+    "region_code", "country_code"
   )
 
   expect_equal(names(dfeR::wd_pcon_lad_la_rgn_ctry), expected_columns)

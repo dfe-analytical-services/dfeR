@@ -18,9 +18,9 @@ This is a step by step guide to adding the three digit local authority codes to 
 
 2.  Go to the [Explore Education Statistics screener repository](https://github.com/dfe-analytical-services/dfe-published-data-qa/blob/main/data/las.csv), download the 'las.csv' file.
 
-    1.  Save this file in the 'data' folder of the dfeR repo. This step is temporary.
+    -  Save this file in the 'data' folder of the dfeR repo. This step is temporary.
 
-3.  Carry out the necessary data processing and check if there is any data missing from the GIAS tables that we can obtain from the screener file.
+3.  Run the code supplied below to join the data and save a new version of the lookup.
 
 4.  Combine the data to create a master list of local authorities with three and nine digit codes.
 
@@ -30,7 +30,7 @@ This is a step by step guide to adding the three digit local authority codes to 
 
 7.  Remove the screener and GIAS CSV files saved in the data folder.
 
-8.  Update the [contributing documentation](https://dfe-analytical-services.github.io/dfeR/CONTRIBUTING.html) and package using the workflow in package documentation.
+8.  Update the documentation and tests if applicable by following [dfeR contributing guidance](https://dfe-analytical-services.github.io/dfeR/CONTRIBUTING.html) and using the workflow outlined.
 
 ```{r}
 # Load package and dependencies
@@ -83,13 +83,18 @@ gias_3_digit_la_codes <- all_la_codes %>%
 wd_pcon_lad_la_rgn_ctry <- dfeR::wd_pcon_lad_la_rgn_ctry %>%
   dplyr::left_join(
     gias_3_digit_la_codes,
-    by = c("la_name" = "la_name", "new_la_code" = "new_la_code")
+    by = c("la_name" = "la_name",
+           "new_la_code" = "new_la_code",
+           "old_la_code" = "old_la_code")
   ) %>%
   # if there are NA values in old_la_code, change them to 'z'
   dplyr::mutate(old_la_code = dplyr::if_else(is.na(old_la_code),
-                                             "z", old_la_code))
+                                             "z", old_la_code)) %>% 
+  #put old_la_code before new_la_code
+  dplyr::relocate(old_la_code, .before = new_la_code)
 
 
 # Write the data into the package ---------------------------------------------
 usethis::use_data(wd_pcon_lad_la_rgn_ctry, overwrite = TRUE)
+
 ```
