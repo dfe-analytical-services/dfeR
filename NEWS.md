@@ -4,7 +4,7 @@
 - Added three digit local authority codes (also known as old_la_codes) to the `wd_pcon_lad_la_rgn_ctry` lookup data.
 - Updated the dfeR contribution guidance to correct the spelling for the `spell_check_package()` function.
 
-# dfeR 1.0.1 (development version)
+# dfeR 1.0.1
 
 Fix the spacing and printing of the z_replace() warning message, updating the eesyapi URL in the README and removed extraneous package tests.
 
