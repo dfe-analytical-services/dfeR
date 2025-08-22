@@ -30,10 +30,7 @@ test_that("code cols are always a 9 digit code except old_la_code", {
   code_columns <- colnames(dfeR::wd_pcon_lad_la_rgn_ctry)
 
   # Get column names ending in _code
-  code_columns <- tidyselect::ends_with(
-    "_code",
-    vars = colnames(dfeR::wd_pcon_lad_la_rgn_ctry)
-  )
+  code_columns <- code_columns[grepl("_code$", code_columns)]
 
   # remove old_la_code
 
