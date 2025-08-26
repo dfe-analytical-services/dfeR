@@ -122,6 +122,19 @@ wd_pcon_lad_la_rgn_ctry <- wd_pcon_lad_la_rgn_ctry %>%
   # ONS seemed to miss a 0 in 2017 for Glasgow East PCon
   mutate(across(everything(), ~ ifelse(. == "S1400030", "S14000030", .)))
 
+# Add 3 digit local authority codes from GIAS  ----------------------------
+wd_pcon_lad_la_rgn_ctry <- wd_pcon_lad_la_rgn_ctry %>%
+  # join the data onto the GIAs LA 3 digit code data
+  dplyr::left_join(gias_3_digit_la_codes, by = c(
+    "la_name" = "la_name",
+    "new_la_code" = "new_la_code",
+    "old_la_code" = "old_la_code"
+  )) %>%
+  dplyr::mutate(old_la_code = dplyr::if_else(is.na(old_la_code),
+                                             "z", old_la_code
+  )) %>%
+  dplyr::distinct()
+
 # Set the order of the columns ------------------------------------------------
 wd_pcon_lad_la_rgn_ctry <- wd_pcon_lad_la_rgn_ctry %>%
   dplyr::select(
@@ -131,19 +144,6 @@ wd_pcon_lad_la_rgn_ctry <- wd_pcon_lad_la_rgn_ctry %>%
     "ward_code", "pcon_code", "lad_code", "new_la_code",
     "region_code", "country_code"
   )
-
-
-# Add 3 digit local authority codes from GIAS  ----------------------------
-wd_pcon_lad_la_rgn_ctry <- wd_pcon_lad_la_rgn_ctry %>%
-  # join the data onto the GIAs LA 3 digit code data
-  dplyr::left_join(gias_3_digit_la_codes, by = c(
-    "la_name" = "la_name",
-    "new_la_code" = "new_la_code"
-  )) %>%
-  dplyr::mutate(old_la_code = dplyr::if_else(is.na(old_la_code),
-    "x", old_la_code
-  )) %>%
-  dplyr::distinct()
 
 # QA the joining --------------------------------------------------------------
 # Check for any regions that failed to join

@@ -119,3 +119,19 @@
 #' @source curated by explore.statistics@@education.gov.uk.
 #' \href{https://www.shorturl.at/j4532}{Guidance on time and geography data.}
 "geog_time_identifiers"
+
+#' Lookup for old three digit local authority codes and names
+#'
+#' A lookup of old three digit local authority codes and names from the
+#' Get Information about Schools (GIAS) website combined with data from the
+#' Explore Education Statistics (EES) screener.
+#' @format ## `old_3_digit_la_codes`
+#' A data frame with 224 rows and 3 columns:
+#' \describe{
+#'   \item{la_name}{Local authority name}
+#'   \item{old_la_code}{old 3 digit local authority code}
+#'   \item{new_la_code}{9 digit local authority code}
+#' }
+#' @source
+#' https://get-information-schools.service.gov.uk/Guidance/LaNameCodes and
+#' https://tinyurl.com/EESScreenerLAs

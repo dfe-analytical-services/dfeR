@@ -1,9 +1,3 @@
----
-title: "three_digit_la_codes"
-output: html_document
-knitr: 
-  eval: FALSE
----
 
 ## Background
 
@@ -23,9 +17,11 @@ This is a step by step guide to adding the three digit local authority codes to 
 3.  Run the code supplied below to join the data and save a new version of the lookup.
 
 
-7.  Remove the screener and GIAS CSV files saved in the data folder.
+4.  Remove the screener and GIAS CSV files saved in the data folder.
 
-8.  Update the documentation and tests if applicable by following [dfeR contributing guidance](https://dfe-analytical-services.github.io/dfeR/CONTRIBUTING.html) and using the workflow outlined.
+5.  Run data-raw/wd_pcon_lad_la_rgn_ctry.R to update the wd_pcon_lad_la_rgn_ctry dataset.
+
+6.  Update the documentation and tests if applicable by following [dfeR contributing guidance](https://dfe-analytical-services.github.io/dfeR/CONTRIBUTING.html) and using the workflow outlined.
 
 ```{r}
 # Load package and dependencies
@@ -70,25 +66,9 @@ missing_3_digit_la_codes <- all_la_codes %>%
   dplyr::distinct()
 
 # Final GIAS LA codes including missing ones
-gias_3_digit_la_codes <- all_la_codes %>%
+old_3_digit_la_codes <- all_la_codes %>%
   dplyr::bind_rows(missing_3_digit_la_codes)
 
-# Join the 3 digit LA codes with the wd_pcon_lad_la_rgn_ctry look up
-
-wd_pcon_lad_la_rgn_ctry <- dfeR::wd_pcon_lad_la_rgn_ctry %>%
-  dplyr::left_join(
-    gias_3_digit_la_codes,
-    by = c("la_name" = "la_name",
-           "new_la_code" = "new_la_code",
-           "old_la_code" = "old_la_code")
-  ) %>%
-  # if there are NA values in old_la_code, change them to 'z'
-  dplyr::mutate(old_la_code = dplyr::if_else(is.na(old_la_code),
-                                             "z", old_la_code)) %>%
-  #put old_la_code before new_la_code
-  dplyr::relocate(old_la_code, .before = new_la_code)
-
-
 # Write the data into the package ---------------------------------------------
-usethis::use_data(wd_pcon_lad_la_rgn_ctry, overwrite = TRUE)
+usethis::use_data(old_3_digit_la_codes , overwrite = TRUE)
 ```
