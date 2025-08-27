@@ -15,6 +15,7 @@ reference:
   - countries
   - regions
   - geog_time_identifiers
+  - old_3_digit_la_codes
 
 - title: Database connection
   desc: Helpful functions for connecting to databases in DfE
