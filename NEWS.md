@@ -2,6 +2,8 @@
 
 - Added a function that checks Databricks variables for ODBC connections: `check_databricks_odbc()`.
 - Added three digit local authority codes (also known as old_la_codes) to the `wd_pcon_lad_la_rgn_ctry` lookup data.
+- Added old_3_digit_codes data which is a lookup table of local authorities with their names, nine digit codes and old three digit codes.
+- Updated `fetch_las()` so that old_la_codes are included in the output.
 
 # dfeR 1.0.1
 

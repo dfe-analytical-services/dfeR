@@ -131,7 +131,7 @@ wd_pcon_lad_la_rgn_ctry <- wd_pcon_lad_la_rgn_ctry %>%
     "old_la_code" = "old_la_code"
   )) %>%
   dplyr::mutate(old_la_code = dplyr::if_else(is.na(old_la_code),
-                                             "z", old_la_code
+    "z", old_la_code
   )) %>%
   dplyr::distinct()
 
