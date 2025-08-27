@@ -135,3 +135,4 @@
 #' @source
 #' https://get-information-schools.service.gov.uk/Guidance/LaNameCodes and
 #' https://tinyurl.com/EESScreenerLAs
+"old_3_digit_la_codes"
