@@ -40,8 +40,8 @@ missing_3_digit_la_codes <- all_la_codes %>%
   dplyr::distinct()
 
 # Final GIAS LA codes including missing ones
-old_3_digit_la_codes <- all_la_codes %>%
+old_la_codes <- all_la_codes %>%
   dplyr::bind_rows(missing_3_digit_la_codes)
 
 # Write the data into the package ---------------------------------------------
-usethis::use_data(old_3_digit_la_codes, overwrite = TRUE)
+usethis::use_data(old_la_codes, overwrite = TRUE)

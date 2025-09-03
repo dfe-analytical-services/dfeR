@@ -12,10 +12,12 @@ This is a step by step guide to adding the three digit local authority codes to 
 
     -   Save this file in the 'data' folder of the dfeR repo. This step is temporary.
 
-3.  Run the code in data-raw/old_3_digit_codes.R to join the data and save a new version of the lookup.
+3.  Run the code in data-raw/old_la_codes.R to join the data and save a new version of the lookup.
 
-4.  Remove the screener and GIAS CSV files saved in the data folder.
+4. Run `devtools::check()` to check everything is working as expected.
 
-5.  Run the code in data-raw/wd_pcon_lad_la_rgn_ctry.R to update the wd_pcon_lad_la_rgn_ctry dataset.
+5.  Remove the screener and GIAS CSV files saved in the data folder.
 
-6.  Update the documentation and tests if applicable by following [dfeR contributing guidance](https://dfe-analytical-services.github.io/dfeR/CONTRIBUTING.html) and using the workflow outlined.
+6.  Run the code in data-raw/wd_pcon_lad_la_rgn_ctry.R to update the wd_pcon_lad_la_rgn_ctry dataset.
+
+7.  Update the documentation and tests if applicable by following [dfeR contributing guidance](https://dfe-analytical-services.github.io/dfeR/CONTRIBUTING.html) and using the workflow outlined to carry out necessary checks.

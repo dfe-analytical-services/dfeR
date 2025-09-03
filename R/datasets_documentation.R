@@ -125,7 +125,7 @@
 #' A lookup of old three digit local authority codes and names from the
 #' Get Information about Schools (GIAS) website combined with data from the
 #' Explore Education Statistics (EES) screener.
-#' @format ## `old_3_digit_la_codes`
+#' @format ## `old_la_codes`
 #' A data frame with 224 rows and 3 columns:
 #' \describe{
 #'   \item{la_name}{Local authority name}
@@ -135,4 +135,4 @@
 #' @source
 #' https://get-information-schools.service.gov.uk/Guidance/LaNameCodes and
 #' https://tinyurl.com/EESScreenerLAs
-"old_3_digit_la_codes"
+"old_la_codes"
