@@ -14,7 +14,7 @@ This is a step by step guide to adding the three digit local authority codes to 
 
 3.  Run the code in data-raw/old_la_codes.R to join the data and save a new version of the lookup.
 
-4. Run `devtools::check()` to check everything is working as expected.
+4.  Run `devtools::check()` to check everything is working as expected.
 
 5.  Remove the screener and GIAS CSV files saved in the data folder.
 

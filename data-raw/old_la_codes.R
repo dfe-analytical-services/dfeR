@@ -1,3 +1,10 @@
+# Create the wd_pcon_lad_la_reg_ctry data set-----------------------------------
+
+##############################################################################
+# IMPORTANT: Please make sure to read the data-raw/old_la_codes.md file to read
+# about the manual steps needed before running this script
+##############################################################################
+
 # Load package and dependencies
 devtools::load_all()
 
