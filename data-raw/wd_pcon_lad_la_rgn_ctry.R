@@ -128,8 +128,7 @@ wd_pcon_lad_la_rgn_ctry <- wd_pcon_lad_la_rgn_ctry %>%
   # join the data onto the GIAs LA 3 digit code data
   dplyr::left_join(old_la_codes, by = c(
     "la_name" = "la_name",
-    "new_la_code" = "new_la_code",
-    "old_la_code" = "old_la_code"
+    "new_la_code" = "new_la_code"
   )) %>%
   dplyr::mutate(old_la_code = dplyr::if_else(is.na(old_la_code),
     "z", old_la_code
@@ -142,7 +141,7 @@ wd_pcon_lad_la_rgn_ctry <- wd_pcon_lad_la_rgn_ctry %>%
     "first_available_year_included", "most_recent_year_included",
     "ward_name", "pcon_name", "lad_name", "la_name",
     "region_name", "country_name",
-    "ward_code", "pcon_code", "lad_code", "new_la_code",
+    "ward_code", "pcon_code", "lad_code", "old_la_code", "new_la_code",
     "region_code", "country_code"
   )
 

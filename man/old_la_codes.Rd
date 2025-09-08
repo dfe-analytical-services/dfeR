@@ -10,7 +10,7 @@
 A data frame with 224 rows and 3 columns:
 \describe{
 \item{la_name}{Local authority name}
-\item{old_la_code}{Old 3 digit local authority code}
+\item{old_la_code}{Three-digit ("old") local authority code}
 \item{new_la_code}{9 digit local authority code}
 }
 }
@@ -23,7 +23,7 @@ https://tinyurl.com/EESScreenerLAs
 old_la_codes
 }
 \description{
-A lookup of old three digit local authority codes and names from the
+A lookup of local authority names and three-digit ("old") codes from the
 Get Information about Schools (GIAS) website combined with data from the
 Explore Education Statistics (EES) screener.
 }

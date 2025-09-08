@@ -8,7 +8,7 @@ This is a step by step guide to adding the three digit local authority codes to 
 
     -   Save those tables in the 'data' folder of the dfeR repo. This step is temporary.
 
-2.  Go to the [Explore Education Statistics screener repository](https://github.com/dfe-analytical-services/dfe-published-data-qa/blob/main/data/las.csv), download the 'las.csv' file.
+2.  Go to the [Explore Education Statistics screener repository](https://github.com/dfe-analytical-services/dfe-published-data-qa/blob/main/data/las.csv) and download the 'las.csv' file.
 
     -   Save this file in the 'data' folder of the dfeR repo. This step is temporary.
 
@@ -16,7 +16,7 @@ This is a step by step guide to adding the three digit local authority codes to 
 
 4.  Run `devtools::check()` to check everything is working as expected.
 
-5.  Remove the screener and GIAS CSV files saved in the data folder.
+5.  Remove the screener (la.csv) and GIAS CSV files saved in the data folder.
 
 6.  Run the code in data-raw/wd_pcon_lad_la_rgn_ctry.R to update the wd_pcon_lad_la_rgn_ctry dataset.
 
