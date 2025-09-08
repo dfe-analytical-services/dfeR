@@ -1,6 +1,6 @@
 ## Background
 
-This is a step by step guide to adding the three digit local authority codes to the wd_pcon_lad_la_rgn_ctry lookup, including the code you'll need to use.
+This is a step by step guide to adding the three-digit ("old") local authority codes to the wd_pcon_lad_la_rgn_ctry lookup, including the code you'll need to use.
 
 ## Step by step guide
 
