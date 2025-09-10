@@ -1,4 +1,13 @@
-# Create the wd_pcon_lad_la_reg_ctry data set-----------------------------------
+# Create the internal old_la_codes data set ----------------------------------
+
+# This data is used to add 'old' 3 digit la codes to the wd_pcon_lad_la_reg_ctry
+# lookup table in dfeR
+
+
+
+# Get and process data from GIAS ------------------------------------------
+
+
 
 ##############################################################################
 # IMPORTANT: Please make sure to read the data-raw/old_la_codes.md file to read
@@ -21,7 +30,7 @@ load_la_codes <- function(file_path) {
 }
 
 # Combine all LA code data
-all_la_codes <- dplyr::bind_rows(
+gias_la_codes <- dplyr::bind_rows(
   load_la_codes("data/EnglishLaNameCodes.csv"),
   load_la_codes("data/WelshLaNameCodes.csv"),
   load_la_codes("data/OtherLaNameCodes.csv")
@@ -31,24 +40,57 @@ all_la_codes <- dplyr::bind_rows(
     la_name = gsub("^[A-Za-z]+ [A-Za-z]+ \\([^)]*\\) ", "", la_name),
     la_name = gsub("^[A-Za-z]+-LGR [0-9]+ ", "", la_name),
     old_la_code = as.character(old_la_code)
-  )
+  ) |>
+  # rename old_la_code column to gias_old_la_code to make identifying columns
+  # easier for the joins
+  dplyr::rename(gias_old_la_code = old_la_code)
 
-# Identify missing LA codes from screener data
-missing_3_digit_la_codes <- all_la_codes %>%
-  dplyr::full_join(
+
+# Create the internal old_la_codes data set ----------------------------------
+
+# This data is used to add 'old' 3 digit la codes to the wd_pcon_lad_la_reg_ctry
+# lookup table in dfeR
+
+#####################################################################
+# NOTE: the missing rows we extract from the screener after the two joins
+# are due to  9 digit codes that have become inactive and are therefore
+# no longer available on the GIAS data. We are adding them to this lookup to
+# ensure that we have a complete list of 'old' LA codes at different points
+# in time.
+#####################################################################
+
+old_la_codes <- dfeR::fetch_las() |>
+  # left join the la_names and new_la_codes from dfeR::fetch_las() to
+  # 'old' 3 digit la codes from GIAS data
+  dplyr::left_join(
+    gias_la_codes,
+    by = c("la_name", "new_la_code")
+  ) %>%
+  # left join the screener 'old' 3 digit la codes
+  dplyr::left_join(
     data.table::fread("data/las.csv") %>%
       dplyr::select(new_la_code, la_name, screener_old_la_code = old_la_code),
     by = c("la_name", "new_la_code")
   ) %>%
-  dplyr::filter(is.na(old_la_code) & !is.na(screener_old_la_code)) %>%
-  dplyr::filter(screener_old_la_code != "x") %>%
-  dplyr::select(-old_la_code) %>%
-  dplyr::rename(old_la_code = screener_old_la_code) %>%
+  # Identify missing LA codes from the GIAS data and extract any matches for
+  # them from screener data
+  dplyr::mutate(
+    old_la_code = dplyr::if_else(
+      is.na(gias_old_la_code) & !is.na(screener_old_la_code),
+      screener_old_la_code,
+      gias_old_la_code
+    )
+  ) %>%
+  # select the columns we need
+  dplyr::select(la_name, old_la_code, new_la_code) %>%
+  # replace any remaining NAs in old_la_code with "z" to indicate no old code
+  dplyr::mutate(old_la_code = dplyr::if_else(is.na(old_la_code),
+    "z", old_la_code
+  )) |>
+  # remove duplicates if any
   dplyr::distinct()
 
-# Final GIAS LA codes including missing ones
-old_la_codes <- all_la_codes %>%
-  dplyr::bind_rows(missing_3_digit_la_codes)
+
 
 # Write the data into the package ---------------------------------------------
-usethis::use_data(old_la_codes, overwrite = TRUE)
+usethis::use_data(old_la_codes, internal = TRUE, overwrite = TRUE)

@@ -4,7 +4,7 @@ This is a step by step guide to adding the three-digit ("old") local authority c
 
 ## Step by step guide
 
-1.  Download the three digit local authority code tables from the [Get Information about Schools](https://get-information-schools.service.gov.uk/) (GIAs) website by going to the [Local authority name and associated codes page](https://get-information-schools.service.gov.uk/Guidance/LaNameCodes), scrolling to the bottom and clicking on the 'Download' button.
+1.  Download the 'English', 'Welsh' and 'Other' three digit local authority code tables from the [Get Information about Schools](https://get-information-schools.service.gov.uk/) (GIAs) website by going to the [Local authority name and associated codes page](https://get-information-schools.service.gov.uk/Guidance/LaNameCodes), scrolling to the bottom and clicking on the 'Download' button.
 
     -   Save those tables in the 'data' folder of the dfeR repo. This step is temporary.
 
