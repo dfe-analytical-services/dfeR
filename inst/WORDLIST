@@ -2,8 +2,12 @@ CMD
 Codecov
 Databricks
 DfE
+EES
+EESScreenerLAs
+GIAS
 GOR
 JBLOGGS
+LaNameCodes
 Lifecycle
 NAC
 ODBC
@@ -21,6 +25,7 @@ api
 ay
 boundr
 center
+com
 ctry
 cty
 dbplyr
@@ -47,6 +52,7 @@ sep
 shorthands
 sql
 testthat
+tinyurl
 uk
 utla
 wd
