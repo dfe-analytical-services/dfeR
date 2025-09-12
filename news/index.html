@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">dfeR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,8 +37,12 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="dfer-development-version">dfeR (development version)<a class="anchor" aria-label="anchor" href="#dfer-development-version"></a></h2>
-</div>
+<h2 class="pkg-version" data-toc-text="1.1.0" id="dfer-110">dfeR 1.1.0<a class="anchor" aria-label="anchor" href="#dfer-110"></a></h2>
+<ul><li>Added a function that checks Databricks variables for ODBC connections: <code><a href="../reference/check_databricks_odbc.html">check_databricks_odbc()</a></code>.</li>
+<li>Updated <code>wd_pcon_lad_la_rgn_ctry</code> by adding three digit local authority codes (also known as old_la_codes) to the data.</li>
+<li>Added old_la_codes which is an internal lookup table of local authorities with their names, nine digit codes and ‘old’ three digit codes. It is used to add ‘old’ 3 digit la codes to <code>wd_pcon_lad_la_rgn_ctry</code>.</li>
+<li>Updated <code><a href="../reference/fetch_las.html">fetch_las()</a></code> so that old_la_codes are included in the output.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.0.1" id="dfer-101">dfeR 1.0.1<a class="anchor" aria-label="anchor" href="#dfer-101"></a></h2><p class="text-muted">CRAN release: 2025-01-15</p>
 <p>Fix the spacing and printing of the z_replace() warning message, updating the eesyapi URL in the README and removed extraneous package tests.</p>
