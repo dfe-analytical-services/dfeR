@@ -162,7 +162,6 @@ fetch_regions <- function() {
   dfeR::regions
 }
 
-
 #' Fetch countries
 #'
 #' @family fetch_locations

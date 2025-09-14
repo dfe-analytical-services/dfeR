@@ -28,7 +28,9 @@ tidy_raw_lookup <- function(raw_lookup_file) {
 
   # Tidy out the attributes. col prefix ---------------------------------------
   colnames(raw_lookup_file) <- sub(
-    "^attributes\\.", "", colnames(raw_lookup_file)
+    "^attributes\\.",
+    "",
+    colnames(raw_lookup_file)
   )
 
   # Extract the year from columns ---------------------------------------------
@@ -198,10 +200,10 @@ create_time_series_lookup <- function(lookups_list) {
       rbind(lookups_list[[lookup_number]]) %>%
       # Then condense the rows, rewriting the first and last years for each row
       dplyr::summarise(
-        "first_available_year_included" =
-          min(.data$first_available_year_included),
-        "most_recent_year_included" =
-          max(.data$most_recent_year_included),
+        "first_available_year_included" = min(
+          .data$first_available_year_included
+        ),
+        "most_recent_year_included" = max(.data$most_recent_year_included),
         .by = dplyr::all_of(join_cols)
       )
   }
@@ -350,12 +352,21 @@ get_wd_pcon_lad_la <- function(year) {
   } else {
     output <- get_ons_api_data(
       data_id = paste0(
-        "WD", year_end, "_PCON", year_end, "_LAD", year_end,
-        "_UTLA", year_end, id_end
+        "WD",
+        year_end,
+        "_PCON",
+        year_end,
+        "_LAD",
+        year_end,
+        "_UTLA",
+        year_end,
+        id_end
       ),
       query_params = list(
-        where = "1=1", outFields = field_names,
-        outSR = "4326", f = "json"
+        where = "1=1",
+        outFields = field_names,
+        outSR = "4326",
+        f = "json"
       )
     )
   }
@@ -370,7 +381,7 @@ get_wd_pcon_lad_la <- function(year) {
 #' Helper function to extract data from the Ward-LAD-Region-County-Country file
 #'
 #' @param year last two digits of the year of the lookup, available years are:
-#' 2017, 2018, 2019, 2020, 2022, 2023
+#' 2017, 2018, 2019, 2020, 2022, 2023, 2024
 #'
 #' @return data.frame for the individual year of the lookup
 #'
@@ -385,6 +396,8 @@ get_lad_region <- function(year) {
   # Use the ONS query explorer on each file to check this
   # https://geoportal.statistics.gov.uk/search?tags=LUP_WD_LAD_CTY_RGN_GOR_CTRY
   id_end <- dplyr::case_when(
+    year_end == 24 ~ "_UK_LU", # If this becomes the next pattern in future too
+    # then worth considering moving to .default and making the 22+23 hardcoded
     year_end == 20 ~ "_OTH_UK_LU_v2_27715a77546b4b5a9746baf703dd9a05",
     year_end == 19 ~ "_OTH_UK_LU_89ea1f028be347e7a44d71743c96b60d",
     year_end == 18 ~ "_OTH_UK_LU_971f977f4a444d09842fcfbfd51f8982",
@@ -400,8 +413,10 @@ get_lad_region <- function(year) {
   if (year_end %in% c(17, 18)) {
     field_names <- paste(
       c(
-        paste0("LAD", year_end, "CD"), "GOR10CD",
-        paste0("LAD", year_end, "NM"), "GOR10NM"
+        paste0("LAD", year_end, "CD"),
+        "GOR10CD",
+        paste0("LAD", year_end, "NM"),
+        "GOR10NM"
       ),
       collapse = ","
     )
@@ -413,13 +428,36 @@ get_lad_region <- function(year) {
   }
 
   # Main API call ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  if (year == 2024) {
+    # They changed it up in 2024, like above, check in 2025 if this becomes...
+    # ...the new normal and consider the neatest way to handle
+    data_id <- paste0(
+      "WD",
+      year_end,
+      "_LAD",
+      year_end,
+      "_CTYUA_RGN_CTRY",
+      id_end
+    )
+  } else {
+    data_id <- paste0(
+      "WD",
+      year_end,
+      "_LAD",
+      year_end,
+      "_CTY",
+      year_end,
+      id_end
+    )
+  }
+
   output <- get_ons_api_data(
-    data_id = paste0(
-      "WD", year_end, "_LAD", year_end, "_CTY", year_end, id_end
-    ),
+    data_id = data_id,
     query_params = list(
-      where = "1=1", outFields = field_names,
-      outSR = "4326", f = "json"
+      where = "1=1",
+      outFields = field_names,
+      outSR = "4326",
+      f = "json"
     )
   )
 

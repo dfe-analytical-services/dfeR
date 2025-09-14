@@ -67,7 +67,7 @@ wd_pcon_lad_la_years <- c(2017, 2019:2024)
 
 # Skipping 2021 as not published in API for lad_region and we have enough
 # coverage from other years to join without any gaps
-lad_region_years <- c(2017:2020, 2022:2023) # TODO - bump this to 2024?
+lad_region_years <- c(2017:2020, 2022:2024)
 
 # 2025 included as 2024 release was pre-election
 mayoral_years <- c(2017:2025)
