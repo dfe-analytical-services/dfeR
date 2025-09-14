@@ -1,3 +1,5 @@
+# dfeR (development version)
+
 # dfeR 1.1.0
 
 - Added a function that checks Databricks variables for ODBC connections: `check_databricks_odbc()`.
