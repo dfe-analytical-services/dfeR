@@ -43,6 +43,7 @@ Suggests:
     rmarkdown,
     spelling,
     stringr,
+    tidyr,
     testthat (>= 3.0.0)
 VignetteBuilder: 
     knitr

@@ -245,7 +245,10 @@ explode_timeseries <- function(short_lookup_file) {
     )
   ) {
     stop(
-      "Input data frame must contain 'first_available_year_included' and 'most_recent_year_included' columns."
+      paste(
+        "Input data frame must contain 'first_available_year_included'",
+        "and 'most_recent_year_included' columns."
+      )
     )
   }
 
@@ -258,15 +261,17 @@ explode_timeseries <- function(short_lookup_file) {
   # For each row, create a sequence of years and expand the data
   tidyr::uncount(
     short_lookup_file,
-    weights = most_recent_year_included - first_available_year_included + 1,
+    weights = .data$most_recent_year_included -
+      .data$first_available_year_included +
+      1,
     .remove = FALSE
-  ) %>%
-    dplyr::group_by(dplyr::across(dplyr::all_of(base_cols))) %>%
+  ) |>
+    dplyr::group_by(dplyr::across(dplyr::all_of(base_cols))) |>
     dplyr::mutate(
-      year = first_available_year_included + dplyr::row_number() - 1
-    ) %>%
-    dplyr::ungroup() %>%
-    dplyr::select(dplyr::all_of(base_cols), year)
+      year = .data$first_available_year_included + dplyr::row_number() - 1
+    ) |>
+    dplyr::ungroup() |>
+    dplyr::select(dplyr::all_of(base_cols), .data$year)
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

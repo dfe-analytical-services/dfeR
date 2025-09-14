@@ -145,7 +145,7 @@ fetch_mayoral <- function(year = "All") {
     year = year,
     countries = "England"
   ) |>
-    dplyr::arrange(cauth_code)
+    dplyr::arrange("cauth_code")
 
   # Drop rows where not applicable
   return(output[output$cauth_code != "z", ])
