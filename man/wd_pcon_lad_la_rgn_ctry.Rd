@@ -7,7 +7,7 @@
 \format{
 \subsection{\code{wd_pcon_lad_la_rgn_ctry}}{
 
-A data frame with 24,938 rows and 17 columns:
+A data frame with 25,678 rows and 17 columns:
 \describe{
 \item{first_available_year_included}{
 First year in the lookups that we see this location
@@ -47,7 +47,7 @@ wd_pcon_lad_la_rgn_ctry
 A lookup showing the hierarchy of ward to Westminster parliamentary
 constituency to local authority district to local authority to
 combined mayoral authority to region to
-country for years 2017, 2019, 2020, 2021, 2022, 2023 and 2024.
+country for years 2017, 2019, 2020, 2021, 2022, 2023, 2024 and 2025.
 }
 \details{
 Note that combined mayoral authorities only exist in England, and we use
