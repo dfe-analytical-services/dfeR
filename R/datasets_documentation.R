@@ -49,7 +49,7 @@
 #' the data set.
 #'
 #' @format ## `wd_pcon_lad_la_rgn_ctry`
-#' A data frame with 24,629 rows and 17 columns:
+#' A data frame with 24,938 rows and 17 columns:
 #' \describe{
 #'   \item{first_available_year_included}{
 #'   First year in the lookups that we see this location

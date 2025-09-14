@@ -69,8 +69,8 @@ wd_pcon_lad_la_years <- c(2017, 2019:2024)
 # coverage from other years to join without any gaps
 lad_region_years <- c(2017:2020, 2022:2023)
 
-# Skip 2021 as not in API, and 2025 included as 2024 release was pre-election
-mayoral_years <- c(2017:2020, 2022:2025)
+# 2025 included as 2024 release was pre-election
+mayoral_years <- c(2017:2025)
 
 # Get the main lookup ---------------------------------------------------------
 # Functions defined in R/datasets_utils.R
@@ -182,7 +182,7 @@ full_table <- full_table %>%
 # QA the joining --------------------------------------------------------------
 # Check for any regions that failed to join
 region_error_check <- full_table %>%
-  filter(
+  dplyr::filter(
     region_code == "" | region_name == "" |
       is.na(region_name) | is.na(region_code)
   )
@@ -193,7 +193,7 @@ if (nrow(region_error_check) > 0) {
 
 # Check for any countries that failed to join
 country_error_check <- full_table %>%
-  filter(country_code == "ERROR" | country_name == "ERROR")
+  dplyr::filter(country_code == "ERROR" | country_name == "ERROR")
 
 if (nrow(country_error_check) > 0) {
   stop("Country information failing to match, check why this is happening")

@@ -236,12 +236,22 @@ create_time_series_lookup <- function(lookups_list) {
 #' @noRd
 #' @return an exploded data frame of a time series lookup file
 explode_timeseries <- function(short_lookup_file) {
-  if (!all(c("first_available_year_included", "most_recent_year_included") %in% names(short_lookup_file))) {
-    stop("Input data frame must contain 'first_available_year_included' and 'most_recent_year_included' columns.")
+  if (
+    !all(
+      c("first_available_year_included", "most_recent_year_included") %in%
+        names(short_lookup_file)
+    )
+  ) {
+    stop(
+      "Input data frame must contain 'first_available_year_included' and 'most_recent_year_included' columns."
+    )
   }
 
   # Remove the two time columns for later re-adding
-  base_cols <- setdiff(names(short_lookup_file), c("first_available_year_included", "most_recent_year_included"))
+  base_cols <- setdiff(
+    names(short_lookup_file),
+    c("first_available_year_included", "most_recent_year_included")
+  )
 
   # For each row, create a sequence of years and expand the data
   tidyr::uncount(
@@ -260,7 +270,7 @@ explode_timeseries <- function(short_lookup_file) {
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' Shorten a timeseries table to from having rows for every year
 #'
-#' Takes a lookup table with rows for every year in a year column and creates 
+#' Takes a lookup table with rows for every year in a year column and creates
 #' rows with first and last years included.
 #'
 #' @param long_lookup_file data.frame of a lookup file that has a year column
@@ -436,7 +446,7 @@ get_lad_region <- function(year) {
 #' Helper function to extract data from the LAD-CMA files
 #'
 #' @param year last two digits of the year of the lookup, available years are:
-#' 2017, 2018, 2019, 2020, 2022, 2023, 2024, 2025
+#' 2017, 2018, 2019, 2020, 2021 2022, 2023, 2024, 2025
 #'
 #' @return data.frame for the individual year of the lookup
 #'
@@ -468,15 +478,39 @@ get_cauth_lad <- function(year) {
   )
 
   # Main API call ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  output <- get_ons_api_data(
-    data_id = paste0(
-      "LAD", year_end, "_CAUTH", year_end, id_end
-    ),
-    query_params = list(
-      where = "1=1", outFields = field_names,
-      outSR = "4326", f = "json"
+  if (year_end == 21) {
+    # 2021 was only published as an excel file
+    # Get the URL by right clicking to get the link on their download button
+    download_21_url <- paste0(
+      "https://www.arcgis.com/sharing/rest/content/items/",
+      "075f371689d6441f9369a1c3401af682/data"
     )
-  )
+
+    local_file <- tempfile(fileext = ".xlsx")
+    utils::download.file(
+      download_21_url,
+      destfile = local_file,
+      mode = "wb",
+      quiet = TRUE
+    )
+    output <- as.data.frame(readxl::read_excel(path = local_file))
+  } else {
+    output <- get_ons_api_data(
+      data_id = paste0(
+        "LAD",
+        year_end,
+        "_CAUTH",
+        year_end,
+        id_end
+      ),
+      query_params = list(
+        where = "1=1",
+        outFields = field_names,
+        outSR = "4326",
+        f = "json"
+      )
+    )
+  }
 
   # Tidy up the output file (defined earlier in this script)
   tidy_raw_lookup(output)

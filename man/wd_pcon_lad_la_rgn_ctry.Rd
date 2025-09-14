@@ -7,7 +7,7 @@
 \format{
 \subsection{\code{wd_pcon_lad_la_rgn_ctry}}{
 
-A data frame with 24,629 rows and 14 columns:
+A data frame with 24,938 rows and 17 columns:
 \describe{
 \item{first_available_year_included}{
 First year in the lookups that we see this location
@@ -19,6 +19,7 @@ Last year in the lookups that we see this location
 \item{pcon_name}{Parliamentary constituency name}
 \item{lad_name}{Local authority district name}
 \item{la_name}{Local authority name}
+\item{cauth_name}{Combined authority name, where applicable}
 \item{region_name}{Region name}
 \item{country_code}{Country name}
 \item{ward_code}{9 digit ward code}
@@ -26,6 +27,7 @@ Last year in the lookups that we see this location
 \item{lad_code}{9 digit local authority district code}
 \item{old_la_code}{old 3 digit local authority code}
 \item{new_la_code}{9 digit local authority code}
+\item{cauth_code}{9 digit combined authority code, where applicable}
 \item{region_code}{9 digit region code}
 \item{country_code}{9 digit country code}
 }
@@ -34,6 +36,7 @@ Last year in the lookups that we see this location
 \source{
 https://geoportal.statistics.gov.uk/search?tags=lup_wd_pcon_lad_utla
 https://geoportal.statistics.gov.uk/search?q=lup_wd_lad_cty_rgn_gor_ctry
+https://geoportal.statistics.gov.uk/search?tags=LUP_LAD_CAUTH
 https://get-information-schools.service.gov.uk/Guidance/LaNameCodes and
 https://tinyurl.com/EESScreenerLAs
 }
@@ -42,10 +45,17 @@ wd_pcon_lad_la_rgn_ctry
 }
 \description{
 A lookup showing the hierarchy of ward to Westminster parliamentary
-constituency to local authority district to local authority to region to
+constituency to local authority district to local authority to
+combined mayoral authority to region to
 country for years 2017, 2019, 2020, 2021, 2022, 2023 and 2024.
 }
 \details{
+Note that combined mayoral authorities only exist in England, and we use
+\code{cauth_name} and \code{cauth_code} to refer to the relevant columns following
+ONS conventions. If you are publishing using explore education statistics,
+these are combined with other bodies into \code{english_devolved_area_name}
+and \code{english_devolved_area_code}.
+
 Changes we've made to the original lookup:
 \enumerate{
 \item The original lookup from ONS uses the Upper Tier Local Authority, we then
