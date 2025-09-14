@@ -224,6 +224,68 @@ create_time_series_lookup <- function(lookups_list) {
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' Lengthen a timeseries table to have rows for every year
+#'
+#' Takes a lookup table with first and last years included and creates rows for
+#' every year.
+#'
+#' @param short_lookup_file data.frame of a lookup file created by using
+#' create_time_series_lookup()
+#'
+#' @keywords internal
+#' @noRd
+#' @return an exploded data frame of a time series lookup file
+explode_timeseries <- function(short_lookup_file) {
+  if (!all(c("first_available_year_included", "most_recent_year_included") %in% names(short_lookup_file))) {
+    stop("Input data frame must contain 'first_available_year_included' and 'most_recent_year_included' columns.")
+  }
+
+  # Remove the two time columns for later re-adding
+  base_cols <- setdiff(names(short_lookup_file), c("first_available_year_included", "most_recent_year_included"))
+
+  # For each row, create a sequence of years and expand the data
+  tidyr::uncount(
+    short_lookup_file,
+    weights = most_recent_year_included - first_available_year_included + 1,
+    .remove = FALSE
+  ) %>%
+    dplyr::group_by(dplyr::across(dplyr::all_of(base_cols))) %>%
+    dplyr::mutate(
+      year = first_available_year_included + dplyr::row_number() - 1
+    ) %>%
+    dplyr::ungroup() %>%
+    dplyr::select(dplyr::all_of(base_cols), year)
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' Shorten a timeseries table to from having rows for every year
+#'
+#' Takes a lookup table with rows for every year in a year column and creates 
+#' rows with first and last years included.
+#'
+#' @param long_lookup_file data.frame of a lookup file that has a year column
+#' with one row per year
+#'
+#' @keywords internal
+#' @noRd
+#' @return a collapsed data frame of a time series lookup file
+collapse_timeseries <- function(long_lookup_file) {
+  if (!"year" %in% names(long_lookup_file)) {
+    stop("Input data frame must contain a 'year' column.")
+  }
+
+  base_cols <- setdiff(names(long_lookup_file), "year")
+
+  long_lookup_file %>%
+    dplyr::group_by(dplyr::across(dplyr::all_of(base_cols))) %>%
+    dplyr::summarise(
+      first_available_year_included = min(.data$year, na.rm = TRUE),
+      most_recent_year_included = max(.data$year, na.rm = TRUE),
+      .groups = "drop"
+    )
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' Get Ward-PCon-LAD-LA data
 #'
 #' Helper function to extract data from the Ward-PCon-LAD-UTLA file
@@ -363,6 +425,58 @@ get_lad_region <- function(year) {
         "attributes.GOR10CD"
       )
   }
+
+  # Tidy up the output file (defined earlier in this script)
+  tidy_raw_lookup(output)
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' Get LAD to Combined Mayoral Authority lookup
+#'
+#' Helper function to extract data from the LAD-CMA files
+#'
+#' @param year last two digits of the year of the lookup, available years are:
+#' 2017, 2018, 2019, 2020, 2022, 2023, 2024, 2025
+#'
+#' @return data.frame for the individual year of the lookup
+#'
+#' @keywords internal
+#' @noRd
+get_cauth_lad <- function(year) {
+  # Crude way to grab 2 digits, works for anything that isn't in the noughties
+  year_end <- year %% 100
+
+  # Adjusting to the varying ids that ONS have used ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  # If there's any issues with these, double check the queries match up
+  # Use the ONS query explorer on each file to check this
+  # https://geoportal.statistics.gov.uk/search?tags=LUP_LAD_CAUTH
+  id_end <- dplyr::case_when(
+    year_end == 20 ~ "_EN_LU_61359c2aabb7421caefd36c3516a823e",
+    year_end == 19 ~ "_EN_LU_731e5d9e5787404c97dd8d8fb0e23854",
+    year_end == 18 ~ "_EN_LU_v2_0e5ff75a9ac6484ab9164d493e459c88",
+    year_end == 17 ~ "_EN_LU_db0ce93885064b5181fb325b7752de85",
+    .default = "_EN_LU"
+  )
+
+  # Specify the columns we want ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  levels <- c("LAD", "CAUTH")
+  cols <- c("CD", "NM")
+
+  field_names <- paste(
+    as.vector(outer(paste0(levels, year_end), cols, paste0)),
+    collapse = ","
+  )
+
+  # Main API call ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  output <- get_ons_api_data(
+    data_id = paste0(
+      "LAD", year_end, "_CAUTH", year_end, id_end
+    ),
+    query_params = list(
+      where = "1=1", outFields = field_names,
+      outSR = "4326", f = "json"
+    )
+  )
 
   # Tidy up the output file (defined earlier in this script)
   tidy_raw_lookup(output)

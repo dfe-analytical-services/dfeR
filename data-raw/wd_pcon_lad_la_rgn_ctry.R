@@ -5,8 +5,10 @@
 #
 # This data is created by joining wd_pcon_lad_la
 # - https://geoportal.statistics.gov.uk/search?tags=lup_wd_pcon_lad_utla
-# and lad_region from these lookups
+# and lad_region from
 # - https://geoportal.statistics.gov.uk/search?q=lup_wd_lad_cty_rgn_gor_ctry
+# and combined mayoral authorities from
+# - https://geoportal.statistics.gov.uk/search?tags=LUP_LAD_CAUTH
 #
 # We make some small changes to these currently, more details are in the
 # public facing documentation in R/datasets_documentation.R and the functions
@@ -57,6 +59,7 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 library(readxl)
 library(dplyr)
+library(tidyr)
 
 # Set the years we want to pull for -------------------------------------------
 # Started publishing in 2017, but didn't publish a 2018 file
@@ -65,6 +68,9 @@ wd_pcon_lad_la_years <- c(2017, 2019:2024)
 # Skipping 2021 as not published in API for lad_region and we have enough
 # coverage from other years to join without any gaps
 lad_region_years <- c(2017:2020, 2022:2023)
+
+# Skip 2021 as not in API, and 2025 included as 2024 release was pre-election
+mayoral_years <- c(2017:2020, 2022:2025)
 
 # Get the main lookup ---------------------------------------------------------
 # Functions defined in R/datasets_utils.R
@@ -116,15 +122,43 @@ wd_pcon_lad_la_rgn_ctry <- wd_pcon_lad_la_rgn %>%
     )
   )
 
+# Join on combined mayoral authorities ----------------------------------------
+# NOTE: Some LADs have had different combined authorities over time
+cauth <- lapply(mayoral_years, get_cauth_lad) |>
+  create_time_series_lookup() |>
+  dplyr::select(
+    "first_available_year_included", "most_recent_year_included",
+    "lad_name", "lad_code", "cauth_name", "cauth_code"
+  ) |>
+  dplyr::distinct()
+
+# Join exploded tables 
+wd_pcon_lad_la_cauth_rgn_ctry <- explode_timeseries(wd_pcon_lad_la_rgn_ctry) |>
+  dplyr::left_join(
+    explode_timeseries(cauth),
+    by = c(
+      "lad_code" = "lad_code", "lad_name" = "lad_name", "year" = "year"
+    )
+  ) |>
+  collapse_timeseries() # return to abridged time series
+
+# Fill in blank combined authority names and codes
+# Using z and Not applicable
+full_table <- wd_pcon_lad_la_cauth_rgn_ctry %>%
+  dplyr::mutate(
+    cauth_name = dplyr::if_else(is.na(cauth_name), "Not applicable", cauth_name),
+    cauth_code = dplyr::if_else(is.na(cauth_code), "z", cauth_code)
+  )
+
 # Manual fixes ----------------------------------------------------------------
 # !IMPORTANT! Make sure to log all of these in the description for the file in
 # the `R/datasets_documentation.R` script
-wd_pcon_lad_la_rgn_ctry <- wd_pcon_lad_la_rgn_ctry %>%
+full_table <- full_table %>%
   # ONS seemed to miss a 0 in 2017 for Glasgow East PCon
   mutate(across(everything(), ~ ifelse(. == "S1400030", "S14000030", .)))
 
 # Add 3 digit local authority codes from GIAS  ----------------------------
-wd_pcon_lad_la_rgn_ctry <- wd_pcon_lad_la_rgn_ctry %>%
+full_table <- full_table %>%
   # join the data onto the GIAs LA 3 digit code data
   dplyr::left_join(old_la_codes, by = c(
     "la_name" = "la_name",
@@ -136,18 +170,18 @@ wd_pcon_lad_la_rgn_ctry <- wd_pcon_lad_la_rgn_ctry %>%
   dplyr::distinct()
 
 # Set the order of the columns ------------------------------------------------
-wd_pcon_lad_la_rgn_ctry <- wd_pcon_lad_la_rgn_ctry %>%
+full_table <- full_table %>%
   dplyr::select(
     "first_available_year_included", "most_recent_year_included",
     "ward_name", "pcon_name", "lad_name", "la_name",
-    "region_name", "country_name",
+    "cauth_name", "region_name", "country_name",
     "ward_code", "pcon_code", "lad_code", "old_la_code", "new_la_code",
-    "region_code", "country_code"
+    "cauth_code", "region_code", "country_code"
   )
 
 # QA the joining --------------------------------------------------------------
 # Check for any regions that failed to join
-region_error_check <- wd_pcon_lad_la_rgn_ctry %>%
+region_error_check <- full_table %>%
   filter(
     region_code == "" | region_name == "" |
       is.na(region_name) | is.na(region_code)
@@ -158,7 +192,7 @@ if (nrow(region_error_check) > 0) {
 }
 
 # Check for any countries that failed to join
-country_error_check <- wd_pcon_lad_la_rgn_ctry %>%
+country_error_check <- full_table %>%
   filter(country_code == "ERROR" | country_name == "ERROR")
 
 if (nrow(country_error_check) > 0) {
@@ -166,4 +200,5 @@ if (nrow(country_error_check) > 0) {
 }
 
 # Write the data into the package ---------------------------------------------
+wd_pcon_lad_la_rgn_ctry <- full_table # preserving lookup name we started with
 usethis::use_data(wd_pcon_lad_la_rgn_ctry, overwrite = TRUE)
