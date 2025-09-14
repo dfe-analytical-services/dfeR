@@ -5,25 +5,20 @@ get_odbc_version <- function() {
   utils::packageVersion("odbc")
 }
 
-#' Check Databricks ODBC connection variables
+#' Check odbc package version for Databricks compatibility
 #'
-#' Checks if the required environment variables for connecting to
-#' Databricks are set, and if the `odbc` package version is sufficient.
+#' Extracted into own function to lower the cyclomatic complexity of
+#' check_databricks_odbc(). This hushes the lintr warnings.
 #'
-#' Prints instructions for fixing common problems to the console.
-#' @export
-#' @return TRUE if the connection is set up correctly, FALSE otherwise.
-#' @examples
-#' check_databricks_odbc()
-check_databricks_odbc <- function() {
-  odbc_version <- tryCatch(
-    get_odbc_version(),
-    error = function(e) NA
-  )
-
+#' @param odbc_version A character string or version object representing the installed `odbc` package version,
+#'   or `NA` if the package is not installed.
+#'
+#' @keywords internal
+#' @noRd
+check_odbc_version <- function(odbc_version) {
   # Exit gracefully if odbc is not installed
   if (is.na(odbc_version)) {
-    cli::cli_alert_danger(
+    cli::cli_abort(
       "The {.pkg odbc} package is not installed.
     \n
     Please install it by running:
@@ -35,7 +30,7 @@ check_databricks_odbc <- function() {
 
   # odbc::databricks is introduced in odbc 1.4.0
   if (odbc_version < "1.4.0") {
-    cli::cli_alert_danger(
+    cli::cli_abort(
       "The odbc::databricks() function is not available
       in your version of the odbc package.
       \n \n
@@ -45,6 +40,27 @@ check_databricks_odbc <- function() {
     )
     return(invisible(FALSE))
   }
+}
+
+#' Check Databricks ODBC connection variables
+#'
+#' Checks if the required environment variables for connecting to
+#' Databricks are set, and if the `odbc` package version is sufficient.
+#'
+#' Prints instructions for fixing common problems to the console.
+#' @export
+#' @return TRUE if the connection is set up correctly, FALSE otherwise.
+#' @examples
+#' if(interactive()){
+#'   check_databricks_odbc()
+#' }
+check_databricks_odbc <- function() {
+  odbc_version <- tryCatch(
+    get_odbc_version(),
+    error = function(e) NA
+  )
+
+  check_odbc_version(odbc_version)
 
   required_vars <- c(
     "DATABRICKS_TOKEN",

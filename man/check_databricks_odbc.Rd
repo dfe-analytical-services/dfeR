@@ -17,5 +17,7 @@ Databricks are set, and if the \code{odbc} package version is sufficient.
 Prints instructions for fixing common problems to the console.
 }
 \examples{
-check_databricks_odbc()
+if(interactive()){
+  check_databricks_odbc()
+}
 }
