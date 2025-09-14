@@ -67,7 +67,7 @@ wd_pcon_lad_la_years <- c(2017, 2019:2024)
 
 # Skipping 2021 as not published in API for lad_region and we have enough
 # coverage from other years to join without any gaps
-lad_region_years <- c(2017:2020, 2022:2023)
+lad_region_years <- c(2017:2020, 2022:2023) # TODO - bump this to 2024?
 
 # 2025 included as 2024 release was pre-election
 mayoral_years <- c(2017:2025)
@@ -78,9 +78,16 @@ mayoral_years <- c(2017:2025)
 wd_pcon_lad_la <- lapply(wd_pcon_lad_la_years, get_wd_pcon_lad_la) |>
   create_time_series_lookup() |> # smush together into single data frame
   dplyr::select(
-    "first_available_year_included", "most_recent_year_included",
-    "ward_name", "pcon_name", "lad_name", "la_name",
-    "ward_code", "pcon_code", "lad_code", "new_la_code",
+    "first_available_year_included",
+    "most_recent_year_included",
+    "ward_name",
+    "pcon_name",
+    "lad_name",
+    "la_name",
+    "ward_code",
+    "pcon_code",
+    "lad_code",
+    "new_la_code",
   )
 
 # Get the regions lookup ------------------------------------------------------
@@ -127,17 +134,34 @@ wd_pcon_lad_la_rgn_ctry <- wd_pcon_lad_la_rgn %>%
 cauth <- lapply(mayoral_years, get_cauth_lad) |>
   create_time_series_lookup() |>
   dplyr::select(
-    "first_available_year_included", "most_recent_year_included",
-    "lad_name", "lad_code", "cauth_name", "cauth_code"
+    "first_available_year_included",
+    "most_recent_year_included",
+    "lad_name",
+    "lad_code",
+    "cauth_name",
+    "cauth_code"
   ) |>
   dplyr::distinct()
 
-# Join exploded tables 
-wd_pcon_lad_la_cauth_rgn_ctry <- explode_timeseries(wd_pcon_lad_la_rgn_ctry) |>
+# Explode tables and rollover 2024 locations into 2025
+# (as we've not had 2025 updates from ONS for the above lookups)
+rolled_over <- wd_pcon_lad_la_rgn_ctry |>
+  explode_timeseries() |>
+  dplyr::bind_rows(
+    wd_pcon_lad_la_rgn_ctry |>
+      explode_timeseries() |>
+      dplyr::filter(year == 2024) |>
+      dplyr::mutate(year = 2025)
+  )
+
+# Join exploded tables
+wd_pcon_lad_la_cauth_rgn_ctry <- rolled_over |>
   dplyr::left_join(
     explode_timeseries(cauth),
     by = c(
-      "lad_code" = "lad_code", "lad_name" = "lad_name", "year" = "year"
+      "lad_code" = "lad_code",
+      "lad_name" = "lad_name",
+      "year" = "year"
     )
   ) |>
   collapse_timeseries() # return to abridged time series
@@ -146,7 +170,11 @@ wd_pcon_lad_la_cauth_rgn_ctry <- explode_timeseries(wd_pcon_lad_la_rgn_ctry) |>
 # Using z and Not applicable
 full_table <- wd_pcon_lad_la_cauth_rgn_ctry %>%
   dplyr::mutate(
-    cauth_name = dplyr::if_else(is.na(cauth_name), "Not applicable", cauth_name),
+    cauth_name = dplyr::if_else(
+      is.na(cauth_name),
+      "Not applicable",
+      cauth_name
+    ),
     cauth_code = dplyr::if_else(is.na(cauth_code), "z", cauth_code)
   )
 
@@ -160,31 +188,48 @@ full_table <- full_table %>%
 # Add 3 digit local authority codes from GIAS  ----------------------------
 full_table <- full_table %>%
   # join the data onto the GIAs LA 3 digit code data
-  dplyr::left_join(old_la_codes, by = c(
-    "la_name" = "la_name",
-    "new_la_code" = "new_la_code"
-  )) %>%
-  dplyr::mutate(old_la_code = dplyr::if_else(is.na(old_la_code),
-    "z", old_la_code
-  )) %>%
+  dplyr::left_join(
+    old_la_codes,
+    by = c(
+      "la_name" = "la_name",
+      "new_la_code" = "new_la_code"
+    )
+  ) %>%
+  dplyr::mutate(
+    old_la_code = dplyr::if_else(is.na(old_la_code), "z", old_la_code)
+  ) %>%
   dplyr::distinct()
 
 # Set the order of the columns ------------------------------------------------
 full_table <- full_table %>%
   dplyr::select(
-    "first_available_year_included", "most_recent_year_included",
-    "ward_name", "pcon_name", "lad_name", "la_name",
-    "cauth_name", "region_name", "country_name",
-    "ward_code", "pcon_code", "lad_code", "old_la_code", "new_la_code",
-    "cauth_code", "region_code", "country_code"
+    "first_available_year_included",
+    "most_recent_year_included",
+    "ward_name",
+    "pcon_name",
+    "lad_name",
+    "la_name",
+    "cauth_name",
+    "region_name",
+    "country_name",
+    "ward_code",
+    "pcon_code",
+    "lad_code",
+    "old_la_code",
+    "new_la_code",
+    "cauth_code",
+    "region_code",
+    "country_code"
   )
 
 # QA the joining --------------------------------------------------------------
 # Check for any regions that failed to join
 region_error_check <- full_table %>%
   dplyr::filter(
-    region_code == "" | region_name == "" |
-      is.na(region_name) | is.na(region_code)
+    region_code == "" |
+      region_name == "" |
+      is.na(region_name) |
+      is.na(region_code)
   )
 
 if (nrow(region_error_check) > 0) {

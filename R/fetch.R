@@ -4,7 +4,7 @@
 #' given year and country based on the dfeR::wd_pcon_lad_la_rgn_ctry file
 #'
 #' @param year year to filter the locations to, default is "All",
-#' options of 2017, 2019, 2020, 2021, 2022", 2023, 2024
+#' options of 2017, 2019, 2020, 2021, 2022", 2023, 2024, 2025
 #' @param countries vector of desired countries to filter the locations to,
 #' default is "All", or can be a vector with options of "England", "Scotland",
 #' "Wales" or "Northern Ireland"
@@ -25,6 +25,8 @@
 #' head(fetch_pcons(countries = "Scotland"))
 #'
 #' head(fetch_pcons(year = 2023, countries = c("England", "Wales")))
+#'
+#' head(fetch_mayoral())
 #'
 #' fetch_lads(2024, "Wales")
 #'
@@ -120,6 +122,34 @@ fetch_wards <- function(year = "All", countries = "All") {
   return(output)
 }
 
+#' Fetch mayoral combined authorities
+#'
+#' Note that mayoral combined authorities only exist for England.
+#'
+#' @param year year to filter the locations to, default is "All",
+#' options of 2017, 2019, 2020, 2021, 2022", 2023, 2024, 2025
+#'
+#' @family fetch_locations
+#' @return data frame of unique location names and codes
+#' @export
+#'
+#' @inherit fetch examples
+fetch_mayoral <- function(year = "All") {
+  # Helper function to check the inputs are valid (only England for cauth)
+  check_fetch_location_inputs(year, "England")
+
+  # Helper function to filter to locations we want
+  output <- fetch_locations(
+    lookup_data = dfeR::wd_pcon_lad_la_rgn_ctry,
+    cols = c("cauth_code", "cauth_name"),
+    year = year,
+    countries = "England"
+  ) |>
+    dplyr::arrange(cauth_code)
+
+  # Drop rows where not applicable
+  return(output[output$cauth_code != "z", ])
+}
 
 #' Fetch regions
 #'

@@ -72,7 +72,7 @@ test_that("there are at least 10 unique combined authority names", {
 test_that("rows and cols match description", {
   # This test is more of a reminder when updating the data set, if these change
   # then we need to update the description in R/datasets_documentation.R
-  expect_equal(nrow(dfeR::wd_pcon_lad_la_rgn_ctry), 24938)
+  expect_equal(nrow(dfeR::wd_pcon_lad_la_rgn_ctry), 25678)
   expect_equal(ncol(dfeR::wd_pcon_lad_la_rgn_ctry), 17)
 
   expected_columns <- c(

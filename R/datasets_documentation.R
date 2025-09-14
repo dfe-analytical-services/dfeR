@@ -18,16 +18,16 @@
 #' Ward to Constituency to LAD to LA to Region to Country lookup
 #'
 #' A lookup showing the hierarchy of ward to Westminster parliamentary
-#' constituency to local authority district to local authority to 
+#' constituency to local authority district to local authority to
 #' combined mayoral authority to region to
-#' country for years 2017, 2019, 2020, 2021, 2022, 2023 and 2024.
+#' country for years 2017, 2019, 2020, 2021, 2022, 2023, 2024 and 2025.
 #'
-#' Note that combined mayoral authorities only exist in England, and we use 
-#' `cauth_name` and `cauth_code` to refer to the relevant columns following 
+#' Note that combined mayoral authorities only exist in England, and we use
+#' `cauth_name` and `cauth_code` to refer to the relevant columns following
 #' ONS conventions. If you are publishing using explore education statistics,
 #' these are combined with other bodies into `english_devolved_area_name`
 #' and `english_devolved_area_code`.
-#' 
+#'
 #' Changes we've made to the original lookup:
 #' 1. The original lookup from ONS uses the Upper Tier Local Authority, we then
 #' update this so that where there is a metropolitan local authority we use the
@@ -49,7 +49,7 @@
 #' the data set.
 #'
 #' @format ## `wd_pcon_lad_la_rgn_ctry`
-#' A data frame with 24,938 rows and 17 columns:
+#' A data frame with 25,678 rows and 17 columns:
 #' \describe{
 #'   \item{first_available_year_included}{
 #'   First year in the lookups that we see this location
