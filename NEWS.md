@@ -1,3 +1,8 @@
+# dfeR 1.2.0
+
+- Added `geo_hierarchy`, which supersedes `wd_pcon_lad_la_rgn_ctry` and adds 2025 along with mayoral columns.
+- Added `fetch_mayoral()`.
+
 # dfeR 1.1.0
 
 - Added a function that checks Databricks variables for ODBC connections: `check_databricks_odbc()`.

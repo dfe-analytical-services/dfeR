@@ -127,6 +127,7 @@ Here are some example functions from within the package:
 
 ``` r
 library(dfeR)
+#> Note: The dataset `wd_pcon_lad_la_rgn_ctry` is deprecated and will be removed in the next major release. Use `geo_hierarchy` instead.
 
 # Prettify large numbers
 pretty_num(111111111, gbp = TRUE)
@@ -160,37 +161,37 @@ format_ay_reverse("2024/25")
 format_fy_reverse("2024-25")
 #> [1] "202425"
 
-# Get Ward to PCon to LAD to LA to Rgn to Ctry lookup file
-my_data <- dfeR::wd_pcon_lad_la_rgn_ctry
+# Get hierachical lookup file for common geographies
+my_data <- dfeR::geo_hierarchy
 head(my_data) # show first 5 rows in console
-#>   first_available_year_included most_recent_year_included
-#> 1                          2017                      2017
-#> 2                          2017                      2017
-#> 3                          2017                      2020
-#> 4                          2017                      2017
-#> 5                          2017                      2020
-#> 6                          2017                      2017
-#>                ward_name  pcon_name              lad_name               la_name
-#> 1               Bastwell  Blackburn Blackburn with Darwen Blackburn with Darwen
-#> 2                Ormesby     Redcar  Redcar and Cleveland  Redcar and Cleveland
-#> 3            Burn Valley Hartlepool            Hartlepool            Hartlepool
-#> 4 Beardwood with Lammack  Blackburn Blackburn with Darwen Blackburn with Darwen
-#> 5               De Bruce Hartlepool            Hartlepool            Hartlepool
-#> 6           St Germain's     Redcar  Redcar and Cleveland  Redcar and Cleveland
-#>   region_name country_name ward_code pcon_code  lad_code new_la_code
-#> 1  North West      England E05001621 E14000570 E06000008   E06000008
-#> 2  North East      England E05001518 E14000891 E06000003   E06000003
-#> 3  North East      England E05008942 E14000733 E06000001   E06000001
-#> 4  North West      England E05001622 E14000570 E06000008   E06000008
-#> 5  North East      England E05008943 E14000733 E06000001   E06000001
-#> 6  North East      England E05001519 E14000891 E06000003   E06000003
-#>   region_code country_code
-#> 1   E12000002    E92000001
-#> 2   E12000001    E92000001
-#> 3   E12000001    E92000001
-#> 4   E12000002    E92000001
-#> 5   E12000001    E92000001
-#> 6   E12000001    E92000001
+#>   first_available_year_included most_recent_year_included ward_name
+#> 1                          2017                      2021     Abbey
+#> 2                          2022                      2023     Abbey
+#> 3                          2024                      2025     Abbey
+#> 4                          2017                      2017     Abbey
+#> 5                          2024                      2025     Abbey
+#> 6                          2017                      2023     Abbey
+#>       pcon_name                     lad_name                      la_name
+#> 1       Barking         Barking and Dagenham         Barking and Dagenham
+#> 2       Barking         Barking and Dagenham         Barking and Dagenham
+#> 3       Barking         Barking and Dagenham         Barking and Dagenham
+#> 4          Bath Bath and North East Somerset Bath and North East Somerset
+#> 5 Belfast North      Antrim and Newtownabbey      Antrim and Newtownabbey
+#> 6 Belfast North      Antrim and Newtownabbey      Antrim and Newtownabbey
+#>        cauth_name      region_name     country_name ward_code pcon_code
+#> 1  Not applicable           London          England E05000026 E14000540
+#> 2  Not applicable           London          England E05014053 E14000540
+#> 3  Not applicable           London          England E05014053 E14001073
+#> 4 West of England       South West          England E05001935 E14000547
+#> 5  Not applicable Northern Ireland Northern Ireland N08000101 N05000002
+#> 6  Not applicable Northern Ireland Northern Ireland N08000101 N06000002
+#>    lad_code old_la_code new_la_code cauth_code region_code country_code
+#> 1 E09000002         301   E09000002          z   E12000007    E92000001
+#> 2 E09000002         301   E09000002          z   E12000007    E92000001
+#> 3 E09000002         301   E09000002          z   E12000007    E92000001
+#> 4 E06000022         800   E06000022  E47000009   E12000009    E92000001
+#> 5 N09000001           z   N09000001          z   N92000002    N92000002
+#> 6 N09000001           z   N09000001          z   N92000002    N92000002
 
 # Get all countries
 dfeR::countries
@@ -209,46 +210,67 @@ dfeR::countries
 # Get all PCon names and codes for 2024
 fetch_pcons(2024) |>
   head() # show first 5 rows only
-#>   pcon_code                pcon_name
-#> 1 S14000045               Midlothian
-#> 2 S14000027     Na h-Eileanan an Iar
-#> 3 S14000021        East Renfrewshire
-#> 4 S14000048 North Ayrshire and Arran
-#> 5 S14000051      Orkney and Shetland
-#> 6 E14001440                   Redcar
+#> # A tibble: 6 × 2
+#>   pcon_code pcon_name            
+#>   <chr>     <chr>                
+#> 1 E14001073 Barking              
+#> 2 N05000002 Belfast North        
+#> 3 E14001149 Cambridge            
+#> 4 E14001193 Derby North          
+#> 5 E14001194 Derby South          
+#> 6 S14000073 Dumfries and Galloway
 
 # Get All LADs in Scotland in 2017
 fetch_lads(2017, "Scotland") |>
   head() # show first 5 rows only
-#>    lad_code           lad_name
-#> 1 S12000019         Midlothian
-#> 2 S12000015               Fife
-#> 3 S12000014            Falkirk
-#> 4 S12000013 Na h-Eileanan Siar
-#> 5 S12000018         Inverclyde
-#> 6 S12000011  East Renfrewshire
+#> # A tibble: 6 × 2
+#>   lad_code  lad_name             
+#>   <chr>     <chr>                
+#> 1 S12000006 Dumfries and Galloway
+#> 2 S12000034 Aberdeenshire        
+#> 3 S12000017 Highland             
+#> 4 S12000044 North Lanarkshire    
+#> 5 S12000033 Aberdeen City        
+#> 6 S12000036 City of Edinburgh
 
 # Get all LAs in Scotland and Northern Ireland in 2022
 fetch_las(2022, c("Scotland", "Northern Ireland")) |>
   head() # show first 5 rows only
-#>   new_la_code                              la_name
-#> 1   N09000003                              Belfast
-#> 2   N09000004             Causeway Coast and Glens
-#> 3   N09000002 Armagh City, Banbridge and Craigavon
-#> 4   N09000005              Derry City and Strabane
-#> 5   N09000001              Antrim and Newtownabbey
-#> 6   N09000006                  Fermanagh and Omagh
+#> # A tibble: 6 × 3
+#>   new_la_code la_name                  old_la_code
+#>   <chr>       <chr>                    <chr>      
+#> 1 N09000001   Antrim and Newtownabbey  z          
+#> 2 S12000006   Dumfries and Galloway    z          
+#> 3 N09000010   Newry, Mourne and Down   z          
+#> 4 S12000034   Aberdeenshire            z          
+#> 5 N09000008   Mid and East Antrim      z          
+#> 6 N09000004   Causeway Coast and Glens z
 
 # Get all Welsh wards for 2021
 fetch_wards(2021, "Wales") |>
   head() # show first 5 rows only
-#>   ward_code                   ward_name
-#> 1 W05000981                      Aethwy
-#> 2 W05000982               Bro Aberffraw
-#> 3 W05000983                  Bro Rhosyr
-#> 4 W05000107 Tregarth & Mynydd Llandygai
-#> 5 W05000984                    Caergybi
-#> 6 W05000985              Canolbarth Môn
+#> # A tibble: 6 × 2
+#>   ward_code ward_name     
+#>   <chr>     <chr>         
+#> 1 W05000720 Aber Valley   
+#> 2 W05000284 Aber-craf     
+#> 3 W05000357 Aberaeron     
+#> 4 W05000655 Aberaman North
+#> 5 W05001017 Aberaman South
+#> 6 W05000551 Aberavon
+
+# Get all combined mayoral authorities for 2025
+fetch_mayoral(2025) |>
+  head() # show first 5 rows only
+#> # A tibble: 6 × 2
+#>   cauth_code cauth_name                     
+#>   <chr>      <chr>                          
+#> 1 E47000009  West of England                
+#> 2 E47000008  Cambridgeshire and Peterborough
+#> 3 E47000013  East Midlands                  
+#> 4 E47000017  Greater Lincolnshire           
+#> 5 E47000007  West Midlands                  
+#> 6 E47000001  Greater Manchester
 
 # The following have no specific years available and return all values
 fetch_regions()

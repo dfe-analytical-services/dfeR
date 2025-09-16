@@ -1,6 +1,6 @@
 ## Background
 
-This is a step by step guide to adding the three-digit ("old") local authority codes to the wd_pcon_lad_la_rgn_ctry lookup, including the code you'll need to use. Even though these codes are referred to as "old", they are actively used and updated by the department in line with any local authority boundary changes.
+This is a step by step guide to adding the three-digit ("old") local authority codes to the geo_hierarchy lookup, including the code you'll need to use. Even though these codes are referred to as "old", they are actively used and updated by the department in line with any local authority boundary changes.
 
 ## Step by step guide
 
@@ -18,6 +18,6 @@ This is a step by step guide to adding the three-digit ("old") local authority c
 
 5.  Remove the screener (la.csv) and GIAS CSV files saved in the data folder.
 
-6.  Run the code in data-raw/wd_pcon_lad_la_rgn_ctry.R to update the wd_pcon_lad_la_rgn_ctry dataset.
+6.  Run the code in data-raw/geo_hierarchy.R to update the geo_hierarchy dataset.
 
 7.  Update the documentation and tests if applicable by following [dfeR contributing guidance](https://dfe-analytical-services.github.io/dfeR/CONTRIBUTING.html) and using the workflow outlined to carry out necessary checks.

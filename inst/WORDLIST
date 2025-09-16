@@ -1,12 +1,12 @@
+CAUTH
 CMD
 Codecov
 Databricks
 DfE
-EES
 EESScreenerLAs
-GIAS
 GOR
 JBLOGGS
+LUP
 LaNameCodes
 Lifecycle
 NAC
@@ -32,6 +32,7 @@ dbplyr
 dfeshiny
 eesyapi
 fy
+geo
 geoportal
 giasr
 gitignore
