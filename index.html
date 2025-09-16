@@ -29,7 +29,7 @@
 
     <a class="navbar-brand me-2" href="index.html">dfeR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -134,6 +134,7 @@
 <p>Here are some example functions from within the package:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dfe-analytical-services.github.io/dfeR/">dfeR</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Note: The dataset `wd_pcon_lad_la_rgn_ctry` is deprecated and will be removed in the next major release. Use `geo_hierarchy` instead.</span></span>
 <span></span>
 <span><span class="co"># Prettify large numbers</span></span>
 <span><span class="fu"><a href="reference/pretty_num.html">pretty_num</a></span><span class="op">(</span><span class="fl">111111111</span>, gbp <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -167,37 +168,37 @@
 <span><span class="fu"><a href="reference/format_fy_reverse.html">format_fy_reverse</a></span><span class="op">(</span><span class="st">"2024-25"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "202425"</span></span>
 <span></span>
-<span><span class="co"># Get Ward to PCon to LAD to LA to Rgn to Ctry lookup file</span></span>
-<span><span class="va">my_data</span> <span class="op">&lt;-</span> <span class="fu">dfeR</span><span class="fu">::</span><span class="va"><a href="reference/wd_pcon_lad_la_rgn_ctry.html">wd_pcon_lad_la_rgn_ctry</a></span></span>
+<span><span class="co"># Get hierachical lookup file for common geographies</span></span>
+<span><span class="va">my_data</span> <span class="op">&lt;-</span> <span class="fu">dfeR</span><span class="fu">::</span><span class="va"><a href="reference/geo_hierarchy.html">geo_hierarchy</a></span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">my_data</span><span class="op">)</span> <span class="co"># show first 5 rows in console</span></span>
-<span><span class="co">#&gt;   first_available_year_included most_recent_year_included</span></span>
-<span><span class="co">#&gt; 1                          2017                      2017</span></span>
-<span><span class="co">#&gt; 2                          2017                      2017</span></span>
-<span><span class="co">#&gt; 3                          2017                      2020</span></span>
-<span><span class="co">#&gt; 4                          2017                      2017</span></span>
-<span><span class="co">#&gt; 5                          2017                      2020</span></span>
-<span><span class="co">#&gt; 6                          2017                      2017</span></span>
-<span><span class="co">#&gt;                ward_name  pcon_name              lad_name               la_name</span></span>
-<span><span class="co">#&gt; 1               Bastwell  Blackburn Blackburn with Darwen Blackburn with Darwen</span></span>
-<span><span class="co">#&gt; 2                Ormesby     Redcar  Redcar and Cleveland  Redcar and Cleveland</span></span>
-<span><span class="co">#&gt; 3            Burn Valley Hartlepool            Hartlepool            Hartlepool</span></span>
-<span><span class="co">#&gt; 4 Beardwood with Lammack  Blackburn Blackburn with Darwen Blackburn with Darwen</span></span>
-<span><span class="co">#&gt; 5               De Bruce Hartlepool            Hartlepool            Hartlepool</span></span>
-<span><span class="co">#&gt; 6           St Germain's     Redcar  Redcar and Cleveland  Redcar and Cleveland</span></span>
-<span><span class="co">#&gt;   region_name country_name ward_code pcon_code  lad_code new_la_code</span></span>
-<span><span class="co">#&gt; 1  North West      England E05001621 E14000570 E06000008   E06000008</span></span>
-<span><span class="co">#&gt; 2  North East      England E05001518 E14000891 E06000003   E06000003</span></span>
-<span><span class="co">#&gt; 3  North East      England E05008942 E14000733 E06000001   E06000001</span></span>
-<span><span class="co">#&gt; 4  North West      England E05001622 E14000570 E06000008   E06000008</span></span>
-<span><span class="co">#&gt; 5  North East      England E05008943 E14000733 E06000001   E06000001</span></span>
-<span><span class="co">#&gt; 6  North East      England E05001519 E14000891 E06000003   E06000003</span></span>
-<span><span class="co">#&gt;   region_code country_code</span></span>
-<span><span class="co">#&gt; 1   E12000002    E92000001</span></span>
-<span><span class="co">#&gt; 2   E12000001    E92000001</span></span>
-<span><span class="co">#&gt; 3   E12000001    E92000001</span></span>
-<span><span class="co">#&gt; 4   E12000002    E92000001</span></span>
-<span><span class="co">#&gt; 5   E12000001    E92000001</span></span>
-<span><span class="co">#&gt; 6   E12000001    E92000001</span></span>
+<span><span class="co">#&gt;   first_available_year_included most_recent_year_included ward_name</span></span>
+<span><span class="co">#&gt; 1                          2017                      2021     Abbey</span></span>
+<span><span class="co">#&gt; 2                          2022                      2023     Abbey</span></span>
+<span><span class="co">#&gt; 3                          2024                      2025     Abbey</span></span>
+<span><span class="co">#&gt; 4                          2017                      2017     Abbey</span></span>
+<span><span class="co">#&gt; 5                          2024                      2025     Abbey</span></span>
+<span><span class="co">#&gt; 6                          2017                      2023     Abbey</span></span>
+<span><span class="co">#&gt;       pcon_name                     lad_name                      la_name</span></span>
+<span><span class="co">#&gt; 1       Barking         Barking and Dagenham         Barking and Dagenham</span></span>
+<span><span class="co">#&gt; 2       Barking         Barking and Dagenham         Barking and Dagenham</span></span>
+<span><span class="co">#&gt; 3       Barking         Barking and Dagenham         Barking and Dagenham</span></span>
+<span><span class="co">#&gt; 4          Bath Bath and North East Somerset Bath and North East Somerset</span></span>
+<span><span class="co">#&gt; 5 Belfast North      Antrim and Newtownabbey      Antrim and Newtownabbey</span></span>
+<span><span class="co">#&gt; 6 Belfast North      Antrim and Newtownabbey      Antrim and Newtownabbey</span></span>
+<span><span class="co">#&gt;        cauth_name      region_name     country_name ward_code pcon_code</span></span>
+<span><span class="co">#&gt; 1  Not applicable           London          England E05000026 E14000540</span></span>
+<span><span class="co">#&gt; 2  Not applicable           London          England E05014053 E14000540</span></span>
+<span><span class="co">#&gt; 3  Not applicable           London          England E05014053 E14001073</span></span>
+<span><span class="co">#&gt; 4 West of England       South West          England E05001935 E14000547</span></span>
+<span><span class="co">#&gt; 5  Not applicable Northern Ireland Northern Ireland N08000101 N05000002</span></span>
+<span><span class="co">#&gt; 6  Not applicable Northern Ireland Northern Ireland N08000101 N06000002</span></span>
+<span><span class="co">#&gt;    lad_code old_la_code new_la_code cauth_code region_code country_code</span></span>
+<span><span class="co">#&gt; 1 E09000002         301   E09000002          z   E12000007    E92000001</span></span>
+<span><span class="co">#&gt; 2 E09000002         301   E09000002          z   E12000007    E92000001</span></span>
+<span><span class="co">#&gt; 3 E09000002         301   E09000002          z   E12000007    E92000001</span></span>
+<span><span class="co">#&gt; 4 E06000022         800   E06000022  E47000009   E12000009    E92000001</span></span>
+<span><span class="co">#&gt; 5 N09000001           z   N09000001          z   N92000002    N92000002</span></span>
+<span><span class="co">#&gt; 6 N09000001           z   N09000001          z   N92000002    N92000002</span></span>
 <span></span>
 <span><span class="co"># Get all countries</span></span>
 <span><span class="fu">dfeR</span><span class="fu">::</span><span class="va"><a href="reference/countries.html">countries</a></span></span>
@@ -216,46 +217,67 @@
 <span><span class="co"># Get all PCon names and codes for 2024</span></span>
 <span><span class="fu"><a href="reference/fetch.html">fetch_pcons</a></span><span class="op">(</span><span class="fl">2024</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># show first 5 rows only</span></span>
-<span><span class="co">#&gt;   pcon_code                pcon_name</span></span>
-<span><span class="co">#&gt; 1 S14000045               Midlothian</span></span>
-<span><span class="co">#&gt; 2 S14000027     Na h-Eileanan an Iar</span></span>
-<span><span class="co">#&gt; 3 S14000021        East Renfrewshire</span></span>
-<span><span class="co">#&gt; 4 S14000048 North Ayrshire and Arran</span></span>
-<span><span class="co">#&gt; 5 S14000051      Orkney and Shetland</span></span>
-<span><span class="co">#&gt; 6 E14001440                   Redcar</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 2</span></span>
+<span><span class="co">#&gt;   pcon_code pcon_name            </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;                </span></span>
+<span><span class="co">#&gt; 1 E14001073 Barking              </span></span>
+<span><span class="co">#&gt; 2 N05000002 Belfast North        </span></span>
+<span><span class="co">#&gt; 3 E14001149 Cambridge            </span></span>
+<span><span class="co">#&gt; 4 E14001193 Derby North          </span></span>
+<span><span class="co">#&gt; 5 E14001194 Derby South          </span></span>
+<span><span class="co">#&gt; 6 S14000073 Dumfries and Galloway</span></span>
 <span></span>
 <span><span class="co"># Get All LADs in Scotland in 2017</span></span>
 <span><span class="fu"><a href="reference/fetch_lads.html">fetch_lads</a></span><span class="op">(</span><span class="fl">2017</span>, <span class="st">"Scotland"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># show first 5 rows only</span></span>
-<span><span class="co">#&gt;    lad_code           lad_name</span></span>
-<span><span class="co">#&gt; 1 S12000019         Midlothian</span></span>
-<span><span class="co">#&gt; 2 S12000015               Fife</span></span>
-<span><span class="co">#&gt; 3 S12000014            Falkirk</span></span>
-<span><span class="co">#&gt; 4 S12000013 Na h-Eileanan Siar</span></span>
-<span><span class="co">#&gt; 5 S12000018         Inverclyde</span></span>
-<span><span class="co">#&gt; 6 S12000011  East Renfrewshire</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 2</span></span>
+<span><span class="co">#&gt;   lad_code  lad_name             </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;                </span></span>
+<span><span class="co">#&gt; 1 S12000006 Dumfries and Galloway</span></span>
+<span><span class="co">#&gt; 2 S12000034 Aberdeenshire        </span></span>
+<span><span class="co">#&gt; 3 S12000017 Highland             </span></span>
+<span><span class="co">#&gt; 4 S12000044 North Lanarkshire    </span></span>
+<span><span class="co">#&gt; 5 S12000033 Aberdeen City        </span></span>
+<span><span class="co">#&gt; 6 S12000036 City of Edinburgh</span></span>
 <span></span>
 <span><span class="co"># Get all LAs in Scotland and Northern Ireland in 2022</span></span>
 <span><span class="fu"><a href="reference/fetch_las.html">fetch_las</a></span><span class="op">(</span><span class="fl">2022</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Scotland"</span>, <span class="st">"Northern Ireland"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># show first 5 rows only</span></span>
-<span><span class="co">#&gt;   new_la_code                              la_name</span></span>
-<span><span class="co">#&gt; 1   N09000003                              Belfast</span></span>
-<span><span class="co">#&gt; 2   N09000004             Causeway Coast and Glens</span></span>
-<span><span class="co">#&gt; 3   N09000002 Armagh City, Banbridge and Craigavon</span></span>
-<span><span class="co">#&gt; 4   N09000005              Derry City and Strabane</span></span>
-<span><span class="co">#&gt; 5   N09000001              Antrim and Newtownabbey</span></span>
-<span><span class="co">#&gt; 6   N09000006                  Fermanagh and Omagh</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 3</span></span>
+<span><span class="co">#&gt;   new_la_code la_name                  old_la_code</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;                    &lt;chr&gt;      </span></span>
+<span><span class="co">#&gt; 1 N09000001   Antrim and Newtownabbey  z          </span></span>
+<span><span class="co">#&gt; 2 S12000006   Dumfries and Galloway    z          </span></span>
+<span><span class="co">#&gt; 3 N09000010   Newry, Mourne and Down   z          </span></span>
+<span><span class="co">#&gt; 4 S12000034   Aberdeenshire            z          </span></span>
+<span><span class="co">#&gt; 5 N09000008   Mid and East Antrim      z          </span></span>
+<span><span class="co">#&gt; 6 N09000004   Causeway Coast and Glens z</span></span>
 <span></span>
 <span><span class="co"># Get all Welsh wards for 2021</span></span>
 <span><span class="fu"><a href="reference/fetch_wards.html">fetch_wards</a></span><span class="op">(</span><span class="fl">2021</span>, <span class="st">"Wales"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># show first 5 rows only</span></span>
-<span><span class="co">#&gt;   ward_code                   ward_name</span></span>
-<span><span class="co">#&gt; 1 W05000981                      Aethwy</span></span>
-<span><span class="co">#&gt; 2 W05000982               Bro Aberffraw</span></span>
-<span><span class="co">#&gt; 3 W05000983                  Bro Rhosyr</span></span>
-<span><span class="co">#&gt; 4 W05000107 Tregarth &amp; Mynydd Llandygai</span></span>
-<span><span class="co">#&gt; 5 W05000984                    Caergybi</span></span>
-<span><span class="co">#&gt; 6 W05000985              Canolbarth Môn</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 2</span></span>
+<span><span class="co">#&gt;   ward_code ward_name     </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;         </span></span>
+<span><span class="co">#&gt; 1 W05000720 Aber Valley   </span></span>
+<span><span class="co">#&gt; 2 W05000284 Aber-craf     </span></span>
+<span><span class="co">#&gt; 3 W05000357 Aberaeron     </span></span>
+<span><span class="co">#&gt; 4 W05000655 Aberaman North</span></span>
+<span><span class="co">#&gt; 5 W05001017 Aberaman South</span></span>
+<span><span class="co">#&gt; 6 W05000551 Aberavon</span></span>
+<span></span>
+<span><span class="co"># Get all combined mayoral authorities for 2025</span></span>
+<span><span class="fu"><a href="reference/fetch_mayoral.html">fetch_mayoral</a></span><span class="op">(</span><span class="fl">2025</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># show first 5 rows only</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 2</span></span>
+<span><span class="co">#&gt;   cauth_code cauth_name                     </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;                          </span></span>
+<span><span class="co">#&gt; 1 E47000009  West of England                </span></span>
+<span><span class="co">#&gt; 2 E47000008  Cambridgeshire and Peterborough</span></span>
+<span><span class="co">#&gt; 3 E47000013  East Midlands                  </span></span>
+<span><span class="co">#&gt; 4 E47000017  Greater Lincolnshire           </span></span>
+<span><span class="co">#&gt; 5 E47000007  West Midlands                  </span></span>
+<span><span class="co">#&gt; 6 E47000001  Greater Manchester</span></span>
 <span></span>
 <span><span class="co"># The following have no specific years available and return all values</span></span>
 <span><span class="fu"><a href="reference/fetch_regions.html">fetch_regions</a></span><span class="op">(</span><span class="op">)</span></span>
