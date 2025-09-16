@@ -18,7 +18,8 @@ default is "All", or can be a vector with options of "England", "Scotland",
 data frame of unique location names and codes
 }
 \description{
-Fetch local authority districts
+Fetch a data frame of all local authority districts for a
+given year and country based on the dfeR::wd_pcon_lad_la_rgn_ctry file.
 }
 \examples{
 

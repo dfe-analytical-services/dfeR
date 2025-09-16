@@ -10,7 +10,7 @@ fetch_countries()
 data frame of unique location names and codes
 }
 \description{
-Fetch countries
+Fetch a data frame of all countries based on the dfeR::countries file.
 }
 \examples{
 

@@ -14,6 +14,10 @@ options of 2017, 2019, 2020, 2021, 2022", 2023, 2024, 2025}
 data frame of unique location names and codes
 }
 \description{
+Fetch a data frame of all mayoral combined authorities for a given year
+and country based on the dfeR::wd_pcon_lad_la_rgn_ctry file.
+}
+\details{
 Note that mayoral combined authorities only exist for England.
 }
 \examples{

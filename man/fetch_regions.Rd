@@ -10,7 +10,7 @@ fetch_regions()
 data frame of unique location names and codes
 }
 \description{
-Fetch regions
+Fetch a data frame of all regions based on the dfeR::regions file.
 }
 \examples{
 
