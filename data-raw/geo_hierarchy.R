@@ -151,6 +151,8 @@ cauth <- lapply(mayoral_years, get_cauth_lad) |>
 # Explode tables and rollover 2024 locations into 2025
 # (as we've not had 2025 updates from ONS for the above lookups)
 # remove this if the main lookup includes 2025 in future
+# update comment in datasets_documentation.R too
+# example LADs to check are Sheffield / Rotherham / Barnsley
 rolled_over <- wd_pcon_lad_la_rgn_ctry |>
   explode_timeseries() |>
   dplyr::bind_rows(
