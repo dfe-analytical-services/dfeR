@@ -15,7 +15,7 @@ data frame of unique location names and codes
 }
 \description{
 Fetch a data frame of all mayoral combined authorities for a given year
-and country based on the dfeR::wd_pcon_lad_la_rgn_ctry file.
+and country based on the dfeR::geo_hierarchy file.
 }
 \details{
 Note that mayoral combined authorities only exist for England.

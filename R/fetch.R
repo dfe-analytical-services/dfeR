@@ -1,7 +1,7 @@
 #' Fetch Westminster parliamentary constituencies
 #'
 #' Fetch a data frame of all Westminster Parliamentary Constituencies for a
-#' given year and country based on the dfeR::wd_pcon_lad_la_rgn_ctry file.
+#' given year and country based on the dfeR::geo_hierarchy file.
 #'
 #' @param year year to filter the locations to, default is "All",
 #' options of 2017, 2019, 2020, 2021, 2022", 2023, 2024, 2025
@@ -41,7 +41,7 @@ fetch_pcons <- function(year = "All", countries = "All") {
 
   # Helper function to filter to locations we want
   output <- fetch_locations(
-    lookup_data = dfeR::wd_pcon_lad_la_rgn_ctry,
+    lookup_data = dfeR::geo_hierarchy,
     cols = c("pcon_code", "pcon_name"),
     year = year,
     countries = countries
@@ -53,7 +53,7 @@ fetch_pcons <- function(year = "All", countries = "All") {
 #' Fetch local authority districts
 #'
 #' Fetch a data frame of all local authority districts for a
-#' given year and country based on the dfeR::wd_pcon_lad_la_rgn_ctry file.
+#' given year and country based on the dfeR::geo_hierarchy file.
 #' 
 #' @inheritParams fetch
 #'
@@ -68,7 +68,7 @@ fetch_lads <- function(year = "All", countries = "All") {
 
   # Helper function to filter to locations we want
   output <- fetch_locations(
-    lookup_data = dfeR::wd_pcon_lad_la_rgn_ctry,
+    lookup_data = dfeR::geo_hierarchy,
     cols = c("lad_code", "lad_name"),
     year = year,
     countries = countries
@@ -80,7 +80,7 @@ fetch_lads <- function(year = "All", countries = "All") {
 #' Fetch local authorities
 #'
 #' Fetch a data frame of all local authorities for a given year and country
-#' based on the dfeR::wd_pcon_lad_la_rgn_ctry file.
+#' based on the dfeR::geo_hierarchy file.
 #' 
 #' @inheritParams fetch
 #'
@@ -95,7 +95,7 @@ fetch_las <- function(year = "All", countries = "All") {
 
   # Helper function to filter to locations we want
   output <- fetch_locations(
-    lookup_data = dfeR::wd_pcon_lad_la_rgn_ctry,
+    lookup_data = dfeR::geo_hierarchy,
     cols = c("new_la_code", "la_name", "old_la_code"),
     year = year,
     countries = countries
@@ -107,7 +107,7 @@ fetch_las <- function(year = "All", countries = "All") {
 #' Fetch wards
 #'
 #' Fetch a data frame of all wards for a given year and country based on the
-#' dfeR::wd_pcon_lad_la_rgn_ctry file.
+#' dfeR::geo_hierarchy file.
 #' 
 #' @inheritParams fetch
 #'
@@ -122,7 +122,7 @@ fetch_wards <- function(year = "All", countries = "All") {
 
   # Helper function to filter to locations we want
   output <- fetch_locations(
-    lookup_data = dfeR::wd_pcon_lad_la_rgn_ctry,
+    lookup_data = dfeR::geo_hierarchy,
     cols = c("ward_code", "ward_name"),
     year = year,
     countries = countries
@@ -134,7 +134,7 @@ fetch_wards <- function(year = "All", countries = "All") {
 #' Fetch mayoral combined authorities
 #'
 #' Fetch a data frame of all mayoral combined authorities for a given year
-#' and country based on the dfeR::wd_pcon_lad_la_rgn_ctry file.
+#' and country based on the dfeR::geo_hierarchy file.
 #' 
 #' Note that mayoral combined authorities only exist for England.
 #'
@@ -152,7 +152,7 @@ fetch_mayoral <- function(year = "All") {
 
   # Helper function to filter to locations we want
   output <- fetch_locations(
-    lookup_data = dfeR::wd_pcon_lad_la_rgn_ctry,
+    lookup_data = dfeR::geo_hierarchy,
     cols = c("cauth_code", "cauth_name"),
     year = year,
     countries = "England"

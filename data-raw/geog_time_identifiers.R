@@ -2,7 +2,6 @@
 # Get a list of potential location and time columns
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
 # create a vector of possible time and geography column names
 geog_time_identifiers <- c(
   "geographic_level", "country_code", "region_code", "new_la_code", "lad_code",

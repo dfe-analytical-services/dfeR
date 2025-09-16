@@ -127,8 +127,8 @@ format_fy(202425)
 format_ay_reverse("2024/25")
 format_fy_reverse("2024-25")
 
-# Get Ward to PCon to LAD to LA to Rgn to Ctry lookup file
-my_data <- dfeR::wd_pcon_lad_la_rgn_ctry
+# Get hierachical lookup file for common geographies
+my_data <- dfeR::geo_hierarchy
 head(my_data) # show first 5 rows in console
 
 # Get all countries
@@ -148,6 +148,10 @@ fetch_las(2022, c("Scotland", "Northern Ireland")) |>
 
 # Get all Welsh wards for 2021
 fetch_wards(2021, "Wales") |>
+  head() # show first 5 rows only
+
+# Get all combined mayoral authorities for 2025
+fetch_mayoral(2025) |>
   head() # show first 5 rows only
 
 # The following have no specific years available and return all values

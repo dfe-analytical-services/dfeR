@@ -19,7 +19,7 @@ data frame of unique location names and codes
 }
 \description{
 Fetch a data frame of all local authority districts for a
-given year and country based on the dfeR::wd_pcon_lad_la_rgn_ctry file.
+given year and country based on the dfeR::geo_hierarchy file.
 }
 \examples{
 

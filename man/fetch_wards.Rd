@@ -19,7 +19,7 @@ data frame of unique location names and codes
 }
 \description{
 Fetch a data frame of all wards for a given year and country based on the
-dfeR::wd_pcon_lad_la_rgn_ctry file.
+dfeR::geo_hierarchy file.
 }
 \examples{
 
