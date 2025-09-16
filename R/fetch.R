@@ -54,7 +54,7 @@ fetch_pcons <- function(year = "All", countries = "All") {
 #'
 #' Fetch a data frame of all local authority districts for a
 #' given year and country based on the dfeR::geo_hierarchy file.
-#' 
+#'
 #' @inheritParams fetch
 #'
 #' @family fetch_locations
@@ -81,7 +81,7 @@ fetch_lads <- function(year = "All", countries = "All") {
 #'
 #' Fetch a data frame of all local authorities for a given year and country
 #' based on the dfeR::geo_hierarchy file.
-#' 
+#'
 #' @inheritParams fetch
 #'
 #' @family fetch_locations
@@ -108,7 +108,7 @@ fetch_las <- function(year = "All", countries = "All") {
 #'
 #' Fetch a data frame of all wards for a given year and country based on the
 #' dfeR::geo_hierarchy file.
-#' 
+#'
 #' @inheritParams fetch
 #'
 #' @family fetch_locations
@@ -135,7 +135,7 @@ fetch_wards <- function(year = "All", countries = "All") {
 #'
 #' Fetch a data frame of all mayoral combined authorities for a given year
 #' and country based on the dfeR::geo_hierarchy file.
-#' 
+#'
 #' Note that mayoral combined authorities only exist for England.
 #'
 #' @param year year to filter the locations to, default is "All",
@@ -166,7 +166,7 @@ fetch_mayoral <- function(year = "All") {
 #' Fetch regions
 #'
 #' Fetch a data frame of all regions based on the dfeR::regions file.
-#' 
+#'
 #' @family fetch_locations
 #' @return data frame of unique location names and codes
 #' @export
@@ -179,7 +179,7 @@ fetch_regions <- function() {
 #' Fetch countries
 #'
 #' Fetch a data frame of all countries based on the dfeR::countries file.
-#' 
+#'
 #' @family fetch_locations
 #' @return data frame of unique location names and codes
 #' @export

@@ -15,8 +15,8 @@
 #
 # We make some small changes to these currently, more details are in the
 # public facing documentation in R/datasets_documentation.R.
-# 
-# A number of the functions used in this script are stored in 
+#
+# A number of the functions used in this script are stored in
 # R/datasets_utils.R, in there you can see the details of how we query the API
 # and any transformations we apply to the data within those functions.
 #

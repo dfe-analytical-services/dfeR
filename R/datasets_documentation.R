@@ -133,13 +133,13 @@
 #' Ward to Constituency to LAD to LA to Region to Country lookup
 #'
 #' `r lifecycle::badge("deprecated")`
-#' 
+#'
 #' `wd_pcon_lad_la_rgn_ctry` has been superseded by `geo_hierarchy`.
-#'  
+#'
 #' `geo_hierarchy` contains all the columns in this data set plus more, and is
 #' what we will be maintaining moving forwards. `wd_pcon_lad_la_rgn_ctry` will
 #' be removed in the next major release of the package.
-#' 
+#'
 #' A lookup showing the hierarchy of ward to Westminster parliamentary
 #' constituency to local authority district to local authority to region to
 #' country for years 2017, 2019, 2020, 2021, 2022, 2023 and 2024.

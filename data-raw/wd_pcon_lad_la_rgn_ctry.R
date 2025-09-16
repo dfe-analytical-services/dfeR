@@ -170,7 +170,7 @@ if (nrow(country_error_check) > 0) {
 }
 
 # Write the data into the package ---------------------------------------------
-if(TRUE){
+if (TRUE) {
   stop("wd_pcon_lad_la_rgn_ctry is deprecated - update geo_hierarchy instead")
 } else {
   usethis::use_data(wd_pcon_lad_la_rgn_ctry, overwrite = TRUE)
