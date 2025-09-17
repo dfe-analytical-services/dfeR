@@ -49,7 +49,7 @@
 #' the data set.
 #'
 #' @format ## `geo_hierarchy`
-#' A data frame with 25,678 rows and 17 columns:
+#' A data frame with 26,057 rows and 17 columns:
 #' \describe{
 #'   \item{first_available_year_included}{
 #'   First year in the lookups that we see this location
