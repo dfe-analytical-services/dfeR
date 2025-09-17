@@ -1,7 +1,7 @@
 Type: Package
 Package: dfeR
 Title: Common Department for Education Analysis Tasks
-Version: 1.2.0
+Version: 1.2.0.9000
 Authors@R: c(
     person("Cam", "Race", , "cameron.race@education.gov.uk", role = c("aut", "cre")),
     person("Department for Education, England", , , "statistics.development@education.gov.uk", role = "cph"),

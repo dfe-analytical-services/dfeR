@@ -6,7 +6,7 @@
 #' GOR (Government Office Region) was the predecessor to RGN.
 #'
 #' @format ## `ons_geog_shorthands`
-#' A data frame with 8 rows and 3 columns:
+#' A data frame with 9 rows and 3 columns:
 #' \describe{
 #'   \item{ons_level_shorthands}{ONS shorthands used in their lookup files}
 #'   \item{name_column}{DfE names for geography name columns}
@@ -21,11 +21,6 @@
 #' constituency to local authority district to local authority to
 #' combined mayoral authority to region to
 #' country for years 2017, 2019, 2020, 2021, 2022, 2023, 2024 and 2025.
-#'
-#' We don't have complete updated data for 2025, but as we have mayoral
-#' authorities for 2025, we've rolled 2024 codes over as a temporary
-#' workaround. When ONS release updated data for 2025, we will update
-#' this data set accordingly.
 #'
 #' Note that combined mayoral authorities only exist in England, and we use
 #' `cauth_name` and `cauth_code` to refer to the relevant columns following
@@ -139,7 +134,8 @@
 #'
 #' `r lifecycle::badge("deprecated")`
 #'
-#' `wd_pcon_lad_la_rgn_ctry` has been superseded by `geo_hierarchy`.
+#' `wd_pcon_lad_la_rgn_ctry` has been superseded by `geo_hierarchy` and will no
+#' longer receive any updates. It will be removed in the next major version.
 #'
 #' `geo_hierarchy` contains all the columns in this data set plus more, and is
 #' what we will be maintaining moving forwards. `wd_pcon_lad_la_rgn_ctry` will
