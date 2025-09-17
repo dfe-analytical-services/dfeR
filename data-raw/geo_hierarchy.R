@@ -69,13 +69,12 @@ library(tidyr)
 
 # Set the years we want to pull for -------------------------------------------
 # Started publishing in 2017, but didn't publish a 2018 file
-wd_pcon_lad_la_years <- c(2017, 2019:2024)
+wd_pcon_lad_la_years <- c(2017, 2019:2025)
 
 # Skipping 2021 as not published in API for lad_region and we have enough
 # coverage from other years to join without any gaps
-lad_region_years <- c(2017:2020, 2022:2024)
+lad_region_years <- c(2017:2020, 2022:2025)
 
-# 2025 included as 2024 release was pre-election
 mayoral_years <- c(2017:2025)
 
 # Get the main lookup ---------------------------------------------------------
@@ -148,22 +147,8 @@ cauth <- lapply(mayoral_years, get_cauth_lad) |>
   ) |>
   dplyr::distinct()
 
-# Explode tables and rollover 2024 locations into 2025
-# (as we've not had 2025 updates from ONS for the above lookups)
-# remove this if the main lookup includes 2025 in future
-# update comment in datasets_documentation.R too
-# example LADs to check are Sheffield / Rotherham / Barnsley
-rolled_over <- wd_pcon_lad_la_rgn_ctry |>
-  explode_timeseries() |>
-  dplyr::bind_rows(
-    wd_pcon_lad_la_rgn_ctry |>
-      explode_timeseries() |>
-      dplyr::filter(year == 2024) |>
-      dplyr::mutate(year = 2025)
-  )
-
 # Join mayoral columns using exploded tables
-wd_pcon_lad_la_cauth_rgn_ctry <- rolled_over |>
+wd_pcon_lad_la_cauth_rgn_ctry <- explode_timeseries(wd_pcon_lad_la_rgn_ctry) |>
   dplyr::left_join(
     explode_timeseries(cauth),
     by = c(

@@ -7,7 +7,7 @@
 \format{
 \subsection{\code{geo_hierarchy}}{
 
-A data frame with 25,678 rows and 17 columns:
+A data frame with 26,057 rows and 17 columns:
 \describe{
 \item{first_available_year_included}{
 First year in the lookups that we see this location
@@ -50,11 +50,6 @@ combined mayoral authority to region to
 country for years 2017, 2019, 2020, 2021, 2022, 2023, 2024 and 2025.
 }
 \details{
-We don't have complete updated data for 2025, but as we have mayoral
-authorities for 2025, we've rolled 2024 codes over as a temporary
-workaround. When ONS release updated data for 2025, we will update
-this data set accordingly.
-
 Note that combined mayoral authorities only exist in England, and we use
 \code{cauth_name} and \code{cauth_code} to refer to the relevant columns following
 ONS conventions. If you are publishing using explore education statistics,

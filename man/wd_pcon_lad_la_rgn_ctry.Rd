@@ -44,7 +44,8 @@ wd_pcon_lad_la_rgn_ctry
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 }
 \details{
-\code{wd_pcon_lad_la_rgn_ctry} has been superseded by \code{geo_hierarchy}.
+\code{wd_pcon_lad_la_rgn_ctry} has been superseded by \code{geo_hierarchy} and will no
+longer receive any updates. It will be removed in the next major version.
 
 \code{geo_hierarchy} contains all the columns in this data set plus more, and is
 what we will be maintaining moving forwards. \code{wd_pcon_lad_la_rgn_ctry} will

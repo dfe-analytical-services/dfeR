@@ -1,3 +1,7 @@
+# dfeR (development version)
+
+- Updated `geo_hierarchy`, and associated `fetch_*` functions with latest 2025 lookups.
+
 # dfeR 1.2.0
 
 - Added `geo_hierarchy`, which supersedes `wd_pcon_lad_la_rgn_ctry` and adds 2025 along with mayoral columns.

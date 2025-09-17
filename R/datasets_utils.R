@@ -37,12 +37,16 @@ tidy_raw_lookup <- function(raw_lookup_file) {
   # Remove all non-digits from column names
   new_year <- unique(gsub("[^0-9]", "", names(raw_lookup_file)))
 
-  # Check there is only one year available ------------------------------------
+  # Check there is only one year available -------------------------------------
+  # If more than one, just take the latest but with a warning
   if (length(new_year) != 1) {
-    stop(
+    new_year <- max(new_year)
+    warning(
       paste0(
         "There appears to be either zero or multiple years of data in the ",
-        "selected lookup, the function doesn't know which year to pick"
+        "selected lookup, the function doesn't know which year to pick. ",
+        "Taking the latest year and hoping! Latest year end: ",
+        new_year
       )
     )
   }
@@ -271,7 +275,7 @@ explode_timeseries <- function(short_lookup_file) {
       year = .data$first_available_year_included + dplyr::row_number() - 1
     ) |>
     dplyr::ungroup() |>
-    dplyr::select(dplyr::all_of(base_cols), .data$year)
+    dplyr::select(dplyr::all_of(base_cols), "year")
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -307,8 +311,8 @@ collapse_timeseries <- function(long_lookup_file) {
 #'
 #' Helper function to extract data from the Ward-PCon-LAD-UTLA file
 #'
-#' @param year last two digits of the year of the lookup, available years are:
-#' 2017, 2019, 2020, 2021, 2022, 2023, 2024
+#' @param year last two digits of the year of the lookup, tested years are:
+#' 2017, 2019, 2020, 2021, 2022, 2023, 2024, 2025
 #'
 #' @return data.frame for the individual year of the lookup
 #'
@@ -330,12 +334,20 @@ get_wd_pcon_lad_la <- function(year) {
   )
 
   # Specify the columns we want ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  levels <- c("WD", "PCON", "LAD", "UTLA")
-  cols <- c("CD", "NM")
-  field_names <- paste(
-    as.vector(outer(paste0(levels, year_end), cols, paste0)),
-    collapse = ","
-  )
+  if (year_end == 25) {
+    # Changed UTLA to CTYUA in 25, if same for 2026, set as new default and
+    # ...put the else under a if(year_end < 25) condition
+    # In 2025 they still used 2024 PCons so harcoding for EES-e
+    field_names <-
+      "WD25CD,PCON24CD,LAD25CD,CTYUA25CD,WD25NM,PCON24NM,LAD25NM,CTYUA25NM"
+  } else {
+    levels <- c("WD", "PCON", "LAD", "UTLA")
+    cols <- c("CD", "NM")
+    field_names <- paste(
+      as.vector(outer(paste0(levels, year_end), cols, paste0)),
+      collapse = ","
+    )
+  }
 
   # Main API call ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   if (year_end == 21) {
@@ -360,10 +372,13 @@ get_wd_pcon_lad_la <- function(year) {
         "WD",
         year_end,
         "_PCON",
-        year_end,
+        # 25 lookup uses 24 PCons...
+        dplyr::if_else(year_end == 25, 24, year_end),
         "_LAD",
         year_end,
-        "_UTLA",
+        # Format changed from UTLA to CTYUA in 25, if same in 26 then set as the
+        # ...default moving forwards
+        dplyr::if_else(year_end == 25, "_CTYUA", "_UTLA"),
         year_end,
         id_end
       ),
@@ -385,8 +400,8 @@ get_wd_pcon_lad_la <- function(year) {
 #'
 #' Helper function to extract data from the Ward-LAD-Region-County-Country file
 #'
-#' @param year last two digits of the year of the lookup, available years are:
-#' 2017, 2018, 2019, 2020, 2022, 2023, 2024
+#' @param year last two digits of the year of the lookup, tested years are:
+#' 2017, 2018, 2019, 2020, 2022, 2023, 2024, 2025
 #'
 #' @return data.frame for the individual year of the lookup
 #'
@@ -401,13 +416,12 @@ get_lad_region <- function(year) {
   # Use the ONS query explorer on each file to check this
   # https://geoportal.statistics.gov.uk/search?tags=LUP_WD_LAD_CTY_RGN_GOR_CTRY
   id_end <- dplyr::case_when(
-    year_end == 24 ~ "_UK_LU", # If this becomes the next pattern in future too
-    # then worth considering moving to .default and making the 22+23 hardcoded
+    year_end %in% c(21, 22, 23) ~ "_OTH_UK_LU",
     year_end == 20 ~ "_OTH_UK_LU_v2_27715a77546b4b5a9746baf703dd9a05",
     year_end == 19 ~ "_OTH_UK_LU_89ea1f028be347e7a44d71743c96b60d",
     year_end == 18 ~ "_OTH_UK_LU_971f977f4a444d09842fcfbfd51f8982",
     year_end == 17 ~ "_OTH_UK_LUv2_c8956eca906348fd9e3bb1f6af54f2ce",
-    .default = "_OTH_UK_LU"
+    .default = "_UK_LU"
   )
 
   # Specify the columns we want ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -434,8 +448,7 @@ get_lad_region <- function(year) {
 
   # Main API call ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   if (year == 2024) {
-    # They changed it up in 2024, like above, check in 2025 if this becomes...
-    # ...the new normal and consider the neatest way to handle
+    # They changed it up in 2024
     data_id <- paste0(
       "WD",
       year_end,
@@ -444,13 +457,28 @@ get_lad_region <- function(year) {
       "_CTYUA_RGN_CTRY",
       id_end
     )
-  } else {
+  } else if (year < 2024) {
     data_id <- paste0(
       "WD",
       year_end,
       "_LAD",
       year_end,
       "_CTY",
+      year_end,
+      id_end
+    )
+  } else {
+    # 2025 onwards
+    data_id <- paste0(
+      "WD",
+      year_end,
+      "_LAD",
+      year_end,
+      "_CTYUA",
+      year_end,
+      "_RGN",
+      year_end,
+      "_CTRY",
       year_end,
       id_end
     )
