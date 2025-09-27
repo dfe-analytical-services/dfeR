@@ -13,7 +13,7 @@ country for years 2017, 2019, 2020, 2021, 2022, 2023, 2024 and 2025."><meta prop
 
     <a class="navbar-brand me-2" href="../index.html">dfeR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,7 +39,7 @@ country for years 2017, 2019, 2020, 2021, 2022, 2023, 2024 and 2025."><meta prop
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Geography hierarchy lookup</h1>
-      <small class="dont-index">Source: <a href="https://github.com/dfe-analytical-services/dfeR/blob/v1.2.0/R/datasets_documentation.R" class="external-link"><code>R/datasets_documentation.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/dfe-analytical-services/dfeR/blob/main/R/datasets_documentation.R" class="external-link"><code>R/datasets_documentation.R</code></a></small>
       <div class="d-none name"><code>geo_hierarchy.Rd</code></div>
     </div>
 
@@ -62,7 +62,7 @@ country for years 2017, 2019, 2020, 2021, 2022, 2023, 2024 and 2025.</p>
 <h3 id="geo-hierarchy"><code>geo_hierarchy</code><a class="anchor" aria-label="anchor" href="#geo-hierarchy"></a></h3>
 
 
-<p>A data frame with 25,678 rows and 17 columns:</p><dl><dt>first_available_year_included</dt>
+<p>A data frame with 26,057 rows and 17 columns:</p><dl><dt>first_available_year_included</dt>
 <dd><p>First year in the lookups that we see this location</p></dd>
 
 <dt>most_recent_year_included</dt>
@@ -127,11 +127,7 @@ https://tinyurl.com/EESScreenerLAs</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>We don't have complete updated data for 2025, but as we have mayoral
-authorities for 2025, we've rolled 2024 codes over as a temporary
-workaround. When ONS release updated data for 2025, we will update
-this data set accordingly.</p>
-<p>Note that combined mayoral authorities only exist in England, and we use
+    <p>Note that combined mayoral authorities only exist in England, and we use
 <code>cauth_name</code> and <code>cauth_code</code> to refer to the relevant columns following
 ONS conventions. If you are publishing using explore education statistics,
 these are combined with other bodies into <code>english_devolved_area_name</code>
