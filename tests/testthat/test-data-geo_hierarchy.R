@@ -72,7 +72,7 @@ test_that("there are at least 10 unique combined authority names", {
 test_that("rows and cols match description", {
   # This test is more of a reminder when updating the data set, if these change
   # then we need to update the description in R/datasets_documentation.R
-  expect_equal(nrow(dfeR::geo_hierarchy), 25678)
+  expect_equal(nrow(dfeR::geo_hierarchy), 26057)
   expect_equal(ncol(dfeR::geo_hierarchy), 17)
 
   expected_columns <- c(
