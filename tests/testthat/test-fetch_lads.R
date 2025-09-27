@@ -7,6 +7,17 @@ test_that("Has no duplicate rows", {
 })
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Snapshot tests to check numbers over time
+test_that("number of locations stays consistent", {
+  years <- c(2017:2025)
+  countries <- c("All", "England", "Scotland", "Wales", "Northern Ireland")
+
+  expect_snapshot(fetch_location_counts(fetch_lads, years, countries))
+})
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Spot checks against other sources
+#
 # These tests will fail if there are genuine changes to the locations
 # Counts of locations done manually from the data screener repo lookup we had
 #

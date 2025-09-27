@@ -7,6 +7,16 @@ test_that("Has no duplicate rows", {
 })
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Snapshot test outputs
+test_that("location counts per year are consistent", {
+  expect_snapshot(
+    sapply(2017:2025, fetch_mayoral)
+  )
+})
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Spot checks against other sources
+#
 # These tests will fail if there are genuine changes to the locations
 # Manual counts from ONS Open Geography Portal
 test_that("2025 locations match what we expect", {

@@ -5,3 +5,7 @@ test_that("Gives a data frame", {
 test_that("Has no duplicate rows", {
   expect_true(!anyDuplicated(fetch_countries()))
 })
+
+test_that("returns expected regions", {
+  expect_snapshot(fetch_countries())
+})
