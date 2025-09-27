@@ -8,7 +8,7 @@ test_that("Has no duplicate rows", {
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Snapshot test outputs
-test_that("location counts per year are consistent", {
+test_that("locations per year are consistent", {
   expect_snapshot(
     lapply(2017:2025, fetch_mayoral)
   )

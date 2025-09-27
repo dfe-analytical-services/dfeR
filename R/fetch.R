@@ -147,20 +147,20 @@ fetch_wards <- function(year = "All", countries = "All") {
 #'
 #' @inherit fetch examples
 fetch_mayoral <- function(year = "All") {
-  # Helper function to check the inputs are valid (only England for cauth)
+  # Helper function to check the inputs are valid (only England for mayoral)
   check_fetch_location_inputs(year, "England")
 
   # Helper function to filter to locations we want
   output <- fetch_locations(
     lookup_data = dfeR::geo_hierarchy,
-    cols = c("cauth_code", "cauth_name"),
+    cols = c("english_devolved_area_code", "english_devolved_area_name"),
     year = year,
     countries = "England"
   ) |>
-    dplyr::arrange("cauth_code")
+    dplyr::arrange("english_devolved_area_code")
 
   # Drop rows where not applicable
-  return(output[output$cauth_code != "z", ])
+  return(output[output$english_devolved_area_code != "z", ])
 }
 
 #' Fetch regions
