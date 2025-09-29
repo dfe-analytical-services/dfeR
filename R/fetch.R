@@ -138,6 +138,10 @@ fetch_wards <- function(year = "All", countries = "All") {
 #'
 #' Note that mayoral combined authorities only exist for England.
 #'
+#' Mayoral combined authorities are also known as English Devolved Areas, as
+#' we add in the Greater London Authority to the combined authority lookup
+#' published by ONS.
+#' 
 #' @param year year to filter the locations to, default is "All",
 #' options of 2017, 2019, 2020, 2021, 2022", 2023, 2024, 2025
 #'

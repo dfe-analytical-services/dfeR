@@ -19,6 +19,10 @@ and country based on the dfeR::geo_hierarchy file.
 }
 \details{
 Note that mayoral combined authorities only exist for England.
+
+Mayoral combined authorities are also known as English Devolved Areas, as
+we add in the Greater London Authority to the combined authority lookup
+published by ONS.
 }
 \examples{
 
