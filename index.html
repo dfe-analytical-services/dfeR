@@ -185,20 +185,27 @@
 <span><span class="co">#&gt; 4          Bath Bath and North East Somerset Bath and North East Somerset</span></span>
 <span><span class="co">#&gt; 5 Belfast North      Antrim and Newtownabbey      Antrim and Newtownabbey</span></span>
 <span><span class="co">#&gt; 6 Belfast North      Antrim and Newtownabbey      Antrim and Newtownabbey</span></span>
-<span><span class="co">#&gt;        cauth_name      region_name     country_name ward_code pcon_code</span></span>
-<span><span class="co">#&gt; 1  Not applicable           London          England E05000026 E14000540</span></span>
-<span><span class="co">#&gt; 2  Not applicable           London          England E05014053 E14000540</span></span>
-<span><span class="co">#&gt; 3  Not applicable           London          England E05014053 E14001073</span></span>
-<span><span class="co">#&gt; 4 West of England       South West          England E05001935 E14000547</span></span>
-<span><span class="co">#&gt; 5  Not applicable Northern Ireland Northern Ireland N08000101 N05000002</span></span>
-<span><span class="co">#&gt; 6  Not applicable Northern Ireland Northern Ireland N08000101 N06000002</span></span>
-<span><span class="co">#&gt;    lad_code old_la_code new_la_code cauth_code region_code country_code</span></span>
-<span><span class="co">#&gt; 1 E09000002         301   E09000002          z   E12000007    E92000001</span></span>
-<span><span class="co">#&gt; 2 E09000002         301   E09000002          z   E12000007    E92000001</span></span>
-<span><span class="co">#&gt; 3 E09000002         301   E09000002          z   E12000007    E92000001</span></span>
-<span><span class="co">#&gt; 4 E06000022         800   E06000022  E47000009   E12000009    E92000001</span></span>
-<span><span class="co">#&gt; 5 N09000001           z   N09000001          z   N92000002    N92000002</span></span>
-<span><span class="co">#&gt; 6 N09000001           z   N09000001          z   N92000002    N92000002</span></span>
+<span><span class="co">#&gt;   english_devolved_area_name      region_name     country_name ward_code</span></span>
+<span><span class="co">#&gt; 1   Greater London Authority           London          England E05000026</span></span>
+<span><span class="co">#&gt; 2   Greater London Authority           London          England E05014053</span></span>
+<span><span class="co">#&gt; 3   Greater London Authority           London          England E05014053</span></span>
+<span><span class="co">#&gt; 4            West of England       South West          England E05001935</span></span>
+<span><span class="co">#&gt; 5             Not applicable Northern Ireland Northern Ireland N08000101</span></span>
+<span><span class="co">#&gt; 6             Not applicable Northern Ireland Northern Ireland N08000101</span></span>
+<span><span class="co">#&gt;   pcon_code  lad_code old_la_code new_la_code english_devolved_area_code</span></span>
+<span><span class="co">#&gt; 1 E14000540 E09000002         301   E09000002                  E61000001</span></span>
+<span><span class="co">#&gt; 2 E14000540 E09000002         301   E09000002                  E61000001</span></span>
+<span><span class="co">#&gt; 3 E14001073 E09000002         301   E09000002                  E61000001</span></span>
+<span><span class="co">#&gt; 4 E14000547 E06000022         800   E06000022                  E47000009</span></span>
+<span><span class="co">#&gt; 5 N05000002 N09000001           z   N09000001                          z</span></span>
+<span><span class="co">#&gt; 6 N06000002 N09000001           z   N09000001                          z</span></span>
+<span><span class="co">#&gt;   region_code country_code</span></span>
+<span><span class="co">#&gt; 1   E12000007    E92000001</span></span>
+<span><span class="co">#&gt; 2   E12000007    E92000001</span></span>
+<span><span class="co">#&gt; 3   E12000007    E92000001</span></span>
+<span><span class="co">#&gt; 4   E12000009    E92000001</span></span>
+<span><span class="co">#&gt; 5   N92000002    N92000002</span></span>
+<span><span class="co">#&gt; 6   N92000002    N92000002</span></span>
 <span></span>
 <span><span class="co"># Get all countries</span></span>
 <span><span class="fu">dfeR</span><span class="fu">::</span><span class="va"><a href="reference/countries.html">countries</a></span></span>
@@ -270,14 +277,14 @@
 <span><span class="fu"><a href="reference/fetch_mayoral.html">fetch_mayoral</a></span><span class="op">(</span><span class="fl">2025</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># show first 5 rows only</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 2</span></span>
-<span><span class="co">#&gt;   cauth_code cauth_name                     </span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;                          </span></span>
-<span><span class="co">#&gt; 1 E47000009  West of England                </span></span>
-<span><span class="co">#&gt; 2 E47000008  Cambridgeshire and Peterborough</span></span>
-<span><span class="co">#&gt; 3 E47000013  East Midlands                  </span></span>
-<span><span class="co">#&gt; 4 E47000017  Greater Lincolnshire           </span></span>
-<span><span class="co">#&gt; 5 E47000007  West Midlands                  </span></span>
-<span><span class="co">#&gt; 6 E47000001  Greater Manchester</span></span>
+<span><span class="co">#&gt;   english_devolved_area_code english_devolved_area_name     </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;                      &lt;chr&gt;                          </span></span>
+<span><span class="co">#&gt; 1 E61000001                  Greater London Authority       </span></span>
+<span><span class="co">#&gt; 2 E47000009                  West of England                </span></span>
+<span><span class="co">#&gt; 3 E47000008                  Cambridgeshire and Peterborough</span></span>
+<span><span class="co">#&gt; 4 E47000013                  East Midlands                  </span></span>
+<span><span class="co">#&gt; 5 E47000017                  Greater Lincolnshire           </span></span>
+<span><span class="co">#&gt; 6 E47000007                  West Midlands</span></span>
 <span></span>
 <span><span class="co"># The following have no specific years available and return all values</span></span>
 <span><span class="fu"><a href="reference/fetch_regions.html">fetch_regions</a></span><span class="op">(</span><span class="op">)</span></span>

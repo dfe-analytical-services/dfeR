@@ -80,8 +80,8 @@ country for years 2017, 2019, 2020, 2021, 2022, 2023, 2024 and 2025.</p>
 <dt>la_name</dt>
 <dd><p>Local authority name</p></dd>
 
-<dt>cauth_name</dt>
-<dd><p>Combined authority name, where applicable</p></dd>
+<dt>english_devolved_area_name</dt>
+<dd><p>Mayoral authority name</p></dd>
 
 <dt>region_name</dt>
 <dd><p>Region name</p></dd>
@@ -104,8 +104,8 @@ country for years 2017, 2019, 2020, 2021, 2022, 2023, 2024 and 2025.</p>
 <dt>new_la_code</dt>
 <dd><p>9 digit local authority code</p></dd>
 
-<dt>cauth_code</dt>
-<dd><p>9 digit combined authority code, where applicable</p></dd>
+<dt>english_devolved_area_code</dt>
+<dd><p>9 digit combined authority code</p></dd>
 
 <dt>region_code</dt>
 <dd><p>9 digit region code</p></dd>
@@ -128,10 +128,11 @@ https://tinyurl.com/EESScreenerLAs</p>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Note that combined mayoral authorities only exist in England, and we use
-<code>cauth_name</code> and <code>cauth_code</code> to refer to the relevant columns following
-ONS conventions. If you are publishing using explore education statistics,
-these are combined with other bodies into <code>english_devolved_area_name</code>
-and <code>english_devolved_area_code</code>.</p>
+<code>english_devolved_area_name</code> and <code>english_devolved_area_code</code> to refer
+to mayoral authorities in line with the standards set in DfE official
+statistics. Greater London Authority is not included in the ONS combined
+authority lookup, we have added that in for all local authority districts
+with codes that start with <code>E090...</code>.</p>
 <p>Changes we've made to the original lookup:</p><ol><li><p>The original lookup from ONS uses the Upper Tier Local Authority, we then
 update this so that where there is a metropolitan local authority we use the
 local authority district as the local authority to match how
@@ -146,6 +147,9 @@ codes.</p></li>
 <li><p>Scotland had no published regions in 2017, so given the rest of the years
 have Scotland as the region, we've forced that in for 2017 too to complete
 the data set.</p></li>
+<li><p>We've added the Greater London Authority as the overarching mayoral
+authority (English devolved area) for all Local authority districts with
+codes that start <code>E090...</code>.</p></li>
 </ol></div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
