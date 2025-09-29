@@ -178,7 +178,27 @@ geo_hierarchy <- geo_hierarchy |>
   # ONS seemed to miss a 0 in 2017 for Glasgow East PCon
   mutate(across(everything(), ~ ifelse(. == "S1400030", "S14000030", .)))
 
-# Add 3 digit local authority codes from GIAS  ----------------------------
+# Add in Greater London Authority, and convert to english devolved area -------
+geo_hierarchy <- geo_hierarchy |>
+  # Add in GLA based on LAD being London borough
+  dplyr::mutate(
+    cauth_name = dplyr::if_else(
+      stringr::str_starts(lad_code, "E090"),
+      "Greater London Authority",
+      cauth_name
+    ),
+    cauth_code = dplyr::if_else(
+      stringr::str_starts(lad_code, "E090"),
+      "E61000001",
+      cauth_code
+    )
+  ) |>
+  dplyr::rename(
+    "english_devolved_area_name" = "cauth_name",
+    "english_devolved_area_code" = "cauth_code"
+  )
+
+# Add 3 digit local authority codes from GIAS  --------------------------------
 geo_hierarchy <- geo_hierarchy |>
   # join the data onto the GIAs LA 3 digit code data
   dplyr::left_join(
@@ -202,7 +222,7 @@ geo_hierarchy <- geo_hierarchy |>
     "pcon_name",
     "lad_name",
     "la_name",
-    "cauth_name",
+    "english_devolved_area_name",
     "region_name",
     "country_name",
     "ward_code",
@@ -210,7 +230,7 @@ geo_hierarchy <- geo_hierarchy |>
     "lad_code",
     "old_la_code",
     "new_la_code",
-    "cauth_code",
+    "english_devolved_area_code",
     "region_code",
     "country_code"
   )

@@ -23,10 +23,11 @@
 #' country for years 2017, 2019, 2020, 2021, 2022, 2023, 2024 and 2025.
 #'
 #' Note that combined mayoral authorities only exist in England, and we use
-#' `cauth_name` and `cauth_code` to refer to the relevant columns following
-#' ONS conventions. If you are publishing using explore education statistics,
-#' these are combined with other bodies into `english_devolved_area_name`
-#' and `english_devolved_area_code`.
+#' `english_devolved_area_name` and `english_devolved_area_code` to refer
+#' to mayoral authorities in line with the standards set in DfE official
+#' statistics. Greater London Authority is not included in the ONS combined
+#' authority lookup, we have added that in for all local authority districts
+#' with codes that start with `E090...`.
 #'
 #' Changes we've made to the original lookup:
 #' 1. The original lookup from ONS uses the Upper Tier Local Authority, we then
@@ -48,6 +49,10 @@
 #' have Scotland as the region, we've forced that in for 2017 too to complete
 #' the data set.
 #'
+#' 6. We've added the Greater London Authority as the overarching mayoral
+#' authority (English devolved area) for all Local authority districts with
+#' codes that start `E090...`.
+#'
 #' @format ## `geo_hierarchy`
 #' A data frame with 26,057 rows and 17 columns:
 #' \describe{
@@ -61,7 +66,7 @@
 #'   \item{pcon_name}{Parliamentary constituency name}
 #'   \item{lad_name}{Local authority district name}
 #'   \item{la_name}{Local authority name}
-#'   \item{cauth_name}{Combined authority name, where applicable}
+#'   \item{english_devolved_area_name}{Mayoral authority name}
 #'   \item{region_name}{Region name}
 #'   \item{country_code}{Country name}
 #'   \item{ward_code}{9 digit ward code}
@@ -69,7 +74,7 @@
 #'   \item{lad_code}{9 digit local authority district code}
 #'   \item{old_la_code}{old 3 digit local authority code}
 #'   \item{new_la_code}{9 digit local authority code}
-#'   \item{cauth_code}{9 digit combined authority code, where applicable}
+#'   \item{english_devolved_area_code}{9 digit combined authority code}
 #'   \item{region_code}{9 digit region code}
 #'   \item{country_code}{9 digit country code}
 #' }

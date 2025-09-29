@@ -178,20 +178,27 @@ head(my_data) # show first 5 rows in console
 #> 4          Bath Bath and North East Somerset Bath and North East Somerset
 #> 5 Belfast North      Antrim and Newtownabbey      Antrim and Newtownabbey
 #> 6 Belfast North      Antrim and Newtownabbey      Antrim and Newtownabbey
-#>        cauth_name      region_name     country_name ward_code pcon_code
-#> 1  Not applicable           London          England E05000026 E14000540
-#> 2  Not applicable           London          England E05014053 E14000540
-#> 3  Not applicable           London          England E05014053 E14001073
-#> 4 West of England       South West          England E05001935 E14000547
-#> 5  Not applicable Northern Ireland Northern Ireland N08000101 N05000002
-#> 6  Not applicable Northern Ireland Northern Ireland N08000101 N06000002
-#>    lad_code old_la_code new_la_code cauth_code region_code country_code
-#> 1 E09000002         301   E09000002          z   E12000007    E92000001
-#> 2 E09000002         301   E09000002          z   E12000007    E92000001
-#> 3 E09000002         301   E09000002          z   E12000007    E92000001
-#> 4 E06000022         800   E06000022  E47000009   E12000009    E92000001
-#> 5 N09000001           z   N09000001          z   N92000002    N92000002
-#> 6 N09000001           z   N09000001          z   N92000002    N92000002
+#>   english_devolved_area_name      region_name     country_name ward_code
+#> 1   Greater London Authority           London          England E05000026
+#> 2   Greater London Authority           London          England E05014053
+#> 3   Greater London Authority           London          England E05014053
+#> 4            West of England       South West          England E05001935
+#> 5             Not applicable Northern Ireland Northern Ireland N08000101
+#> 6             Not applicable Northern Ireland Northern Ireland N08000101
+#>   pcon_code  lad_code old_la_code new_la_code english_devolved_area_code
+#> 1 E14000540 E09000002         301   E09000002                  E61000001
+#> 2 E14000540 E09000002         301   E09000002                  E61000001
+#> 3 E14001073 E09000002         301   E09000002                  E61000001
+#> 4 E14000547 E06000022         800   E06000022                  E47000009
+#> 5 N05000002 N09000001           z   N09000001                          z
+#> 6 N06000002 N09000001           z   N09000001                          z
+#>   region_code country_code
+#> 1   E12000007    E92000001
+#> 2   E12000007    E92000001
+#> 3   E12000007    E92000001
+#> 4   E12000009    E92000001
+#> 5   N92000002    N92000002
+#> 6   N92000002    N92000002
 
 # Get all countries
 dfeR::countries
@@ -263,14 +270,14 @@ fetch_wards(2021, "Wales") |>
 fetch_mayoral(2025) |>
   head() # show first 5 rows only
 #> # A tibble: 6 × 2
-#>   cauth_code cauth_name                     
-#>   <chr>      <chr>                          
-#> 1 E47000009  West of England                
-#> 2 E47000008  Cambridgeshire and Peterborough
-#> 3 E47000013  East Midlands                  
-#> 4 E47000017  Greater Lincolnshire           
-#> 5 E47000007  West Midlands                  
-#> 6 E47000001  Greater Manchester
+#>   english_devolved_area_code english_devolved_area_name     
+#>   <chr>                      <chr>                          
+#> 1 E61000001                  Greater London Authority       
+#> 2 E47000009                  West of England                
+#> 3 E47000008                  Cambridgeshire and Peterborough
+#> 4 E47000013                  East Midlands                  
+#> 5 E47000017                  Greater Lincolnshire           
+#> 6 E47000007                  West Midlands
 
 # The following have no specific years available and return all values
 fetch_regions()

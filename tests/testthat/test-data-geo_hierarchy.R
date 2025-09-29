@@ -34,7 +34,7 @@ test_that("code cols are always a 9 digit code except old_la_code", {
 
   # remove old_la_code
   code_columns <- code_columns[
-    !code_columns %in% c("old_la_code", "cauth_code")
+    !code_columns %in% c("old_la_code", "english_devolved_area_code")
   ]
 
   # Check the format for each code column
@@ -55,18 +55,23 @@ test_that("old_la_code is always a 3 digit code, except for 'z'", {
   )
 })
 
-test_that("cauth_code is always a 9 digit code, except for 'z'", {
-  cauth_code_test <- dfeR::geo_hierarchy |>
-    dplyr::filter(cauth_code != "z")
+test_that("EDA code is always a 9 digit code, except for 'z'", {
+  eda_code_test <- dfeR::geo_hierarchy |>
+    dplyr::filter(english_devolved_area_code != "z")
 
   expect_true(
-    all(grepl("^[A-Z]\\d{8}$", cauth_code_test$cauth_code))
+    all(grepl(
+      "^[A-Z]\\d{8}$",
+      eda_code_test$english_devolved_area_code
+    ))
   )
 })
 
 # Making sure we don't blank on the join
 test_that("there are at least 10 unique combined authority names", {
-  expect_true(length(unique(dfeR::geo_hierarchy$cauth_name)) >= 10)
+  expect_true(
+    length(unique(dfeR::geo_hierarchy$english_devolved_area_name)) >= 10
+  )
 })
 
 test_that("rows and cols match description", {
@@ -82,7 +87,7 @@ test_that("rows and cols match description", {
     "pcon_name",
     "lad_name",
     "la_name",
-    "cauth_name",
+    "english_devolved_area_name",
     "region_name",
     "country_name",
     "ward_code",
@@ -90,7 +95,7 @@ test_that("rows and cols match description", {
     "lad_code",
     "old_la_code",
     "new_la_code",
-    "cauth_code",
+    "english_devolved_area_code",
     "region_code",
     "country_code"
   )

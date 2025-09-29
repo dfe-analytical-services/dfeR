@@ -138,6 +138,10 @@ fetch_wards <- function(year = "All", countries = "All") {
 #'
 #' Note that mayoral combined authorities only exist for England.
 #'
+#' Mayoral combined authorities are also known as English Devolved Areas, as
+#' we add in the Greater London Authority to the combined authority lookup
+#' published by ONS.
+#'
 #' @param year year to filter the locations to, default is "All",
 #' options of 2017, 2019, 2020, 2021, 2022", 2023, 2024, 2025
 #'
@@ -147,20 +151,20 @@ fetch_wards <- function(year = "All", countries = "All") {
 #'
 #' @inherit fetch examples
 fetch_mayoral <- function(year = "All") {
-  # Helper function to check the inputs are valid (only England for cauth)
+  # Helper function to check the inputs are valid (only England for mayoral)
   check_fetch_location_inputs(year, "England")
 
   # Helper function to filter to locations we want
   output <- fetch_locations(
     lookup_data = dfeR::geo_hierarchy,
-    cols = c("cauth_code", "cauth_name"),
+    cols = c("english_devolved_area_code", "english_devolved_area_name"),
     year = year,
     countries = "England"
   ) |>
-    dplyr::arrange("cauth_code")
+    dplyr::arrange("english_devolved_area_code")
 
   # Drop rows where not applicable
-  return(output[output$cauth_code != "z", ])
+  return(output[output$english_devolved_area_code != "z", ])
 }
 
 #' Fetch regions
