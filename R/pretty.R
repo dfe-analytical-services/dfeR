@@ -269,12 +269,21 @@ pretty_num <- function(
     dp = 0,
     ignore_na = FALSE,
     alt_na = FALSE,
-    nsmall = NULL) {
+    nsmall = NULL,
+    dynamic_dp = FALSE,
+    dynamic_dp_value = 3) {
   # use lapply to use the function for singular value or a vector
 
   result <- lapply(value, function(value) {
     # Force to numeric
     num_value <- suppressWarnings(as.numeric(value))
+
+    # Get dp value based on dp_by_magnitude argument
+    if (dynamic_dp == FALSE) {
+      dp <- dp
+    } else {
+      dp <- determine_dp(value, dp, dynamic_dp_value)
+    }
 
     # Check if should skip function
     if (is.na(num_value)) {
