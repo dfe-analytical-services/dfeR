@@ -232,6 +232,8 @@ pretty_time_taken <- function(start_time, end_time) {
 #' If NULL, the value of `dp` will be used.
 #' If the value of `dp` is less than 0, then `nsmall` will
 #' automatically be set to 0.
+#' @param abbreviate whether to abbreviate large numbers to nearest million
+#' (where 1e6 <= value < 1e9) or billion (where value >= 1e9).
 #'
 #' @return string featuring prettified value
 #' @family prettying
@@ -269,7 +271,8 @@ pretty_num <- function(
     dp = 0,
     ignore_na = FALSE,
     alt_na = FALSE,
-    nsmall = NULL) {
+    nsmall = NULL,
+    abbreviate = TRUE) {
   # use lapply to use the function for singular value or a vector
 
   result <- lapply(value, function(value) {
@@ -322,7 +325,7 @@ pretty_num <- function(
     }
 
 
-    if (abs(num_value) >= 1.e9) {
+    if (abs(num_value) >= 1.e9 & abbreviate == TRUE) {
       paste0(
         prefix,
         currency,
@@ -332,7 +335,7 @@ pretty_num <- function(
         " billion",
         suffix
       )
-    } else if (abs(num_value) >= 1.e6) {
+    } else if (abs(num_value) >= 1.e6 & abbreviate == TRUE) {
       paste0(
         prefix,
         currency,
