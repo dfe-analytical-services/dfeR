@@ -36,6 +36,7 @@ Other contributors:
   \item Rich Bielby \email{richard.bielby@education.gov.uk} (\href{https://orcid.org/0000-0001-9070-9969}{ORCID}) [contributor]
   \item Menna Zayed \email{menna.zayed@education.gov.uk} [contributor]
   \item Lauren Snaathorst \email{lauren.snaathorst@education.gov.uk} [contributor]
+  \item Lara Garbett \email{lara.garbett@education.gov.uk} [contributor]
 }
 
 }

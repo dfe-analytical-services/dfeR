@@ -252,6 +252,7 @@ pretty_time_taken <- function(start_time, end_time) {
 #' pretty_num("x")
 #' pretty_num("x", ignore_na = TRUE)
 #' pretty_num("nope", alt_na = "x")
+#' pretty_num(7.8e9, abbreviate = FALSE)
 #'
 #' # Applied over an example vector
 #' vector <- c(3998098008, -123421421, "c", "x")

@@ -17,6 +17,9 @@ test_that("prettifies", {
   expect_equal(
     pretty_num(11^8, prefix = "+/-", gbp = TRUE, dp = -1), "+£210 million"
   )
+  expect_equal(pretty_num(7.8e9, abbreviate = FALSE), "7,800,000,000")
+  expect_equal(pretty_num(7.8e9, dp = 2, abbreviate = FALSE), "7,800,000,000.00")
+  expect_equal(pretty_num(-3e6, gbp = TRUE, abbreviate = FALSE), "-£3,000,000")
 })
 
 test_that("handles NAs", {
