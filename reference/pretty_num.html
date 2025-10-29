@@ -81,7 +81,8 @@ argument.</p>
 <span>  dp <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  ignore_na <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  alt_na <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  nsmall <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  nsmall <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  abbreviate <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -125,6 +126,11 @@ If NULL, the value of <code>dp</code> will be used.
 If the value of <code>dp</code> is less than 0, then <code>nsmall</code> will
 automatically be set to 0.</p></dd>
 
+
+<dt id="arg-abbreviate">abbreviate<a class="anchor" aria-label="anchor" href="#arg-abbreviate"></a></dt>
+<dd><p>whether to abbreviate large numbers to nearest million
+(where 1e6 &lt;= value &lt; 1e9) or billion (where value &gt;= 1e9).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -163,6 +169,8 @@ automatically be set to 0.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "x"</span>
 <span class="r-in"><span><span class="fu">pretty_num</span><span class="op">(</span><span class="st">"nope"</span>, alt_na <span class="op">=</span> <span class="st">"x"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "x"</span>
+<span class="r-in"><span><span class="fu">pretty_num</span><span class="op">(</span><span class="fl">7.8e9</span>, abbreviate <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "7,800,000,000"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Applied over an example vector</span></span></span>
 <span class="r-in"><span><span class="va">vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3998098008</span>, <span class="op">-</span><span class="fl">123421421</span>, <span class="st">"c"</span>, <span class="st">"x"</span><span class="op">)</span></span></span>
