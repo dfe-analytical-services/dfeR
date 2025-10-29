@@ -12,7 +12,8 @@ Authors@R: c(
     person("Rich", "Bielby", , "richard.bielby@education.gov.uk", role = "ctb",
            comment = c(ORCID = "0000-0001-9070-9969")),
     person("Menna", "Zayed", , "menna.zayed@education.gov.uk", role = "ctb"),
-    person("Lauren", "Snaathorst", , "lauren.snaathorst@education.gov.uk", role = "ctb")
+    person("Lauren", "Snaathorst", , "lauren.snaathorst@education.gov.uk", role = "ctb"),
+    person("Lara", "Garbett", , "lara.garbett@education.gov.uk", role = "ctb")
   )
 Description: Preferred methods for common analytical tasks that are
     undertaken across the Department, including number formatting, project

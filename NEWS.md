@@ -1,6 +1,7 @@
 # dfeR (development version)
 
 - Updated `geo_hierarchy`, and associated `fetch_*` functions with latest 2025 lookups.
+- Updated `pretty_num()` function to add `abbreviate` argument giving the option to avoid displaying large numbers in millions/billions.
 
 # dfeR 1.2.0
 
