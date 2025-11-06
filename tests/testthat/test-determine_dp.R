@@ -2,7 +2,7 @@ test_that("Returns default dp for values < 1 million", {
   expect_equal(determine_dp(999999), 0)
 })
 
-test_that("Returns dynamic_dp_value for values >= 1 million not divisible by 10", {
+test_that("Returns dynamic_dp_value for values >= 1 mil not divisible by 10", {
   expect_equal(determine_dp(1e6), 2)
   expect_equal(determine_dp(3e6), 2)
 })
@@ -77,4 +77,3 @@ test_that("Edge case: not divisible by 10 after scaling", {
   expect_equal(determine_dp(21e6, dp = 1, dynamic_dp_value = 4), 4)
   expect_equal(determine_dp(31e9, dp = 1, dynamic_dp_value = 4), 4)
 })
-

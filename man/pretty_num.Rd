@@ -90,7 +90,7 @@ pretty_num("nope", alt_na = "x")
 pretty_num(7.8e9, abbreviate = FALSE)
 # dynamic_dp enabled for a billion value not divisible by 10
 pretty_num(3e9, dynamic_dp = TRUE, dynamic_dp_value = 2)
-#Expected: "3.00 billion"
+# Expected: "3.00 billion"
 # dynamic_dp enabled for a billion value divisible by 10
 pretty_num(10e9, dynamic_dp = TRUE, dynamic_dp_value = 2)
 # Expected: "10 billion"
@@ -101,7 +101,10 @@ pretty_num(3e6, dynamic_dp = TRUE, dynamic_dp_value = 3)
 pretty_num(10e6, dynamic_dp = TRUE, dynamic_dp_value = 3)
 # Expected: "10 million"
 # dynamic_dp enabled with GBP and suffix
-pretty_num(1.5e9, gbp = TRUE, suffix = "\%", dynamic_dp = TRUE, dynamic_dp_value = 1)
+pretty_num(1.5e9,
+  gbp = TRUE, suffix = "\%", dynamic_dp = TRUE,
+  dynamic_dp_value = 1
+)
 # Expected: "£1.5 billion\%"
 #' # Applied over an example vector
 vector <- c(3998098008, -123421421, "c", "x")
