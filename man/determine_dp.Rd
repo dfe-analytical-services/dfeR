@@ -4,7 +4,7 @@
 \alias{determine_dp}
 \title{Determine decimal places for large numeric values}
 \usage{
-determine_dp(value, dp = 0, dynamic_dp_value = 3)
+determine_dp(value, dp = 0, dynamic_dp_value = 2)
 }
 \arguments{
 \item{value}{A single numeric value.}
@@ -12,9 +12,10 @@ determine_dp(value, dp = 0, dynamic_dp_value = 3)
 \item{dp}{Integer. The default number of decimal places for values
 over 1 million or 1 billion.}
 
-\item{dynamic_dp_value}{The default is 3.
-Value for decimal places to use for values
-over 1 million or 1 billion that are not divisible by 10.}
+\item{dynamic_dp_value}{Integer. Sets the number of decimal places to use
+when the value is ≥ 1 million or ≥ 1 billion but not
+divisible by 10 after scaling. This adds precision only when needed,
+improving clarity without over-formatting fo pretty_num().}
 }
 \value{
 An integer indicating the number of decimal places to use.
@@ -27,9 +28,15 @@ decimal places are conditionally applied if the value normalised by a
 million or billion is not divisible by 10.
 }
 \examples{
-determine_dp(999, dp = 2) # Returns 2
-determine_dp(1234567, dp = 3) # Returns 3
-determine_dp(10000000, dp = 2) # Returns 0
-determine_dp(5000000000, dp = 3) # Returns 3
+determine_dp(999999)# Returns 0 (less than 1 million)
+determine_dp(1e6) # Returns 2 (not divisible by 10 after scaling)
+determine_dp(10e6)# Returns 0 (divisible by 10 after scaling)
+determine_dp(1e9) # Returns 2 (not divisible by 10 after scaling)
+determine_dp(10e9)# Returns 0 (divisible by 10 after scaling)
+determine_dp(-1e6)# Returns 2 (absolute value logic)
+determine_dp(1e6, dp = 0, dynamic_dp_value = 4) # Returns 4
+determine_dp(500000, dp = 1, dynamic_dp_value = 3) # Returns 1
+determine_dp(10e6, dp = 1, dynamic_dp_value = 3) # Returns 0
+determine_dp(-2e6, dp = 3, dynamic_dp_value = 5) # Returns 5
 }
 \keyword{internal}

@@ -9,22 +9,27 @@
 #' @param value A single numeric value.
 #' @param dp Integer. The default number of decimal places for values
 #' over 1 million or 1 billion.
-#' @param dynamic_dp_value The default is 3.
-#' Value for decimal places to use for values
-#' over 1 million or 1 billion that are not divisible by 10.
-#'
-#'
+#' @param dynamic_dp_value Integer. Sets the number of decimal places to use
+#' when the value is ≥ 1 million or ≥ 1 billion but not
+#' divisible by 10 after scaling. This adds precision only when needed,
+#' improving clarity without over-formatting fo pretty_num().
 #' @return An integer indicating the number of decimal places to use.
-#' @examples
-#' determine_dp(999, dp = 2) # Returns 2
-#' determine_dp(1234567, dp = 3) # Returns 3
-#' determine_dp(10000000, dp = 2) # Returns 0
-#' determine_dp(5000000000, dp = 3) # Returns 3
-#' @export
 #' @keywords internal
+#' @export
+#' @examples
+#'determine_dp(999999)# Returns 0 (less than 1 million)
+#'determine_dp(1e6) # Returns 2 (not divisible by 10 after scaling)
+#'determine_dp(10e6)# Returns 0 (divisible by 10 after scaling)
+#'determine_dp(1e9) # Returns 2 (not divisible by 10 after scaling)
+#'determine_dp(10e9)# Returns 0 (divisible by 10 after scaling)
+#'determine_dp(-1e6)# Returns 2 (absolute value logic)
+#'determine_dp(1e6, dp = 0, dynamic_dp_value = 4) # Returns 4
+#'determine_dp(500000, dp = 1, dynamic_dp_value = 3) # Returns 1
+#'determine_dp(10e6, dp = 1, dynamic_dp_value = 3) # Returns 0
+#'determine_dp(-2e6, dp = 3, dynamic_dp_value = 5) # Returns 5
 determine_dp <- function(value,
                          dp = 0,
-                         dynamic_dp_value = 3) {
+                         dynamic_dp_value = 2) {
   # Check if value is NA and return dp as is in that case
   if (is.na(value)) {
     return(dp)
@@ -36,14 +41,14 @@ determine_dp <- function(value,
   if (abs_val >= 1e9) {
     # do an ifelse to check if the value divided by
     # 1 billion is not divisible by 10
-    # if it is not divisible by 10 return 3 else return 0
+    # if it is not divisible by 10 return 2 else return 0
 
     return(ifelse((value / 1e9) %% 10 != 0, dynamic_dp_value, 0))
   }
   # if the value is bigger or equal to 1 million
   # do an ifelse to check if the value divided by
   # 1 million is not divisible by 10
-  # if it is not divisible by 10 return 3 else return 0
+  # if it is not divisible by 10 return 2 else return 0
   if (abs_val >= 1e6) {
     return(ifelse((value / 1e6) %% 10 != 0, dynamic_dp_value, 0))
   }

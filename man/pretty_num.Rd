@@ -14,7 +14,7 @@ pretty_num(
   alt_na = FALSE,
   nsmall = NULL,
   dynamic_dp = FALSE,
-  dynamic_dp_value = 3,
+  dynamic_dp_value = 0,
   abbreviate = TRUE
 )
 }
@@ -40,10 +40,16 @@ If NULL, the value of \code{dp} will be used.
 If the value of \code{dp} is less than 0, then \code{nsmall} will
 automatically be set to 0.}
 
-\item{dynamic_dp}{whether to determine decimal places based on magnitude}
+\item{dynamic_dp}{Logical. If TRUE, overrides the \code{dp} setting and adjusts
+decimal places based on the magnitude of the value. For values ≥ 1 million or
+≥ 1 billion, the function checks whether the scaled value (e.g. value / 1e6
+or value / 1e9) is divisible by 10. If not, it applies \code{dynamic_dp_value} to
+improve clarity and avoid misleading formatting}
 
-\item{dynamic_dp_value}{number of decimal places to use for large values
-that are not divisible by 10, default is 3}
+\item{dynamic_dp_value}{Integer. Sets the number of decimal places to use
+when \code{dynamic_dp = TRUE} and the value is ≥ 1 million or ≥ 1 billion but not
+divisible by 10 after scaling. This adds precision only when needed,
+improving clarity without over-formatting.}
 
 \item{abbreviate}{whether to abbreviate large numbers to nearest million
 (where 1e6 <= value < 1e9) or billion (where value >= 1e9).}
@@ -82,8 +88,22 @@ pretty_num("x")
 pretty_num("x", ignore_na = TRUE)
 pretty_num("nope", alt_na = "x")
 pretty_num(7.8e9, abbreviate = FALSE)
-
-# Applied over an example vector
+# dynamic_dp enabled for a billion value not divisible by 10
+pretty_num(3e9, dynamic_dp = TRUE, dynamic_dp_value = 2)
+#Expected: "3.00 billion"
+# dynamic_dp enabled for a billion value divisible by 10
+pretty_num(10e9, dynamic_dp = TRUE, dynamic_dp_value = 2)
+# Expected: "10 billion"
+# dynamic_dp enabled for a million value not divisible by 10
+pretty_num(3e6, dynamic_dp = TRUE, dynamic_dp_value = 3)
+# Expected: "3.000 million"
+# dynamic_dp enabled for a million value divisible by 10
+pretty_num(10e6, dynamic_dp = TRUE, dynamic_dp_value = 3)
+# Expected: "10 million"
+# dynamic_dp enabled with GBP and suffix
+pretty_num(1.5e9, gbp = TRUE, suffix = "\%", dynamic_dp = TRUE, dynamic_dp_value = 1)
+# Expected: "£1.5 billion\%"
+#' # Applied over an example vector
 vector <- c(3998098008, -123421421, "c", "x")
 pretty_num(vector)
 pretty_num(vector, prefix = "+/-", gbp = TRUE)
