@@ -234,6 +234,9 @@ pretty_time_taken <- function(start_time, end_time) {
 #' automatically be set to 0.
 #' @param abbreviate whether to abbreviate large numbers to nearest million
 #' (where 1e6 <= value < 1e9) or billion (where value >= 1e9).
+#' @param dynamic_dp whether to determine decimal places based on magnitude
+#' @param dynamic_dp_value number of decimal places to use for large values
+#' that are not divisible by 10, default is 3
 #'
 #' @return string featuring prettified value
 #' @family prettying
@@ -274,7 +277,7 @@ pretty_num <- function(
     alt_na = FALSE,
     nsmall = NULL,
     dynamic_dp = FALSE,
-    dynamic_dp_value = 3) {
+    dynamic_dp_value = 3,
     abbreviate = TRUE) {
   # use lapply to use the function for singular value or a vector
 

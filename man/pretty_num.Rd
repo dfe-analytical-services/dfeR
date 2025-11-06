@@ -13,6 +13,8 @@ pretty_num(
   ignore_na = FALSE,
   alt_na = FALSE,
   nsmall = NULL,
+  dynamic_dp = FALSE,
+  dynamic_dp_value = 3,
   abbreviate = TRUE
 )
 }
@@ -37,6 +39,11 @@ converted and return original value}
 If NULL, the value of \code{dp} will be used.
 If the value of \code{dp} is less than 0, then \code{nsmall} will
 automatically be set to 0.}
+
+\item{dynamic_dp}{whether to determine decimal places based on magnitude}
+
+\item{dynamic_dp_value}{number of decimal places to use for large values
+that are not divisible by 10, default is 3}
 
 \item{abbreviate}{whether to abbreviate large numbers to nearest million
 (where 1e6 <= value < 1e9) or billion (where value >= 1e9).}

@@ -9,7 +9,7 @@
 #' @param value A single numeric value.
 #' @param dp Integer. The default number of decimal places for values
 #' over 1 million or 1 billion.
-#' @param dp_by_magnitude_value The default is 3.
+#' @param dynamic_dp_value The default is 3.
 #' Value for decimal places to use for values
 #' over 1 million or 1 billion that are not divisible by 10.
 #'
