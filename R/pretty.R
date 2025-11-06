@@ -239,10 +239,10 @@ pretty_time_taken <- function(start_time, end_time) {
 #' ≥ 1 billion, the function checks whether the scaled value (e.g. value / 1e6
 #' or value / 1e9) is divisible by 10. If not, it applies `dynamic_dp_value` to
 #' improve clarity and avoid misleading formatting
-#' @param dynamic_dp_value Integer. Sets the number of decimal places to use
-#' when `dynamic_dp = TRUE` and the value is ≥ 1 million or ≥ 1 billion but not
-#' divisible by 10 after scaling. This adds precision only when needed,
-#' improving clarity without over-formatting.
+#' @param dynamic_dp_value Integer. Default is 2. Sets the number of decimal
+#' places to use when `dynamic_dp = TRUE` and the value is ≥ 1 million or
+#' ≥ 1 billion but not divisible by 10 after scaling. This adds precision
+#'  only when needed, improving clarity without over-formatting.
 #' @return string featuring prettified value
 #' @family prettying
 #' @seealso [comma_sep()] [round_five_up()] [as.numeric()]

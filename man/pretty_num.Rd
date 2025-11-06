@@ -46,10 +46,10 @@ decimal places based on the magnitude of the value. For values ≥ 1 million or
 or value / 1e9) is divisible by 10. If not, it applies \code{dynamic_dp_value} to
 improve clarity and avoid misleading formatting}
 
-\item{dynamic_dp_value}{Integer. Sets the number of decimal places to use
-when \code{dynamic_dp = TRUE} and the value is ≥ 1 million or ≥ 1 billion but not
-divisible by 10 after scaling. This adds precision only when needed,
-improving clarity without over-formatting.}
+\item{dynamic_dp_value}{Integer. Default is 2. Sets the number of decimal
+places to use when \code{dynamic_dp = TRUE} and the value is ≥ 1 million or
+≥ 1 billion but not divisible by 10 after scaling. This adds precision
+only when needed, improving clarity without over-formatting.}
 
 \item{abbreviate}{whether to abbreviate large numbers to nearest million
 (where 1e6 <= value < 1e9) or billion (where value >= 1e9).}

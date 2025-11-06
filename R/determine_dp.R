@@ -9,8 +9,8 @@
 #' @param value A single numeric value.
 #' @param dp Integer. The default number of decimal places for values
 #' over 1 million or 1 billion.
-#' @param dynamic_dp_value Integer. Sets the number of decimal places to use
-#' when the value is ≥ 1 million or ≥ 1 billion but not
+#' @param dynamic_dp_value Integer. Default is 2. Sets the number of decimal
+#' places to use when the value is ≥ 1 million or ≥ 1 billion but not
 #' divisible by 10 after scaling. This adds precision only when needed,
 #' improving clarity without over-formatting fo pretty_num().
 #' @return An integer indicating the number of decimal places to use.
