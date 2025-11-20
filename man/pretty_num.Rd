@@ -83,17 +83,17 @@ pretty_num("x")
 pretty_num("x", ignore_na = TRUE)
 pretty_num("nope", alt_na = "x")
 pretty_num(7.8e9, abbreviate = FALSE)
-# dynamic_dp enabled for a billion value not divisible by 10
+# dynamic_dp_value enabled for a billion value not divisible by 10
 pretty_num(3e9, dynamic_dp_value = 2)
-# dynamic_dp enabled for a billion value divisible by 10
+ # dynamic_dp_value enabled for a billion value divisible by 10
 pretty_num(10e9,  dynamic_dp_value = 2)
-# dynamic_dp enabled for a million value not divisible by 10
+ # dynamic_dp_value enabled for a million value not divisible by 10
 pretty_num(3e6,  dynamic_dp_value = 3)
-# dynamic_dp enabled for a million value divisible by 10
+ # dynamic_dp_value enabled for a million value divisible by 10
 pretty_num(10e6,  dynamic_dp_value = 3)
-# dynamic_dp enabled with GBP and suffix
+ # dynamic_dp_value enabled with GBP and suffix
 pretty_num(1.5e9,
-  gbp = TRUE, suffix = "\%", 
+  gbp = TRUE, suffix = "\%",
   dynamic_dp_value = 1
 )
 #' # Applied over an example vector

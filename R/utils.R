@@ -28,8 +28,7 @@
 #' determine_dp(500000, dp = 1, dynamic_dp_value = 3) # Returns 1
 #' determine_dp(10e6, dp = 1, dynamic_dp_value = 3) # Returns 0
 #' determine_dp(-2e6, dp = 3, dynamic_dp_value = 5) # Returns 5
-#'}
-
+#' }
 determine_dp <- function(value,
                          dp = 0,
                          dynamic_dp_value = 2) {

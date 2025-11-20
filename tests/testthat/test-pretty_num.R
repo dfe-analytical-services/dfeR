@@ -48,28 +48,28 @@ test_that("tests multiple values", {
 
 test_that("dynamic_dp applies correct decimal places for billion value", {
   expect_equal(
-    pretty_num(3e9,  dynamic_dp_value = 2),
+    pretty_num(3e9, dynamic_dp_value = 2),
     "3.00 billion"
   )
 })
 
 test_that("dynamic_dp returns 0 dp for divisible billion value", {
   expect_equal(
-    pretty_num(10e9,  dynamic_dp_value = 2),
+    pretty_num(10e9, dynamic_dp_value = 2),
     "10 billion"
   )
 })
 
 test_that("dynamic_dp applies correct decimal places for million value", {
   expect_equal(
-    pretty_num(3e6,  dynamic_dp_value = 3),
+    pretty_num(3e6, dynamic_dp_value = 3),
     "3.000 million"
   )
 })
 
 test_that("dynamic_dp returns 0 dp for divisible million value", {
   expect_equal(
-    pretty_num(10e6,  dynamic_dp_value = 3),
+    pretty_num(10e6, dynamic_dp_value = 3),
     "10 million"
   )
 })
@@ -78,7 +78,6 @@ test_that("dynamic_dp works with GBP and suffix", {
   expect_equal(
     pretty_num(1.5e9,
       gbp = TRUE, suffix = "%",
-      
       dynamic_dp_value = 1
     ), "£1.5 billion%"
   )
@@ -86,14 +85,14 @@ test_that("dynamic_dp works with GBP and suffix", {
 
 test_that("dynamic_dp works with negative values", {
   expect_equal(
-    pretty_num(-3e9, prefix = "+/-",  dynamic_dp_value = 2),
+    pretty_num(-3e9, prefix = "+/-", dynamic_dp_value = 2),
     "-3.00 billion"
   )
 })
 
 test_that("dynamic_dp is ignored when disabled", {
   expect_equal(
-    pretty_num(3e9, dp = 1,  dynamic_dp_value = 3),
+    pretty_num(3e9, dp = 1, dynamic_dp_value = 3),
     "3.0 billion"
   )
 })

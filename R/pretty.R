@@ -259,13 +259,13 @@ pretty_time_taken <- function(start_time, end_time) {
 #' pretty_num(7.8e9, abbreviate = FALSE)
 #' # dynamic_dp_value enabled for a billion value not divisible by 10
 #' pretty_num(3e9, dynamic_dp_value = 2)
-#'  # dynamic_dp_value enabled for a billion value divisible by 10
-#' pretty_num(10e9,  dynamic_dp_value = 2)
-#'  # dynamic_dp_value enabled for a million value not divisible by 10
-#' pretty_num(3e6,  dynamic_dp_value = 3)
-#'  # dynamic_dp_value enabled for a million value divisible by 10
-#' pretty_num(10e6,  dynamic_dp_value = 3)
-#'  # dynamic_dp_value enabled with GBP and suffix
+#' # dynamic_dp_value enabled for a billion value divisible by 10
+#' pretty_num(10e9, dynamic_dp_value = 2)
+#' # dynamic_dp_value enabled for a million value not divisible by 10
+#' pretty_num(3e6, dynamic_dp_value = 3)
+#' # dynamic_dp_value enabled for a million value divisible by 10
+#' pretty_num(10e6, dynamic_dp_value = 3)
+#' # dynamic_dp_value enabled with GBP and suffix
 #' pretty_num(1.5e9,
 #'   gbp = TRUE, suffix = "%",
 #'   dynamic_dp_value = 1
@@ -281,16 +281,17 @@ pretty_time_taken <- function(start_time, end_time) {
 #' # Return alternative value in place of NA
 #' pretty_num(vector, alt_na = "z")
 pretty_num <- function(
-    value,
-    prefix = "",
-    gbp = FALSE,
-    suffix = "",
-    dp = 0,
-    ignore_na = FALSE,
-    alt_na = FALSE,
-    nsmall = NULL,
-    dynamic_dp_value = NULL,
-    abbreviate = TRUE) {
+  value,
+  prefix = "",
+  gbp = FALSE,
+  suffix = "",
+  dp = 0,
+  ignore_na = FALSE,
+  alt_na = FALSE,
+  nsmall = NULL,
+  dynamic_dp_value = NULL,
+  abbreviate = TRUE
+) {
   # use lapply to use the function for singular value or a vector
 
   result <- lapply(value, function(value) {

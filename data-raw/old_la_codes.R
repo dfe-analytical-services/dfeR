@@ -4,9 +4,7 @@
 # lookup table in dfeR
 
 
-
 # Get and process data from GIAS ------------------------------------------
-
 
 
 ##############################################################################
@@ -89,7 +87,6 @@ old_la_codes <- dfeR::fetch_las() |>
   )) |>
   # remove duplicates if any
   dplyr::distinct()
-
 
 
 # Write the data into the package ---------------------------------------------
