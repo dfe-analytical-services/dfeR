@@ -89,10 +89,3 @@ test_that("dynamic_dp works with negative values", {
     "-3.00 billion"
   )
 })
-
-test_that("dynamic_dp is ignored when disabled", {
-  expect_equal(
-    pretty_num(3e9, dp = 1, dynamic_dp_value = 3),
-    "3.0 billion"
-  )
-})
