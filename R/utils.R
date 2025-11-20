@@ -15,8 +15,9 @@
 #' improving clarity without over-formatting fo pretty_num().
 #' @return An integer indicating the number of decimal places to use.
 #' @keywords internal
-#' @export
+#' @noRd
 #' @examples
+#' \dontrun{
 #' determine_dp(999999) # Returns 0 (less than 1 million)
 #' determine_dp(1e6) # Returns 2 (not divisible by 10 after scaling)
 #' determine_dp(10e6) # Returns 0 (divisible by 10 after scaling)
@@ -27,6 +28,8 @@
 #' determine_dp(500000, dp = 1, dynamic_dp_value = 3) # Returns 1
 #' determine_dp(10e6, dp = 1, dynamic_dp_value = 3) # Returns 0
 #' determine_dp(-2e6, dp = 3, dynamic_dp_value = 5) # Returns 5
+#'}
+
 determine_dp <- function(value,
                          dp = 0,
                          dynamic_dp_value = 2) {
