@@ -1,0 +1,129 @@
+# Geography hierarchy lookup
+
+A lookup showing the hierarchy of ward to Westminster parliamentary
+constituency to local authority district to local authority to combined
+mayoral authority to region to country for years 2017, 2019, 2020, 2021,
+2022, 2023, 2024 and 2025.
+
+## Usage
+
+``` r
+geo_hierarchy
+```
+
+## Format
+
+### `geo_hierarchy`
+
+A data frame with 26,057 rows and 17 columns:
+
+- first_available_year_included:
+
+  First year in the lookups that we see this location
+
+- most_recent_year_included:
+
+  Last year in the lookups that we see this location
+
+- ward_name:
+
+  Ward name
+
+- pcon_name:
+
+  Parliamentary constituency name
+
+- lad_name:
+
+  Local authority district name
+
+- la_name:
+
+  Local authority name
+
+- english_devolved_area_name:
+
+  Mayoral authority name
+
+- region_name:
+
+  Region name
+
+- country_code:
+
+  Country name
+
+- ward_code:
+
+  9 digit ward code
+
+- pcon_code:
+
+  9 digit westminster constituency code
+
+- lad_code:
+
+  9 digit local authority district code
+
+- old_la_code:
+
+  old 3 digit local authority code
+
+- new_la_code:
+
+  9 digit local authority code
+
+- english_devolved_area_code:
+
+  9 digit combined authority code
+
+- region_code:
+
+  9 digit region code
+
+- country_code:
+
+  9 digit country code
+
+## Source
+
+https://geoportal.statistics.gov.uk/search?tags=lup_wd_pcon_lad_utla
+https://geoportal.statistics.gov.uk/search?q=lup_wd_lad_cty_rgn_gor_ctry
+https://geoportal.statistics.gov.uk/search?tags=LUP_LAD_CAUTH
+https://get-information-schools.service.gov.uk/Guidance/LaNameCodes and
+https://tinyurl.com/EESScreenerLAs
+
+## Details
+
+Note that combined mayoral authorities only exist in England, and we use
+`english_devolved_area_name` and `english_devolved_area_code` to refer
+to mayoral authorities in line with the standards set in DfE official
+statistics. Greater London Authority is not included in the ONS combined
+authority lookup, we have added that in for all local authority
+districts with codes that start with `E090...`.
+
+Changes we've made to the original lookup:
+
+1.  The original lookup from ONS uses the Upper Tier Local Authority, we
+    then update this so that where there is a metropolitan local
+    authority we use the local authority district as the local authority
+    to match how DfE publish data for local authorities.
+
+2.  We have noticed that in the 2017 version, the Glasgow East
+    constituency had a code of S1400030 instead of the usual S14000030,
+    we've assumed this was an error and have change this in our data so
+    that Glasgow East is S14000030 in 2017.
+
+3.  We have joined on regions using the Ward to LAD to County to Region
+    file.
+
+4.  We have joined on countries based on the E / N / S / W at the start
+    of codes.
+
+5.  Scotland had no published regions in 2017, so given the rest of the
+    years have Scotland as the region, we've forced that in for 2017 too
+    to complete the data set.
+
+6.  We've added the Greater London Authority as the overarching mayoral
+    authority (English devolved area) for all Local authority districts
+    with codes that start `E090...`.

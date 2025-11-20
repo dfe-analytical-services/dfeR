@@ -1,0 +1,150 @@
+# Connecting to SQL
+
+R can be used to execute SQL scripts to extract data from a database as
+well as querying the database directly via R. There are three primary
+ways to do this:
+
+1.  executing a separate SQL script from R
+2.  writing strings of SQL code in your R script
+3.  using [dbplyr](https://dbplyr.tidyverse.org/) to query a database
+    using R code
+
+Which you use will depend on how comfortable you are with SQL and R and
+if you already have existing SQL scripts that you want to execute or
+you’re writing new database queries. This vignette focuses on that first
+example, using the
+[`get_clean_sql()`](https://dfe-analytical-services.github.io/dfeR/reference/get_clean_sql.md)
+function to read in a separate SQL script and execute from R.
+
+For more information on the other two methods, or on troubleshooting the
+connection between R and SQL in the Department for Education (DfE),
+please see the [Interacting with a SQL database section of our Analysts’
+Guide](https://dfe-analytical-services.github.io/analysts-guide/learning-development/r.html#interacting-with-a-sql-database-from-within-r-scripts).
+
+## Pre-requisites
+
+To connect to SQL you will need SQL drivers installed. These come as
+standard currently with the Microsoft SQL Server Management Studio
+downloads from Department for Education’s software center. Make sure to
+have downloaded the latest version before starting.
+
+## Connecting to a database
+
+Usually in the DfE we use a combination of
+[odbc](https://odbc.r-dbi.org/) and [DBI](https://dbi.r-dbi.org/) to
+connect to our SQL databases.
+
+How you connect will vary depending on whether you’re running R code on
+your laptop, or as a part of a deployed R Shiny app. For running code on
+your laptop you can automatically use your Windows login (a trusted
+connection) to grant you access to the database, as the package can
+automatically detect your user details.
+
+``` r
+# Library calls ====
+
+library(odbc)
+library(DBI)
+
+# Database connection ====
+
+con <- DBI::dbConnect(odbc::odbc(),
+  Driver = "ODBC Driver 17 for SQL Server",
+  Server = "server_name",
+  Database = "database_name",
+  UID = "",
+  PWD = "",
+  Trusted_Connection = "Yes"
+)
+```
+
+For advice on finding your database details, or connecting to a SQL
+database from an R Shiny app that is deployed on a server, please
+contact the [Statistics Development
+Team](mailto:statistics.development@education.gov.uk) who will be able
+to advise on the setup and steps required.
+
+Note that your server name may include backslashes, if it does you’ll
+need to make sure to have two backslashes in your R code due to the way
+that special characters are escaped.
+
+For example, in SQL Server Management Studio (SSMS) or Azure Data Studio
+you might call your server `T1PRANMSQL\SQLPROD,60125`, but in R when
+adding the server name you’d need to call it
+`T1PRANMSQL\\SQLPROD,60125`.
+
+## Reading a SQL script into R
+
+There are a number of standard characters found in SQL scripts that can
+cause issues when reading in a SQL script within R and we have created
+the
+[`get_clean_sql()`](https://dfe-analytical-services.github.io/dfeR/reference/get_clean_sql.md)
+function to assist with this. Assume you have connected to the database
+and assigned that connection to a `con` variable, you would then use the
+following line to read a cleaned version of your SQL script into R.
+
+[`get_clean_sql()`](https://dfe-analytical-services.github.io/dfeR/reference/get_clean_sql.md)
+will ignore any lines of code that start with `USE` to specify a
+database, as your database should already be specified in your
+connection setup.
+
+``` r
+sql_query <- dfeR::get_clean_sql("path_to_sql_file.sql")
+```
+
+## Executing the SQL query
+
+Now that the SQL query is saved as a variable in the R environment you
+can pass that into a function to execute against the database. There’s a
+number of potential ways to do this, though a common way is to use
+`dbGetQuery()` from the [DBI package](https://dbi.r-dbi.org/), setting
+the statement as your cleaned SQL query.
+
+It’s important to note that `dbGetQuery()` is intended to work with
+‘SELECT’ style queries only. If you’re doing something that isn’t a
+‘SELECT’ query, such as writing back into SQL, consider using the
+`dbExecute()` or `dbSendQuery()` functions from the [DBI
+package](https://dbi.r-dbi.org/) instead.
+
+``` r
+sql_query_result <- DBI::dbGetQuery(con, statement = sql_query)
+```
+
+As a side note, if your SQL query is short, you could write it directly
+into the function such as:
+
+``` r
+sql_query_result <- DBI::dbGetQuery(
+  con,
+  statement = "SELECT * FROM [my_database_table]"
+)
+```
+
+### Troubleshooting
+
+Our first advice if you hit an error, would be to check that your SQL
+script runs in SQL Server Management Studio (SSMS) or Azure Data Studio
+and is a valid SQL ‘SELECT’ query that returns a single output.
+
+Assuming that it runs fine in SSMS, the next thing to try is to set
+additional settings while cleaning the SQL script. You can do this with
+the `additional_settings` argument in the
+[`get_clean_sql()`](https://dfe-analytical-services.github.io/dfeR/reference/get_clean_sql.md)
+function.
+
+``` r
+sql_query <- dfeR::get_clean_sql(
+  "path_to_sql_file.sql",
+  additional_settings = TRUE
+)
+```
+
+This will add additional settings to the start of your SQL query that
+are sometimes necessary for the odbc and DBI connection to correctly
+execute your query.
+
+For further troubleshooting tips, please see the [Interacting with a SQL
+database section of our Analysts’
+Guide](https://dfe-analytical-services.github.io/analysts-guide/learning-development/r.html#interacting-with-a-sql-database-from-within-r-scripts),
+or contact the [Statistics Development
+Team](mailto:statistics.development@education.gov.uk) for support.
