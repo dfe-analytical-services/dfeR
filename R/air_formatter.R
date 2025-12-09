@@ -3,7 +3,7 @@
 #' @description checks for air installation status and installs it if
 #' required, updating the global settings if selected
 #'
-#' @param update_global_settings auto update global settings, or don't
+#' @param update_rstudio_settings auto update RStudio settings
 #' @param verbose Run in verbose mode
 #'
 #' @export
@@ -13,7 +13,7 @@
 #' air_install()
 #' }
 
-air_install <- function(update_global_settings = FALSE, verbose = TRUE) {
+air_install <- function(update_rstudio_settings = FALSE, verbose = TRUE) {
   platform <- Sys.info()[1]
 
   if (platform == "Windows") {
@@ -64,7 +64,7 @@ air_install <- function(update_global_settings = FALSE, verbose = TRUE) {
       )
     }
   }
-  if (update_global_settings == TRUE) {
+  if (update_rstudio_settings == TRUE) {
     warning(
       "Updating global RStudio settings to use Air and reformat scripts on",
       "save. You can turn this off from Tools > global options > Code > Saving",

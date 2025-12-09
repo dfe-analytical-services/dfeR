@@ -1,5 +1,5 @@
 test_that("air_style runs Air", {
-  air_install(update_global_settings = FALSE, verbose = FALSE)
+  air_install(update_rstudio_settings = FALSE, verbose = FALSE)
   temp_dir <- tempdir()
   test_script <- file(file.path(temp_dir, "air_test.R"))
   writeLines(
