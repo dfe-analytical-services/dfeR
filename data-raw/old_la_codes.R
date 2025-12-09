@@ -3,11 +3,7 @@
 # This data is used to add 'old' 3 digit la codes to the wd_pcon_lad_la_reg_ctry
 # lookup table in dfeR
 
-
-
 # Get and process data from GIAS ------------------------------------------
-
-
 
 ##############################################################################
 # IMPORTANT: Please make sure to read the data-raw/old_la_codes.md file to read
@@ -20,7 +16,7 @@ devtools::load_all()
 # Load and clean LA code data from a file
 load_la_codes <- function(file_path) {
   # read in data
-  data.table::fread(file_path) %>%
+  data.table::fread(file_path) |>
     # rename columns
     dplyr::rename(
       la_name = 1,
@@ -34,7 +30,7 @@ gias_la_codes <- dplyr::bind_rows(
   load_la_codes("data/EnglishLaNameCodes.csv"),
   load_la_codes("data/WelshLaNameCodes.csv"),
   load_la_codes("data/OtherLaNameCodes.csv")
-) %>%
+) |>
   # clean up the strings in the la_name column
   dplyr::mutate(
     la_name = gsub("^[A-Za-z]+ [A-Za-z]+ \\([^)]*\\) ", "", la_name),
@@ -65,13 +61,13 @@ old_la_codes <- dfeR::fetch_las() |>
   dplyr::left_join(
     gias_la_codes,
     by = c("la_name", "new_la_code")
-  ) %>%
+  ) |>
   # left join the screener 'old' 3 digit la codes
   dplyr::left_join(
-    data.table::fread("data/las.csv") %>%
+    data.table::fread("data/las.csv") |>
       dplyr::select(new_la_code, la_name, screener_old_la_code = old_la_code),
     by = c("la_name", "new_la_code")
-  ) %>%
+  ) |>
   # Identify missing LA codes from the GIAS data and extract any matches for
   # them from screener data
   dplyr::mutate(
@@ -80,16 +76,15 @@ old_la_codes <- dfeR::fetch_las() |>
       screener_old_la_code,
       gias_old_la_code
     )
-  ) %>%
+  ) |>
   # select the columns we need
-  dplyr::select(la_name, old_la_code, new_la_code) %>%
+  dplyr::select(la_name, old_la_code, new_la_code) |>
   # replace any remaining NAs in old_la_code with "z" to indicate no old code
-  dplyr::mutate(old_la_code = dplyr::if_else(is.na(old_la_code),
-    "z", old_la_code
-  )) |>
+  dplyr::mutate(
+    old_la_code = dplyr::if_else(is.na(old_la_code), "z", old_la_code)
+  ) |>
   # remove duplicates if any
   dplyr::distinct()
-
 
 
 # Write the data into the package ---------------------------------------------

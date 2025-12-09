@@ -34,7 +34,6 @@ Imports:
     magrittr,
     renv,
     rlang,
-    rstudio.prefs,
     tidyselect,
     usethis,
     utils,
