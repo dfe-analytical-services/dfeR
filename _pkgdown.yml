@@ -18,10 +18,11 @@ reference:
   desc: Data sets exported in the package
   contents:
   - ons_geog_shorthands
-  - wd_pcon_lad_la_rgn_ctry
+  - geo_hierarchy
   - countries
   - regions
   - geog_time_identifiers
+  - wd_pcon_lad_la_rgn_ctry
 
 - title: Fetch geography lists
   desc: Pull geography lookups from the ONS Geography Portal
@@ -33,6 +34,7 @@ reference:
   desc: Helpful functions for connecting to databases in DfE
   contents:
   - get_clean_sql
+  - check_databricks_odbc
 
 - title: Presentation prettifiers
   desc: Functions for presenting pretty versions of numbers with readable code

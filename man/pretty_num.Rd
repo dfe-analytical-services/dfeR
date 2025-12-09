@@ -12,7 +12,8 @@ pretty_num(
   dp = 0,
   ignore_na = FALSE,
   alt_na = FALSE,
-  nsmall = NULL
+  nsmall = NULL,
+  abbreviate = TRUE
 )
 }
 \arguments{
@@ -36,6 +37,9 @@ converted and return original value}
 If NULL, the value of \code{dp} will be used.
 If the value of \code{dp} is less than 0, then \code{nsmall} will
 automatically be set to 0.}
+
+\item{abbreviate}{whether to abbreviate large numbers to nearest million
+(where 1e6 <= value < 1e9) or billion (where value >= 1e9).}
 }
 \value{
 string featuring prettified value
@@ -70,6 +74,7 @@ pretty_num("56.089", suffix = "\%")
 pretty_num("x")
 pretty_num("x", ignore_na = TRUE)
 pretty_num("nope", alt_na = "x")
+pretty_num(7.8e9, abbreviate = FALSE)
 
 # Applied over an example vector
 vector <- c(3998098008, -123421421, "c", "x")

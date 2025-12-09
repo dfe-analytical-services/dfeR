@@ -7,7 +7,7 @@
 \format{
 \subsection{\code{ons_geog_shorthands}}{
 
-A data frame with 7 rows and 3 columns:
+A data frame with 9 rows and 3 columns:
 \describe{
 \item{ons_level_shorthands}{ONS shorthands used in their lookup files}
 \item{name_column}{DfE names for geography name columns}

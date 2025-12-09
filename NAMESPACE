@@ -2,11 +2,13 @@
 
 export(air_install)
 export(air_style)
+export(check_databricks_odbc)
 export(comma_sep)
 export(create_project)
 export(fetch_countries)
 export(fetch_lads)
 export(fetch_las)
+export(fetch_mayoral)
 export(fetch_pcons)
 export(fetch_regions)
 export(fetch_wards)

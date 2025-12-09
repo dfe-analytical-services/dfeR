@@ -1,5 +1,20 @@
 # dfeR (development version)
 
+- Updated `geo_hierarchy`, and associated `fetch_*` functions with latest 2025 lookups.
+- Updated `pretty_num()` function to add `abbreviate` argument giving the option to avoid displaying large numbers in millions/billions.
+
+# dfeR 1.2.0
+
+- Added `geo_hierarchy`, which supersedes `wd_pcon_lad_la_rgn_ctry` and adds 2025 along with mayoral columns.
+- Added `fetch_mayoral()`.
+
+# dfeR 1.1.0
+
+- Added a function that checks Databricks variables for ODBC connections: `check_databricks_odbc()`.
+- Updated `wd_pcon_lad_la_rgn_ctry` by adding three digit local authority codes (also known as old_la_codes) to the data.
+- Added old_la_codes which is an internal lookup table of local authorities with their names, nine digit codes and 'old' three digit codes. It is used to add 'old' 3 digit la codes to  `wd_pcon_lad_la_rgn_ctry`. 
+- Updated `fetch_las()` so that old_la_codes are included in the output.
+
 # dfeR 1.0.1
 
 Fix the spacing and printing of the z_replace() warning message, updating the eesyapi URL in the README and removed extraneous package tests.
