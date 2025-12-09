@@ -1,6 +1,6 @@
 # Workflow derived from https://github.com/posit-dev/setup-air/tree/main/examples
 
-name: format-suggest.yaml
+name: format-suggest-reusable.yaml
 
 on:
   workflow_call:
