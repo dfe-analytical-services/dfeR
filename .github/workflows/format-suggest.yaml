@@ -1,0 +1,14 @@
+# Workflow derived from https://github.com/posit-dev/setup-air/tree/main/examples
+
+name: format-suggest.yaml
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  air-formatter:
+    uses: dfe-analytical-services/dfeR/.github/workflows/format-suggest-reusable.yaml@feature/air-integration

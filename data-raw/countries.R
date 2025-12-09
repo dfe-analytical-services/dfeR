@@ -30,7 +30,8 @@ ons_countries <- dfeR::get_ons_api_data(
 # Set custom DfE countries ----------------------------------------------------
 custom_dfe_countries <- data.frame(
   "country_name" = c(
-    "England, Wales and Northern Ireland", "Outside of England and unknown",
+    "England, Wales and Northern Ireland",
+    "Outside of England and unknown",
     "Outside of the United Kingdom and unknown"
   ),
   "country_code" = c("z", "z", "z")

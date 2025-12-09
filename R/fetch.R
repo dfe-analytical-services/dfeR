@@ -47,7 +47,7 @@ fetch_pcons <- function(year = "All", countries = "All") {
     countries = countries
   )
 
-  return(output)
+  output
 }
 
 #' Fetch local authority districts
@@ -74,7 +74,7 @@ fetch_lads <- function(year = "All", countries = "All") {
     countries = countries
   )
 
-  return(output)
+  output
 }
 
 #' Fetch local authorities
@@ -101,7 +101,7 @@ fetch_las <- function(year = "All", countries = "All") {
     countries = countries
   )
 
-  return(output)
+  output
 }
 
 #' Fetch wards
@@ -128,7 +128,7 @@ fetch_wards <- function(year = "All", countries = "All") {
     countries = countries
   )
 
-  return(output)
+  output
 }
 
 #' Fetch mayoral combined authorities
@@ -164,7 +164,7 @@ fetch_mayoral <- function(year = "All") {
     dplyr::arrange("english_devolved_area_code")
 
   # Drop rows where not applicable
-  return(output[output$english_devolved_area_code != "z", ])
+  output[output$english_devolved_area_code != "z", ]
 }
 
 #' Fetch regions

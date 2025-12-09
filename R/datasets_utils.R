@@ -92,8 +92,8 @@ tidy_raw_lookup <- function(raw_lookup_file) {
   )
 
   # Add columns showing years for the codes
-  lookup_with_time <- raw_lookup_file %>%
-    dplyr::distinct() %>%
+  lookup_with_time <- raw_lookup_file |>
+    dplyr::distinct() |>
     dplyr::mutate(
       first_available_year_included = paste0("20", new_year),
       most_recent_year_included = paste0("20", new_year)
@@ -124,13 +124,13 @@ tidy_raw_lookup <- function(raw_lookup_file) {
   }
 
   # Strip out excess white space from name columns
-  lookup_met_la %>%
+  lookup_met_la |>
     dplyr::mutate(
       dplyr::across(
         tidyselect::ends_with("_name"),
         ~ stringr::str_replace_all(.x, "\\s+", " ")
       )
-    ) %>%
+    ) |>
     # Also strip out leading and trailing whitespace for belts and braces
     dplyr::mutate(dplyr::across(dplyr::everything(), ~ stringr::str_trim(.x)))
 }
@@ -199,9 +199,9 @@ create_time_series_lookup <- function(lookups_list) {
 
   # Append every other lookup in the list, starting with the second data frame
   for (lookup_number in 2:length(lookups_list)) {
-    lookup <- lookup %>%
+    lookup <- lookup |>
       # Stack the next data frame on
-      rbind(lookups_list[[lookup_number]]) %>%
+      rbind(lookups_list[[lookup_number]]) |>
       # Then condense the rows, rewriting the first and last years for each row
       dplyr::summarise(
         "first_available_year_included" = min(
@@ -214,10 +214,10 @@ create_time_series_lookup <- function(lookups_list) {
 
   # Final tidy up of the output file ==========================================
   # Pull out code columns
-  code_cols <- names(lookup %>% dplyr::select(tidyselect::ends_with("_code")))
+  code_cols <- names(lookup |> dplyr::select(tidyselect::ends_with("_code")))
 
   # Order the file by year and then code columns
-  lookup %>%
+  lookup |>
     dplyr::mutate(
       "first_available_year_included" = as.integer(
         .data$first_available_year_included
@@ -225,7 +225,7 @@ create_time_series_lookup <- function(lookups_list) {
       "most_recent_year_included" = as.integer(
         .data$most_recent_year_included
       )
-    ) %>%
+    ) |>
     dplyr::arrange(dplyr::desc("most_recent_year_included"), !!!code_cols)
 }
 
@@ -297,8 +297,8 @@ collapse_timeseries <- function(long_lookup_file) {
 
   base_cols <- setdiff(names(long_lookup_file), "year")
 
-  long_lookup_file %>%
-    dplyr::group_by(dplyr::across(dplyr::all_of(base_cols))) %>%
+  long_lookup_file |>
+    dplyr::group_by(dplyr::across(dplyr::all_of(base_cols))) |>
     dplyr::summarise(
       first_available_year_included = min(.data$year, na.rm = TRUE),
       most_recent_year_included = max(.data$year, na.rm = TRUE),
@@ -496,11 +496,11 @@ get_lad_region <- function(year) {
 
   # Rename the GOR10 cols for earlier years
   if (year_end %in% c(17, 18)) {
-    output <- output %>%
+    output <- output |>
       dplyr::rename_with(
         ~ ifelse(. == "attributes.GOR10NM", paste0("RGN", year_end, "NM"), .),
         "attributes.GOR10NM"
-      ) %>%
+      ) |>
       dplyr::rename_with(
         ~ ifelse(. == "attributes.GOR10CD", paste0("RGN", year_end, "CD"), .),
         "attributes.GOR10CD"

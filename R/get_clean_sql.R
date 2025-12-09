@@ -68,5 +68,5 @@ get_clean_sql <- function(filepath, additional_settings = FALSE) {
     )
   }
 
-  return(sql_string)
+  sql_string
 }
