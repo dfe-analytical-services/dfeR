@@ -17,18 +17,18 @@ Replace this with a detailed description of the changes made in this PR. Use bul
 
 ## Essential Checklist
 
-- [ ] I have read the [contributing guidelines](../CONTRIBUTING.md)
+- [ ] I have read the [contributing guidelines](https://dfe-analytical-services.github.io/dfeR/CONTRIBUTING.html)
 - [ ] The code follows the package style and naming conventions
 - [ ] All new and existing tests pass (`devtools::test()`)
 - [ ] I have checked that my changes do not break existing functionality
 
 ## Consider (as applicable)
 
-- [ ] I have added or updated documentation (`roxygen2` comments, vignettes, readme, etc.)
+- [ ] I have added or updated documentation (function documentation, vignettes, readme, etc.)
 - [ ] I have updated the `NEWS.md` file with a summary of my changes
 - [ ] I have considered if a version bump is required in `DESCRIPTION`
 - [ ] I have added examples or usage where relevant
-- [ ] I have resolved styling and lintr issues (`devtools::lint()`)
+- [ ] I have resolved styling and lintr issues (`styler::style_pkg()` and `lintr::lint_package()`)
 
 ## Additional context
 
