@@ -56,7 +56,7 @@ fetch_locations <- function(lookup_data, cols, year, countries) {
   )
 
   # Resummarise the years to each unique location
-  resummarised_lookup <- lookup %>%
+  resummarised_lookup <- lookup |>
     dplyr::summarise(
       "first_available_year_included" =
         min(.data$first_available_year_included),
@@ -73,7 +73,7 @@ fetch_locations <- function(lookup_data, cols, year, countries) {
   # Filter based on year selection if specified
   if (year != "All") {
     # Flag the rows that are in the year asked for
-    resummarised_lookup <- resummarised_lookup %>%
+    resummarised_lookup <- resummarised_lookup |>
       dplyr::mutate("in_specified_year" = ifelse(
         as.numeric(.data$most_recent_year_included) >= year &
           as.numeric(.data$first_available_year_included) <= year,
@@ -85,7 +85,7 @@ fetch_locations <- function(lookup_data, cols, year, countries) {
     resummarised_lookup <- with(
       resummarised_lookup,
       subset(resummarised_lookup, in_specified_year == TRUE)
-    ) %>%
+    ) |>
       dplyr::select(-c("in_specified_year")) # remove temp column
   }
 
@@ -108,7 +108,7 @@ fetch_locations <- function(lookup_data, cols, year, countries) {
 
     # Filter every value to its first letter as that matches the ONS code
     # then filter the data set to only have codes from the selected countries
-    resummarised_lookup <- resummarised_lookup %>%
+    resummarised_lookup <- resummarised_lookup |>
       dplyr::filter(
         grepl(
           paste0("^", unique(substr(countries, 1, 1)), collapse = "|"),

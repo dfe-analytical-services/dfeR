@@ -6,5 +6,5 @@
 ## usethis namespace: end
 
 #' @importFrom rlang .data
-#' @importFrom magrittr %>%
+#' @importFrom magrittr |>
 NULL

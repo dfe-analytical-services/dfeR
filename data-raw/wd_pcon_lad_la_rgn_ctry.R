@@ -89,12 +89,12 @@ regions_lookup <- lapply(lad_region_years, get_lad_region) |>
   mutate(
     region_name = if_else(grepl("^S", lad_code), "Scotland", region_name),
     region_code = if_else(grepl("^S", lad_code), "S92000003", region_code)
-  ) %>%
+  ) |>
   # Get just the unique values to join with
   dplyr::distinct(lad_name, lad_code, region_name, region_code)
 
 # Join on regions -------------------------------------------------------------
-wd_pcon_lad_la_rgn <- wd_pcon_lad_la %>%
+wd_pcon_lad_la_rgn <- wd_pcon_lad_la |>
   dplyr::left_join(
     # Join all rows that aren't missing a region name
     na.omit(regions_lookup, cols = "region_name"),
@@ -102,7 +102,7 @@ wd_pcon_lad_la_rgn <- wd_pcon_lad_la %>%
   )
 
 # Join on countries -----------------------------------------------------------
-wd_pcon_lad_la_rgn_ctry <- wd_pcon_lad_la_rgn %>%
+wd_pcon_lad_la_rgn_ctry <- wd_pcon_lad_la_rgn |>
   dplyr::mutate(
     "country_name" = dplyr::case_when(
       startsWith(pcon_code, "E") ~ "England",
@@ -123,24 +123,24 @@ wd_pcon_lad_la_rgn_ctry <- wd_pcon_lad_la_rgn %>%
 # Manual fixes ----------------------------------------------------------------
 # !IMPORTANT! Make sure to log all of these in the description for the file in
 # the `R/datasets_documentation.R` script
-wd_pcon_lad_la_rgn_ctry <- wd_pcon_lad_la_rgn_ctry %>%
+wd_pcon_lad_la_rgn_ctry <- wd_pcon_lad_la_rgn_ctry |>
   # ONS seemed to miss a 0 in 2017 for Glasgow East PCon
   mutate(across(everything(), ~ ifelse(. == "S1400030", "S14000030", .)))
 
 # Add 3 digit local authority codes from GIAS  ----------------------------
-wd_pcon_lad_la_rgn_ctry <- wd_pcon_lad_la_rgn_ctry %>%
+wd_pcon_lad_la_rgn_ctry <- wd_pcon_lad_la_rgn_ctry |>
   # join the data onto the GIAs LA 3 digit code data
   dplyr::left_join(old_la_codes, by = c(
     "la_name" = "la_name",
     "new_la_code" = "new_la_code"
-  )) %>%
+  )) |>
   dplyr::mutate(old_la_code = dplyr::if_else(is.na(old_la_code),
     "z", old_la_code
-  )) %>%
+  )) |>
   dplyr::distinct()
 
 # Set the order of the columns ------------------------------------------------
-wd_pcon_lad_la_rgn_ctry <- wd_pcon_lad_la_rgn_ctry %>%
+wd_pcon_lad_la_rgn_ctry <- wd_pcon_lad_la_rgn_ctry |>
   dplyr::select(
     "first_available_year_included", "most_recent_year_included",
     "ward_name", "pcon_name", "lad_name", "la_name",
@@ -151,7 +151,7 @@ wd_pcon_lad_la_rgn_ctry <- wd_pcon_lad_la_rgn_ctry %>%
 
 # QA the joining --------------------------------------------------------------
 # Check for any regions that failed to join
-region_error_check <- wd_pcon_lad_la_rgn_ctry %>%
+region_error_check <- wd_pcon_lad_la_rgn_ctry |>
   filter(
     region_code == "" | region_name == "" |
       is.na(region_name) | is.na(region_code)
@@ -162,7 +162,7 @@ if (nrow(region_error_check) > 0) {
 }
 
 # Check for any countries that failed to join
-country_error_check <- wd_pcon_lad_la_rgn_ctry %>%
+country_error_check <- wd_pcon_lad_la_rgn_ctry |>
   filter(country_code == "ERROR" | country_name == "ERROR")
 
 if (nrow(country_error_check) > 0) {
