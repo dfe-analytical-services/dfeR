@@ -384,7 +384,7 @@ pretty_num <- function(
   }) # lapply bracket
 
   # unlisting the results so that they're all on one line
-  return(unlist(result))
+  unlist(result)
 }
 
 #' Format a data frame with `dfeR::pretty_num()`.
@@ -477,7 +477,7 @@ pretty_num_table <- function(data,
   }
 
   # Apply pretty_num() formatting to the selected columns
-  data %>%
+  data |>
     dplyr::mutate(dplyr::across(
       .cols = dplyr::all_of(cols_to_include),
       ~ pretty_num(., ...)

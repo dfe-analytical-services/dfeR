@@ -65,13 +65,20 @@ gives more functions for directly extracting data from there.
 
 ## Installation
 
-dfeR is available on CRAN and you can install directly from there:
+### Install CRAN version
+
+dfeR is available on CRAN and can be installed using [pak](https://pak.r-lib.org/) for faster and more reliable package installation.
+
+
+Then install dfeR from CRAN:
 
 ``` r
-install.packages("dfeR")
+# If you don’t have pak installed yet, install it first using
+# install.packages("pak") 
+pak::pak("dfeR")
 ```
 
-You can install the development version from GitHub.
+### Install development version from GitHub
 
 If you are using
 [renv](https://rstudio.github.io/renv/articles/renv.html) in your
@@ -84,10 +91,10 @@ renv::install("dfe-analytical-services/dfeR")
 Otherwise:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("dfe-analytical-services/dfeR")
+# If you don’t have pak installed yet, install it first using
+# install.packages("pak") 
+pak::pak("dfe-analytical-services/dfeR")
 ```
-
 ------------------------------------------------------------------------
 
 ## Proxy

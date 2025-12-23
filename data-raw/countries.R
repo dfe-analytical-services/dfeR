@@ -21,7 +21,7 @@ params <- list(
 ons_countries <- dfeR::get_ons_api_data(
   paste0("CTRY_DEC_", year, "_UK_NC"),
   query_params = params
-) |>
+)  |>
   dplyr::rename(
     "country_name" = paste0("attributes.CTRY", year_end, "NM"),
     "country_code" = paste0("attributes.CTRY", year_end, "CD")
