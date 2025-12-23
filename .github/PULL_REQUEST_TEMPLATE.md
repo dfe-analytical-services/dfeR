@@ -20,7 +20,7 @@ To help us review the changes, please complete the template below to help the re
 - [ ] I have read the [contributing guidelines](https://dfe-analytical-services.github.io/dfeR/CONTRIBUTING.html)
 - [ ] The code follows the package style and naming conventions
 - [ ] All new and existing tests pass (`devtools::test()`)
-- [ ] I have updated the documentation using 'devtools::document()`
+- [ ] I have updated the documentation using `devtools::document()`
 - [ ] I have checked that my changes do not break existing functionality
 
 ## Consider (as applicable)
