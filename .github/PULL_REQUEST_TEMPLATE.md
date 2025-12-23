@@ -28,7 +28,7 @@ Replace this with a detailed description of the changes made in this PR. Use bul
 - [ ] I have updated the `NEWS.md` file with a summary of my changes
 - [ ] I have considered if a version bump is required in `DESCRIPTION`
 - [ ] I have added examples or usage where relevant
-- [ ] I have resolved styling and lintr issues (`styler::style_pkg()` and `lintr::lint_package()`)
+- [ ] I have resolved styling (formatted using Air, or `styler::style_pkg()`) and lintr issues (`lintr::lint_package()`)
 
 ## Additional context
 
