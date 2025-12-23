@@ -9,10 +9,13 @@
 #' non-integer millions or billions are shown with extra precision.
 #'
 #' @param value A single numeric value.
-#' @param dp Integer. The default number of decimal places for values less than 1 million.
+#' @param dp Integer. The default number of decimal places for values less than
+#' 1 million.
 #' @param dynamic_dp_value Integer. Default is 2. Sets the number of decimal
-#' places to use when the value is ≥ 1 million or ≥ 1 billion but not a whole number after scaling.
-#' This adds precision only when needed, improving clarity without over-formatting for pretty_num().
+#' places to use when the value is ≥ 1 million or ≥ 1 billion but not a
+#' whole number after scaling.
+#' This adds precision only when needed, improving clarity without
+#' over-formatting for pretty_num().
 #' @return An integer indicating the number of decimal places to use.
 #' @keywords internal
 #' @noRd
@@ -42,15 +45,17 @@ determine_dp <- function(value, dp = 0, dynamic_dp_value = 2) {
   # Use absolute value for magnitude checks
   abs_val <- abs(value)
 
-  # For billions: if value divided by 1e9 is not a whole number, use dynamic_dp_value; else 0
+  # For billions: if value divided by 1e9 is not a whole number
+  # , use dynamic_dp_value; else 0
   if (abs_val >= 1e9) {
     return(ifelse((value / 1e9) %% 1 != 0, dynamic_dp_value, 0))
   }
-  # For millions: if value divided by 1e6 is not a whole number, use dynamic_dp_value; else 0
+  # For millions: if value divided by 1e6 is not a whole number
+  # , use dynamic_dp_value; else 0
   if (abs_val >= 1e6) {
     return(ifelse((value / 1e6) %% 1 != 0, dynamic_dp_value, 0))
   }
 
   # For values less than 1 million, use dp
-  return(dp)
+  dp
 }

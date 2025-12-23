@@ -67,7 +67,7 @@ test_that("Value = 10 billion returns 0 if divisible by 10", {
   expect_equal(determine_dp(10e9, dp = 2, dynamic_dp_value = 6), 0)
 })
 
-test_that("Negative values are handled correctly for non-whole and whole millions", {
+test_that("Negative values are handled correctly for millions", {
   expect_equal(determine_dp(-2e6, dp = 3, dynamic_dp_value = 7), 0)
   expect_equal(determine_dp(-10e6, dp = 3, dynamic_dp_value = 7), 0)
 })
@@ -80,8 +80,7 @@ test_that("Zero value returns default dp", {
 test_that("Floating point values < 1 million return default dp", {
   expect_equal(determine_dp(0.123, dp = 1, dynamic_dp_value = 3), 1)
 })
-
-test_that("Floating point values >= 1 million return dynamic_dp_value if not whole million", {
+test_that("determine_dp non-whole million", {
   expect_equal(determine_dp(1.5e6, dp = 1, dynamic_dp_value = 4), 4)
 })
 

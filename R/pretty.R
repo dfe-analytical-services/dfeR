@@ -104,9 +104,11 @@ pretty_time <- function(seconds) {
         min_desc <- ifelse(mins == 1, " minute ", " minutes ")
         sec_desc <- ifelse(secs == 1, " second", " seconds")
 
-
         paste0(
-          mins, min_desc, secs, sec_desc
+          mins,
+          min_desc,
+          secs,
+          sec_desc
         )
 
         # Present as hours, minutes and seconds
@@ -120,7 +122,12 @@ pretty_time <- function(seconds) {
         sec_desc <- ifelse(secs == 1, " second", " seconds")
 
         paste0(
-          dfeR::comma_sep(hours), hour_desc, mins, min_desc, secs, sec_desc
+          dfeR::comma_sep(hours),
+          hour_desc,
+          mins,
+          min_desc,
+          secs,
+          sec_desc
         )
       }
     }
@@ -239,7 +246,8 @@ pretty_time_taken <- function(start_time, end_time) {
 #' value magnitude. For values ≥ 1 million or ≥ 1 billion, the function checks
 #' the scaled value (e.g., value / 1e6 or value / 1e9): if the scaled value is
 #' a whole number, it sets decimal places to 0; otherwise, it adds precision
-#' as specified here. This approach improves clarity without unnecessary formatting.
+#' as specified here. This approach improves clarity without
+#' unnecessary formatting.
 #' @return string featuring prettified value
 #' @family prettying
 #' @seealso [comma_sep()] [round_five_up()] [as.numeric()]
@@ -337,7 +345,6 @@ pretty_num <- function(
 
     # Add suffix and prefix, plus convert to million or billion
 
-
     # If nsmall is not given, make same value as dp
     # if dp is smaller than 0, make nsmall 0
     # if nsmall is specified, use that value
@@ -350,12 +357,12 @@ pretty_num <- function(
       nsmall <- 0
     }
 
-
     if (abs(num_value) >= 1.e9 & abbreviate == TRUE) {
       paste0(
         prefix,
         currency,
-        comma_sep(round_five_up(abs(num_value) / 1.e9, dp = dp),
+        comma_sep(
+          round_five_up(abs(num_value) / 1.e9, dp = dp),
           nsmall = nsmall
         ),
         " billion",
@@ -365,7 +372,8 @@ pretty_num <- function(
       paste0(
         prefix,
         currency,
-        comma_sep(round_five_up(abs(num_value) / 1.e6, dp = dp),
+        comma_sep(
+          round_five_up(abs(num_value) / 1.e6, dp = dp),
           nsmall = nsmall
         ),
         " million",
@@ -375,9 +383,7 @@ pretty_num <- function(
       paste0(
         prefix,
         currency,
-        comma_sep(round_five_up(abs(num_value), dp = dp),
-          nsmall = nsmall
-        ),
+        comma_sep(round_five_up(abs(num_value), dp = dp), nsmall = nsmall),
         suffix
       )
     }
@@ -438,14 +444,17 @@ pretty_num <- function(
 #' # provide alternative value for NAs
 #' pretty_num_table(df, alt_na = "[z]", exclude_columns = c("b"), dp = 2)
 #'
-pretty_num_table <- function(data,
-                             include_columns = NULL,
-                             exclude_columns = NULL,
-                             ...) {
+pretty_num_table <- function(
+  data,
+  include_columns = NULL,
+  exclude_columns = NULL,
+  ...
+) {
   # Check data is a data frame and throw error if not
   if (!is.data.frame(data)) {
     stop(paste0(
-      "Data has the class ", class(data),
+      "Data has the class ",
+      class(data),
       ", data must be a data.frame object"
     ))
   }
