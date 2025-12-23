@@ -15,7 +15,8 @@ test_that("prettifies", {
   expect_equal(pretty_num(63.71, dp = 1, nsmall = 2), "63.70")
   expect_equal(pretty_num(894.1, dp = 2, nsmall = 3), "894.100")
   expect_equal(
-    pretty_num(11^8, prefix = "+/-", gbp = TRUE, dp = -1), "+£210 million"
+    pretty_num(11^8, prefix = "+/-", gbp = TRUE, dp = -1),
+    "+£210 million"
   )
   expect_equal(pretty_num(7.8e9, abbreviate = FALSE), "7,800,000,000")
   expect_equal(pretty_num(7.8e9, dp = 1, abbreviate = FALSE), "7,800,000,000.0")
@@ -43,5 +44,73 @@ test_that("tests multiple values", {
   expect_equal(
     pretty_num(c(1.478, 7.38897, 8.37892), dp = 1, nsmall = 2),
     c("1.50", "7.40", "8.40")
+  )
+})
+
+test_that("dynamic_dp applies correct decimal places for billion value", {
+  expect_equal(
+    pretty_num(3e9, dynamic_dp_value = 2),
+    "3 billion"
+  )
+})
+
+test_that("dynamic_dp returns 0 dp for divisible billion value", {
+  expect_equal(
+    pretty_num(10e9, dynamic_dp_value = 2),
+    "10 billion"
+  )
+})
+
+test_that("dynamic_dp applies correct decimal places for million value", {
+  expect_equal(
+    pretty_num(3e6, dynamic_dp_value = 3),
+    "3 million"
+  )
+})
+
+test_that("dynamic_dp returns 0 dp for divisible million value", {
+  expect_equal(
+    pretty_num(10e6, dynamic_dp_value = 3),
+    "10 million"
+  )
+})
+
+test_that("dynamic_dp works with GBP and suffix", {
+  expect_equal(
+    pretty_num(1.5e9, gbp = TRUE, suffix = "%", dynamic_dp_value = 1),
+    "£1.5 billion%"
+  )
+})
+
+test_that("dynamic_dp works with negative values", {
+  expect_equal(
+    pretty_num(-3e9, prefix = "+/-", dynamic_dp_value = 2),
+    "-3 billion"
+  )
+})
+
+test_that("dynamic_dp works for vectors of values", {
+  # Mixed millions: whole and non-whole
+  expect_equal(
+    pretty_num(c(1e6, 1.5e6, 2e6, 2.25e6), dynamic_dp_value = 2),
+    c("1 million", "1.50 million", "2 million", "2.25 million")
+  )
+
+  # Mixed billions: whole and non-whole
+  expect_equal(
+    pretty_num(c(1e9, 1.5e9, 2e9, 2.25e9), dynamic_dp_value = 2),
+    c("1 billion", "1.50 billion", "2 billion", "2.25 billion")
+  )
+
+  # Negative values
+  expect_equal(
+    pretty_num(c(-1e6, -1.5e6, -2e6), dynamic_dp_value = 2),
+    c("-1 million", "-1.50 million", "-2 million")
+  )
+
+  # GBP and suffix with vector
+  expect_equal(
+    pretty_num(c(1.5e9, 2e9), gbp = TRUE, suffix = "%", dynamic_dp_value = 1),
+    c("£1.5 billion%", "£2 billion%")
   )
 })

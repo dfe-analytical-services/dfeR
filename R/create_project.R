@@ -38,12 +38,13 @@
 #' )
 #' }
 create_project <- function(
-    path,
-    init_renv = TRUE,
-    include_structure_for_pkg = FALSE,
-    create_publication_proj = FALSE,
-    include_github_gitignore,
-    ...) {
+  path,
+  init_renv = TRUE,
+  include_structure_for_pkg = FALSE,
+  create_publication_proj = FALSE,
+  include_github_gitignore,
+  ...
+) {
   # Function parameter checks ---
   # Check if the parameters are 1 length booleans
   # List of variables to check
