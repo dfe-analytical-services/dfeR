@@ -33,7 +33,7 @@ To help us review the changes, please complete the template below to help the re
 
 ## Additional context
 
-Add any other context or screenshots about the PR here.
+<!-- Add any other context or screenshots about the PR here. -->
 
 ## Issue ticket number/s and link
 
