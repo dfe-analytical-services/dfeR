@@ -37,4 +37,4 @@ Add any other context or screenshots about the PR here.
 
 ## Issue ticket number/s and link
 
-If applicable, please include any relevant issue ticket numbers and links.
+<!-- If applicable, please include any relevant issue ticket numbers and links. Where appropriate use GitHub closing keywords, such as 'Fixes #1' to link the issue to the PR directly. -->
