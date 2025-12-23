@@ -236,10 +236,10 @@ pretty_time_taken <- function(start_time, end_time) {
 #' (where 1e6 <= value < 1e9) or billion (where value >= 1e9).
 #' @param dynamic_dp_value Integer. Default = NULL.
 #' Overrides the `dp` setting and dynamically adjusts decimal places based on
-#' value magnitude.For values ≥ 1 million or ≥ 1 billion, the function checks
+#' value magnitude. For values ≥ 1 million or ≥ 1 billion, the function checks
 #' the scaled value (e.g., value / 1e6 or value / 1e9): if the scaled value is
-#' divisible by 10, it sets decimal places to 0; otherwise, it adds precision
-#' only as needed.This approach improves clarity without unnecessary formatting.
+#' a whole number, it sets decimal places to 0; otherwise, it adds precision
+#' as specified here. This approach improves clarity without unnecessary formatting.
 #' @return string featuring prettified value
 #' @family prettying
 #' @seealso [comma_sep()] [round_five_up()] [as.numeric()]
