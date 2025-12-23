@@ -145,5 +145,5 @@ get_ons_api_data <- function(data_id,
     verbose = verbose
   )
 
-  return(full_table)
+  full_table
 }
