@@ -213,11 +213,7 @@ fetch_lsip_lad <- function(year = "All") {
   min_year <- min(dfeR::lsip_lad$first_available_year_included)
   max_year <- max(dfeR::lsip_lad$most_recent_year_included)
   if (
-    !(year == "All" ||
-      (is.numeric(year) &&
-        year %% 1 == 0 &&
-        year >= min_year &&
-        year <= max_year))
+    !(year == "All" || (year %% 1 == 0 && year >= min_year && year <= max_year))
   ) {
     stop(
       paste0(

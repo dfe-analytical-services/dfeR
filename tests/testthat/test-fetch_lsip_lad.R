@@ -28,7 +28,7 @@ test_that("fetch_lsip_lad output matches lsip_lad dataset for all years", {
   )
 })
 
-test_that("fetch_lsip_lad output matches lsip_lad dataset for a specific year", {
+test_that("fetch_lsip_lad output matches lsip_lad for a specific year", {
   raw <- dfeR::lsip_lad
   # Pick a year present in the dataset
   test_year <- unique(raw$first_available_year_included)[1]
