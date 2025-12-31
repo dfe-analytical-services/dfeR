@@ -192,3 +192,16 @@ fetch_regions <- function() {
 fetch_countries <- function() {
   dfeR::countries
 }
+
+#' Fetch LSIP-LAD lookup
+#'
+#' Fetch a data frame of LSIP-LAD relationships for a given year.
+#'
+#' @param year Year to filter the lookup to, default is "All".
+#' @return data frame of LSIP-LAD relationships
+#' @export
+fetch_lsip_lad <- function(year = "All") {
+  lookup_data <- dfeR::lsip_lad
+  cols <- c("lad_code", "lad_name", "lsip_code", "lsip_name")
+  summarise_locations_by_year(lookup_data, cols, year)
+}

@@ -27,6 +27,54 @@ check_fetch_location_inputs <- function(year_input, country_input) {
   }
 }
 
+#' Summarise and filter locations by operational years
+#'
+#' Shared logic for summarising location lookups and filtering
+#' by operational years.
+#' Used by fetch_locations and fetch_lsip_lad.
+#'
+#' @param lookup_data The lookup data frame.
+#' @param cols Character vector of columns to keep and group by.
+#' @param year Year to filter to, or "All" for no filtering.
+#' @return A data frame summarised and filtered by operational years.
+#' @keywords internal
+#' @noRd
+summarise_locations_by_year <- function(lookup_data, cols, year = "All") {
+  cols_to_return <- seq_along(cols)
+  lookup <- dplyr::select(
+    lookup_data,
+    dplyr::all_of(
+      c(cols, "first_available_year_included", "most_recent_year_included")
+    )
+  )
+  resummarised_lookup <- lookup |>
+    dplyr::summarise(
+      "first_available_year_included" = min(
+        .data$first_available_year_included
+      ),
+      "most_recent_year_included" = max(.data$most_recent_year_included),
+      .by = dplyr::all_of(cols)
+    )
+  if (year == "All") {
+    return(dplyr::distinct(resummarised_lookup[, cols_to_return]))
+  }
+  resummarised_lookup <- resummarised_lookup |>
+    dplyr::mutate(
+      "in_specified_year" = ifelse(
+        as.numeric(.data$most_recent_year_included) >= year &
+          as.numeric(.data$first_available_year_included) <= year,
+        TRUE,
+        FALSE
+      )
+    )
+  resummarised_lookup <- with(
+    resummarised_lookup,
+    subset(resummarised_lookup, in_specified_year == TRUE)
+  ) |>
+    dplyr::select(-c("in_specified_year"))
+  dplyr::distinct(resummarised_lookup[, cols_to_return])
+}
+
 #' Fetch locations for a given lookup
 #'
 #' Helper function for the fetch_xxx() functions to save repeating code
@@ -42,54 +90,14 @@ check_fetch_location_inputs <- function(year_input, country_input) {
 #' @keywords internal
 #' @noRd
 fetch_locations <- function(lookup_data, cols, year, countries) {
-  # Return only the cols we specified
-  # We know their position from the dplyr selection of the lookup
-  # This is used wherever this function returns an output
-  cols_to_return <- seq_along(cols)
-
-  # Pull in main lookup data
-  lookup <- dplyr::select(
-    lookup_data,
-    dplyr::all_of(
-      c(cols, "first_available_year_included", "most_recent_year_included")
-    )
-  )
-
-  # Resummarise the years to each unique location
-  resummarised_lookup <- lookup |>
-    dplyr::summarise(
-      "first_available_year_included" =
-        min(.data$first_available_year_included),
-      "most_recent_year_included" =
-        max(.data$most_recent_year_included),
-      .by = dplyr::all_of(cols)
-    )
+  resummarised_lookup <- summarise_locations_by_year(lookup_data, cols, year)
 
   # Return early without filtering if defaults are used
   if (all(year == "All", countries == "All")) {
-    return(dplyr::distinct(resummarised_lookup[, cols_to_return]))
+    return(resummarised_lookup)
   }
 
-  # Filter based on year selection if specified
-  if (year != "All") {
-    # Flag the rows that are in the year asked for
-    resummarised_lookup <- resummarised_lookup |>
-      dplyr::mutate("in_specified_year" = ifelse(
-        as.numeric(.data$most_recent_year_included) >= year &
-          as.numeric(.data$first_available_year_included) <= year,
-        TRUE,
-        FALSE
-      ))
-
-    # Filter to only those locations
-    resummarised_lookup <- with(
-      resummarised_lookup,
-      subset(resummarised_lookup, in_specified_year == TRUE)
-    ) |>
-      dplyr::select(-c("in_specified_year")) # remove temp column
-  }
-
-  # Filter based on country selcetion if specified
+  # Filter based on country selection if specified
   if (paste0(countries, collapse = "") != "All") {
     # Get the code column
     # Take new_la_code if present (as sometimes there may also be old_la code)
@@ -117,5 +125,5 @@ fetch_locations <- function(lookup_data, cols, year, countries) {
       )
   }
 
-  dplyr::distinct(resummarised_lookup[, cols_to_return])
+  resummarised_lookup
 }
