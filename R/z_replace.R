@@ -117,14 +117,14 @@ z_replace <- function(data,
 
   # if exclude columns is specified, use the snake case version
   if (!is.null(exclude_columns)) {
-    data <- data %>%
+    data <- data |>
       dplyr::mutate(dplyr::across(
         -tidyselect::any_of(c(
           geog_time_identifiers,
           exclude_columns
         )),
         ~ as.character(.)
-      )) %>%
+      )) |>
       # replace NAs
       dplyr::mutate(dplyr::across(
         -tidyselect::any_of(c(
@@ -136,11 +136,11 @@ z_replace <- function(data,
   } else {
     # if exclude_columns is not specified, then use the saved potential
     # location and time columns only
-    data <- data %>%
+    data <- data |>
       dplyr::mutate(dplyr::across(
         -tidyselect::any_of(c(geog_time_identifiers)),
         ~ as.character(.)
-      )) %>%
+      )) |>
       # replace NAs
       dplyr::mutate(dplyr::across(
         -tidyselect::any_of(c(geog_time_identifiers)),
@@ -148,5 +148,5 @@ z_replace <- function(data,
       ))
   }
 
-  return(data)
+  data
 }
