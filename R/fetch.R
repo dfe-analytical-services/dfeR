@@ -193,14 +193,16 @@ fetch_countries <- function() {
   dfeR::countries
 }
 
-#' Fetch LSIP-LAD lookup
+#' Fetch Local Skills Improvement Plan (LSIP) areas lookup
 #'
-#' Fetch a data frame of LSIP-LAD relationships for a given year.
+#' Fetch a data frame of Local Skills Improvement Plan (LSIP) areas for a given year based on `dfeR::lsip_lad`.
 #'
 #' @param year Year to filter the lookup to, default is "All".
+#' @family fetch_locations
 #' @return data frame of LSIP-LAD relationships
 #' @export
-fetch_lsip_lad <- function(year = "All") {
+#' @inherit fetch examples
+fetch_lsip <- function(year = "All") {
   #convert year input to numeric if possible
   if (is.character(year) && year != "All") {
     year_num <- suppressWarnings(as.numeric(year))
@@ -226,6 +228,6 @@ fetch_lsip_lad <- function(year = "All") {
     )
   }
   lookup_data <- dfeR::lsip_lad
-  cols <- c("lad_code", "lad_name", "lsip_code", "lsip_name")
+  cols <- c("lsip_code", "lsip_name")
   summarise_locations_by_year(lookup_data, cols, year)
 }

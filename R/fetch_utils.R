@@ -31,7 +31,7 @@ check_fetch_location_inputs <- function(year_input, country_input) {
 #'
 #' Shared logic for summarising location lookups and filtering
 #' by operational years.
-#' Used by fetch_locations and fetch_lsip_lad.
+#' Used by fetch_locations and fetch_lsip.
 #'
 #' @param lookup_data The lookup data frame.
 #' @param cols Character vector of columns to keep and group by.

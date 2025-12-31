@@ -49,6 +49,7 @@ Other fetch_locations:
 \code{\link{fetch_countries}()},
 \code{\link{fetch_lads}()},
 \code{\link{fetch_las}()},
+\code{\link{fetch_lsip}()},
 \code{\link{fetch_mayoral}()},
 \code{\link{fetch_regions}()}
 }
