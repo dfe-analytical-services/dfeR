@@ -195,7 +195,8 @@ fetch_countries <- function() {
 
 #' Fetch Local Skills Improvement Plan (LSIP) areas lookup
 #'
-#' Fetch a data frame of Local Skills Improvement Plan (LSIP) areas for a given year based on `dfeR::lsip_lad`.
+#' Fetch a data frame of Local Skills Improvement Plan (LSIP) areas
+#' for a given year based on `dfeR::lsip_lad`.
 #'
 #' @param year Year to filter the lookup to, default is "All".
 #' @family fetch_locations
