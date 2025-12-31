@@ -16,7 +16,7 @@ reference:
   - regions
   - geog_time_identifiers
   - wd_pcon_lad_la_rgn_ctry
-  - lsip-lad
+  - lsip_lad
 
 - title: Database connection
   desc: Helpful functions for connecting to databases in DfE
