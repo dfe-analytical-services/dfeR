@@ -50,3 +50,29 @@ test_that("fetch_locations filters by year", {
   expect_true(all(result$code %in% c("E1", "S1", "N1")))
   expect_false("W1" %in% result$code)
 })
+
+test_that("summarise_locations_by_year works as expected", {
+  data <- data.frame(
+    lad_code = c("A", "A", "B"),
+    lad_name = c("Alpha", "Alpha", "Beta"),
+    lsip_code = c("X", "X", "Y"),
+    lsip_name = c("X-ray", "X-ray", "Yankee"),
+    first_available_year_included = c(2020, 2020, 2021),
+    most_recent_year_included = c(2022, 2022, 2023)
+  )
+  cols <- c("lad_code", "lad_name", "lsip_code", "lsip_name")
+  # All years
+  res <- summarise_locations_by_year(data, cols, year = "All")
+  expect_equal(nrow(res), 2)
+  expect_true(all(
+    c("lad_code", "lad_name", "lsip_code", "lsip_name") %in% names(res)
+  ))
+  # Filter by year
+  res2 <- summarise_locations_by_year(data, cols, year = 2021)
+  expect_true(all(
+    res2$first_available_year_included <= 2021 &
+      res2$most_recent_year_included >= 2021
+  ))
+  expect_false("first_available_year_included" %in% names(res2))
+  expect_false("most_recent_year_included" %in% names(res2))
+})

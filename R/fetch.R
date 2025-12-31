@@ -201,6 +201,34 @@ fetch_countries <- function() {
 #' @return data frame of LSIP-LAD relationships
 #' @export
 fetch_lsip_lad <- function(year = "All") {
+  #convert year input to numeric if possible
+  if (is.character(year) && year != "All") {
+    year_num <- suppressWarnings(as.numeric(year))
+    if (!is.na(year_num)) {
+      year <- year_num
+    }
+  }
+
+  #add a check for year input to see if it's in range
+  min_year <- min(dfeR::lsip_lad$first_available_year_included)
+  max_year <- max(dfeR::lsip_lad$most_recent_year_included)
+  if (
+    !(year == "All" ||
+      (is.numeric(year) &&
+        year %% 1 == 0 &&
+        year >= min_year &&
+        year <= max_year))
+  ) {
+    stop(
+      paste0(
+        "year must either be 'All' or a valid year between ",
+        min_year,
+        " and ",
+        max_year
+      ),
+      call. = FALSE
+    )
+  }
   lookup_data <- dfeR::lsip_lad
   cols <- c("lad_code", "lad_name", "lsip_code", "lsip_name")
   summarise_locations_by_year(lookup_data, cols, year)
