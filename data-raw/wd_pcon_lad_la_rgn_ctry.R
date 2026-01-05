@@ -76,9 +76,16 @@ lad_region_years <- c(2017:2020, 2022:2023)
 wd_pcon_lad_la <- lapply(wd_pcon_lad_la_years, get_wd_pcon_lad_la) |>
   create_time_series_lookup() |> # smush together into single data frame
   dplyr::select(
-    "first_available_year_included", "most_recent_year_included",
-    "ward_name", "pcon_name", "lad_name", "la_name",
-    "ward_code", "pcon_code", "lad_code", "new_la_code",
+    "first_available_year_included",
+    "most_recent_year_included",
+    "ward_name",
+    "pcon_name",
+    "lad_name",
+    "la_name",
+    "ward_code",
+    "pcon_code",
+    "lad_code",
+    "new_la_code",
   )
 
 # Get the regions lookup ------------------------------------------------------
@@ -130,31 +137,46 @@ wd_pcon_lad_la_rgn_ctry <- wd_pcon_lad_la_rgn_ctry |>
 # Add 3 digit local authority codes from GIAS  ----------------------------
 wd_pcon_lad_la_rgn_ctry <- wd_pcon_lad_la_rgn_ctry |>
   # join the data onto the GIAs LA 3 digit code data
-  dplyr::left_join(old_la_codes, by = c(
-    "la_name" = "la_name",
-    "new_la_code" = "new_la_code"
-  )) |>
-  dplyr::mutate(old_la_code = dplyr::if_else(is.na(old_la_code),
-    "z", old_la_code
-  )) |>
+  dplyr::left_join(
+    old_la_codes,
+    by = c(
+      "la_name" = "la_name",
+      "new_la_code" = "new_la_code"
+    )
+  ) |>
+  dplyr::mutate(
+    old_la_code = dplyr::if_else(is.na(old_la_code), "z", old_la_code)
+  ) |>
   dplyr::distinct()
 
 # Set the order of the columns ------------------------------------------------
 wd_pcon_lad_la_rgn_ctry <- wd_pcon_lad_la_rgn_ctry |>
   dplyr::select(
-    "first_available_year_included", "most_recent_year_included",
-    "ward_name", "pcon_name", "lad_name", "la_name",
-    "region_name", "country_name",
-    "ward_code", "pcon_code", "lad_code", "old_la_code", "new_la_code",
-    "region_code", "country_code"
+    "first_available_year_included",
+    "most_recent_year_included",
+    "ward_name",
+    "pcon_name",
+    "lad_name",
+    "la_name",
+    "region_name",
+    "country_name",
+    "ward_code",
+    "pcon_code",
+    "lad_code",
+    "old_la_code",
+    "new_la_code",
+    "region_code",
+    "country_code"
   )
 
 # QA the joining --------------------------------------------------------------
 # Check for any regions that failed to join
 region_error_check <- wd_pcon_lad_la_rgn_ctry |>
   filter(
-    region_code == "" | region_name == "" |
-      is.na(region_name) | is.na(region_code)
+    region_code == "" |
+      region_name == "" |
+      is.na(region_name) |
+      is.na(region_code)
   )
 
 if (nrow(region_error_check) > 0) {

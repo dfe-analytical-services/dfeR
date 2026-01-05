@@ -58,22 +58,19 @@ summarise_locations_by_year <- function(lookup_data, cols, year = "All") {
   if (year == "All") {
     return(dplyr::distinct(resummarised_lookup[, cols_to_return]))
   }
-  resummarised_lookup <- resummarised_lookup |>
-    dplyr::mutate(
-      "in_specified_year" = ifelse(
-        as.numeric(.data$most_recent_year_included) >= year &
-          as.numeric(.data$first_available_year_included) <= year,
-        TRUE,
-        FALSE
+
+  # Filter based on year selection if specified
+  if (year != "All") {
+    # Flag the rows that are in the year asked for
+    resummarised_lookup <- resummarised_lookup |>
+      dplyr::mutate(
+        "in_specified_year" = ifelse(
+          as.numeric(.data$most_recent_year_included) >= year &
+            as.numeric(.data$first_available_year_included) <= year,
+          TRUE,
+          FALSE
+        )
       )
-    )
-  resummarised_lookup <- with(
-    resummarised_lookup,
-    subset(resummarised_lookup, in_specified_year == TRUE)
-  ) |>
-    dplyr::select(-c("in_specified_year"))
-  dplyr::distinct(resummarised_lookup[, cols_to_return])
-}
 
 #' Fetch locations for a given lookup
 #'

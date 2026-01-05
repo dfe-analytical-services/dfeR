@@ -33,6 +33,7 @@ Imports:
     lifecycle,
     renv,
     rlang,
+    rstudio.prefs,
     tidyselect,
     usethis,
     utils,

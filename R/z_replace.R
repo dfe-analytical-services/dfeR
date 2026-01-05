@@ -42,9 +42,7 @@
 #' # Use a different replacement value
 #' z_replace(df, replacement_alt = "c")
 #'
-z_replace <- function(data,
-                      replacement_alt = NULL,
-                      exclude_columns = NULL) {
+z_replace <- function(data, replacement_alt = NULL, exclude_columns = NULL) {
   # check if table is empty
 
   # Check if the table has rows - if not, stop the process
@@ -66,7 +64,6 @@ z_replace <- function(data,
   ref_col_names <- gsub("  ", " ", ref_col_names)
   # adding _ instead of spaces
   ref_col_names <- gsub(" ", "_", tolower(ref_col_names))
-
 
   # standardize column names for data input
   data_col_names_og <- colnames(data)
@@ -98,7 +95,8 @@ z_replace <- function(data,
     # check that replacement_alt is a single character vector
   } else if (!is.character(replacement_alt)) {
     stop(
-      "You provided a ", data.class(replacement_alt),
+      "You provided a ",
+      data.class(replacement_alt),
       " input for replacement_alt.\n",
       "Please amend replace it with a character vector."
     )
@@ -111,7 +109,6 @@ z_replace <- function(data,
     # otherwise use the provided replacement
     replacement_alt <- replacement_alt
   }
-
 
   # start loop based on exclude_columns
 
