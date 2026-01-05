@@ -49,16 +49,17 @@
 #'     f = "json"
 #'   )
 #' )
-get_ons_api_data <- function(data_id,
-                             query_params =
-                               list(
-                                 where = "1=1",
-                                 outFields = "*",
-                                 outSR = "4326",
-                                 f = "json"
-                               ),
-                             batch_size = 200,
-                             verbose = TRUE) {
+get_ons_api_data <- function(
+  data_id,
+  query_params = list(
+    where = "1=1",
+    outFields = "*",
+    outSR = "4326",
+    f = "json"
+  ),
+  batch_size = 200,
+  verbose = TRUE
+) {
   # Known URL for ONS API
   # Split in two parts so that the data_id can be smushed in the middle
   part_1 <-
@@ -93,7 +94,9 @@ get_ons_api_data <- function(data_id,
   batches <- split(1:total_ids, ceiling(seq_along(1:total_ids) / batch_size))
   num_of_batches <- length(batches)
   dfeR::toggle_message(
-    "Created ", num_of_batches, " batches of objects to query",
+    "Created ",
+    num_of_batches,
+    " batches of objects to query",
     verbose = verbose
   )
 
@@ -105,9 +108,13 @@ get_ons_api_data <- function(data_id,
   # Loop the the main feature query (this gets the locations data itself)
   for (batch_num in seq_along(1:num_of_batches)) {
     dfeR::toggle_message(
-      "...fetching batch ", batch_num, ": objects ",
-      dfeR::pretty_num(min(batches[[batch_num]])), " to ",
-      dfeR::pretty_num(max(batches[[batch_num]])), "...",
+      "...fetching batch ",
+      batch_num,
+      ": objects ",
+      dfeR::pretty_num(min(batches[[batch_num]])),
+      " to ",
+      dfeR::pretty_num(max(batches[[batch_num]])),
+      "...",
       verbose = verbose
     )
 
@@ -134,7 +141,8 @@ get_ons_api_data <- function(data_id,
     full_table <- rbind(full_table, jsonlite::flatten(batch_parsed$features))
 
     dfeR::toggle_message(
-      "...success! There are now ", dfeR::pretty_num(nrow(full_table)),
+      "...success! There are now ",
+      dfeR::pretty_num(nrow(full_table)),
       " rows in your table...",
       verbose = verbose
     )

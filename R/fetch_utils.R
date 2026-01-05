@@ -58,10 +58,10 @@ fetch_locations <- function(lookup_data, cols, year, countries) {
   # Resummarise the years to each unique location
   resummarised_lookup <- lookup |>
     dplyr::summarise(
-      "first_available_year_included" =
-        min(.data$first_available_year_included),
-      "most_recent_year_included" =
-        max(.data$most_recent_year_included),
+      "first_available_year_included" = min(
+        .data$first_available_year_included
+      ),
+      "most_recent_year_included" = max(.data$most_recent_year_included),
       .by = dplyr::all_of(cols)
     )
 
@@ -74,12 +74,14 @@ fetch_locations <- function(lookup_data, cols, year, countries) {
   if (year != "All") {
     # Flag the rows that are in the year asked for
     resummarised_lookup <- resummarised_lookup |>
-      dplyr::mutate("in_specified_year" = ifelse(
-        as.numeric(.data$most_recent_year_included) >= year &
-          as.numeric(.data$first_available_year_included) <= year,
-        TRUE,
-        FALSE
-      ))
+      dplyr::mutate(
+        "in_specified_year" = ifelse(
+          as.numeric(.data$most_recent_year_included) >= year &
+            as.numeric(.data$first_available_year_included) <= year,
+          TRUE,
+          FALSE
+        )
+      )
 
     # Filter to only those locations
     resummarised_lookup <- with(
