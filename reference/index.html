@@ -36,7 +36,37 @@
     </div>
 
     <div class="section level2">
-      <h2 id="data-sets">Data sets<a class="anchor" aria-label="anchor" href="#data-sets"></a></h2>
+      <h2 id="templates-code-formatting-and-system-set-up">Templates, code formatting and system set-up<a class="anchor" aria-label="anchor" href="#templates-code-formatting-and-system-set-up"></a></h2>
+
+      <div class="section-desc"><p>Tools for establishing relevant user settings</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="air_install.html">air_install()</a></code>
+
+        </dt>
+        <dd>Air Install</dd>
+
+        <dt>
+
+          <code><a href="air_style.html">air_style()</a></code>
+
+        </dt>
+        <dd>Air - style code in scripts</dd>
+
+        <dt>
+
+          <code><a href="create_project.html">create_project()</a></code>
+
+        </dt>
+        <dd>Creates a pre-populated project for DfE R</dd>
+      </dl></div><div class="section level2">
+      <h2 id="standard-dfe-data-sets">Standard DfE data sets<a class="anchor" aria-label="anchor" href="#standard-dfe-data-sets"></a></h2>
 
       <div class="section-desc"><p>Data sets exported in the package</p></div>
 
@@ -86,29 +116,6 @@
           <span class="badge lifecycle lifecycle-deprecated">deprecated</span>
         </dt>
         <dd>Ward to Constituency to LAD to LA to Region to Country lookup</dd>
-      </dl></div><div class="section level2">
-      <h2 id="database-connection">Database connection<a class="anchor" aria-label="anchor" href="#database-connection"></a></h2>
-
-      <div class="section-desc"><p>Helpful functions for connecting to databases in DfE</p></div>
-
-      <dl></dl></div><div class="section level2">
-
-
-
-
-      <dl><dt>
-
-          <code><a href="get_clean_sql.html">get_clean_sql()</a></code>
-
-        </dt>
-        <dd>Get a cleaned SQL script into R</dd>
-
-        <dt>
-
-          <code><a href="check_databricks_odbc.html">check_databricks_odbc()</a></code>
-
-        </dt>
-        <dd>Check Databricks ODBC connection variables</dd>
       </dl></div><div class="section level2">
       <h2 id="fetch-geography-lists">Fetch geography lists<a class="anchor" aria-label="anchor" href="#fetch-geography-lists"></a></h2>
 
@@ -167,6 +174,36 @@
 
         </dt>
         <dd>Fetch wards</dd>
+
+        <dt>
+
+          <code><a href="get_ons_api_data.html">get_ons_api_data()</a></code>
+
+        </dt>
+        <dd>Fetch ONS Open Geography API data</dd>
+      </dl></div><div class="section level2">
+      <h2 id="database-connection">Database connection<a class="anchor" aria-label="anchor" href="#database-connection"></a></h2>
+
+      <div class="section-desc"><p>Helpful functions for connecting to databases in DfE</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="get_clean_sql.html">get_clean_sql()</a></code>
+
+        </dt>
+        <dd>Get a cleaned SQL script into R</dd>
+
+        <dt>
+
+          <code><a href="check_databricks_odbc.html">check_databricks_odbc()</a></code>
+
+        </dt>
+        <dd>Check Databricks ODBC connection variables</dd>
       </dl></div><div class="section level2">
       <h2 id="presentation-prettifiers">Presentation prettifiers<a class="anchor" aria-label="anchor" href="#presentation-prettifiers"></a></h2>
 
@@ -211,22 +248,27 @@
 
         </dt>
         <dd>Calculate elapsed time between two points and present prettily</dd>
-      </dl></div><div class="section level2">
-      <h2 id="pre-populated-project">Pre-populated project<a class="anchor" aria-label="anchor" href="#pre-populated-project"></a></h2>
 
-      <div class="section-desc"><p>A function to create a new R project with a pre-populated folder and file structure</p></div>
+        <dt>
 
-      <dl></dl></div><div class="section level2">
-
-
-
-
-      <dl><dt>
-
-          <code><a href="create_project.html">create_project()</a></code>
+          <code><a href="round_five_up.html">round_five_up()</a></code>
 
         </dt>
-        <dd>Creates a pre-populated project for DfE R</dd>
+        <dd>Round five up</dd>
+
+        <dt>
+
+          <code><a href="comma_sep.html">comma_sep()</a></code>
+
+        </dt>
+        <dd>Comma separate</dd>
+
+        <dt>
+
+          <code><a href="z_replace.html">z_replace()</a></code>
+
+        </dt>
+        <dd>Replaces <code>NA</code> values in tables</dd>
       </dl></div><div class="section level2">
       <h2 id="specific-formats">Specific formats<a class="anchor" aria-label="anchor" href="#specific-formats"></a></h2>
 
@@ -276,47 +318,10 @@
 
       <dl><dt>
 
-          <code><a href="round_five_up.html">round_five_up()</a></code>
-
-        </dt>
-        <dd>Round five up</dd>
-
-        <dt>
-
-          <code><a href="comma_sep.html">comma_sep()</a></code>
-
-        </dt>
-        <dd>Comma separate</dd>
-
-        <dt>
-
-          <code><a href="get_ons_api_data.html">get_ons_api_data()</a></code>
-
-        </dt>
-        <dd>Fetch ONS Open Geography API data</dd>
-
-        <dt>
-
           <code><a href="toggle_message.html">toggle_message()</a></code>
 
         </dt>
         <dd>Controllable console messages</dd>
-      </dl></div><div class="section level2">
-      <h2 id="replace-na-values">Replace NA values<a class="anchor" aria-label="anchor" href="#replace-na-values"></a></h2>
-
-      <div class="section-desc"><p>Replace NA values with the default “z” or an alternative replacement</p></div>
-
-      <dl></dl></div><div class="section level2">
-
-
-
-
-      <dl><dt>
-
-          <code><a href="z_replace.html">z_replace()</a></code>
-
-        </dt>
-        <dd>Replaces <code>NA</code> values in tables</dd>
       </dl></div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>

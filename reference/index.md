@@ -1,6 +1,17 @@
 # Package index
 
-## Data sets
+## Templates, code formatting and system set-up
+
+Tools for establishing relevant user settings
+
+- [`air_install()`](https://dfe-analytical-services.github.io/dfeR/reference/air_install.md)
+  : Air Install
+- [`air_style()`](https://dfe-analytical-services.github.io/dfeR/reference/air_style.md)
+  : Air - style code in scripts
+- [`create_project()`](https://dfe-analytical-services.github.io/dfeR/reference/create_project.md)
+  : Creates a pre-populated project for DfE R
+
+## Standard DfE data sets
 
 Data sets exported in the package
 
@@ -17,15 +28,6 @@ Data sets exported in the package
 - [`wd_pcon_lad_la_rgn_ctry`](https://dfe-analytical-services.github.io/dfeR/reference/wd_pcon_lad_la_rgn_ctry.md)
   **\[deprecated\]** : Ward to Constituency to LAD to LA to Region to
   Country lookup
-
-## Database connection
-
-Helpful functions for connecting to databases in DfE
-
-- [`get_clean_sql()`](https://dfe-analytical-services.github.io/dfeR/reference/get_clean_sql.md)
-  : Get a cleaned SQL script into R
-- [`check_databricks_odbc()`](https://dfe-analytical-services.github.io/dfeR/reference/check_databricks_odbc.md)
-  : Check Databricks ODBC connection variables
 
 ## Fetch geography lists
 
@@ -45,6 +47,17 @@ Pull geography lookups from the ONS Geography Portal
   : Fetch regions
 - [`fetch_wards()`](https://dfe-analytical-services.github.io/dfeR/reference/fetch_wards.md)
   : Fetch wards
+- [`get_ons_api_data()`](https://dfe-analytical-services.github.io/dfeR/reference/get_ons_api_data.md)
+  : Fetch ONS Open Geography API data
+
+## Database connection
+
+Helpful functions for connecting to databases in DfE
+
+- [`get_clean_sql()`](https://dfe-analytical-services.github.io/dfeR/reference/get_clean_sql.md)
+  : Get a cleaned SQL script into R
+- [`check_databricks_odbc()`](https://dfe-analytical-services.github.io/dfeR/reference/check_databricks_odbc.md)
+  : Check Databricks ODBC connection variables
 
 ## Presentation prettifiers
 
@@ -68,13 +81,16 @@ Functions for presenting pretty versions of numbers with readable code
 - [`pretty_time_taken()`](https://dfe-analytical-services.github.io/dfeR/reference/pretty_time_taken.md)
   : Calculate elapsed time between two points and present prettily
 
-## Pre-populated project
+- [`round_five_up()`](https://dfe-analytical-services.github.io/dfeR/reference/round_five_up.md)
+  : Round five up
 
-A function to create a new R project with a pre-populated folder and
-file structure
+- [`comma_sep()`](https://dfe-analytical-services.github.io/dfeR/reference/comma_sep.md)
+  : Comma separate
 
-- [`create_project()`](https://dfe-analytical-services.github.io/dfeR/reference/create_project.md)
-  : Creates a pre-populated project for DfE R
+- [`z_replace()`](https://dfe-analytical-services.github.io/dfeR/reference/z_replace.md)
+  :
+
+  Replaces `NA` values in tables
 
 ## Specific formats
 
@@ -94,20 +110,5 @@ Functions for converting to specific formats
 Functions used in other functions across the package, exported as they
 can also be useful in their own right
 
-- [`round_five_up()`](https://dfe-analytical-services.github.io/dfeR/reference/round_five_up.md)
-  : Round five up
-- [`comma_sep()`](https://dfe-analytical-services.github.io/dfeR/reference/comma_sep.md)
-  : Comma separate
-- [`get_ons_api_data()`](https://dfe-analytical-services.github.io/dfeR/reference/get_ons_api_data.md)
-  : Fetch ONS Open Geography API data
 - [`toggle_message()`](https://dfe-analytical-services.github.io/dfeR/reference/toggle_message.md)
   : Controllable console messages
-
-## Replace NA values
-
-Replace NA values with the default “z” or an alternative replacement
-
-- [`z_replace()`](https://dfe-analytical-services.github.io/dfeR/reference/z_replace.md)
-  :
-
-  Replaces `NA` values in tables

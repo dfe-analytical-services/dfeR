@@ -28,14 +28,14 @@
 Source:
 [`DESCRIPTION`](https://github.com/dfe-analytical-services/dfeR/blob/main/DESCRIPTION)
 
-Race C, Selby L, Robinson A (2025). *dfeR: Common Department for
+Race C, Selby L, Robinson A (2026). *dfeR: Common Department for
 Education Analysis Tasks*. R package version 1.2.0.9000,
 <https://dfe-analytical-services.github.io/dfeR/>.
 
     @Manual{,
       title = {dfeR: Common Department for Education Analysis Tasks},
       author = {Cam Race and Laura Selby and Adam Robinson},
-      year = {2025},
+      year = {2026},
       note = {R package version 1.2.0.9000},
       url = {https://dfe-analytical-services.github.io/dfeR/},
     }
