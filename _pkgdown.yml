@@ -7,7 +7,7 @@ template:
     code-color: "ffffff"
 
 reference:
-- title: System set-up and cide management
+- title: Templates, code formatting and system set-up
   desc: Tools for establishing relevant user settings
   contents:
   - air_install
