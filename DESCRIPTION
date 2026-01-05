@@ -31,7 +31,6 @@ Imports:
     httr,
     jsonlite,
     lifecycle,
-    magrittr,
     renv,
     rlang,
     rstudio.prefs,
