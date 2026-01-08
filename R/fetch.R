@@ -28,6 +28,10 @@
 #'
 #' head(fetch_mayoral())
 #'
+#' head(fetch_lsip())
+#'
+#' head(fetch_lsip(2024))
+#'
 #' fetch_lads(2024, "Wales")
 #'
 #' fetch_las(2022, "Northern Ireland")
@@ -191,4 +195,44 @@ fetch_regions <- function() {
 #' @inherit fetch examples
 fetch_countries <- function() {
   dfeR::countries
+}
+
+#' Fetch Local Skills Improvement Plan (LSIP) areas lookup
+#'
+#' Fetch a data frame of Local Skills Improvement Plan (LSIP) areas
+#' for a given year based on `dfeR::lsip_lad`.
+#'
+#' @param year Year to filter the lookup to, default is "All".
+#' @family fetch_locations
+#' @return data frame of LSIP-LAD relationships
+#' @export
+#' @inherit fetch examples
+fetch_lsip <- function(year = "All") {
+  #convert year input to numeric if possible
+  if (is.character(year) && year != "All") {
+    year_num <- suppressWarnings(as.numeric(year))
+    if (!is.na(year_num)) {
+      year <- year_num
+    }
+  }
+
+  #add a check for year input to see if it's in range
+  min_year <- min(dfeR::lsip_lad$first_available_year_included)
+  max_year <- max(dfeR::lsip_lad$most_recent_year_included)
+  if (
+    !(year == "All" || (year %% 1 == 0 && year >= min_year && year <= max_year))
+  ) {
+    stop(
+      paste0(
+        "year must either be 'All' or a valid year between ",
+        min_year,
+        " and ",
+        max_year
+      ),
+      call. = FALSE
+    )
+  }
+  lookup_data <- dfeR::lsip_lad
+  cols <- c("lsip_code", "lsip_name")
+  summarise_locations_by_year(lookup_data, cols, year)
 }

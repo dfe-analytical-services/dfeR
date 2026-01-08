@@ -27,6 +27,10 @@ head(fetch_pcons(year = 2023, countries = c("England", "Wales")))
 
 head(fetch_mayoral())
 
+head(fetch_lsip())
+
+head(fetch_lsip(2024))
+
 fetch_lads(2024, "Wales")
 
 fetch_las(2022, "Northern Ireland")
@@ -39,6 +43,7 @@ fetch_countries()
 Other fetch_locations: 
 \code{\link{fetch_lads}()},
 \code{\link{fetch_las}()},
+\code{\link{fetch_lsip}()},
 \code{\link{fetch_mayoral}()},
 \code{\link{fetch_regions}()},
 \code{\link{fetch_wards}()}

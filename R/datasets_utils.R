@@ -586,3 +586,81 @@ get_cauth_lad <- function(year) {
   # Tidy up the output file (defined earlier in this script)
   tidy_raw_lookup(output)
 }
+
+#' Fetch and combine LSIP-LAD lookup data for multiple years
+#'
+#' Downloads, binds, and tidies LSIP-LAD lookup data from ONS Geography portal
+#' API for multiple years.
+#' The function constructs the correct URLs for each year, fetches the data,
+#'  adds a year column, and combines all years into a single data frame.
+#' It then collapses the time series to add `first_available_year_included`
+#' and `most_recent_year_included` columns, and removes duplicates.
+#' Currently supports data for the years 2023 and 2025.
+#' To add support for additional years, update the `yr_specific_url` list
+#' with the appropriate year and URL segment.
+#'
+#' @return A data frame containing the combined LSIP-LAD lookup for all years,
+#' with columns for codes, names, year, and operational period.
+#' @keywords internal
+#' @noRd
+get_lsip_lad <- function() {
+  # Base URL components
+  url_prefix_1 <- "https://services1.arcgis.com/"
+  url_prefix_2 <- "ESMARspQHYMw9BZ9/arcgis/rest/services/"
+  url_suffix <- "/FeatureServer/0/query?outFields=*&where=1%3D1&f=json"
+
+  # Year-specific URL segments
+  yr_specific_url <- list(
+    "2023" = "LAD23_LSIP23_EN_LU",
+    "2025" = "LAD25_LSIP25_EN_LU"
+  )
+  #Create an empty list to store data frames
+  data_frames <- list()
+  #Loop through each year and fetch data
+  for (year in names(yr_specific_url)) {
+    #Construct the full URL
+    full_url <- paste0(
+      url_prefix_1,
+      url_prefix_2,
+      yr_specific_url[[year]],
+      url_suffix
+    )
+
+    #Make the GET request and parse the JSON response
+    response <- httr::GET(full_url)
+    # get the content and convert from json
+    data <- jsonlite::fromJSON(httr::content(response, "text"))
+
+    #Extract the attributes and convert to data frame
+    df <- as.data.frame(data$features$attributes) |>
+      #create a year column
+      dplyr::mutate(year = as.integer(year)) |>
+      #rename columns based on position so binding works
+      dplyr::select(
+        year,
+        lad_code = 1,
+        lad_name = 2,
+        lsip_code = 3,
+        lsip_name = 4
+      )
+
+    #put the data frame into the list
+    data_frames[[year]] <- df
+  }
+  #Combine all data frames into one
+  combined_df <- do.call(rbind, data_frames)
+  #get first_available and most_recent year columns
+  combined_df <- combined_df |>
+    collapse_timeseries() |>
+    # strip extra whitespace from all columns
+    dplyr::mutate(
+      dplyr::across(
+        dplyr::everything(),
+        ~ trimws(.x)
+      )
+    ) |>
+    #make sure we remove duplicates
+    dplyr::distinct()
+
+  combined_df
+}

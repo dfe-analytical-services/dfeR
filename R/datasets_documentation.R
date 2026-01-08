@@ -198,3 +198,30 @@
 #' https://get-information-schools.service.gov.uk/Guidance/LaNameCodes and
 #' https://tinyurl.com/EESScreenerLAs
 "wd_pcon_lad_la_rgn_ctry"
+
+#' Local Skills Improvement Plan (LSIP) areas to
+#' Local Authority District (LAD) Lookup
+#'
+#' A lookup table mapping Local Skills Improvement Plan (LSIP)
+#' areas to Local Authority Districts (LADs) in England. This dataset provides
+#' a mapping between LSIP areas and LADs as provided by
+#' the ONS Geography Portal.
+#'
+#' @details
+#' - Each LAD is assigned to a single LSIP area.
+#' - Mappings may change over time and can be tracked using the
+#'   `most_recent_year_included` and `first_available_year_included`
+#'    columns.
+#' - The lookup is based on the boundaries provided by the ONS Open
+#'    Geography Portal (2023 and 2025).
+#'
+#' @format ## `lsip_lad`
+#' A data frame with one row per LAD in England and the following columns:
+#' \describe{
+#'   \item{lad_code}{9-character code for the Local Authority District}
+#'   \item{lad_name}{Name of the Local Authority District}
+#'   \item{lsip_code}{9- character code for the LSIP area}
+#'   \item{lsip_name}{Name of the Local Skills Improvement Plan (LSIP) area}
+#' }
+#' @source https://geoportal.statistics.gov.uk/search?q=lad%20lsip
+"lsip_lad"
