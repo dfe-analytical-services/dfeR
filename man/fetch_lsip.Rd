@@ -13,7 +13,8 @@ fetch_lsip(year = "All")
 data frame of LSIP-LAD relationships
 }
 \description{
-Fetch a data frame of Local Skills Improvement Plan (LSIP) areas for a given year based on \code{dfeR::lsip_lad}.
+Fetch a data frame of Local Skills Improvement Plan (LSIP) areas
+for a given year based on \code{dfeR::lsip_lad}.
 }
 \examples{
 
@@ -29,6 +30,10 @@ head(fetch_pcons(countries = "Scotland"))
 head(fetch_pcons(year = 2023, countries = c("England", "Wales")))
 
 head(fetch_mayoral())
+
+head(fetch_lsip())
+
+head(fetch_lsip(2024))
 
 fetch_lads(2024, "Wales")
 

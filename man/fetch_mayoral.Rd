@@ -39,6 +39,10 @@ head(fetch_pcons(year = 2023, countries = c("England", "Wales")))
 
 head(fetch_mayoral())
 
+head(fetch_lsip())
+
+head(fetch_lsip(2024))
+
 fetch_lads(2024, "Wales")
 
 fetch_las(2022, "Northern Ireland")
