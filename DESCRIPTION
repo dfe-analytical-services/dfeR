@@ -25,10 +25,13 @@ BugReports: https://github.com/dfe-analytical-services/dfeR/issues
 Depends: 
     R (>= 4.1.0)
 Imports: 
+    arrow,
     cli,
+    DBI,
     dplyr,
     emoji,
     httr,
+    httr2,
     jsonlite,
     lifecycle,
     renv,
@@ -45,7 +48,8 @@ Suggests:
     spelling,
     stringr,
     tidyr,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    mockery
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3
