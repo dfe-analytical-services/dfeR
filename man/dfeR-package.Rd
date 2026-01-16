@@ -37,6 +37,7 @@ Other contributors:
   \item Menna Zayed \email{menna.zayed@education.gov.uk} [contributor]
   \item Lauren Snaathorst \email{lauren.snaathorst@education.gov.uk} [contributor]
   \item Lara Garbett \email{lara.garbett@education.gov.uk} [contributor]
+  \item Paula Rocha \email{paula.rocha@education.gov.uk} [contributor]
 }
 
 }

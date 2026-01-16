@@ -19,3 +19,8 @@ Prints instructions for fixing common problems to the console.
 \examples{
 check_databricks_odbc()
 }
+\seealso{
+Other databricks: 
+\code{\link{write_df_to_delta}()}
+}
+\concept{databricks}

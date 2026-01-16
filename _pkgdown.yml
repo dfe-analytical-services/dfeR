@@ -35,6 +35,7 @@ reference:
   contents:
   - get_clean_sql
   - check_databricks_odbc
+  - write_df_to_delta
 
 - title: Presentation prettifiers
   desc: Functions for presenting pretty versions of numbers with readable code
