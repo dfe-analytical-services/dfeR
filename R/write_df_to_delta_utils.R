@@ -7,6 +7,7 @@
 #' @return Stops execution if the connection is NULL, of wrong class,
 #' or not valid.
 #' @keywords internal
+#' @noRd
 #' @import DBI
 validate_db_connection <- function(db_conn) {
   if (is.null(db_conn)) {
@@ -57,6 +58,7 @@ validate_db_connection <- function(db_conn) {
 #' resolve_table_parts("my_catalog.my_schema.my_table", conn)
 #' }
 #' @keywords internal
+#' @noRd
 #' @import DBI
 resolve_table_parts <- function(table_name, db_conn) {
   parts <- strsplit(table_name, "\\.")[[1]]
@@ -113,6 +115,7 @@ resolve_table_parts <- function(table_name, db_conn) {
 #' db_exists_table_ignore_case(db_conn, "my_catalog.my_schema.my_table")
 #' }
 #' @keywords internal
+#' @noRd
 #' @import DBI
 db_exists_table_ignore_case <- function(db_conn, table_name) {
   # Parse the fully qualified table name into catalog, schema, and
@@ -168,6 +171,7 @@ db_exists_table_ignore_case <- function(db_conn, table_name) {
 #' row_count <- count_delta_rows("catalog.schema.my_table", conn)
 #' }
 #' @keywords internal
+#' @noRd
 #' @import DBI
 count_delta_rows <- function(target_table, db_conn) {
   # Check that db_conn is a valid DBI connection
@@ -228,6 +232,7 @@ count_delta_rows <- function(target_table, db_conn) {
 #' }
 #'
 #' @keywords internal
+#' @noRd
 #' @import httr2
 safe_req_perform <- function(req, max_tries = 5, wait_base = 2) {
   # Try to perform the HTTP request up to max_tries times
@@ -286,6 +291,7 @@ safe_req_perform <- function(req, max_tries = 5, wait_base = 2) {
 #' }
 #'
 #' @keywords internal
+#' @noRd
 #' @import httr2
 volume_exists <- function(volume_dir) {
   # Read Databricks host and token from environment
@@ -352,6 +358,7 @@ volume_exists <- function(volume_dir) {
 #' }
 #'
 #' @keywords internal
+#' @noRd
 #' @import httr2
 upload_to_volume <- function(local_file, volume_file) {
   # Set Databricks host and token for file uploads
@@ -401,6 +408,7 @@ upload_to_volume <- function(local_file, volume_file) {
 #' }
 #'
 #' @keywords internal
+#' @noRd
 #' @import httr2
 delete_from_volume <- function(volume_file) {
   # Set Databricks host and token for file deletion
@@ -486,6 +494,7 @@ delete_from_volume <- function(volume_file) {
 #' }
 #'
 #' @keywords internal
+#' @noRd
 #' @import DBI
 #' @importFrom dplyr coalesce
 create_empty_delta <- function(df_or_schema, target_table, db_conn) {
@@ -651,6 +660,7 @@ create_empty_delta <- function(df_or_schema, target_table, db_conn) {
 #' }
 #'
 #' @keywords internal
+#' @noRd
 #' @import DBI
 copy_into_delta <- function(target_table, volume_file, db_conn,
                             copy_options = "'mergeSchema' = 'true'") {

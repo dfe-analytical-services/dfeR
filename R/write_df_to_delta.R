@@ -1,22 +1,38 @@
 #' Write a Data Frame to Delta Lake with COPY INTO
 #'
+#' @description
 #' This function writes a large R data frame or tibble (`df`) to a Delta Lake
 #' table (`target_table`) on Databricks using Databricks Volumes and the
 #' `COPY INTO` SQL command.
 #'
-#' @description
-#' The function:
-#' - Optionally overwrites the table
-#' - Uploads the data as a Parquet file(s) to a Volume
-#' - Executes a `COPY INTO` command to load the file(s) into Delta Lake
-#' - Deletes the temporary file(s) after loading
-#'
 #' @details
-#' This function requires the following R packages:
-#' - `DBI`
-#' - `arrow`
-#' - `httr2`
-#' - `dplyr`
+#' The function performs the following steps:
+#' \itemize{
+#'   \item Optionally overwrites the target table.
+#'   \item Uploads the data as Parquet file(s) to a specified Databricks Volume.
+#'   \item Executes a `COPY INTO` command to load the file(s) into Delta Lake.
+#'   \item Deletes the temporary file(s) from the Volume after loading is
+#'   complete.
+#' }
+#'
+#' Data is chunked into segments during upload to accommodate the
+#' Databricks REST API limit of 5 GB per single file upload.
+#'
+#' @note
+#' To use this function, users must ensure that they have appropriate
+#' Databricks permissions:
+#' \itemize{
+#'   \item \strong{Catalog/schema}: \code{USE CATALOG} on the target catalog
+#'   and \code{USE SCHEMA} on the target schema.
+#'   \item \strong{Table creation}: \code{CREATE TABLE} on the target schema
+#'   (if \code{overwrite_table = TRUE}) or \code{MODIFY} and \code{SELECT} on
+#'   the existing table.
+#'   \item \strong{Volume access}: \code{READ VOLUME} and \code{WRITE VOLUME}
+#'   on the Databricks Volume used for staging (specified in \code{volume_dir}).
+#' }
+#'
+#' Moreover, this function requires valid `.Renviron` variables for
+#' authentication, specifically `DATABRICKS_TOKEN` and `DATABRICKS_HOST`.
 #'
 #' @param df A `data.frame` or `tibble` containing the data to be written to
 #' Delta Lake.
@@ -30,8 +46,8 @@
 #' is used to interact with the Delta table.
 #' @param column_types_schema An optional Arrow Schema object (created via
 #' \code{arrow::schema(...)}) used to explicitly enforce precise data types
-#' during Parquet conversion. If \code{NULL} (default), data types are inferred
-#' from the R data frame.
+#' during Parquet conversion. Defaults to \code{NULL}. If \code{NULL}, data
+#' types are inferred from the R data frame.
 #'
 #' Type mapping reference (Arrow schema field → Spark SQL type):
 #'   \itemize{
@@ -65,12 +81,14 @@
 #' `"'mergeSchema' = 'true'"`.
 #' @param overwrite_table Logical; if \code{TRUE}, deletes and recreates the
 #' Delta table before import. If \code{FALSE} and the table does not exist,
-#' the function will throw an error.
+#' the function will throw an error. Defaults to \code{FALSE}.
 #' @param chunk_size_bytes An integer specifying the size of each data chunk
 #' in bytes. This is used to split the data frame into smaller chunks for
 #' uploading. Defaults to 5GB.
 #'
 #' @return Invisibly returns the result of the `COPY INTO` execution.
+#'
+#' @family databricks
 #'
 #' @examples
 #' \dontrun{
