@@ -97,14 +97,18 @@ sql_query <- dfeR::get_clean_sql("path_to_sql_file.sql")
 Now that the SQL query is saved as a variable in the R environment you
 can pass that into a function to execute against the database. There’s a
 number of potential ways to do this, though a common way is to use
-`dbGetQuery()` from the [DBI package](https://dbi.r-dbi.org/), setting
-the statement as your cleaned SQL query.
+[`dbGetQuery()`](https://dbi.r-dbi.org/reference/dbGetQuery.html) from
+the [DBI package](https://dbi.r-dbi.org/), setting the statement as your
+cleaned SQL query.
 
-It’s important to note that `dbGetQuery()` is intended to work with
-‘SELECT’ style queries only. If you’re doing something that isn’t a
-‘SELECT’ query, such as writing back into SQL, consider using the
-`dbExecute()` or `dbSendQuery()` functions from the [DBI
-package](https://dbi.r-dbi.org/) instead.
+It’s important to note that
+[`dbGetQuery()`](https://dbi.r-dbi.org/reference/dbGetQuery.html) is
+intended to work with ‘SELECT’ style queries only. If you’re doing
+something that isn’t a ‘SELECT’ query, such as writing back into SQL,
+consider using the
+[`dbExecute()`](https://dbi.r-dbi.org/reference/dbExecute.html) or
+[`dbSendQuery()`](https://dbi.r-dbi.org/reference/dbSendQuery.html)
+functions from the [DBI package](https://dbi.r-dbi.org/) instead.
 
 ``` r
 sql_query_result <- DBI::dbGetQuery(con, statement = sql_query)

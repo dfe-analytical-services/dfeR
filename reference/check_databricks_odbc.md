@@ -17,6 +17,11 @@ TRUE if the connection is set up correctly, FALSE otherwise.
 
 Prints instructions for fixing common problems to the console.
 
+## See also
+
+Other databricks:
+[`write_df_to_delta()`](https://dfe-analytical-services.github.io/dfeR/reference/write_df_to_delta.md)
+
 ## Examples
 
 ``` r

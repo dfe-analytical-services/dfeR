@@ -42,3 +42,5 @@ Other contributors:
 - Lauren Snaathorst <lauren.snaathorst@education.gov.uk> \[contributor\]
 
 - Lara Garbett <lara.garbett@education.gov.uk> \[contributor\]
+
+- Paula Rocha <paula.rocha@education.gov.uk> \[contributor\]

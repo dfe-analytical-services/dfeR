@@ -115,7 +115,7 @@ automatically detect your user details.</p>
 <span></span>
 <span><span class="co"># Database connection ====</span></span>
 <span></span>
-<span><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu">dbConnect</span><span class="op">(</span><span class="fu">odbc</span><span class="fu">::</span><span class="fu">odbc</span><span class="op">(</span><span class="op">)</span>,</span>
+<span><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html" class="external-link">dbConnect</a></span><span class="op">(</span><span class="fu">odbc</span><span class="fu">::</span><span class="fu">odbc</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  Driver <span class="op">=</span> <span class="st">"ODBC Driver 17 for SQL Server"</span>,</span>
 <span>  Server <span class="op">=</span> <span class="st">"server_name"</span>,</span>
 <span>  Database <span class="op">=</span> <span class="st">"database_name"</span>,</span>
@@ -157,19 +157,19 @@ already be specified in your connection setup.</p>
 <p>Now that the SQL query is saved as a variable in the R environment
 you can pass that into a function to execute against the database.
 There’s a number of potential ways to do this, though a common way is to
-use <code>dbGetQuery()</code> from the <a href="https://dbi.r-dbi.org/" class="external-link">DBI package</a>, setting the statement as
+use <code><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html" class="external-link">dbGetQuery()</a></code> from the <a href="https://dbi.r-dbi.org/" class="external-link">DBI package</a>, setting the statement as
 your cleaned SQL query.</p>
-<p>It’s important to note that <code>dbGetQuery()</code> is intended to
+<p>It’s important to note that <code><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html" class="external-link">dbGetQuery()</a></code> is intended to
 work with ‘SELECT’ style queries only. If you’re doing something that
 isn’t a ‘SELECT’ query, such as writing back into SQL, consider using
-the <code>dbExecute()</code> or <code>dbSendQuery()</code> functions
+the <code><a href="https://dbi.r-dbi.org/reference/dbExecute.html" class="external-link">dbExecute()</a></code> or <code><a href="https://dbi.r-dbi.org/reference/dbSendQuery.html" class="external-link">dbSendQuery()</a></code> functions
 from the <a href="https://dbi.r-dbi.org/" class="external-link">DBI package</a> instead.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">sql_query_result</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu">dbGetQuery</span><span class="op">(</span><span class="va">con</span>, statement <span class="op">=</span> <span class="va">sql_query</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">sql_query_result</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html" class="external-link">dbGetQuery</a></span><span class="op">(</span><span class="va">con</span>, statement <span class="op">=</span> <span class="va">sql_query</span><span class="op">)</span></span></code></pre></div>
 <p>As a side note, if your SQL query is short, you could write it
 directly into the function such as:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">sql_query_result</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu">dbGetQuery</span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">sql_query_result</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html" class="external-link">dbGetQuery</a></span><span class="op">(</span></span>
 <span>  <span class="va">con</span>,</span>
 <span>  statement <span class="op">=</span> <span class="st">"SELECT * FROM [my_database_table]"</span></span>
 <span><span class="op">)</span></span></code></pre></div>

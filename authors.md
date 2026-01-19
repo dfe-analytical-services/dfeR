@@ -23,6 +23,8 @@
 
 - **Lara Garbett**. Contributor.
 
+- **Paula Rocha**. Contributor.
+
 ## Citation
 
 Source:

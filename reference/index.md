@@ -58,6 +58,8 @@ Helpful functions for connecting to databases in DfE
   : Get a cleaned SQL script into R
 - [`check_databricks_odbc()`](https://dfe-analytical-services.github.io/dfeR/reference/check_databricks_odbc.md)
   : Check Databricks ODBC connection variables
+- [`write_df_to_delta()`](https://dfe-analytical-services.github.io/dfeR/reference/write_df_to_delta.md)
+  : Write a Data Frame to Delta Lake with COPY INTO
 
 ## Presentation prettifiers
 
