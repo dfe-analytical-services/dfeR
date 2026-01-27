@@ -67,7 +67,6 @@ create_project <- function(
   usethis::create_project(path = path, open = FALSE)
   usethis::proj_set(path)
 
-
   # Setup R/ folder and template function scripts -----
   ## helper_functions script
   usethis::use_r(name = "helper_functions.R", open = FALSE)
@@ -107,11 +106,9 @@ create_project <- function(
   )
   writeLines(load_content, paste0(path, "/R/load_data.R"))
 
-
   # Initialise testthat and add tests for the function scripts -----
   usethis::use_test("helper_functions.R", open = FALSE)
   usethis::use_test("load_data.R", open = FALSE)
-
 
   # Build the core project structure -----
   if (!create_publication_proj) {
@@ -141,7 +138,6 @@ create_project <- function(
     dir.create(paste0(path, "/05_misc/01_public"))
     dir.create(paste0(path, "/05_misc/02_priv"))
   }
-
 
   # Create the .gitignore file -----
   if (!include_github_gitignore) {
@@ -174,7 +170,6 @@ create_project <- function(
   gitignore_concat <- paste0(gitignore_content, collapse = "\n")
   writeLines(gitignore_concat, con = file.path(path, ".gitignore"))
 
-
   # Create the readme -----
   file.copy(
     system.file(package = "dfeR", "README_template.md"),
@@ -185,7 +180,6 @@ create_project <- function(
   file.create(paste0(path, "/.renvignore"))
   renvignore_content <- "tests/*"
   writeLines(renvignore_content, paste0(path, "/.renvignore"))
-
 
   # Initialise renv -----
   successful_creation <- TRUE
@@ -218,10 +212,12 @@ create_project <- function(
         }
       },
       error = function(e) {
-        if (grepl(
-          "aborting snapshot due to pre-flight validation failure",
-          e$message
-        )) {
+        if (
+          grepl(
+            "aborting snapshot due to pre-flight validation failure",
+            e$message
+          )
+        ) {
           # Message if renv snapshot fails
           message(
             "Warning: ",
@@ -276,8 +272,11 @@ create_project <- function(
         "\n\n",
         "****************************************************************\n",
         "Your new dfeR project has been successfuly created! ",
-        emoji::emoji("mortar_board"), "\n",
-        "It exists at the file path: '", path, "'\n",
+        emoji::emoji("mortar_board"),
+        "\n",
+        "It exists at the file path: '",
+        path,
+        "'\n",
         "****************************************************************\n"
       )
     )

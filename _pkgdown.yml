@@ -7,7 +7,14 @@ template:
     code-color: "ffffff"
 
 reference:
-- title: Data sets
+- title: Templates, code formatting and system set-up
+  desc: Tools for establishing relevant user settings
+  contents:
+  - air_install
+  - air_style
+  - create_project
+
+- title: Standard DfE data sets
   desc: Data sets exported in the package
   contents:
   - ons_geog_shorthands
@@ -17,28 +24,26 @@ reference:
   - geog_time_identifiers
   - wd_pcon_lad_la_rgn_ctry
 
+- title: Fetch geography lists
+  desc: Pull geography lookups from the ONS Geography Portal
+  contents:
+  - starts_with("fetch_")
+  - get_ons_api_data
+
 - title: Database connection
   desc: Helpful functions for connecting to databases in DfE
   contents:
   - get_clean_sql
   - check_databricks_odbc
-
-- title: Fetch geography lists
-  desc: Pull geography lookups from the ONS Geography Portal
-  contents:
-  - starts_with("fetch_")
+  - write_df_to_delta
 
 - title: Presentation prettifiers
   desc: Functions for presenting pretty versions of numbers with readable code
   contents:
   - starts_with("pretty_")
-
-- title: Pre-populated project
-  desc: >
-    A function to create a new R project with a pre-populated folder and
-    file structure
-  contents:
-  - create_project
+  - round_five_up
+  - comma_sep
+  - z_replace
 
 - title: Specific formats
   desc: Functions for converting to specific formats
@@ -50,12 +55,4 @@ reference:
     Functions used in other functions across the package, exported as they can also
     be useful in their own right
   contents:
-  - round_five_up
-  - comma_sep
-  - get_ons_api_data
   - toggle_message
-
-- title: Replace NA values
-  desc: Replace NA values with the default "z" or an alternative replacement
-  contents:
-  - z_replace

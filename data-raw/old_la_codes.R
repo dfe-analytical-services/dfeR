@@ -3,9 +3,7 @@
 # This data is used to add 'old' 3 digit la codes to the wd_pcon_lad_la_reg_ctry
 # lookup table in dfeR
 
-
 # Get and process data from GIAS ------------------------------------------
-
 
 ##############################################################################
 # IMPORTANT: Please make sure to read the data-raw/old_la_codes.md file to read
@@ -82,9 +80,9 @@ old_la_codes <- dfeR::fetch_las() |>
   # select the columns we need
   dplyr::select(la_name, old_la_code, new_la_code) |>
   # replace any remaining NAs in old_la_code with "z" to indicate no old code
-  dplyr::mutate(old_la_code = dplyr::if_else(is.na(old_la_code),
-    "z", old_la_code
-  )) |>
+  dplyr::mutate(
+    old_la_code = dplyr::if_else(is.na(old_la_code), "z", old_la_code)
+  ) |>
   # remove duplicates if any
   dplyr::distinct()
 
