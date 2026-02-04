@@ -1,9 +1,30 @@
-## code to prepare `write_df_to_delta_stress_test` dataset
-
+## Code to prepare `write_df_to_delta_stress_test` dataset
+# ==============================================================================
 # NOTE: This script requires specific Databricks access permissions.
 # Other DfE analysts will need to update the Catalog, Schema, and Volume
 # variables below to match their own dev environment.
+# ==============================================================================
+# STRESS TEST DOCUMENTATION
+#
+# DESCRIPTION:
+# A list of microbenchmark results for extreme scales, ranging from
+# 100 to 1 billion rows.
+#
+# ENVIRONMENT SPECS:
+# - Machine: DfE High Memory Desktop (AVD)
+# - CPU: AMD EPYC 7763 64-Core Processor (16 cores allocated)
+# - RAM: 137 GB
+#
+# TEST DATA SCHEMA:
+# Same as the Benchmarking Results (Int, Numeric, Char, Factor, Logic, Date,
+# Time).
+#
+# FORMAT:
+# A named list of 8 microbenchmark objects (100 to 1e+09 rows).
+# Each object contains 5 evaluations of `write_df_to_delta`.
+# ==============================================================================
 
+# Load packages
 library(usethis)
 library(DBI)
 library(odbc)
@@ -72,4 +93,5 @@ DBI::dbRemoveTable(con, "temp_dfe")
 DBI::dbDisconnect(con)
 
 # Write the stress test results into the package
-usethis::use_data(write_df_to_delta_stress_test, overwrite = TRUE)
+usethis::use_data(write_df_to_delta_stress_test, overwrite = TRUE,
+                  internal = TRUE)

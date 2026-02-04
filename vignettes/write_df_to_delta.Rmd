@@ -1,5 +1,5 @@
 ---
-title: "Scalable Bulk Writing to Databricks: `write_df_to_delta`"
+title: "Scalable Bulk Writing to Databricks: write_df_to_delta"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{write_df_to_delta}
@@ -21,7 +21,7 @@ library(purrr)
 
 ## Executive Summary
 
-For DfE analysts moving data from RStudio to Databricks via an [odbc](https://odbc.r-dbi.org/) connection, `write_df_to_delta()` is a significant step up from [DBI](https://dbi.r-dbi.org/) methods. While [`DBI::dbWriteTable()`](https://dbi.r-dbi.org/reference/dbWriteTable.html) relies on slow SQL-based uploads, `write_df_to_delta()` uses the [Databricks REST API](https://docs.databricks.com/api/workspace/introduction) to stream data directly into [Unity Catalog Volumes](https://docs.databricks.com/aws/en/volumes), making the upload faster and more resilient.
+For DfE analysts moving data from RStudio to Databricks via an [odbc](https://odbc.r-dbi.org/) connection, `write_df_to_delta()` is a significant step up from [DBI](https://dbi.r-dbi.org/) methods. While `DBI::dbWriteTable()` relies on slow SQL-based uploads, `write_df_to_delta()` uses the [Databricks REST API](https://docs.databricks.com/api/workspace/introduction) to stream data directly into [Unity Catalog Volumes](https://docs.databricks.com/aws/en/volumes), making the upload faster and more resilient.
 
 ### Why this is a game-changer for your workflow:
 
@@ -152,11 +152,11 @@ By default, `write_df_to_delta()` will append data to an existing table. If you 
 
 ## Performance Benchmarks
 
-We conducted a series of head-to-head tests of `write_df_to_delta` against `DBI::dbWriteTable()`.
+We conducted a series of head-to-head tests of `write_df_to_delta()` against `DBI::dbWriteTable()`.
 
 ### Methodology
 
-Tests were performed on the DfE High Memory Desktop (AVD: 137 GB RAM, 16 Cores). We used a synthetic dataset containing mixed types; for the exact structure, see `write_df_to_delta_benchmarks`.
+Tests were performed on the DfE High Memory Desktop (AVD: 137 GB RAM, 16 Cores). Benchmarks utilised a synthetic dataset comprising integers, numerics, characters, factors, logicals, Dates, and UTC timestamps. This ensures performance results account for the processing overhead associated with diverse SQL data types.
 
 To ensure statistical reliability and account for fluctuations in network traffic or cluster load, we carried out 10 independent runs for each data volume (rows), $n$, where $n \in \{10^2, \dots, 10^6\}$. The benchmarks presented below show the median execution time, with the error bars representing the interquartile range ($25^{th}$ to $75^{th}$ percentile).
 
@@ -166,11 +166,8 @@ As shown in the graph, for small datasets (\< 1,000 rows), `DBI::dbWriteTable()`
 the standard DBI approach takes nearly 30 minutes.
 
 ```{r benchmarks_plot, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Figure 1: Performance comparison between DBI and dfeR across increasing row counts."}
-# Load the benchmark data from the package
-data("write_df_to_delta_benchmarks", package = "dfeR")
-
-# 1. Clean and Prepare Data
-summary_df <- imap_dfr(write_df_to_delta_benchmarks, ~ {
+# 1. Clean and Prepare Benchmark Data
+summary_df <- imap_dfr(dfeR:::write_df_to_delta_benchmarks, ~ {
   as.data.frame(.x) |>
     group_by(expr) |>
     summarise(
@@ -214,8 +211,7 @@ plot_log_log <- ggplot(summary_df, aes(x = rows, y = median, color = expr,
     y = "Execution Time (Log Scale)",
     color = "Function"
   ) +
-  # DfE-style theme adjustments
-  theme_minimal() +
+  theme_bw() +
   theme(
     legend.position = "bottom",
     panel.grid.minor = element_blank(),
@@ -246,8 +242,8 @@ long durations.
 ### Methodology
 
 The stress tests were performed on the DfE High Memory Desktop (AVD). We used
-a synthetic dataset of up to 1 billion rows (\~41 GB); 
-for the exact structure, see `write_df_to_delta_stress_test`.
+a synthetic dataset (comprising integers, numerics, characters, factors, 
+logicals, Dates, and UTC timestamps) of up to 1 billion rows (\~41 GB).
 We conducted 5 independent runs for each data volume (rows), 
 $n$, where $n \in \{10^2,...,10^9\}$. 
 
@@ -283,16 +279,13 @@ The boxplot below captures both the speed and the stability of the transfer acro
 -   **Reliability Trade-off**: Sequential chunking introduces a small amount of network overhead for each "slice." While this makes the total execution time longer than a single (theoretical) massive upload, it is a necessary trade-off to ensure the transfer is fault-tolerant and bypasses REST API payload limits.
 
 ```{r stress_test_plot, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Figure 2: Performance resiliency testing from 100 to 1 billion rows, showing stable execution times."}
-# Load stress test data
-data("write_df_to_delta_stress_test", package = "dfeR")
-
 # 1. Process the Stress Test data
 # Using your exact logic, just pointing to the package data object
-plot_df <- purrr::imap_dfr(write_df_to_delta_stress_test, function(bm, n) {
-  df <- as.data.frame(bm)
-  df$row_count <- as.numeric(n)
-  df
-}) |>
+plot_df <- purrr::imap_dfr(dfeR:::write_df_to_delta_stress_test,
+                           function(bm, n) {
+                                            df <- as.data.frame(bm)
+                                            df$row_count <- as.numeric(n)
+                                            df }) |>
   mutate(
     seconds = time / 1e9,
     # Ensure levels are numeric to sort correctly on the X-axis
@@ -317,7 +310,7 @@ plot_performance <- ggplot(plot_df, aes(x = row_label, y = seconds)) +
     x = "Number of Rows",
     y = "Execution Time (Log Scale)"
   ) +
-  theme_minimal() +
+  theme_bw() +
   theme(
     panel.grid.minor = element_blank(),
     plot.title = element_text(face = "bold"),

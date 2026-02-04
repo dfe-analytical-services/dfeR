@@ -1,9 +1,35 @@
 ## Code to prepare `write_df_to_delta_benchmarks` dataset
-
+# ==============================================================================
 # NOTE: This script requires specific Databricks access permissions.
 # Other DfE analysts will need to update the Catalog, Schema, and Volume
 # variables below to match their own dev environment.
+# ==============================================================================
+# DATASET DOCUMENTATION
+#
+# DESCRIPTION:
+# A named list containing microbenchmark results comparing `DBI::dbWriteTable`
+# and `dfeR::write_df_to_delta` across five data scales (100 to 1 million rows).
+#
+# ENVIRONMENT SPECS:
+# - Machine: DfE High Memory Desktop (AVD)
+# - CPU: AMD EPYC 7763 64-Core Processor (16 cores allocated)
+# - RAM: 137 GB
+#
+# TEST DATA SCHEMA:
+# - int: Random integers (1 to 10,000)
+# - numeric: Standard normal distribution (rnorm)
+# - character: US State abbreviations
+# - factor: Categorical levels ("High", "Medium", "Low")
+# - logical: Booleans including NA values
+# - date: Sequential dates starting from 2020-01-01
+# - time: UTC timestamps starting from 2025-01-01 00:00:00
+#
+# FORMAT:
+# A named list of 5 microbenchmark objects (100, 1000, 10000, 1e+05, 1e+06).
+# Each contains 10 evaluations per method.
+# ==============================================================================
 
+# Load packages
 library(usethis)
 library(DBI)
 library(odbc)
@@ -75,4 +101,5 @@ DBI::dbRemoveTable(con, "temp_dfe")
 DBI::dbDisconnect(con)
 
 # Write the benchmarking results into the package
-usethis::use_data(write_df_to_delta_benchmarks, overwrite = TRUE)
+usethis::use_data(write_df_to_delta_benchmarks, overwrite = TRUE,
+                  internal = TRUE)
