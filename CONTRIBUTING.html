@@ -118,27 +118,36 @@
 <code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_package.html" class="external-link">use_package</a></span><span class="op">(</span><span class="va">pkgname</span>, type <span class="op">=</span> <span class="st">"suggests"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
+<h2 id="updating-all-dependencies">Updating all dependencies<a class="anchor" aria-label="anchor" href="#updating-all-dependencies"></a></h2>
+<p>Package development generally requires you building and testing using the latest versions of dependencies. While <code>devtools::load_all()</code> will prompt you to install any packages you don’t yet have locally, you’re not always prompted to update when newer versions are available. You can EES-ily update all package dependencies using the <code>desc</code> package:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"pak"</span>, <span class="st">"desc"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">desc</span><span class="fu">::</span><span class="fu"><a href="https://desc.r-lib.org/reference/desc_get_deps.html" class="external-link">desc_get_deps</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"DESCRIPTION"</span><span class="op">)</span><span class="op">[[</span><span class="st">'package'</span><span class="op">]</span><span class="op">]</span> <span class="op">|&gt;</span> <span class="co"># scrape deps</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">setdiff</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"R"</span>, <span class="st">"base"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="co"># remove base R</span></span>
+<span>  <span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># install</span></span></code></pre></div>
+</div>
+<div class="section level2">
 <h2 id="updating-the-readme">Updating the README<a class="anchor" aria-label="anchor" href="#updating-the-readme"></a></h2>
 <p>There are two README files that are linked with a pre-commit-hook to ensure they are kept in sync.</p>
 <p>Make all changes to the <code>README.Rmd</code> file and then run the following line to rebuild:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">build_readme</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="pkgdown-site">pkgdown site<a class="anchor" aria-label="anchor" href="#pkgdown-site"></a></h2>
 <p>Most of the <code>pkgdown</code> site is automatically generated. The theme is set in the <code>_pkgdown.yml</code> file.</p>
 <p>Custom CSS can be set in <code>pkgdown/extra.css</code> file. If you make any edits to this file you will need to re-initialise the site using the following line:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pkgdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgdown.r-lib.org/reference/init_site.html" class="external-link">init_site</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>The site is hosted on GitHub pages. You build and preview the pkgdown site locally by running:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">build_site</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="updating-the-package-version">Updating the package version<a class="anchor" aria-label="anchor" href="#updating-the-package-version"></a></h2>
 <p>In general, we’ll be working on a ‘development’ version (x.x.x.9000) of the package in between CRAN releases, which should happen no more than every 1-2 months (CRAN recommendation).</p>
 <p>Once changes have been completed, reviewed and are ready for use in the wild, you should review the R packages guidance for submitting a new version to CRAN. You can increment the package version using:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_version.html" class="external-link">use_version</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>If you are unsure what kind of version to increment, have a look through <a href="https://r-pkgs.org/lifecycle.html#sec-lifecycle-release-type" class="external-link">lifecycle’s guidance on release types</a>.</p>
 <p>Once you’ve incremented the version number, it’ll offer to perform a commit on your behalf. As this happens it will add an update to <code>NEWS.md</code>, which acts as the changelog for the package. Make sure this is updated correctly and then push to GitHub.</p>
@@ -153,10 +162,10 @@
 <h2 id="code-style">Code style<a class="anchor" aria-label="anchor" href="#code-style"></a></h2>
 <p>New code should follow the tidyverse <a href="https://style.tidyverse.org" class="external-link">style guide</a>. We use <a href="https://lintr.r-lib.org/articles/lintr.html" class="external-link">lintr</a> to scan styling on pull requests, this will automatically run and add comments for any code that is failing the standards we’d expect. Where these happen, please proactively resolve these as we are unlikely to approve pull requests that have styling issues.</p>
 <p>You can use the <a href="https://CRAN.R-project.org/package=styler" class="external-link">styler</a> package to apply most of the styling using:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">styler</span><span class="fu">::</span><span class="fu">style_pkg</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>To check for any further styling issues locally, use:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">lintr</span><span class="fu">::</span><span class="fu">lint_package</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><a href="https://CRAN.R-project.org/package=styler" class="external-link">styler</a> will not fix all linting issues, so we recommend using that first, then using <a href="https://lintr.r-lib.org/articles/lintr.html" class="external-link">lintr</a> to check for places you may need to manually fix styling issues such as line length or not using snake_case.</p>
 </div>
@@ -186,17 +195,17 @@
 <p>The <a href="https://docs.ropensci.org/spelling/" class="external-link">spelling</a> package is used to check spelling. A custom word list of exceptions for this package exists in the <code>inst/</code> folder.</p>
 <p>There will be messages in the <code>devtools::check()</code> output if there’s potential spelling errors. Please review and fix any genuine errors.</p>
 <p>You can run a check yourself using:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">spelling</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/spelling//reference/spell_check_package.html" class="external-link">spell_check_package</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>To automatically pick up genuine new words in the package and add to this list, use:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">spelling</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/spelling//reference/wordlist.html" class="external-link">update_wordlist</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="adding-vignettes">Adding vignettes<a class="anchor" aria-label="anchor" href="#adding-vignettes"></a></h2>
 <p>Vignettes can be found in the <code>vignettes/</code> folder as .Rmd files. To start a new one use:</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_vignette.html" class="external-link">use_vignette</a></span><span class="op">(</span><span class="st">"name_of_vignette"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
