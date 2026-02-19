@@ -115,6 +115,17 @@ Add any packages that package developers only may need with:
 usethis::use_package(pkgname, type = "suggests")
 ```
 
+## Updating all dependencies
+
+Package development generally requires you building and testing using the latest versions of dependencies. While `devtools::load_all()` will prompt you to install any packages you don't yet have locally, you're not always prompted to update when newer versions are available. You can EES-ily update all package dependencies using the `desc` package:
+
+``` r
+install.packages(c("pak", "desc"))
+desc::desc_get_deps(file = "DESCRIPTION")[['package']] |> # scrape deps
+  setdiff(c("R", "base")) |> # remove base R
+  pak::pak() # install
+```
+
 ## Updating the README
 
 There are two README files that are linked with a pre-commit-hook to ensure they are kept in sync.
