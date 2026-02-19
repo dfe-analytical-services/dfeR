@@ -1,11 +1,15 @@
+AVD
 BIGINT
+Booleans
 CAUTH
 CMD
 Catalog
 Codecov
 Databricks
 DfE
+DfE’s
 EESScreenerLAs
+EPYC
 GOR
 INT
 JBLOGGS
@@ -19,6 +23,7 @@ ORCID
 ObjectId
 ObjectIds
 POSIXct
+R's
 RGN
 RStudio
 RTools
@@ -36,7 +41,9 @@ center
 com
 ctry
 cty
+databricks
 dbplyr
+df
 dfeshiny
 eesyapi
 fy
@@ -51,6 +58,7 @@ las
 lauraselby
 lockfile
 lup
+microbenchmark
 num
 odbc
 pak
@@ -59,10 +67,12 @@ pcons
 pkgdown
 renv
 rgn
+runtimes
 sep
 shorthands
 sql
 testthat
+th
 tibble
 timezone
 tinyurl
