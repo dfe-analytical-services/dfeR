@@ -23,6 +23,7 @@ reference:
   - regions
   - geog_time_identifiers
   - wd_pcon_lad_la_rgn_ctry
+  - lsip_lad
 
 - title: Fetch geography lists
   desc: Pull geography lookups from the ONS Geography Portal
