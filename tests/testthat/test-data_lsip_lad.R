@@ -5,7 +5,6 @@ test_that("rows and cols match description", {
   expect_equal(ncol(dfeR::lsip_lad), 6)
 })
 
-
 test_that("There are no blank cells", {
   expect_false(any(is.na(dfeR::lsip_lad)))
 })

@@ -45,7 +45,6 @@ test_that("fetch_lsip output matches lsip_lad for a specific year", {
   )
 })
 
-
 test_that("fetch_lsip output has no duplicate rows", {
   result <- fetch_lsip()
   expect_equal(nrow(result), nrow(unique(result)))

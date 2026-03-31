@@ -204,7 +204,7 @@ fetch_countries <- function() {
 #'
 #' @param year Year to filter the lookup to, default is "All".
 #' @family fetch_locations
-#' @return data frame of LSIP-LAD relationships
+#' @return data frame of LSIP for a given year.
 #' @export
 #' @inherit fetch examples
 fetch_lsip <- function(year = "All") {
