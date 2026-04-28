@@ -12,8 +12,12 @@ A data frame with one row per LAD in England and the following columns:
 \describe{
 \item{lad_code}{9-character code for the Local Authority District}
 \item{lad_name}{Name of the Local Authority District}
-\item{lsip_code}{9- character code for the LSIP area}
+\item{lsip_code}{9-character code for the LSIP area}
 \item{lsip_name}{Name of the Local Skills Improvement Plan (LSIP) area}
+\item{most_recent_year_included}{The most recent year in which this
+location appears in the lookup}
+\item{first_available_year_included}{The first year in which this
+location appears in the lookup}
 }
 }
 }
@@ -35,8 +39,6 @@ the ONS Geography Portal.
 \item Mappings may change over time and can be tracked using the
 \code{most_recent_year_included} and \code{first_available_year_included}
 columns.
-\item The lookup is based on the boundaries provided by the ONS Open
-Geography Portal (2023 and 2025).
 }
 }
 \keyword{datasets}

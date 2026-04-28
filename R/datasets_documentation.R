@@ -219,8 +219,10 @@
 #'   \item{lad_name}{Name of the Local Authority District}
 #'   \item{lsip_code}{9-character code for the LSIP area}
 #'   \item{lsip_name}{Name of the Local Skills Improvement Plan (LSIP) area}
-#'   \item{most_recent_year_included}{The most recent year in which this location appears in the lookup}
-#'   \item{first_available_year_included}{The first year in which this location appears in the lookup}
+#'   \item{most_recent_year_included}{The most recent year in which this
+#'     location appears in the lookup}
+#'   \item{first_available_year_included}{The first year in which this
+#'     location appears in the lookup}
 #' }
 #' @source https://geoportal.statistics.gov.uk/search?q=lad%20lsip
 "lsip_lad"

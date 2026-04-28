@@ -10,7 +10,7 @@ fetch_lsip(year = "All")
 \item{year}{Year to filter the lookup to, default is "All".}
 }
 \value{
-data frame of LSIP-LAD relationships
+data frame of LSIP for a given year.
 }
 \description{
 Fetch a data frame of Local Skills Improvement Plan (LSIP) areas
