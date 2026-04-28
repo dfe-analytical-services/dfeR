@@ -614,9 +614,10 @@ get_lsip_lad <- function(year) {
     "NM"
   )
 
+
   output <- get_ons_api_data(
     data_id = data_id,
-    params <- list(
+    list(
       where = "1=1",
       outFields = fields,
       outSR = 4326,
