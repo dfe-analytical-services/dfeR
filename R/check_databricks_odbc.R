@@ -11,6 +11,7 @@ get_odbc_version <- function() {
 #' Databricks are set, and if the `odbc` package version is sufficient.
 #'
 #' Prints instructions for fixing common problems to the console.
+#' @family databricks
 #' @export
 #' @return TRUE if the connection is set up correctly, FALSE otherwise.
 #' @examples

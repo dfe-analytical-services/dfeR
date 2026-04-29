@@ -11,7 +11,6 @@ test_that("There are no duplicate rows", {
 })
 
 
-
 test_that("rows and cols match description", {
   # This test is more of a reminder when updating the data set, if these change
   # then we need to update the description in R/datasets_documentation.R
