@@ -44,7 +44,8 @@ Overrides the \code{dp} setting and dynamically adjusts decimal places based on
 value magnitude. For values ≥ 1 million or ≥ 1 billion, the function checks
 the scaled value (e.g., value / 1e6 or value / 1e9): if the scaled value is
 a whole number, it sets decimal places to 0; otherwise, it adds precision
-as specified here. This approach improves clarity without unnecessary formatting.}
+as specified here. This approach improves clarity without
+unnecessary formatting.}
 
 \item{abbreviate}{whether to abbreviate large numbers to nearest million
 (where 1e6 <= value < 1e9) or billion (where value >= 1e9).}

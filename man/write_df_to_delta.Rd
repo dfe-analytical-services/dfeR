@@ -111,6 +111,10 @@ on the Databricks Volume used for staging (specified in \code{volume_dir}).
 
 Moreover, this function requires valid \code{.Renviron} variables for
 authentication, specifically \code{DATABRICKS_TOKEN} and \code{DATABRICKS_HOST}.
+
+The value of \code{DATABRICKS_HOST} can be provided with or without the protocol ("https://").
+If missing, the package will automatically prepend "https://" to ensure API compatibility.
+This means both \code{adb-1234.cloud.databricks.com} and \code{https://adb-1234.cloud.databricks.com} are accepted.
 }
 \examples{
 \dontrun{
