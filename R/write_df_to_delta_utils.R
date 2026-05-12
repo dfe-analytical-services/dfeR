@@ -128,11 +128,9 @@ db_exists_table_ignore_case <- function(db_conn, table_name) {
     DBI::dbQuoteIdentifier(db_conn, parts$catalog),
     ".information_schema.tables ",
     "WHERE lower(table_schema) = lower(",
-    DBI::dbQuoteLiteral(db_conn, parts$schema),
-    ") ",
+    DBI::dbQuoteLiteral(db_conn, parts$schema), ") ",
     "AND lower(table_name) = lower(",
-    DBI::dbQuoteLiteral(db_conn, parts$table),
-    ")"
+    DBI::dbQuoteLiteral(db_conn, parts$table), ")"
   )
 
   # Execute query safely, returning empty result on error with warning
@@ -184,8 +182,7 @@ count_delta_rows <- function(target_table, db_conn) {
       sprintf(
         "Table '%s' could not be found or is inaccessible. ",
         "Check that the table name is correct and you have USAGE permissions ",
-        "on the parent catalog and schema.",
-        target_table
+        "on the parent catalog and schema.", target_table
       )
     )
   }
@@ -298,12 +295,12 @@ safe_req_perform <- function(req, max_tries = 5, wait_base = 2) {
 #' @import httr2
 volume_exists <- function(volume_dir) {
   # Read Databricks host and token from environment
-  databricks_host <- normalize_databricks_host(Sys.getenv("DATABRICKS_HOST"))
+  databricks_host <- get_databricks_host()
   databricks_token <- Sys.getenv("DATABRICKS_TOKEN")
 
-  if (databricks_host == "" || databricks_token == "") {
+  if (databricks_token == "") {
     stop(
-      "DATABRICKS_HOST and DATABRICKS_TOKEN must be set in the environment.",
+      "DATABRICKS_TOKEN must be set in the environment.",
       call. = FALSE
     )
   }
@@ -365,12 +362,11 @@ volume_exists <- function(volume_dir) {
 #' @import httr2
 upload_to_volume <- function(local_file, volume_file) {
   # Set Databricks host and token for file uploads
-  databricks_host <- normalize_databricks_host(Sys.getenv("DATABRICKS_HOST"))
+  databricks_host <- get_databricks_host()
   databricks_token <- Sys.getenv("DATABRICKS_TOKEN")
 
   upload_url <- paste0(
-    databricks_host,
-    "/api/2.0/fs/files",
+    databricks_host, "/api/2.0/fs/files",
     utils::URLencode(volume_file)
   )
 
@@ -416,12 +412,11 @@ upload_to_volume <- function(local_file, volume_file) {
 #' @import httr2
 delete_from_volume <- function(volume_file) {
   # Set Databricks host and token for file deletion
-  databricks_host <- normalize_databricks_host(Sys.getenv("DATABRICKS_HOST"))
+  databricks_host <- get_databricks_host()
   databricks_token <- Sys.getenv("DATABRICKS_TOKEN")
 
   delete_url <- paste0(
-    databricks_host,
-    "/api/2.0/fs/files",
+    databricks_host, "/api/2.0/fs/files",
     utils::URLencode(volume_file)
   )
 
@@ -530,10 +525,7 @@ create_empty_delta <- function(df_or_schema, target_table, db_conn) {
         )
         if (length(matches[[1]]) == 3) {
           return(paste0(
-            "DECIMAL(",
-            matches[[1]][2],
-            ", ",
-            matches[[1]][3],
+            "DECIMAL(", matches[[1]][2], ", ", matches[[1]][3],
             ")"
           ))
         } else {
@@ -542,8 +534,7 @@ create_empty_delta <- function(df_or_schema, target_table, db_conn) {
       }
 
       # Map other Arrow types to Spark SQL types
-      switch(
-        type_str,
+      switch(type_str,
         "int8" = "TINYINT",
         "int16" = "SMALLINT",
         "int32" = "INT",
@@ -556,12 +547,10 @@ create_empty_delta <- function(df_or_schema, target_table, db_conn) {
         "date32[day]" = "DATE",
         "STRING"
       ) # Default fallback type
-    } else {
-      # Column is an R data frame column
+    } else { # Column is an R data frame column
 
       rtype <- class(col)[1] # Get base R type
-      switch(
-        rtype,
+      switch(rtype,
         "integer" = "INT",
         "integer64" = "BIGINT",
         "numeric" = "DOUBLE",
@@ -569,15 +558,11 @@ create_empty_delta <- function(df_or_schema, target_table, db_conn) {
         "factor" = "STRING",
         "logical" = "BOOLEAN",
         "Date" = "DATE",
-        "POSIXct" = ifelse(
-          coalesce(attr(col, "tzone"), "") == "",
-          "TIMESTAMP_NTZ",
-          "TIMESTAMP"
+        "POSIXct" = ifelse(coalesce(attr(col, "tzone"), "") == "",
+          "TIMESTAMP_NTZ", "TIMESTAMP"
         ),
-        "POSIXlt" = ifelse(
-          coalesce(attr(as.POSIXct(col), "tzone"), "") == "",
-          "TIMESTAMP_NTZ",
-          "TIMESTAMP"
+        "POSIXlt" = ifelse(coalesce(attr(as.POSIXct(col), "tzone"), "") == "",
+          "TIMESTAMP_NTZ", "TIMESTAMP"
         ),
         "STRING"
       ) # Default fallback
@@ -585,22 +570,18 @@ create_empty_delta <- function(df_or_schema, target_table, db_conn) {
   }
 
   # Determine Spark types and names for all columns
-  if (
-    inherits(df_or_schema, "data.frame") ||
-      inherits(df_or_schema, "tbl_df")
-  ) {
+  if (inherits(df_or_schema, "data.frame") ||
+        inherits(df_or_schema, "tbl_df")) {
     # Map each data frame column
     spark_types <- sapply(df_or_schema, map_type)
   } else if (inherits(df_or_schema, "Schema")) {
     # Map each Arrow schema field
     spark_types <- vapply(
-      df_or_schema$fields,
-      function(f) map_type(f),
+      df_or_schema$fields, function(f) map_type(f),
       character(1)
     )
     names(spark_types) <- vapply(
-      df_or_schema$fields,
-      function(f) f$name,
+      df_or_schema$fields, function(f) f$name,
       character(1)
     )
   } else {
@@ -608,18 +589,12 @@ create_empty_delta <- function(df_or_schema, target_table, db_conn) {
   }
 
   # Construct SQL for creating the Delta table
-  schema_string <- paste0(
-    "`",
-    names(spark_types),
-    "` ",
-    spark_types,
+  schema_string <- paste0("`", names(spark_types), "` ", spark_types,
     collapse = ", "
   )
   create_sql <- paste0(
-    "CREATE OR REPLACE TABLE ",
-    target_table,
-    " (",
-    schema_string,
+    "CREATE OR REPLACE TABLE ", target_table,
+    " (", schema_string,
     ") USING DELTA TBLPROPERTIES ('delta.feature.timestampNtz' = 'supported');"
   )
 
@@ -635,21 +610,19 @@ create_empty_delta <- function(df_or_schema, target_table, db_conn) {
     error = function(e) {
       # Check for the specific Unity Catalog Insufficient Privileges error
       # (SQLSTATE: 42501)
-      if (
-        grepl("42501", e$message) ||
-          grepl(
-            "INSUFFICIENT_PERMISSIONS",
-            e$message
-          )
-      ) {
+      if (grepl("42501", e$message) || grepl(
+        "INSUFFICIENT_PERMISSIONS",
+        e$message
+      )) {
         stop(
           sprintf(
-            "DBI Execution Failed: Insufficient Unity Catalog WRITE ",
-            "privileges.\n",
-            "You may lack required permissions.\n",
-            "You need 'USE CATALOG' privilege on the target catalog and ",
-            "'CREATE TABLE' privilege on the target schema to execute ",
-            sprintf("'CREATE OR REPLACE TABLE %s'.", target_table),
+            paste0(
+              "DBI Execution Failed: Insufficient Unity Catalog WRITE ",
+              "privileges.\n",
+              "You need 'USE CATALOG' privilege on the target catalog and ",
+              "'CREATE TABLE' privilege on the target schema to execute ",
+              "'CREATE OR REPLACE TABLE %s'."
+            ),
             target_table
           ),
           call. = FALSE
@@ -695,29 +668,20 @@ create_empty_delta <- function(df_or_schema, target_table, db_conn) {
 #' @keywords internal
 #' @noRd
 #' @import DBI
-copy_into_delta <- function(
-  target_table,
-  volume_file,
-  db_conn,
-  copy_options = "'mergeSchema' = 'true'"
-) {
+copy_into_delta <- function(target_table, volume_file, db_conn,
+                            copy_options = "'mergeSchema' = 'true'") {
   # Prepare the COPY INTO SQL statement for loading the data into the Delta Lake
   # table
   copy_sql <- paste0(
-    "COPY INTO ",
-    target_table,
-    "\n",
-    "FROM '",
-    volume_file,
-    "' \n",
+    "COPY INTO ", target_table, "\n",
+    "FROM '", volume_file, "' \n",
     "FILEFORMAT = PARQUET \n",
-    "COPY_OPTIONS (",
-    copy_options,
-    ")\n"
+    "COPY_OPTIONS (", copy_options, ")\n"
   )
 
   message("Executing COPY INTO...")
   message(copy_sql)
+
 
   tryCatch(
     {
@@ -732,19 +696,18 @@ copy_into_delta <- function(
 
       # --- 1. Check for Permissions Errors (SQLSTATE: 42501 or general
       # INSUFFICIENT_PRIVILEGES) ---
-      if (
-        grepl("42501", error_message) ||
-          grepl(
-            "INSUFFICIENT_PERMISSIONS",
-            error_message
-          )
-      ) {
+      if (grepl("42501", error_message) || grepl(
+        "INSUFFICIENT_PERMISSIONS",
+        error_message
+      )) {
         stop(
           sprintf(
-            "DBI Execution Failed: Insufficient Unity Catalog READ/WRITE ",
-            "privileges.\nCheck if you have 'SELECT' on the volume and\n",
-            "'MODIFY' ",
-            sprintf("on the target table (%s).", target_table),
+            paste0(
+              "DBI Execution Failed: Insufficient Unity Catalog READ/WRITE ",
+              "privileges.\n",
+              "Check if you have 'SELECT' on the volume and 'MODIFY' ",
+              "on the target table (%s)."
+            ),
             target_table
           ),
           call. = FALSE
@@ -753,16 +716,11 @@ copy_into_delta <- function(
 
       # --- 2. Check for Schema/Data Incompatibility Errors (Targeting Merge
       # and Type Conflicts) ---
-      if (
-        grepl("PARQUET_TYPE_ILLEGAL", error_message, ignore.case = TRUE) ||
-          grepl(
-            "DELTA_FAILED_TO_MERGE_FIELDS",
-            error_message,
-            ignore.case = TRUE
-          ) ||
-          grepl("42846", error_message) ||
-          grepl("22005", error_message)
-      ) {
+      if (grepl("PARQUET_TYPE_ILLEGAL", error_message, ignore.case = TRUE) ||
+            grepl("DELTA_FAILED_TO_MERGE_FIELDS", error_message,
+                  ignore.case = TRUE) ||
+            grepl("42846", error_message) ||
+            grepl("22005", error_message)) {
         # The full message to display, ensuring all details are included
         full_error_detail <- paste0(
           "\n===============================================================\n",
@@ -783,21 +741,17 @@ copy_into_delta <- function(
         cat(full_error_detail, file = stderr())
 
         # Then, use a short, simple stop() message to halt execution cleanly
-        stop(
-          "COPY INTO failed due to Schema Mismatch. ",
+        stop("COPY INTO failed due to Schema Mismatch. ",
           "See details above in 'RAW SERVER TRACE'.",
           call. = FALSE
         )
       }
 
       # --- 3. Re-throw any other unexpected error ---
-      stop(
-        paste(
-          "COPY INTO execution failed with an unexpected error:",
-          error_message
-        ),
-        call. = FALSE
-      )
+      stop(paste(
+        "COPY INTO execution failed with an unexpected error:",
+        error_message
+      ), call. = FALSE)
     }
   )
 }

@@ -1,17 +1,25 @@
-#' Normalize Databricks Host URL
+#' Read and normalise the Databricks host environment variable
 #'
-#' Ensures the Databricks host string starts with 'https://'.
-#' This is used internally to guarantee API requests are correctly formed.
-#' The protocol is added if missing, so users can set DATABRICKS_HOST
-#' with or without it.
+#' Reads `DATABRICKS_HOST` from the environment, errors if it is unset or
+#' empty, and ensures the returned value starts with `https://`. A bare host
+#' has `https://` prepended; a leading `http://` is upgraded to `https://`,
+#' since Databricks requires TLS and `http://` is almost always a
+#' misconfiguration.
 #'
-#' @param host Character. The Databricks host string, typically from the
-#' environment variable.
-#' @return Character. The host string, always prefixed with 'https://'.
+#' @return Character. The host string, always prefixed with `https://`.
 #' @keywords internal
 #' @noRd
-normalize_databricks_host <- function(host) {
-  if (!grepl("^https?://", host)) {
+get_databricks_host <- function() {
+  host <- Sys.getenv("DATABRICKS_HOST")
+  if (!nzchar(host)) {
+    stop(
+      "DATABRICKS_HOST must be set in the environment.",
+      call. = FALSE
+    )
+  }
+  if (grepl("^http://", host)) {
+    sub("^http://", "https://", host)
+  } else if (!grepl("^https://", host)) {
     paste0("https://", host)
   } else {
     host
