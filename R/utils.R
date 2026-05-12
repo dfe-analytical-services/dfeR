@@ -2,9 +2,11 @@
 #'
 #' Ensures the Databricks host string starts with 'https://'.
 #' This is used internally to guarantee API requests are correctly formed.
-#' The protocol is added if missing, so users can set DATABRICKS_HOST with or without it.
+#' The protocol is added if missing, so users can set DATABRICKS_HOST
+#' with or without it.
 #'
-#' @param host Character. The Databricks host string, typically from the environment variable.
+#' @param host Character. The Databricks host string, typically from the
+#' environment variable.
 #' @return Character. The host string, always prefixed with 'https://'.
 #' @keywords internal
 #' @noRd

@@ -34,9 +34,12 @@
 #' Moreover, this function requires valid `.Renviron` variables for
 #' authentication, specifically `DATABRICKS_TOKEN` and `DATABRICKS_HOST`.
 #'
-#' The value of `DATABRICKS_HOST` can be provided with or without the protocol ("https://").
-#' If missing, the package will automatically prepend "https://" to ensure API compatibility.
-#' Both `adb-1234.cloud.databricks.com` and `https://adb-1234.cloud.databricks.com` are accepted.
+#' The value of `DATABRICKS_HOST` can be provided with or without the protocol
+#' ("https://").
+#' If missing, the package will automatically prepend "https://" to ensure API
+#' compatibility.
+#' Both `adb-1234.cloud.databricks.com` and
+#' `https://adb-1234.cloud.databricks.com` are accepted.
 #'
 #' @param df A `data.frame` or `tibble` containing the data to be written to
 #' Delta Lake.

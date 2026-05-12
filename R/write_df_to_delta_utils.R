@@ -644,10 +644,12 @@ create_empty_delta <- function(df_or_schema, target_table, db_conn) {
       ) {
         stop(
           sprintf(
-            "DBI Execution Failed: Insufficient Unity Catalog WRITE privileges. ",
-            "\nYou need 'USE CATALOG' privilege on the target catalog and ",
+            "DBI Execution Failed: Insufficient Unity Catalog WRITE ",
+            "privileges.\n",
+            "You may lack required permissions.\n",
+            "You need 'USE CATALOG' privilege on the target catalog and ",
             "'CREATE TABLE' privilege on the target schema to execute ",
-            "'CREATE OR REPLACE TABLE %s'.",
+            sprintf("'CREATE OR REPLACE TABLE %s'.", target_table),
             target_table
           ),
           call. = FALSE
@@ -740,8 +742,9 @@ copy_into_delta <- function(
         stop(
           sprintf(
             "DBI Execution Failed: Insufficient Unity Catalog READ/WRITE ",
-            "privileges.\nCheck if you have 'SELECT' on the volume and 'MODIFY'",
-            "on the target table (%s).",
+            "privileges.\nCheck if you have 'SELECT' on the volume and\n",
+            "'MODIFY' ",
+            sprintf("on the target table (%s).", target_table),
             target_table
           ),
           call. = FALSE
