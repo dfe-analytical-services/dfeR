@@ -26,5 +26,7 @@ Windows \code{setx} registry entry. If the variable was set permanently the
 function prints instructions for clearing it from the user's environment.
 }
 \examples{
+\dontrun{
 check_renv_download_file_method()
+}
 }

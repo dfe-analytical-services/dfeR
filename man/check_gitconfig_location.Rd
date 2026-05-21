@@ -23,5 +23,7 @@ prints the resolved path so users can sanity-check it against the file they
 think they are editing.
 }
 \examples{
+\dontrun{
 check_gitconfig_location()
+}
 }

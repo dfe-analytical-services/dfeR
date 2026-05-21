@@ -82,7 +82,14 @@ test_that("check_proxy_settings identifies and removes proxy settings", {
 })
 
 test_that("check_git_sslverify detects and corrects sslverify=false", {
-  withr::defer(git2r::config(http.sslverify = NULL, global = TRUE))
+  prior_sslverify <- git2r::config()$global$http.sslverify
+  withr::defer(
+    if (is.null(prior_sslverify)) {
+      git2r::config(http.sslverify = NULL, global = TRUE)
+    } else {
+      git2r::config(http.sslverify = prior_sslverify, global = TRUE)
+    }
+  )
 
   git2r::config(http.sslverify = "false", global = TRUE)
   expect_equal(git2r::config()$global$http.sslverify, "false")
@@ -140,7 +147,26 @@ test_that("check_renv_download_method handles missing/curl/wininet cases", {
     suppressMessages(
       check_renv_download_method(curl_file)
     )$RENV_DOWNLOAD_METHOD,
-    "\"curl\""
+    "curl"
+  )
+
+  # Unquoted and whitespace variants should also be treated as PASS
+  unquoted_file <- withr::local_tempfile(lines = "RENV_DOWNLOAD_METHOD=curl")
+  expect_equal(
+    suppressMessages(
+      check_renv_download_method(unquoted_file)
+    )$RENV_DOWNLOAD_METHOD,
+    "curl"
+  )
+
+  spaced_file <- withr::local_tempfile(
+    lines = 'RENV_DOWNLOAD_METHOD = "curl"'
+  )
+  expect_equal(
+    suppressMessages(
+      check_renv_download_method(spaced_file)
+    )$RENV_DOWNLOAD_METHOD,
+    "curl"
   )
 
   wininet_file <- withr::local_tempfile(
@@ -151,7 +177,7 @@ test_that("check_renv_download_method handles missing/curl/wininet cases", {
     suppressMessages(
       check_renv_download_method(wininet_file)
     )$RENV_DOWNLOAD_METHOD,
-    "\"curl\""
+    "curl"
   )
 })
 
@@ -214,4 +240,19 @@ test_that("check_gitconfig_location returns a path when git is on PATH", {
 test_that("diagnostic_test runs without error", {
   res <- suppressMessages(diagnostic_test())
   expect_true(is.list(res))
+  expect_true(
+    all(
+      c(
+        "proxy",
+        "sslverify",
+        "gitconfig",
+        "github_pat",
+        "renv_download",
+        "renv_download_file",
+        "rtools",
+        "renviron_rprofile"
+      ) %in%
+        names(res)
+    )
+  )
 })

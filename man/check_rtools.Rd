@@ -18,5 +18,7 @@ installed and on \code{PATH}. This function checks whether \code{make} is availa
 via \code{Sys.which("make")}. It does not attempt to install RTools.
 }
 \examples{
+\dontrun{
 check_rtools()
+}
 }

@@ -28,11 +28,16 @@
 #' @param full If `TRUE`, after running the per-check output also print
 #'   `renv::diagnostics()`, `Sys.getenv()` and `options()`. Default `FALSE`.
 #'
-#' @return Invisibly, a named list of detected settings keyed by check.
+#' @return Invisibly, a named list keyed by check (`proxy`, `sslverify`,
+#'   `gitconfig`, `github_pat`, `renv_download`, `renv_download_file`,
+#'   `rtools`, `renviron_rprofile`). Each entry is the result list returned by
+#'   the corresponding `check_*` helper.
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' diagnostic_test()
+#' }
 diagnostic_test <- function(
   clean = FALSE,
   verbose = FALSE,
@@ -42,15 +47,21 @@ diagnostic_test <- function(
     "Note: some of the output below may be sensitive (e.g. GITHUB_PAT). ",
     "Do not paste the full output of this function into public channels."
   )
-  results <- c(
-    check_proxy_settings(clean = clean, verbose = verbose),
-    check_git_sslverify(clean = clean, verbose = verbose),
-    check_gitconfig_location(clean = clean, verbose = verbose),
-    check_github_pat(clean = clean, verbose = verbose),
-    check_renv_download_method(clean = clean, verbose = verbose),
-    check_renv_download_file_method(clean = clean, verbose = verbose),
-    check_rtools(verbose = verbose),
-    check_renviron_rprofile_location(verbose = verbose)
+  results <- list(
+    proxy = check_proxy_settings(clean = clean, verbose = verbose),
+    sslverify = check_git_sslverify(clean = clean, verbose = verbose),
+    gitconfig = check_gitconfig_location(clean = clean, verbose = verbose),
+    github_pat = check_github_pat(clean = clean, verbose = verbose),
+    renv_download = check_renv_download_method(
+      clean = clean,
+      verbose = verbose
+    ),
+    renv_download_file = check_renv_download_file_method(
+      clean = clean,
+      verbose = verbose
+    ),
+    rtools = check_rtools(verbose = verbose),
+    renviron_rprofile = check_renviron_rprofile_location(verbose = verbose)
   )
   if (full) {
     message("--- Full diagnostic dump ---")
@@ -89,11 +100,15 @@ diagnostic_test <- function(
 #' @param clean Attempt to clean settings.
 #' @param verbose Run in verbose mode.
 #'
-#' @return List of problem proxy settings.
+#' @return A list with two slots: `git` (named list of detected Git-config
+#'   proxy entries, or `NULL`) and `system` (named list of detected
+#'   environment-variable proxy entries, or `NULL`).
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' check_proxy_settings()
+#' }
 check_proxy_settings <- function(
   proxy_setting_names = c("http.proxy", "https.proxy"),
   proxy_env_names = c("http_proxy", "https_proxy", "no_proxy"),
@@ -103,9 +118,7 @@ check_proxy_settings <- function(
   proxy_settings_detected <- FALSE
   # Check for proxy settings in the Git configuration
   git_config <- git2r::config()
-  proxy_config <- git_config |>
-    magrittr::extract2("global") |>
-    magrittr::extract(proxy_setting_names)
+  proxy_config <- git_config[["global"]][proxy_setting_names]
   proxy_config <- proxy_config[!is.na(names(proxy_config))]
   if (length(proxy_config) > 0) {
     toggle_message(
@@ -116,10 +129,10 @@ check_proxy_settings <- function(
       toggle_message(verbose = verbose)
     proxy_settings_detected <- TRUE
     if (clean) {
-      proxy_args <- proxy_config |>
-        lapply(function(list) {
-          NULL
-        })
+      proxy_args <- stats::setNames(
+        rep(list(NULL), length(proxy_config)),
+        names(proxy_config)
+      )
       rlang::inject(git2r::config(!!!proxy_args, global = TRUE))
       message("FIXED: Git proxy settings have been cleared.")
     } else {
@@ -141,10 +154,10 @@ check_proxy_settings <- function(
       toggle_message(verbose = verbose)
     proxy_settings_detected <- TRUE
     if (clean) {
-      proxy_args <- proxy_system |>
-        lapply(function(list) {
-          ""
-        })
+      proxy_args <- stats::setNames(
+        rep(list(""), length(proxy_system)),
+        names(proxy_system)
+      )
       rlang::inject(Sys.setenv(!!!proxy_args))
       message("FIXED: System environment proxy settings have been cleared.")
     } else {
@@ -179,15 +192,15 @@ check_proxy_settings <- function(
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' check_git_sslverify()
+#' }
 check_git_sslverify <- function(
   ssl_verify_vars = c("http.sslverify", "https.sslverify"),
   clean = FALSE,
   verbose = FALSE
 ) {
-  git_config <- git2r::config() |>
-    magrittr::extract2("global") |>
-    magrittr::extract(ssl_verify_vars)
+  git_config <- git2r::config()[["global"]][ssl_verify_vars]
   git_config <- git_config[!is.na(names(git_config))]
   if (length(git_config) > 0) {
     toggle_message(
@@ -198,8 +211,11 @@ check_git_sslverify <- function(
       toggle_message(verbose = verbose)
     if (any(tolower(git_config) == "false")) {
       if (clean) {
-        git_args <- git_config[tolower(git_config) == "false"] |>
-          lapply(function(list) "TRUE")
+        to_fix <- git_config[tolower(git_config) == "false"]
+        git_args <- stats::setNames(
+          rep(list("true"), length(to_fix)),
+          names(to_fix)
+        )
         rlang::inject(git2r::config(!!!git_args, global = TRUE))
         message("FIXED: Specified Git settings have been set")
       } else {
@@ -233,7 +249,9 @@ check_git_sslverify <- function(
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' check_gitconfig_location()
+#' }
 check_gitconfig_location <- function(
   clean = FALSE,
   verbose = FALSE
@@ -245,6 +263,8 @@ check_gitconfig_location <- function(
     )
     return(invisible(list(gitconfig_path = NA_character_)))
   }
+  # Shell out to git (rather than git2r) because we need --show-origin to find
+  # which file git actually parsed, and git2r::config() does not expose that.
   output <- suppressWarnings(
     system2(
       "git",
@@ -306,7 +326,9 @@ check_gitconfig_location <- function(
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' check_github_pat()
+#' }
 check_github_pat <- function(
   clean = FALSE,
   verbose = FALSE
@@ -356,11 +378,15 @@ check_github_pat <- function(
 #' @param renviron_file Location of `.Renviron` file. Default: `~/.Renviron`
 #' @inheritParams check_proxy_settings
 #'
-#' @return List object containing `RENV_DOWNLOAD_METHOD`.
+#' @return List object containing `RENV_DOWNLOAD_METHOD` — the value parsed
+#'   from `.Renviron` with surrounding whitespace and any wrapping single or
+#'   double quotes stripped, or `NA` if the variable is not set.
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' check_renv_download_method()
+#' }
 check_renv_download_method <- function(
   renviron_file = "~/.Renviron",
   clean = FALSE,
@@ -378,14 +404,15 @@ check_renv_download_method <- function(
       .renviron[rdm_present]
     )
     detected_method <- .renviron[rdm_present] |>
-      stringr::str_split("=") |>
-      unlist() |>
-      magrittr::extract(2)
+      sub(pattern = "^[^=]*=\\s*", replacement = "") |>
+      trimws() |>
+      sub(pattern = '^"(.*)"$', replacement = "\\1") |>
+      sub(pattern = "^'(.*)'$", replacement = "\\1")
   } else {
     current_setting_message <- "RENV_DOWNLOAD_METHOD is not currently set."
     detected_method <- NA
   }
-  if (is.na(detected_method) || detected_method != "\"curl\"") {
+  if (is.na(detected_method) || detected_method != "curl") {
     if (clean) {
       if (any(rdm_present)) {
         .renviron <- .renviron[!rdm_present]
@@ -438,7 +465,9 @@ check_renv_download_method <- function(
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' check_renv_download_file_method()
+#' }
 check_renv_download_file_method <- function(
   clean = FALSE,
   verbose = FALSE
@@ -491,7 +520,9 @@ check_renv_download_file_method <- function(
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' check_rtools()
+#' }
 check_rtools <- function(verbose = FALSE) {
   make_path <- unname(Sys.which("make"))
   if (nzchar(make_path)) {
@@ -526,7 +557,9 @@ check_rtools <- function(verbose = FALSE) {
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' check_renviron_rprofile_location()
+#' }
 check_renviron_rprofile_location <- function(verbose = FALSE) {
   renviron_path <- normalizePath("~/.Renviron", mustWork = FALSE)
   rprofile_path <- normalizePath("~/.Rprofile", mustWork = FALSE)

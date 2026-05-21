@@ -21,5 +21,7 @@ reading these files from a different location than expected (for example a
 OneDrive-redirected home folder).
 }
 \examples{
+\dontrun{
 check_renviron_rprofile_location()
+}
 }

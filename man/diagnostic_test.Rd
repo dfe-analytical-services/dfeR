@@ -15,7 +15,10 @@ diagnostic_test(clean = FALSE, verbose = FALSE, full = FALSE)
 \code{renv::diagnostics()}, \code{Sys.getenv()} and \code{options()}. Default \code{FALSE}.}
 }
 \value{
-Invisibly, a named list of detected settings keyed by check.
+Invisibly, a named list keyed by check (\code{proxy}, \code{sslverify},
+\code{gitconfig}, \code{github_pat}, \code{renv_download}, \code{renv_download_file},
+\code{rtools}, \code{renviron_rprofile}). Each entry is the result list returned by
+the corresponding \verb{check_*} helper.
 }
 \description{
 Run a set of diagnostic tests to check for common issues found when setting
@@ -43,5 +46,7 @@ Some of the output (e.g. the value of \code{GITHUB_PAT}) may be sensitive. Do no
 paste the full output of this function into public channels.
 }
 \examples{
+\dontrun{
 diagnostic_test()
+}
 }

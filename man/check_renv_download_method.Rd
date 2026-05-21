@@ -18,7 +18,9 @@ check_renv_download_method(
 \item{verbose}{Run in verbose mode.}
 }
 \value{
-List object containing \code{RENV_DOWNLOAD_METHOD}.
+List object containing \code{RENV_DOWNLOAD_METHOD} — the value parsed
+from \code{.Renviron} with surrounding whitespace and any wrapping single or
+double quotes stripped, or \code{NA} if the variable is not set.
 }
 \description{
 The renv package can retrieve packages either using \code{curl} or \code{wininet}, but
@@ -28,5 +30,7 @@ for the parameter controlling which of these is used
 when called with \code{clean = TRUE}.
 }
 \examples{
+\dontrun{
 check_renv_download_method()
+}
 }

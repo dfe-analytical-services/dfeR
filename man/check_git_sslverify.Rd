@@ -27,5 +27,7 @@ with \code{clean = TRUE}. By default it checks \code{http.sslVerify} and
 \code{https.sslVerify}.
 }
 \examples{
+\dontrun{
 check_git_sslverify()
+}
 }

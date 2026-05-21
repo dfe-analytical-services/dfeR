@@ -23,7 +23,9 @@ for. Default: \code{c("http_proxy", "https_proxy", "no_proxy")}}
 \item{verbose}{Run in verbose mode.}
 }
 \value{
-List of problem proxy settings.
+A list with two slots: \code{git} (named list of detected Git-config
+proxy entries, or \code{NULL}) and \code{system} (named list of detected
+environment-variable proxy entries, or \code{NULL}).
 }
 \description{
 Prior to the pandemic, analysts in the DfE would need to add proxy settings
@@ -37,5 +39,7 @@ the system environment variables (\code{http_proxy}, \code{https_proxy}, \code{n
 default) are checked.
 }
 \examples{
+\dontrun{
 check_proxy_settings()
+}
 }

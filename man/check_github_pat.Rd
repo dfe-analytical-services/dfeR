@@ -26,5 +26,7 @@ four characters are shown - but the value itself is still in the returned
 list, so callers should be careful when sharing the return value.
 }
 \examples{
+\dontrun{
 check_github_pat()
+}
 }
