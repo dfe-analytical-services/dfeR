@@ -1,6 +1,6 @@
 # dfeR (development version)
 
-- Added `diagnostic_test()` and a set of `check_*` helpers to diagnose and (optionally) fix common DfE laptop R-setup issues — proxy settings, Git SSL verification, `GITHUB_PAT`, renv download methods, RTools toolchain, global `.gitconfig` location, and `.Renviron`/`.Rprofile` location. Closes #56 and #63.
+- Added `diagnostic_test()` and a set of `check_*` helpers to diagnose and (optionally) fix common DfE laptop R-setup issues — proxy settings, Git SSL verification, `GITHUB_PAT`, renv download methods, RTools toolchain, global `.gitconfig` location, and `.Renviron`/`.Rprofile` location.
 - Updated `geo_hierarchy`, and associated `fetch_*` functions with latest 2025 lookups.
 - Updated `pretty_num()` function to add `abbreviate` argument giving the option to avoid displaying large numbers in millions/billions.
 

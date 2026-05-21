@@ -6,16 +6,13 @@
 \usage{
 check_git_sslverify(
   ssl_verify_vars = c("http.sslverify", "https.sslverify"),
-  clean = FALSE,
-  verbose = FALSE
+  clean = FALSE
 )
 }
 \arguments{
 \item{ssl_verify_vars}{Vector of variables to check for in the Git config.}
 
 \item{clean}{Attempt to clean settings.}
-
-\item{verbose}{Run in verbose mode.}
 }
 \value{
 List of sslverify settings plus a \code{status} field

@@ -4,12 +4,10 @@
 \alias{check_github_pat}
 \title{Check GITHUB_PAT setting}
 \usage{
-check_github_pat(clean = FALSE, verbose = FALSE)
+check_github_pat(clean = FALSE)
 }
 \arguments{
 \item{clean}{Attempt to clean settings.}
-
-\item{verbose}{Run in verbose mode.}
 }
 \value{
 List object containing \code{GITHUB_PAT} plus a \code{status} field

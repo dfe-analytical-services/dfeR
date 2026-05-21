@@ -4,13 +4,11 @@
 \alias{check_gitconfig_location}
 \title{Check the location of the global .gitconfig file}
 \usage{
-check_gitconfig_location(clean = FALSE, verbose = FALSE)
+check_gitconfig_location(clean = FALSE)
 }
 \arguments{
 \item{clean}{Currently has no effect. Reserved for future use so the
 function signature matches the other \verb{check_*} helpers.}
-
-\item{verbose}{Run in verbose mode.}
 }
 \value{
 List object containing \code{gitconfig_path} (or \code{NA} if none found)

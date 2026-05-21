@@ -7,8 +7,7 @@
 check_proxy_settings(
   proxy_setting_names = c("http.proxy", "https.proxy"),
   proxy_env_names = c("http_proxy", "https_proxy", "no_proxy"),
-  clean = FALSE,
-  verbose = FALSE
+  clean = FALSE
 )
 }
 \arguments{
@@ -19,8 +18,6 @@ check_proxy_settings(
 for. Default: \code{c("http_proxy", "https_proxy", "no_proxy")}}
 
 \item{clean}{Attempt to clean settings.}
-
-\item{verbose}{Run in verbose mode.}
 }
 \value{
 A list with three slots: \code{git} (named list of detected Git-config

@@ -217,7 +217,7 @@ test_that("check_rtools returns make path info", {
   expect_true(is.list(res))
   expect_true("rtools_make_path" %in% names(res))
   expect_true(is.character(res$rtools_make_path))
-  expect_true(res$status %in% c("pass", "fail"))
+  expect_true(res$status %in% c("pass", "info"))
 })
 
 test_that("check_renviron_rprofile_location reports paths", {

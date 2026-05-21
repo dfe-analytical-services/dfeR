@@ -4,18 +4,12 @@
 \alias{check_renv_download_method}
 \title{Check renv download method}
 \usage{
-check_renv_download_method(
-  renviron_file = "~/.Renviron",
-  clean = FALSE,
-  verbose = FALSE
-)
+check_renv_download_method(renviron_file = "~/.Renviron", clean = FALSE)
 }
 \arguments{
 \item{renviron_file}{Location of \code{.Renviron} file. Default: \verb{~/.Renviron}}
 
 \item{clean}{Attempt to clean settings.}
-
-\item{verbose}{Run in verbose mode.}
 }
 \value{
 List object containing \code{RENV_DOWNLOAD_METHOD} (with surrounding

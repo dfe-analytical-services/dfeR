@@ -4,10 +4,7 @@
 \alias{check_renviron_rprofile_location}
 \title{Check the location of .Renviron and .Rprofile}
 \usage{
-check_renviron_rprofile_location(verbose = FALSE)
-}
-\arguments{
-\item{verbose}{Run in verbose mode.}
+check_renviron_rprofile_location()
 }
 \value{
 List object containing the resolved paths, existence flags,
@@ -21,8 +18,8 @@ Reports the resolved paths and existence of the user-level \code{.Renviron} and
 reading these files from a different location than expected (for example a
 OneDrive-redirected home folder).
 
-The path lines are only printed when a file is missing, when the home
-directory is OneDrive-redirected, or when \code{verbose = TRUE}.
+The path lines are only printed when a file is missing or when the home
+directory is OneDrive-redirected.
 }
 \examples{
 \dontrun{

@@ -4,15 +4,10 @@
 \alias{diagnostic_test}
 \title{Diagnostic testing}
 \usage{
-diagnostic_test(clean = FALSE, verbose = FALSE, full = FALSE)
+diagnostic_test(clean = FALSE, full = FALSE)
 }
 \arguments{
 \item{clean}{If \code{TRUE}, attempt to clean detected issues. Default \code{FALSE}.}
-
-\item{verbose}{If \code{TRUE}, print extra detail for each check (current values,
-manual remediation steps, environment variables). Defaults to \code{FALSE},
-which keeps PASS output to a single line per check and only shows detail
-when something needs the user's attention.}
 
 \item{full}{If \code{TRUE}, append a session-dump section after the per-check
 output containing \code{renv::diagnostics()}, \code{Sys.getenv()} and \code{options()}.

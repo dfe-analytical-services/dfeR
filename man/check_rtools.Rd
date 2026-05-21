@@ -4,14 +4,13 @@
 \alias{check_rtools}
 \title{Check for an RTools / make toolchain}
 \usage{
-check_rtools(verbose = FALSE)
-}
-\arguments{
-\item{verbose}{Run in verbose mode.}
+check_rtools()
 }
 \value{
 List object containing \code{rtools_make_path} plus a \code{status} field
-(\code{"pass"} or \code{"fail"}).
+(\code{"pass"} if \code{make} is found, otherwise \code{"info"}). Missing RTools is
+reported as info rather than a failure because many users will not need
+to compile packages from source.
 }
 \description{
 Some R packages require compilation, which on Windows means RTools must be

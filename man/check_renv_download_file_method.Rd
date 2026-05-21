@@ -4,12 +4,10 @@
 \alias{check_renv_download_file_method}
 \title{Check RENV_DOWNLOAD_FILE_METHOD system variable}
 \usage{
-check_renv_download_file_method(clean = FALSE, verbose = FALSE)
+check_renv_download_file_method(clean = FALSE)
 }
 \arguments{
 \item{clean}{Attempt to clean settings.}
-
-\item{verbose}{Run in verbose mode.}
 }
 \value{
 List object containing \code{RENV_DOWNLOAD_FILE_METHOD} plus a \code{status}

@@ -21,10 +21,6 @@
 #'     (`check_renviron_rprofile_location()`)
 #'
 #' @param clean If `TRUE`, attempt to clean detected issues. Default `FALSE`.
-#' @param verbose If `TRUE`, print extra detail for each check (current values,
-#'   manual remediation steps, environment variables). Defaults to `FALSE`,
-#'   which keeps PASS output to a single line per check and only shows detail
-#'   when something needs the user's attention.
 #' @param full If `TRUE`, append a session-dump section after the per-check
 #'   output containing `renv::diagnostics()`, `Sys.getenv()` and `options()`.
 #'   Useful for sharing a full diagnostic with support. Defaults to `FALSE`.
@@ -44,7 +40,6 @@
 #' }
 diagnostic_test <- function(
   clean = FALSE,
-  verbose = FALSE,
   full = FALSE
 ) {
   cli::cli_h1("dfeR diagnostics")
@@ -57,20 +52,14 @@ diagnostic_test <- function(
     )
   }
   results <- list(
-    proxy = check_proxy_settings(clean = clean, verbose = verbose),
-    sslverify = check_git_sslverify(clean = clean, verbose = verbose),
-    gitconfig = check_gitconfig_location(clean = clean, verbose = verbose),
-    github_pat = check_github_pat(clean = clean, verbose = verbose),
-    renv_download = check_renv_download_method(
-      clean = clean,
-      verbose = verbose
-    ),
-    renv_download_file = check_renv_download_file_method(
-      clean = clean,
-      verbose = verbose
-    ),
-    rtools = check_rtools(verbose = verbose),
-    renviron_rprofile = check_renviron_rprofile_location(verbose = verbose)
+    proxy = check_proxy_settings(clean = clean),
+    sslverify = check_git_sslverify(clean = clean),
+    gitconfig = check_gitconfig_location(clean = clean),
+    github_pat = check_github_pat(clean = clean),
+    renv_download = check_renv_download_method(clean = clean),
+    renv_download_file = check_renv_download_file_method(clean = clean),
+    rtools = check_rtools(),
+    renviron_rprofile = check_renviron_rprofile_location()
   )
   summarise_diagnostic_results(results)
   if (full) {
@@ -104,7 +93,9 @@ summarise_diagnostic_results <- function(results) {
   n_fixed <- sum(statuses == "fixed")
   n_info <- sum(statuses == "info")
   failed_names <- names(results)[statuses == "fail"]
+  message("")
   cli::cli_rule("Summary")
+  message("")
   parts <- c(
     if (n_pass > 0) paste0(n_pass, " PASS"),
     if (n_fixed > 0) paste0(n_fixed, " FIXED"),
@@ -145,7 +136,6 @@ summarise_diagnostic_results <- function(results) {
 #' @param proxy_env_names Vector of system environment variable names to check
 #'   for. Default: `c("http_proxy", "https_proxy", "no_proxy")`
 #' @param clean Attempt to clean settings.
-#' @param verbose Run in verbose mode.
 #'
 #' @return A list with three slots: `git` (named list of detected Git-config
 #'   proxy entries, or `NULL`), `system` (named list of detected
@@ -160,8 +150,7 @@ summarise_diagnostic_results <- function(results) {
 check_proxy_settings <- function(
   proxy_setting_names = c("http.proxy", "https.proxy"),
   proxy_env_names = c("http_proxy", "https_proxy", "no_proxy"),
-  clean = FALSE,
-  verbose = FALSE
+  clean = FALSE
 ) {
   cli::cli_h2("Proxy settings")
   proxy_settings_detected <- FALSE
@@ -173,12 +162,6 @@ check_proxy_settings <- function(
   proxy_config <- proxy_config[!is.na(names(proxy_config))]
   if (length(proxy_config) > 0) {
     proxy_settings_detected <- TRUE
-    if (verbose) {
-      cli::cli_text("Found proxy settings in Git config:")
-      cli::cli_verbatim(
-        paste0("  ", names(proxy_config), " = ", unlist(proxy_config))
-      )
-    }
     if (clean) {
       proxy_args <- stats::setNames(
         rep(list(NULL), length(proxy_config)),
@@ -200,12 +183,6 @@ check_proxy_settings <- function(
   proxy_system <- proxy_system[proxy_system != ""]
   if (length(proxy_system) > 0) {
     proxy_settings_detected <- TRUE
-    if (verbose) {
-      cli::cli_text("Found proxy settings in system environment:")
-      cli::cli_verbatim(
-        paste0("  ", names(proxy_system), " = ", unlist(proxy_system))
-      )
-    }
     if (clean) {
       proxy_args <- stats::setNames(
         rep(list(""), length(proxy_system)),
@@ -248,7 +225,6 @@ check_proxy_settings <- function(
 #'
 #' @param ssl_verify_vars Vector of variables to check for in the Git config.
 #' @param clean Attempt to clean settings.
-#' @param verbose Run in verbose mode.
 #'
 #' @return List of sslverify settings plus a `status` field
 #'   (`"pass"`, `"fail"` or `"fixed"`).
@@ -260,20 +236,13 @@ check_proxy_settings <- function(
 #' }
 check_git_sslverify <- function(
   ssl_verify_vars = c("http.sslverify", "https.sslverify"),
-  clean = FALSE,
-  verbose = FALSE
+  clean = FALSE
 ) {
   cli::cli_h2("Git sslverify")
   git_config <- git2r::config()[["global"]][ssl_verify_vars]
   git_config <- git_config[!is.na(names(git_config))]
   status <- "pass"
   if (length(git_config) > 0) {
-    if (verbose) {
-      cli::cli_text("Found specified settings in Git config:")
-      cli::cli_verbatim(
-        paste0("  ", names(git_config), " = ", unlist(git_config))
-      )
-    }
     if (any(tolower(git_config) == "false")) {
       if (clean) {
         to_fix <- git_config[tolower(git_config) == "false"]
@@ -311,7 +280,6 @@ check_git_sslverify <- function(
 #'
 #' @param clean Currently has no effect. Reserved for future use so the
 #'   function signature matches the other `check_*` helpers.
-#' @param verbose Run in verbose mode.
 #'
 #' @return List object containing `gitconfig_path` (or `NA` if none found)
 #'   plus a `status` field (`"info"` or `"fail"`).
@@ -322,8 +290,7 @@ check_git_sslverify <- function(
 #' check_gitconfig_location()
 #' }
 check_gitconfig_location <- function(
-  clean = FALSE,
-  verbose = FALSE
+  clean = FALSE
 ) {
   cli::cli_h2("Global .gitconfig location")
   git_path <- Sys.which("git")
@@ -364,15 +331,9 @@ check_gitconfig_location <- function(
       )
     )
     status <- "fail"
-  } else if (verbose) {
-    cli::cli_text("Global .gitconfig is at: {.path {path}}")
   }
   if (status == "info") {
     cli::cli_alert_info("Global .gitconfig is in a standard location.")
-  }
-  if (verbose) {
-    cli::cli_text("All --show-origin entries:")
-    cli::cli_verbatim(output)
   }
   invisible(list(gitconfig_path = path, status = status))
 }
@@ -401,8 +362,7 @@ check_gitconfig_location <- function(
 #' check_github_pat()
 #' }
 check_github_pat <- function(
-  clean = FALSE,
-  verbose = FALSE
+  clean = FALSE
 ) {
   cli::cli_h2("GITHUB_PAT")
   github_pat <- Sys.getenv("GITHUB_PAT")
@@ -431,14 +391,12 @@ check_github_pat <- function(
       cli::cli_alert_success(
         "GITHUB_PAT has been cleared from the current R session."
       )
-      if (verbose) {
-        cli::cli_text(
-          paste(
-            "This issue may recur if you have software that initialises the",
-            "GITHUB_PAT keyword automatically."
-          )
+      cli::cli_text(
+        paste(
+          "This issue may recur if you have software that initialises the",
+          "GITHUB_PAT keyword automatically."
         )
-      }
+      )
       status <- "fixed"
     } else {
       status <- "fail"
@@ -473,8 +431,7 @@ check_github_pat <- function(
 #' }
 check_renv_download_method <- function(
   renviron_file = "~/.Renviron",
-  clean = FALSE,
-  verbose = FALSE
+  clean = FALSE
 ) {
   cli::cli_h2("renv download method")
   if (file.exists(renviron_file)) {
@@ -517,26 +474,24 @@ check_renv_download_method <- function(
       } else {
         cli::cli_alert_danger("RENV_DOWNLOAD_METHOD is not currently set.")
       }
-      if (verbose) {
-        cli::cli_text("To manually update your .Renviron file:")
-        cli::cli_ul()
-        cli::cli_li("Run {.code usethis::edit_r_environ()} in the R console.")
-        if (any(rdm_present)) {
-          cli::cli_li(
-            paste0(
-              "Remove the following line from .Renviron: ",
-              "{.code {current_value}}"
-            )
-          )
-        }
+      cli::cli_text("To manually update your .Renviron file:")
+      cli::cli_ul()
+      cli::cli_li("Run {.code usethis::edit_r_environ()} in the R console.")
+      if (any(rdm_present)) {
         cli::cli_li(
-          "Add the following line to .Renviron: {.code RENV_DOWNLOAD_METHOD=\"curl\"}"
-        )
-        cli::cli_end()
-        cli::cli_text(
-          "Or run {.code dfeR::check_renv_download_method(clean = TRUE)}."
+          paste0(
+            "Remove the following line from .Renviron: ",
+            "{.code {current_value}}"
+          )
         )
       }
+      cli::cli_li(
+        "Add the following line to .Renviron: {.code RENV_DOWNLOAD_METHOD=\"curl\"}"
+      )
+      cli::cli_end()
+      cli::cli_text(
+        "Or run {.code dfeR::check_renv_download_method(clean = TRUE)}."
+      )
       status <- "fail"
     }
   } else {
@@ -570,8 +525,7 @@ check_renv_download_method <- function(
 #' check_renv_download_file_method()
 #' }
 check_renv_download_file_method <- function(
-  clean = FALSE,
-  verbose = FALSE
+  clean = FALSE
 ) {
   cli::cli_h2("RENV_DOWNLOAD_FILE_METHOD")
   rdfm <- Sys.getenv("RENV_DOWNLOAD_FILE_METHOD")
@@ -591,29 +545,18 @@ check_renv_download_file_method <- function(
       cli::cli_alert_success(
         "RENV_DOWNLOAD_FILE_METHOD has been unset for the current R session."
       )
-      if (verbose) {
-        cli::cli_text(
-          paste(
-            "If the variable was set permanently via {.code setx}, also run",
-            "this in a Windows terminal to remove it permanently:"
-          )
+      cli::cli_text(
+        paste(
+          "If the variable was set permanently via {.code setx}, also run",
+          "this in a Windows terminal to remove it permanently:"
         )
-        cli::cli_verbatim("    setx RENV_DOWNLOAD_FILE_METHOD \"\"")
-      }
+      )
+      cli::cli_verbatim("    setx RENV_DOWNLOAD_FILE_METHOD \"\"")
       status <- "fixed"
     } else {
       status <- "fail"
     }
   } else {
-    if (verbose) {
-      cli::cli_text(
-        paste0(
-          "RENV_DOWNLOAD_FILE_METHOD is set to '",
-          rdfm,
-          "'. This is unusual but not necessarily a problem."
-        )
-      )
-    }
     cli::cli_alert_success("RENV_DOWNLOAD_FILE_METHOD is not set to wininet.")
     status <- "pass"
   }
@@ -627,34 +570,32 @@ check_renv_download_file_method <- function(
 #' installed and on `PATH`. This function checks whether `make` is available
 #' via `Sys.which("make")`. It does not attempt to install RTools.
 #'
-#' @param verbose Run in verbose mode.
-#'
 #' @return List object containing `rtools_make_path` plus a `status` field
-#'   (`"pass"` or `"fail"`).
+#'   (`"pass"` if `make` is found, otherwise `"info"`). Missing RTools is
+#'   reported as info rather than a failure because many users will not need
+#'   to compile packages from source.
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #' check_rtools()
 #' }
-check_rtools <- function(verbose = FALSE) {
+check_rtools <- function() {
   cli::cli_h2("RTools / make toolchain")
   make_path <- unname(Sys.which("make"))
   if (nzchar(make_path)) {
     cli::cli_alert_success("Found 'make' at {.path {make_path}}.")
     status <- "pass"
   } else {
-    cli::cli_alert_danger(
+    cli::cli_alert_warning(
       paste(
         "'make' was not found on PATH. On Windows this usually means RTools",
-        "is not installed. Install it from",
+        "is not installed. If you need to install packages from source,",
+        "install RTools from",
         "{.url https://cran.r-project.org/bin/windows/Rtools/}."
       )
     )
-    status <- "fail"
-  }
-  if (verbose) {
-    cli::cli_text("Sys.which('make') = '{make_path}'")
+    status <- "info"
   }
   invisible(list(rtools_make_path = make_path, status = status))
 }
@@ -668,10 +609,8 @@ check_rtools <- function(verbose = FALSE) {
 #' reading these files from a different location than expected (for example a
 #' OneDrive-redirected home folder).
 #'
-#' The path lines are only printed when a file is missing, when the home
-#' directory is OneDrive-redirected, or when `verbose = TRUE`.
-#'
-#' @param verbose Run in verbose mode.
+#' The path lines are only printed when a file is missing or when the home
+#' directory is OneDrive-redirected.
 #'
 #' @return List object containing the resolved paths, existence flags,
 #'   relevant environment variables and a `status` field (`"info"` or
@@ -682,7 +621,7 @@ check_rtools <- function(verbose = FALSE) {
 #' \dontrun{
 #' check_renviron_rprofile_location()
 #' }
-check_renviron_rprofile_location <- function(verbose = FALSE) {
+check_renviron_rprofile_location <- function() {
   cli::cli_h2(".Renviron / .Rprofile location")
   renviron_path <- normalizePath("~/.Renviron", mustWork = FALSE)
   rprofile_path <- normalizePath("~/.Rprofile", mustWork = FALSE)
@@ -693,19 +632,13 @@ check_renviron_rprofile_location <- function(verbose = FALSE) {
   tilde <- path.expand("~")
   onedrive <- grepl("OneDrive", tilde, ignore.case = TRUE)
   any_missing <- !renviron_exists || !rprofile_exists
-  show_paths <- any_missing || onedrive || verbose
-  if (show_paths) {
+  if (any_missing || onedrive) {
     cli::cli_text(
       ".Renviron: {.path {renviron_path}} ({if (renviron_exists) 'exists' else 'missing'})"
     )
     cli::cli_text(
       ".Rprofile: {.path {rprofile_path}} ({if (rprofile_exists) 'exists' else 'missing'})"
     )
-  }
-  if (verbose) {
-    cli::cli_text("HOME = '{home}'")
-    cli::cli_text("R_USER = '{r_user}'")
-    cli::cli_text("path.expand('~') = '{tilde}'")
   }
   if (onedrive) {
     cli::cli_alert_danger(
