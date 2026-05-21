@@ -93,9 +93,9 @@ summarise_diagnostic_results <- function(results) {
   n_fixed <- sum(statuses == "fixed")
   n_info <- sum(statuses == "info")
   failed_names <- names(results)[statuses == "fail"]
-  message("")
+  cli::cli_text("")
   cli::cli_rule("Summary")
-  message("")
+  cli::cli_text("")
   parts <- c(
     if (n_pass > 0) paste0(n_pass, " PASS"),
     if (n_fixed > 0) paste0(n_fixed, " FIXED"),
@@ -177,7 +177,9 @@ check_proxy_settings <- function(
   } else {
     proxy_config <- NULL
   }
-  # Check for proxy-related system environment variables
+  # Check for proxy-related system environment variables.
+  # Sys.getenv() returns "" for both unset and empty-string proxies; treating
+  # them the same is fine for the proxy use case.
   proxy_system <- Sys.getenv(proxy_env_names) |>
     as.list()
   proxy_system <- proxy_system[proxy_system != ""]
@@ -347,14 +349,15 @@ check_gitconfig_location <- function(
 #' checks whether the variable is set and (with `clean = TRUE`) clears it for
 #' the current R session.
 #'
-#' The function masks the PAT value when reporting - only its length and last
-#' four characters are shown - but the value itself is still in the returned
-#' list, so callers should be careful when sharing the return value.
+#' The function masks the PAT value both in console output and in the returned
+#' list (only its length and last four characters are shown). The raw value is
+#' never returned, so it is safe to share the result of `diagnostic_test()`.
 #'
 #' @inheritParams check_proxy_settings
 #'
-#' @return List object containing `GITHUB_PAT` plus a `status` field
-#'   (`"pass"`, `"fail"` or `"fixed"`).
+#' @return List object containing `GITHUB_PAT` (masked: empty string when
+#'   unset, otherwise `"..."` followed by the last four characters) plus a
+#'   `status` field (`"pass"`, `"fail"` or `"fixed"`).
 #' @export
 #'
 #' @examples
@@ -366,15 +369,8 @@ check_github_pat <- function(
 ) {
   cli::cli_h2("GITHUB_PAT")
   github_pat <- Sys.getenv("GITHUB_PAT")
+  masked <- mask_github_pat(github_pat)
   if (github_pat != "") {
-    masked <- if (nchar(github_pat) > 4) {
-      paste0(
-        "...",
-        substr(github_pat, nchar(github_pat) - 3, nchar(github_pat))
-      )
-    } else {
-      "..."
-    }
     cli::cli_alert_danger(
       paste0(
         "GITHUB_PAT is set (length ",
@@ -405,7 +401,18 @@ check_github_pat <- function(
     cli::cli_alert_success("The GITHUB_PAT system variable is clear.")
     status <- "pass"
   }
-  invisible(list(GITHUB_PAT = github_pat, status = status))
+  invisible(list(GITHUB_PAT = masked, status = status))
+}
+
+# Internal helper: mask a token to "..." + last 4 chars (or "" when unset).
+mask_github_pat <- function(pat) {
+  if (pat == "") {
+    ""
+  } else if (nchar(pat) > 4) {
+    paste0("...", substr(pat, nchar(pat) - 3, nchar(pat)))
+  } else {
+    "..."
+  }
 }
 
 #' Check renv download method
@@ -415,7 +422,9 @@ check_github_pat <- function(
 #' `wininet` doesn't work from within the DfE network. This function checks
 #' for the parameter controlling which of these is used
 #' (`RENV_DOWNLOAD_METHOD`) in the user's `.Renviron` and sets it to `curl`
-#' when called with `clean = TRUE`.
+#' when called with `clean = TRUE`. In interactive R sessions, `clean = TRUE`
+#' prompts for confirmation before rewriting `.Renviron`; non-interactive
+#' callers (CI, scripts) proceed without prompting.
 #'
 #' @param renviron_file Location of `.Renviron` file. Default: `~/.Renviron`
 #' @inheritParams check_proxy_settings
@@ -439,9 +448,12 @@ check_renv_download_method <- function(
   } else {
     .renviron <- c()
   }
-  rdm_present <- .renviron |> stringr::str_detect("RENV_DOWNLOAD_METHOD")
+  rdm_present <- .renviron |>
+    stringr::str_detect("^\\s*RENV_DOWNLOAD_METHOD\\s*=")
   if (any(rdm_present)) {
-    current_value <- .renviron[rdm_present]
+    matched_lines <- .renviron[rdm_present]
+    # .Renviron is evaluated top-to-bottom, so the last assignment wins.
+    current_value <- utils::tail(matched_lines, 1)
     detected_method <- current_value |>
       sub(pattern = "^[^=]*=\\s*", replacement = "") |>
       trimws() |>
@@ -453,6 +465,22 @@ check_renv_download_method <- function(
   }
   if (is.na(detected_method) || detected_method != "curl") {
     if (clean) {
+      if (interactive()) {
+        ok <- utils::askYesNo(
+          paste0(
+            "About to rewrite ", renviron_file,
+            " to set RENV_DOWNLOAD_METHOD=\"curl\". Proceed?"
+          ),
+          default = FALSE
+        )
+        if (!isTRUE(ok)) {
+          cli::cli_alert_info("No changes made to .Renviron.")
+          return(invisible(list(
+            RENV_DOWNLOAD_METHOD = detected_method,
+            status = "fail"
+          )))
+        }
+      }
       if (any(rdm_present)) {
         .renviron <- .renviron[!rdm_present]
       }
@@ -460,7 +488,7 @@ check_renv_download_method <- function(
         .renviron,
         "RENV_DOWNLOAD_METHOD=\"curl\""
       )
-      cat(.renviron, file = renviron_file, sep = "\n")
+      writeLines(.renviron, renviron_file)
       cli::cli_alert_success(
         "The renv download method has been set to curl in your .Renviron."
       )
@@ -469,7 +497,7 @@ check_renv_download_method <- function(
     } else {
       if (any(rdm_present)) {
         cli::cli_alert_danger(
-          "RENV_DOWNLOAD_METHOD is currently set to: {current_value}"
+          "RENV_DOWNLOAD_METHOD is currently set to: {.code {current_value}}"
         )
       } else {
         cli::cli_alert_danger("RENV_DOWNLOAD_METHOD is not currently set.")

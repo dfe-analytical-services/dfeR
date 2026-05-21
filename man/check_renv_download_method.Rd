@@ -21,7 +21,9 @@ The renv package can retrieve packages either using \code{curl} or \code{wininet
 \code{wininet} doesn't work from within the DfE network. This function checks
 for the parameter controlling which of these is used
 (\code{RENV_DOWNLOAD_METHOD}) in the user's \code{.Renviron} and sets it to \code{curl}
-when called with \code{clean = TRUE}.
+when called with \code{clean = TRUE}. In interactive R sessions, \code{clean = TRUE}
+prompts for confirmation before rewriting \code{.Renviron}; non-interactive
+callers (CI, scripts) proceed without prompting.
 }
 \examples{
 \dontrun{

@@ -4,7 +4,11 @@ test_that("check_proxy_settings identifies and removes proxy settings", {
 
   withr::defer(
     try(
-      git2r::config(http.proxy.test = NULL, global = TRUE),
+      git2r::config(
+        http.proxy.test = NULL,
+        https.proxy.test = NULL,
+        global = TRUE
+      ),
       silent = TRUE
     )
   )
@@ -128,10 +132,11 @@ test_that("check_github_pat detects, masks and clears GITHUB_PAT", {
 
   withr::with_envvar(c(GITHUB_PAT = "fake_token_abc1234"), {
     res <- suppressMessages(check_github_pat())
-    expect_equal(res$GITHUB_PAT, "fake_token_abc1234")
+    expect_equal(res$GITHUB_PAT, "...1234")
     expect_equal(res$status, "fail")
 
     res_fixed <- suppressMessages(check_github_pat(clean = TRUE))
+    expect_equal(res_fixed$GITHUB_PAT, "...1234")
     expect_equal(res_fixed$status, "fixed")
     expect_equal(Sys.getenv("GITHUB_PAT"), "")
   })
@@ -270,4 +275,12 @@ test_that("diagnostic_test runs without error", {
   # Every check now reports a status
   statuses <- vapply(res, function(x) x$status, character(1))
   expect_true(all(statuses %in% c("pass", "fail", "fixed", "info")))
+})
+
+test_that("diagnostic_test(full = TRUE) prints the full dump", {
+  skip_if_not_installed("renv")
+  out <- capture.output(
+    suppressMessages(diagnostic_test(full = TRUE))
+  )
+  expect_true(any(grepl("Full diagnostic dump", out)))
 })

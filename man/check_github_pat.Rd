@@ -10,8 +10,9 @@ check_github_pat(clean = FALSE)
 \item{clean}{Attempt to clean settings.}
 }
 \value{
-List object containing \code{GITHUB_PAT} plus a \code{status} field
-(\code{"pass"}, \code{"fail"} or \code{"fixed"}).
+List object containing \code{GITHUB_PAT} (masked: empty string when
+unset, otherwise \code{"..."} followed by the last four characters) plus a
+\code{status} field (\code{"pass"}, \code{"fail"} or \code{"fixed"}).
 }
 \description{
 If the \code{GITHUB_PAT} system variable is set, it can cause issues with R
@@ -20,9 +21,9 @@ installing packages from GitHub (usually with an error of
 checks whether the variable is set and (with \code{clean = TRUE}) clears it for
 the current R session.
 
-The function masks the PAT value when reporting - only its length and last
-four characters are shown - but the value itself is still in the returned
-list, so callers should be careful when sharing the return value.
+The function masks the PAT value both in console output and in the returned
+list (only its length and last four characters are shown). The raw value is
+never returned, so it is safe to share the result of \code{diagnostic_test()}.
 }
 \examples{
 \dontrun{
