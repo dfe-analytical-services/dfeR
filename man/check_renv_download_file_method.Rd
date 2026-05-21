@@ -12,7 +12,8 @@ check_renv_download_file_method(clean = FALSE, verbose = FALSE)
 \item{verbose}{Run in verbose mode.}
 }
 \value{
-List object containing \code{RENV_DOWNLOAD_FILE_METHOD}.
+List object containing \code{RENV_DOWNLOAD_FILE_METHOD} plus a \code{status}
+field (\code{"pass"}, \code{"fail"} or \code{"fixed"}).
 }
 \description{
 The legacy \code{proxy.R} script used \verb{setx RENV_DOWNLOAD_FILE_METHOD wininet} to

@@ -13,7 +13,8 @@ function signature matches the other \verb{check_*} helpers.}
 \item{verbose}{Run in verbose mode.}
 }
 \value{
-List object containing \code{gitconfig_path} (or \code{NA} if none found).
+List object containing \code{gitconfig_path} (or \code{NA} if none found)
+plus a \code{status} field (\code{"info"} or \code{"fail"}).
 }
 \description{
 Reports the location Git is using for its global config file. R, RStudio,

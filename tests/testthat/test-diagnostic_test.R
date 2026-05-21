@@ -24,7 +24,8 @@ test_that("check_proxy_settings identifies and removes proxy settings", {
     ),
     list(
       git = list(http.proxy.test = "this-is-a-test-entry"),
-      system = NULL
+      system = NULL,
+      status = "fail"
     )
   )
 
@@ -39,7 +40,8 @@ test_that("check_proxy_settings identifies and removes proxy settings", {
     ),
     list(
       git = list(http.proxy.test = "this-is-a-test-entry"),
-      system = NULL
+      system = NULL,
+      status = "fixed"
     )
   )
 
@@ -52,7 +54,7 @@ test_that("check_proxy_settings identifies and removes proxy settings", {
         proxy_env_names = proxy_env_names
       )
     ),
-    list(git = NULL, system = NULL)
+    list(git = NULL, system = NULL, status = "pass")
   )
 
   # System environment branch
@@ -67,7 +69,8 @@ test_that("check_proxy_settings identifies and removes proxy settings", {
     ),
     list(
       git = NULL,
-      system = list(http_proxy_test = "this-is-a-test-entry")
+      system = list(http_proxy_test = "this-is-a-test-entry"),
+      status = "fail"
     )
   )
 
@@ -101,13 +104,15 @@ test_that("check_git_sslverify detects and corrects sslverify=false", {
     )
   )
   expect_equal(res$ssl_verify, list(http.sslverify = "false"))
+  expect_equal(res$status, "fail")
 
-  suppressMessages(
+  res_fixed <- suppressMessages(
     check_git_sslverify(
       ssl_verify_vars = "http.sslverify",
       clean = TRUE
     )
   )
+  expect_equal(res_fixed$status, "fixed")
   expect_equal(
     tolower(git2r::config()$global$http.sslverify),
     "true"
@@ -118,13 +123,16 @@ test_that("check_github_pat detects, masks and clears GITHUB_PAT", {
   withr::with_envvar(c(GITHUB_PAT = ""), {
     res <- suppressMessages(check_github_pat())
     expect_equal(res$GITHUB_PAT, "")
+    expect_equal(res$status, "pass")
   })
 
   withr::with_envvar(c(GITHUB_PAT = "fake_token_abc1234"), {
     res <- suppressMessages(check_github_pat())
     expect_equal(res$GITHUB_PAT, "fake_token_abc1234")
+    expect_equal(res$status, "fail")
 
-    suppressMessages(check_github_pat(clean = TRUE))
+    res_fixed <- suppressMessages(check_github_pat(clean = TRUE))
+    expect_equal(res_fixed$status, "fixed")
     expect_equal(Sys.getenv("GITHUB_PAT"), "")
   })
 })
@@ -132,10 +140,9 @@ test_that("check_github_pat detects, masks and clears GITHUB_PAT", {
 test_that("check_renv_download_method handles missing/curl/wininet cases", {
   # Missing file
   missing <- tempfile()
-  expect_equal(
-    suppressMessages(check_renv_download_method(missing))$RENV_DOWNLOAD_METHOD,
-    NA
-  )
+  res_missing <- suppressMessages(check_renv_download_method(missing))
+  expect_equal(res_missing$RENV_DOWNLOAD_METHOD, NA)
+  expect_equal(res_missing$status, "fail")
 
   # Restore RENV_DOWNLOAD_METHOD because clean=TRUE calls readRenviron()
   withr::local_envvar(
@@ -143,12 +150,9 @@ test_that("check_renv_download_method handles missing/curl/wininet cases", {
   )
 
   curl_file <- withr::local_tempfile(lines = 'RENV_DOWNLOAD_METHOD="curl"')
-  expect_equal(
-    suppressMessages(
-      check_renv_download_method(curl_file)
-    )$RENV_DOWNLOAD_METHOD,
-    "curl"
-  )
+  res_curl <- suppressMessages(check_renv_download_method(curl_file))
+  expect_equal(res_curl$RENV_DOWNLOAD_METHOD, "curl")
+  expect_equal(res_curl$status, "pass")
 
   # Unquoted and whitespace variants should also be treated as PASS
   unquoted_file <- withr::local_tempfile(lines = "RENV_DOWNLOAD_METHOD=curl")
@@ -172,7 +176,16 @@ test_that("check_renv_download_method handles missing/curl/wininet cases", {
   wininet_file <- withr::local_tempfile(
     lines = 'RENV_DOWNLOAD_METHOD="wininet"'
   )
-  suppressMessages(check_renv_download_method(wininet_file, clean = TRUE))
+  res_wininet <- suppressMessages(
+    check_renv_download_method(wininet_file)
+  )
+  expect_equal(res_wininet$RENV_DOWNLOAD_METHOD, "wininet")
+  expect_equal(res_wininet$status, "fail")
+
+  res_clean <- suppressMessages(
+    check_renv_download_method(wininet_file, clean = TRUE)
+  )
+  expect_equal(res_clean$status, "fixed")
   expect_equal(
     suppressMessages(
       check_renv_download_method(wininet_file)
@@ -183,23 +196,18 @@ test_that("check_renv_download_method handles missing/curl/wininet cases", {
 
 test_that("check_renv_download_file_method detects and clears wininet", {
   withr::with_envvar(c(RENV_DOWNLOAD_FILE_METHOD = ""), {
-    expect_equal(
-      suppressMessages(
-        check_renv_download_file_method()
-      )$RENV_DOWNLOAD_FILE_METHOD,
-      ""
-    )
+    res <- suppressMessages(check_renv_download_file_method())
+    expect_equal(res$RENV_DOWNLOAD_FILE_METHOD, "")
+    expect_equal(res$status, "pass")
   })
 
   withr::with_envvar(c(RENV_DOWNLOAD_FILE_METHOD = "wininet"), {
-    expect_equal(
-      suppressMessages(
-        check_renv_download_file_method()
-      )$RENV_DOWNLOAD_FILE_METHOD,
-      "wininet"
-    )
+    res <- suppressMessages(check_renv_download_file_method())
+    expect_equal(res$RENV_DOWNLOAD_FILE_METHOD, "wininet")
+    expect_equal(res$status, "fail")
 
-    suppressMessages(check_renv_download_file_method(clean = TRUE))
+    res_fixed <- suppressMessages(check_renv_download_file_method(clean = TRUE))
+    expect_equal(res_fixed$status, "fixed")
     expect_equal(Sys.getenv("RENV_DOWNLOAD_FILE_METHOD"), "")
   })
 })
@@ -209,6 +217,7 @@ test_that("check_rtools returns make path info", {
   expect_true(is.list(res))
   expect_true("rtools_make_path" %in% names(res))
   expect_true(is.character(res$rtools_make_path))
+  expect_true(res$status %in% c("pass", "fail"))
 })
 
 test_that("check_renviron_rprofile_location reports paths", {
@@ -223,11 +232,13 @@ test_that("check_renviron_rprofile_location reports paths", {
         "rprofile_exists",
         "HOME",
         "R_USER",
-        "tilde"
+        "tilde",
+        "status"
       ) %in%
         names(res)
     )
   )
+  expect_true(res$status %in% c("info", "fail"))
 })
 
 test_that("check_gitconfig_location returns a path when git is on PATH", {
@@ -235,6 +246,7 @@ test_that("check_gitconfig_location returns a path when git is on PATH", {
   res <- suppressMessages(check_gitconfig_location())
   expect_true(is.list(res))
   expect_true("gitconfig_path" %in% names(res))
+  expect_true(res$status %in% c("info", "fail"))
 })
 
 test_that("diagnostic_test runs without error", {
@@ -255,4 +267,7 @@ test_that("diagnostic_test runs without error", {
         names(res)
     )
   )
+  # Every check now reports a status
+  statuses <- vapply(res, function(x) x$status, character(1))
+  expect_true(all(statuses %in% c("pass", "fail", "fixed", "info")))
 })

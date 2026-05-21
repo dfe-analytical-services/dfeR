@@ -23,9 +23,10 @@ for. Default: \code{c("http_proxy", "https_proxy", "no_proxy")}}
 \item{verbose}{Run in verbose mode.}
 }
 \value{
-A list with two slots: \code{git} (named list of detected Git-config
-proxy entries, or \code{NULL}) and \code{system} (named list of detected
-environment-variable proxy entries, or \code{NULL}).
+A list with three slots: \code{git} (named list of detected Git-config
+proxy entries, or \code{NULL}), \code{system} (named list of detected
+environment-variable proxy entries, or \code{NULL}) and \code{status} (one of
+\code{"pass"}, \code{"fail"} or \code{"fixed"}).
 }
 \description{
 Prior to the pandemic, analysts in the DfE would need to add proxy settings

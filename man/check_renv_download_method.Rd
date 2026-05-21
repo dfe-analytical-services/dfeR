@@ -18,9 +18,9 @@ check_renv_download_method(
 \item{verbose}{Run in verbose mode.}
 }
 \value{
-List object containing \code{RENV_DOWNLOAD_METHOD} — the value parsed
-from \code{.Renviron} with surrounding whitespace and any wrapping single or
-double quotes stripped, or \code{NA} if the variable is not set.
+List object containing \code{RENV_DOWNLOAD_METHOD} (with surrounding
+whitespace and any wrapping quotes stripped, or \code{NA} if the variable is
+not set) plus a \code{status} field (\code{"pass"}, \code{"fail"} or \code{"fixed"}).
 }
 \description{
 The renv package can retrieve packages either using \code{curl} or \code{wininet}, but

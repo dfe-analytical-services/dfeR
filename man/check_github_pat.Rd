@@ -12,7 +12,8 @@ check_github_pat(clean = FALSE, verbose = FALSE)
 \item{verbose}{Run in verbose mode.}
 }
 \value{
-List object containing \code{GITHUB_PAT}.
+List object containing \code{GITHUB_PAT} plus a \code{status} field
+(\code{"pass"}, \code{"fail"} or \code{"fixed"}).
 }
 \description{
 If the \code{GITHUB_PAT} system variable is set, it can cause issues with R

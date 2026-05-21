@@ -10,7 +10,8 @@ check_rtools(verbose = FALSE)
 \item{verbose}{Run in verbose mode.}
 }
 \value{
-List object containing \code{rtools_make_path}.
+List object containing \code{rtools_make_path} plus a \code{status} field
+(\code{"pass"} or \code{"fail"}).
 }
 \description{
 Some R packages require compilation, which on Windows means RTools must be

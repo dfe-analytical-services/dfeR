@@ -18,7 +18,8 @@ check_git_sslverify(
 \item{verbose}{Run in verbose mode.}
 }
 \value{
-List of sslverify settings.
+List of sslverify settings plus a \code{status} field
+(\code{"pass"}, \code{"fail"} or \code{"fixed"}).
 }
 \description{
 Checks the values of the SSL-verify settings in the global Git config. If

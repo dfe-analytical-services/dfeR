@@ -10,8 +10,9 @@ check_renviron_rprofile_location(verbose = FALSE)
 \item{verbose}{Run in verbose mode.}
 }
 \value{
-List object containing the resolved paths, existence flags and
-relevant environment variables.
+List object containing the resolved paths, existence flags,
+relevant environment variables and a \code{status} field (\code{"info"} or
+\code{"fail"}).
 }
 \description{
 Reports the resolved paths and existence of the user-level \code{.Renviron} and
@@ -19,6 +20,9 @@ Reports the resolved paths and existence of the user-level \code{.Renviron} and
 \code{path.expand("~")}. This is useful for diagnosing situations where R is
 reading these files from a different location than expected (for example a
 OneDrive-redirected home folder).
+
+The path lines are only printed when a file is missing, when the home
+directory is OneDrive-redirected, or when \code{verbose = TRUE}.
 }
 \examples{
 \dontrun{

@@ -9,16 +9,23 @@ diagnostic_test(clean = FALSE, verbose = FALSE, full = FALSE)
 \arguments{
 \item{clean}{If \code{TRUE}, attempt to clean detected issues. Default \code{FALSE}.}
 
-\item{verbose}{If \code{TRUE}, print extra information about detected settings.}
+\item{verbose}{If \code{TRUE}, print extra detail for each check (current values,
+manual remediation steps, environment variables). Defaults to \code{FALSE},
+which keeps PASS output to a single line per check and only shows detail
+when something needs the user's attention.}
 
-\item{full}{If \code{TRUE}, after running the per-check output also print
-\code{renv::diagnostics()}, \code{Sys.getenv()} and \code{options()}. Default \code{FALSE}.}
+\item{full}{If \code{TRUE}, append a session-dump section after the per-check
+output containing \code{renv::diagnostics()}, \code{Sys.getenv()} and \code{options()}.
+Useful for sharing a full diagnostic with support. Defaults to \code{FALSE}.
+Note: this output contains unmasked sensitive values such as \code{GITHUB_PAT},
+so do not paste it into public channels.}
 }
 \value{
 Invisibly, a named list keyed by check (\code{proxy}, \code{sslverify},
 \code{gitconfig}, \code{github_pat}, \code{renv_download}, \code{renv_download_file},
 \code{rtools}, \code{renviron_rprofile}). Each entry is the result list returned by
-the corresponding \verb{check_*} helper.
+the corresponding \verb{check_*} helper, including a \code{status} field with one
+of \code{"pass"}, \code{"fail"}, \code{"fixed"} or \code{"info"}.
 }
 \description{
 Run a set of diagnostic tests to check for common issues found when setting
@@ -41,9 +48,6 @@ The checks include:
 \item The location of \code{.Renviron} and \code{.Rprofile}
 (\code{check_renviron_rprofile_location()})
 }
-
-Some of the output (e.g. the value of \code{GITHUB_PAT}) may be sensitive. Do not
-paste the full output of this function into public channels.
 }
 \examples{
 \dontrun{
