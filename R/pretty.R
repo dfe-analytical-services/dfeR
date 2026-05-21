@@ -35,23 +35,106 @@ pretty_filesize <- function(filesize) {
     stop("file size must be a numeric value")
   } else {
     if (round_five_up(filesize / 10^9, 2) >= 1) {
-      return(paste0(comma_sep(round_five_up(filesize / 10^9, 2)), " GB"))
+      paste0(comma_sep(round_five_up(filesize / 10^9, 2)), " GB")
     } else {
       if (round_five_up(filesize / 1000^2, 2) >= 1) {
-        return(paste0(round_five_up(filesize / 1000^2, 2), " MB"))
+        paste0(round_five_up(filesize / 1000^2, 2), " MB")
       } else {
         if (round_five_up(filesize, 2) >= 1000) {
-          return(paste0(round_five_up(filesize / 1000, 2), " KB"))
+          paste0(round_five_up(filesize / 1000, 2), " KB")
         } else {
           if (filesize == 1) {
             "1 byte"
           } else {
-            return(paste0(round_five_up(filesize, 2), " bytes"))
+            paste0(round_five_up(filesize, 2), " bytes")
           }
         }
       }
     }
   }
+}
+
+#' Pretty time
+#'
+#' @description
+#' Convert seconds into a human readable format
+#'
+#' @details
+#' Recognises when to present as:
+#' - seconds
+#' - minutes and seconds
+#' - hours, minutes and seconds
+#'
+#' It will show seconds until 119 seconds, then minutes until
+#' 119 minutes, then hours. It doesn't do days or higher yet,
+#' but could be adapted to do so if there's demand.
+#'
+#' @param seconds number of seconds to prettify
+#' @returns string containing the 'pretty' time
+#' @family prettying
+#' @seealso [comma_sep()] [round_five_up()] [as.POSIXct()]
+#' @export
+#'
+#' @examples
+#' pretty_time(1)
+#' pretty_time(8)
+#' pretty_time(888)
+#' pretty_time(88888888)
+#' pretty_time(c(60, 2, 88, 88888888))
+pretty_time <- function(seconds) {
+  # Check if value is numeric or a vector of numeric values
+  if (!is.numeric(seconds)) {
+    stop("Seconds must be a numeric value or vector of numeric values.")
+  }
+
+  pretty_time_singular <- function(seconds) {
+    # Present as seconds
+    if (seconds < 120) {
+      if (seconds == 1) {
+        "1 second"
+      } else {
+        paste0(seconds, " seconds")
+      }
+    } else {
+      # Present as minutes and seconds
+      if (seconds < 7140) {
+        mins <- seconds %/% 60
+        secs <- dfeR::round_five_up(seconds %% 60)
+
+        min_desc <- ifelse(mins == 1, " minute ", " minutes ")
+        sec_desc <- ifelse(secs == 1, " second", " seconds")
+
+        paste0(
+          mins,
+          min_desc,
+          secs,
+          sec_desc
+        )
+
+        # Present as hours, minutes and seconds
+      } else {
+        hours <- seconds %/% 3600
+        mins <- seconds %/% 60 - hours * 60
+        secs <- round_five_up(seconds %% 60)
+
+        hour_desc <- ifelse(hours == 1, " hour ", " hours ")
+        min_desc <- ifelse(mins == 1, " minute ", " minutes ")
+        sec_desc <- ifelse(secs == 1, " second", " seconds")
+
+        paste0(
+          dfeR::comma_sep(hours),
+          hour_desc,
+          mins,
+          min_desc,
+          secs,
+          sec_desc
+        )
+      }
+    }
+  }
+
+  lapply(seconds, pretty_time_singular) |>
+    unlist()
 }
 
 #' Calculate elapsed time between two points and present prettily
@@ -120,44 +203,8 @@ pretty_time_taken <- function(start_time, end_time) {
   # Find the elapsed time in seconds
   raw_time <- round_five_up(end_secs - start_secs, 2)
 
-  # Format elapsed time neatly
-  # This section could be broken into its own function
-  # ...that takes in raw seconds
-  if (raw_time < 120) {
-    if (raw_time == 1) {
-      return("1 second")
-    } else {
-      return(paste0(raw_time, " seconds"))
-    }
-  } else {
-    if (raw_time < 7140) {
-      mins <- raw_time %/% 60
-      secs <- round_five_up(raw_time %% 60)
-
-      min_desc <- ifelse(mins == 1, " minute ", " minutes ")
-      sec_desc <- ifelse(secs == 1, " second", " seconds")
-
-      return(
-        paste0(
-          mins, min_desc, secs, sec_desc
-        )
-      )
-    } else {
-      hours <- raw_time %/% 3600
-      mins <- raw_time %/% 60 - hours * 60
-      secs <- round_five_up(raw_time %% 60)
-
-      hour_desc <- ifelse(hours == 1, " hour ", " hours ")
-      min_desc <- ifelse(mins == 1, " minute ", " minutes ")
-      sec_desc <- ifelse(secs == 1, " second", " seconds")
-
-      return(
-        paste0(
-          comma_sep(hours), hour_desc, mins, min_desc, secs, sec_desc
-        )
-      )
-    }
-  }
+  # Prettify the time taken
+  pretty_time(raw_time)
 }
 
 #' Prettify big numbers into a readable format
@@ -192,12 +239,19 @@ pretty_time_taken <- function(start_time, end_time) {
 #' If NULL, the value of `dp` will be used.
 #' If the value of `dp` is less than 0, then `nsmall` will
 #' automatically be set to 0.
-#'
+#' @param abbreviate whether to abbreviate large numbers to nearest million
+#' (where 1e6 <= value < 1e9) or billion (where value >= 1e9).
+#' @param dynamic_dp_value Integer. Default = NULL.
+#' Overrides the `dp` setting and dynamically adjusts decimal places based on
+#' value magnitude. For values ≥ 1 million or ≥ 1 billion, the function checks
+#' the scaled value (e.g., value / 1e6 or value / 1e9): if the scaled value is
+#' a whole number, it sets decimal places to 0; otherwise, it adds precision
+#' as specified here. This approach improves clarity without
+#' unnecessary formatting.
 #' @return string featuring prettified value
 #' @family prettying
 #' @seealso [comma_sep()] [round_five_up()] [as.numeric()]
 #' @export
-#'
 #' @examples
 #' # On individual values
 #' pretty_num(5789, gbp = TRUE)
@@ -210,8 +264,21 @@ pretty_time_taken <- function(start_time, end_time) {
 #' pretty_num("x")
 #' pretty_num("x", ignore_na = TRUE)
 #' pretty_num("nope", alt_na = "x")
-#'
-#' # Applied over an example vector
+#' pretty_num(7.8e9, abbreviate = FALSE)
+#' # dynamic_dp_value enabled for a billion value not divisible by 10
+#' pretty_num(3e9, dynamic_dp_value = 2)
+#' # dynamic_dp_value enabled for a billion value divisible by 10
+#' pretty_num(10e9, dynamic_dp_value = 2)
+#' # dynamic_dp_value enabled for a million value not divisible by 10
+#' pretty_num(3e6, dynamic_dp_value = 3)
+#' # dynamic_dp_value enabled for a million value divisible by 10
+#' pretty_num(10e6, dynamic_dp_value = 3)
+#' # dynamic_dp_value enabled with GBP and suffix
+#' pretty_num(1.5e9,
+#'   gbp = TRUE, suffix = "%",
+#'   dynamic_dp_value = 1
+#' )
+#' #' # Applied over an example vector
 #' vector <- c(3998098008, -123421421, "c", "x")
 #' pretty_num(vector)
 #' pretty_num(vector, prefix = "+/-", gbp = TRUE)
@@ -222,19 +289,29 @@ pretty_time_taken <- function(start_time, end_time) {
 #' # Return alternative value in place of NA
 #' pretty_num(vector, alt_na = "z")
 pretty_num <- function(
-    value,
-    prefix = "",
-    gbp = FALSE,
-    suffix = "",
-    dp = 0,
-    ignore_na = FALSE,
-    alt_na = FALSE,
-    nsmall = NULL) {
+  value,
+  prefix = "",
+  gbp = FALSE,
+  suffix = "",
+  dp = 0,
+  ignore_na = FALSE,
+  alt_na = FALSE,
+  nsmall = NULL,
+  dynamic_dp_value = NULL,
+  abbreviate = TRUE
+) {
   # use lapply to use the function for singular value or a vector
 
   result <- lapply(value, function(value) {
     # Force to numeric
     num_value <- suppressWarnings(as.numeric(value))
+
+    # Get dp value based on dp_by_magnitude argument
+    if (is.null(dynamic_dp_value)) {
+      dp <- dp
+    } else {
+      dp <- determine_dp(num_value, dp, dynamic_dp_value)
+    }
 
     # Check if should skip function
     if (is.na(num_value)) {
@@ -268,7 +345,6 @@ pretty_num <- function(
 
     # Add suffix and prefix, plus convert to million or billion
 
-
     # If nsmall is not given, make same value as dp
     # if dp is smaller than 0, make nsmall 0
     # if nsmall is specified, use that value
@@ -281,22 +357,23 @@ pretty_num <- function(
       nsmall <- 0
     }
 
-
-    if (abs(num_value) >= 1.e9) {
+    if (abs(num_value) >= 1.e9 & abbreviate == TRUE) {
       paste0(
         prefix,
         currency,
-        comma_sep(round_five_up(abs(num_value) / 1.e9, dp = dp),
+        comma_sep(
+          round_five_up(abs(num_value) / 1.e9, dp = dp),
           nsmall = nsmall
         ),
         " billion",
         suffix
       )
-    } else if (abs(num_value) >= 1.e6) {
+    } else if (abs(num_value) >= 1.e6 & abbreviate == TRUE) {
       paste0(
         prefix,
         currency,
-        comma_sep(round_five_up(abs(num_value) / 1.e6, dp = dp),
+        comma_sep(
+          round_five_up(abs(num_value) / 1.e6, dp = dp),
           nsmall = nsmall
         ),
         " million",
@@ -306,16 +383,14 @@ pretty_num <- function(
       paste0(
         prefix,
         currency,
-        comma_sep(round_five_up(abs(num_value), dp = dp),
-          nsmall = nsmall
-        ),
+        comma_sep(round_five_up(abs(num_value), dp = dp), nsmall = nsmall),
         suffix
       )
     }
   }) # lapply bracket
 
   # unlisting the results so that they're all on one line
-  return(unlist(result))
+  unlist(result)
 }
 
 #' Format a data frame with `dfeR::pretty_num()`.
@@ -369,14 +444,17 @@ pretty_num <- function(
 #' # provide alternative value for NAs
 #' pretty_num_table(df, alt_na = "[z]", exclude_columns = c("b"), dp = 2)
 #'
-pretty_num_table <- function(data,
-                             include_columns = NULL,
-                             exclude_columns = NULL,
-                             ...) {
+pretty_num_table <- function(
+  data,
+  include_columns = NULL,
+  exclude_columns = NULL,
+  ...
+) {
   # Check data is a data frame and throw error if not
   if (!is.data.frame(data)) {
     stop(paste0(
-      "Data has the class ", class(data),
+      "Data has the class ",
+      class(data),
       ", data must be a data.frame object"
     ))
   }
@@ -408,7 +486,7 @@ pretty_num_table <- function(data,
   }
 
   # Apply pretty_num() formatting to the selected columns
-  data %>%
+  data |>
     dplyr::mutate(dplyr::across(
       .cols = dplyr::all_of(cols_to_include),
       ~ pretty_num(., ...)

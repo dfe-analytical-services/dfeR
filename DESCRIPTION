@@ -1,7 +1,7 @@
 Type: Package
 Package: dfeR
 Title: Common Department for Education Analysis Tasks
-Version: 1.0.1.9000
+Version: 1.2.0.9000
 Authors@R: c(
     person("Cam", "Race", , "cameron.race@education.gov.uk", role = c("aut", "cre")),
     person("Department for Education, England", , , "statistics.development@education.gov.uk", role = "cph"),
@@ -12,7 +12,9 @@ Authors@R: c(
     person("Rich", "Bielby", , "richard.bielby@education.gov.uk", role = "ctb",
            comment = c(ORCID = "0000-0001-9070-9969")),
     person("Menna", "Zayed", , "menna.zayed@education.gov.uk", role = "ctb"),
-    person("Lauren", "Snaathorst", , "lauren.snaathorst@education.gov.uk", role = "ctb")
+    person("Lauren", "Snaathorst", , "lauren.snaathorst@education.gov.uk", role = "ctb"),
+    person("Lara", "Garbett", , "lara.garbett@education.gov.uk", role = "ctb"),
+    person("Paula", "Rocha", , "paula.rocha@education.gov.uk", role = "ctb")
   )
 Description: Preferred methods for common analytical tasks that are
     undertaken across the Department, including number formatting, project
@@ -22,17 +24,21 @@ URL: https://dfe-analytical-services.github.io/dfeR/,
     https://github.com/dfe-analytical-services/dfeR
 BugReports: https://github.com/dfe-analytical-services/dfeR/issues
 Depends: 
-    R (>= 2.10)
+    R (>= 4.1.0)
 Imports: 
+    arrow,
+    cli,
+    DBI,
     dplyr,
     emoji,
     git2r,
     httr,
+    httr2,
     jsonlite,
     lifecycle,
-    magrittr,
     renv,
     rlang,
+    rstudio.prefs,
     tidyselect,
     usethis,
     utils,
@@ -43,7 +49,12 @@ Suggests:
     rmarkdown,
     spelling,
     stringr,
-    testthat (>= 3.0.0)
+    tidyr,
+    testthat (>= 3.0.0),
+    mockery,
+    ggplot2,
+    purrr,
+    scales
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3

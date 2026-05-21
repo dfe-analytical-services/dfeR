@@ -21,7 +21,7 @@ params <- list(
 ons_countries <- dfeR::get_ons_api_data(
   paste0("CTRY_DEC_", year, "_UK_NC"),
   query_params = params
-) |>
+)  |>
   dplyr::rename(
     "country_name" = paste0("attributes.CTRY", year_end, "NM"),
     "country_code" = paste0("attributes.CTRY", year_end, "CD")
@@ -30,7 +30,8 @@ ons_countries <- dfeR::get_ons_api_data(
 # Set custom DfE countries ----------------------------------------------------
 custom_dfe_countries <- data.frame(
   "country_name" = c(
-    "England, Wales and Northern Ireland", "Outside of England and unknown",
+    "England, Wales and Northern Ireland",
+    "Outside of England and unknown",
     "Outside of the United Kingdom and unknown"
   ),
   "country_code" = c("z", "z", "z")

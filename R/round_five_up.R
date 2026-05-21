@@ -47,5 +47,5 @@ round_five_up <- function(number, dp = 0) {
   z <- z + 0.5 + sqrt(.Machine$double.eps)
   z <- trunc(z)
   z <- z / 10^dp
-  return(z * sign(number))
+  z * sign(number)
 }

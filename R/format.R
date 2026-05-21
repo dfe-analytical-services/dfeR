@@ -33,8 +33,10 @@ format_ay <- function(year) {
 #' format_ay_reverse("2016/17")
 format_ay_reverse <- function(year) {
   if (!grepl("^\\d{4}/\\d{2}.*", year)) {
-    stop("year parameter must be a seven digit string in an academic
-         year format, e.g. '2016/17'")
+    stop(
+      "year parameter must be a seven digit string in an academic
+         year format, e.g. '2016/17'"
+    )
   }
   gsub("/", "", year)
 }
@@ -75,8 +77,10 @@ format_fy <- function(year) {
 # function to reverse the change back to e.g. 201617
 format_fy_reverse <- function(year) {
   if (!grepl("^\\d{4}-\\d{2}.*", year)) {
-    stop("year parameter must be a seven digit string in a financial
-         year format, e.g. '2016-17'")
+    stop(
+      "year parameter must be a seven digit string in a financial
+         year format, e.g. '2016-17'"
+    )
   }
   gsub("[^0-9A-Za-z///' ]", "", year)
 }

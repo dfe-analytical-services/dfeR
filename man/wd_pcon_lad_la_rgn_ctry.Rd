@@ -24,6 +24,7 @@ Last year in the lookups that we see this location
 \item{ward_code}{9 digit ward code}
 \item{pcon_code}{9 digit westminster constituency code}
 \item{lad_code}{9 digit local authority district code}
+\item{old_la_code}{old 3 digit local authority code}
 \item{new_la_code}{9 digit local authority code}
 \item{region_code}{9 digit region code}
 \item{country_code}{9 digit country code}
@@ -32,17 +33,28 @@ Last year in the lookups that we see this location
 }
 \source{
 https://geoportal.statistics.gov.uk/search?tags=lup_wd_pcon_lad_utla
-and https://geoportal.statistics.gov.uk/search?q=lup_wd_lad_cty_rgn_gor_ctry
+https://geoportal.statistics.gov.uk/search?q=lup_wd_lad_cty_rgn_gor_ctry
+https://get-information-schools.service.gov.uk/Guidance/LaNameCodes and
+https://tinyurl.com/EESScreenerLAs
 }
 \usage{
 wd_pcon_lad_la_rgn_ctry
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+}
+\details{
+\code{wd_pcon_lad_la_rgn_ctry} has been superseded by \code{geo_hierarchy} and will no
+longer receive any updates. It will be removed in the next major version.
+
+\code{geo_hierarchy} contains all the columns in this data set plus more, and is
+what we will be maintaining moving forwards. \code{wd_pcon_lad_la_rgn_ctry} will
+be removed in the next major release of the package.
+
 A lookup showing the hierarchy of ward to Westminster parliamentary
 constituency to local authority district to local authority to region to
 country for years 2017, 2019, 2020, 2021, 2022, 2023 and 2024.
-}
-\details{
+
 Changes we've made to the original lookup:
 \enumerate{
 \item The original lookup from ONS uses the Upper Tier Local Authority, we then

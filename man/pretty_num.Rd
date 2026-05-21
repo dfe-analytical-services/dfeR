@@ -12,7 +12,9 @@ pretty_num(
   dp = 0,
   ignore_na = FALSE,
   alt_na = FALSE,
-  nsmall = NULL
+  nsmall = NULL,
+  dynamic_dp_value = NULL,
+  abbreviate = TRUE
 )
 }
 \arguments{
@@ -36,6 +38,16 @@ converted and return original value}
 If NULL, the value of \code{dp} will be used.
 If the value of \code{dp} is less than 0, then \code{nsmall} will
 automatically be set to 0.}
+
+\item{dynamic_dp_value}{Integer. Default = NULL.
+Overrides the \code{dp} setting and dynamically adjusts decimal places based on
+value magnitude. For values ≥ 1 million or ≥ 1 billion, the function checks
+the scaled value (e.g., value / 1e6 or value / 1e9): if the scaled value is
+a whole number, it sets decimal places to 0; otherwise, it adds precision
+as specified here. This approach improves clarity without unnecessary formatting.}
+
+\item{abbreviate}{whether to abbreviate large numbers to nearest million
+(where 1e6 <= value < 1e9) or billion (where value >= 1e9).}
 }
 \value{
 string featuring prettified value
@@ -70,8 +82,21 @@ pretty_num("56.089", suffix = "\%")
 pretty_num("x")
 pretty_num("x", ignore_na = TRUE)
 pretty_num("nope", alt_na = "x")
-
-# Applied over an example vector
+pretty_num(7.8e9, abbreviate = FALSE)
+# dynamic_dp_value enabled for a billion value not divisible by 10
+pretty_num(3e9, dynamic_dp_value = 2)
+# dynamic_dp_value enabled for a billion value divisible by 10
+pretty_num(10e9, dynamic_dp_value = 2)
+# dynamic_dp_value enabled for a million value not divisible by 10
+pretty_num(3e6, dynamic_dp_value = 3)
+# dynamic_dp_value enabled for a million value divisible by 10
+pretty_num(10e6, dynamic_dp_value = 3)
+# dynamic_dp_value enabled with GBP and suffix
+pretty_num(1.5e9,
+  gbp = TRUE, suffix = "\%",
+  dynamic_dp_value = 1
+)
+#' # Applied over an example vector
 vector <- c(3998098008, -123421421, "c", "x")
 pretty_num(vector)
 pretty_num(vector, prefix = "+/-", gbp = TRUE)
@@ -88,6 +113,7 @@ pretty_num(vector, alt_na = "z")
 Other prettying: 
 \code{\link{pretty_filesize}()},
 \code{\link{pretty_num_table}()},
+\code{\link{pretty_time}()},
 \code{\link{pretty_time_taken}()}
 }
 \concept{prettying}
