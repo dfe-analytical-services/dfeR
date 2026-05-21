@@ -48,8 +48,13 @@ reference:
   contents:
   - diagnostic_test
   - check_proxy_settings
+  - check_git_sslverify
+  - check_gitconfig_location
   - check_github_pat
   - check_renv_download_method
+  - check_renv_download_file_method
+  - check_rtools
+  - check_renviron_rprofile_location
 
 - title: Helpers
   desc: >

@@ -11,20 +11,21 @@ check_renv_download_method(
 )
 }
 \arguments{
-\item{renviron_file}{Location of .Renviron file. Default: ~/.Renviron}
+\item{renviron_file}{Location of \code{.Renviron} file. Default: \verb{~/.Renviron}}
 
-\item{clean}{Attempt to clean settings}
+\item{clean}{Attempt to clean settings.}
 
-\item{verbose}{Run in verbose mode}
+\item{verbose}{Run in verbose mode.}
 }
 \value{
-List object containing RENV_DOWNLOAD_METHOD
+List object containing \code{RENV_DOWNLOAD_METHOD}.
 }
 \description{
-The renv package can retrieve packages either using curl or wininet, but
-wininet doesn't work from within the DfE network. This script checks for
-the parameter controlling which of these is used (RENV_DOWNLOAD_METHOD) and
-sets it to use curl.
+The renv package can retrieve packages either using \code{curl} or \code{wininet}, but
+\code{wininet} doesn't work from within the DfE network. This function checks
+for the parameter controlling which of these is used
+(\code{RENV_DOWNLOAD_METHOD}) in the user's \code{.Renviron} and sets it to \code{curl}
+when called with \code{clean = TRUE}.
 }
 \examples{
 check_renv_download_method()

@@ -11,19 +11,20 @@ check_git_sslverify(
 )
 }
 \arguments{
-\item{ssl_verify_vars}{Vector of variables to check for in the Git config}
+\item{ssl_verify_vars}{Vector of variables to check for in the Git config.}
 
-\item{clean}{Attempt to clean settings}
+\item{clean}{Attempt to clean settings.}
 
-\item{verbose}{Run in verbose mode}
+\item{verbose}{Run in verbose mode.}
 }
 \value{
-List of sslverify settings
+List of sslverify settings.
 }
 \description{
-This script checks the values of the specified settings in the Git config and
-if they're set to FALSE, it changes them to "TRUE" if clean=TRUE.
-The defaut is to check for "http.sslVerify" and "https.sslVerify"
+Checks the values of the SSL-verify settings in the global Git config. If
+they're set to \code{false}, the function flips them back to \code{TRUE} when called
+with \code{clean = TRUE}. By default it checks \code{http.sslVerify} and
+\code{https.sslVerify}.
 }
 \examples{
 check_git_sslverify()

@@ -4,24 +4,43 @@
 \alias{diagnostic_test}
 \title{Diagnostic testing}
 \usage{
-diagnostic_test(clean = FALSE, verbose = FALSE)
+diagnostic_test(clean = FALSE, verbose = FALSE, full = FALSE)
 }
 \arguments{
-\item{clean}{Attempt to clean settings}
+\item{clean}{If \code{TRUE}, attempt to clean detected issues. Default \code{FALSE}.}
 
-\item{verbose}{Run in verbose mode}
+\item{verbose}{If \code{TRUE}, print extra information about detected settings.}
+
+\item{full}{If \code{TRUE}, after running the per-check output also print
+\code{renv::diagnostics()}, \code{Sys.getenv()} and \code{options()}. Default \code{FALSE}.}
 }
 \value{
-List object of detected parameters
+Invisibly, a named list of detected settings keyed by check.
 }
 \description{
 Run a set of diagnostic tests to check for common issues found when setting
-up R on a DfE
-system. This includes:
+up R on a DfE system. The function runs each \verb{check_*()} helper in turn and
+returns a combined list of detected settings. Problems can optionally be
+fixed by passing \code{clean = TRUE}.
+
+The checks include:
 \itemize{
-\item Checking for proxy settings in the Git configuration
-\item Checking for correct download method used by renv (curl)
+\item Proxy settings in the Git configuration and system environment
+(\code{check_proxy_settings()})
+\item Git SSL-verify setting (\code{check_git_sslverify()})
+\item The location of the global \code{.gitconfig} file
+(\code{check_gitconfig_location()})
+\item The \code{GITHUB_PAT} system variable (\code{check_github_pat()})
+\item renv download method in \code{.Renviron} (\code{check_renv_download_method()})
+\item The \code{RENV_DOWNLOAD_FILE_METHOD} system variable
+(\code{check_renv_download_file_method()})
+\item Presence of an RTools/\code{make} toolchain (\code{check_rtools()})
+\item The location of \code{.Renviron} and \code{.Rprofile}
+(\code{check_renviron_rprofile_location()})
 }
+
+Some of the output (e.g. the value of \code{GITHUB_PAT}) may be sensitive. Do not
+paste the full output of this function into public channels.
 }
 \examples{
 diagnostic_test()

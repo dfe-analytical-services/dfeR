@@ -6,28 +6,35 @@
 \usage{
 check_proxy_settings(
   proxy_setting_names = c("http.proxy", "https.proxy"),
+  proxy_env_names = c("http_proxy", "https_proxy", "no_proxy"),
   clean = FALSE,
   verbose = FALSE
 )
 }
 \arguments{
-\item{proxy_setting_names}{Vector of proxy parameters to check for. Default:
-c("http.proxy", "https.proxy")}
+\item{proxy_setting_names}{Vector of Git-config keys to check for. Default:
+\code{c("http.proxy", "https.proxy")}}
 
-\item{clean}{Attempt to clean settings}
+\item{proxy_env_names}{Vector of system environment variable names to check
+for. Default: \code{c("http_proxy", "https_proxy", "no_proxy")}}
 
-\item{verbose}{Run in verbose mode}
+\item{clean}{Attempt to clean settings.}
+
+\item{verbose}{Run in verbose mode.}
 }
 \value{
-List of problem proxy settings
+List of problem proxy settings.
 }
 \description{
-This script checks for "bad" proxy settings. Prior to the pandemic, analysts
-in the DfE would need to add some proxy settings to either their GitHub
-config or environment variables.
-These settings now prevent Git from connecting to remote archives on GitHub
-and Azure DevOps, so this script identifies and (if clean=TRUE is set)
+Prior to the pandemic, analysts in the DfE would need to add proxy settings
+to either their Git configuration or system environment variables. These
+settings now prevent Git from connecting to remote archives on GitHub and
+Azure DevOps, so this function identifies them and (with \code{clean = TRUE})
 removes them.
+
+Both the Git configuration (keys \code{http.proxy}, \code{https.proxy} by default) and
+the system environment variables (\code{http_proxy}, \code{https_proxy}, \code{no_proxy} by
+default) are checked.
 }
 \examples{
 check_proxy_settings()

@@ -7,20 +7,23 @@
 check_github_pat(clean = FALSE, verbose = FALSE)
 }
 \arguments{
-\item{clean}{Attempt to clean settings}
+\item{clean}{Attempt to clean settings.}
 
-\item{verbose}{Run in verbose mode}
+\item{verbose}{Run in verbose mode.}
 }
 \value{
-List object containing the github_pat keyword content.
+List object containing \code{GITHUB_PAT}.
 }
 \description{
-If the GITHUB_PAT keyword is set, then it can cause issues with R installing
-packages from GitHub (usually with an error of "ERROR [curl: (22) The
-requested URL returned error: 401]"). This script checks whether the keyword
-is set and can then clear it (if clear=TRUE).
-The user will then need to identify where the "GITHUB_PAT" variable is being
-set from and remove it to permanently fix the issue.
+If the \code{GITHUB_PAT} system variable is set, it can cause issues with R
+installing packages from GitHub (usually with an error of
+"ERROR [curl: (22) The requested URL returned error: 401]"). This function
+checks whether the variable is set and (with \code{clean = TRUE}) clears it for
+the current R session.
+
+The function masks the PAT value when reporting — only its length and last
+four characters are shown — but the value itself is still in the returned
+list, so callers should be careful when sharing the return value.
 }
 \examples{
 check_github_pat()

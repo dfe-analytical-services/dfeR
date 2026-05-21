@@ -1,5 +1,7 @@
 # dfeR (development version)
 
+Added `diagnostic_test()` and a set of `check_*` helpers to diagnose and (optionally) fix common DfE laptop R-setup issues — proxy settings, Git SSL verification, `GITHUB_PAT`, renv download methods, RTools toolchain, global `.gitconfig` location, and `.Renviron`/`.Rprofile` location. Closes #56 and #63.
+
 # dfeR 1.0.1
 
 Fix the spacing and printing of the z_replace() warning message, updating the eesyapi URL in the README and removed extraneous package tests.
