@@ -21,8 +21,8 @@ installing packages from GitHub (usually with an error of
 checks whether the variable is set and (with \code{clean = TRUE}) clears it for
 the current R session.
 
-The function masks the PAT value when reporting — only its length and last
-four characters are shown — but the value itself is still in the returned
+The function masks the PAT value when reporting - only its length and last
+four characters are shown - but the value itself is still in the returned
 list, so callers should be careful when sharing the return value.
 }
 \examples{
