@@ -15,10 +15,10 @@
 #'   - The `GITHUB_PAT` system variable (`check_github_pat()`)
 #'   - renv download method in `.Renviron` (`check_renv_download_method()`)
 #'   - The `RENV_DOWNLOAD_FILE_METHOD` system variable
-#'     (`check_renv_download_file_method()`)
+#'     (`check_renv_dl_file_method()`)
 #'   - Presence of an RTools/`make` toolchain (`check_rtools()`)
 #'   - The location of `.Renviron` and `.Rprofile`
-#'     (`check_renviron_rprofile_location()`)
+#'     (`check_renv_rprof_location()`)
 #'
 #' @param clean If `TRUE`, attempt to clean detected issues. Default `FALSE`.
 #' @param full If `TRUE`, append a session-dump section after the per-check
@@ -46,20 +46,20 @@ diagnostic_test <- function(
   if (full) {
     cli::cli_alert_warning(
       paste(
-        "The full dump contains unmasked sensitive values (e.g. GITHUB_PAT).",
-        "Do not paste this output into public channels."
+        "The full dump may contain unmasked sensitive values",
+        "(e.g. GITHUB_PAT). Do not paste this output into public channels."
       )
     )
   }
   results <- list(
     proxy = check_proxy_settings(clean = clean),
     sslverify = check_git_sslverify(clean = clean),
-    gitconfig = check_gitconfig_location(clean = clean),
+    gitconfig = check_gitconfig_location(),
     github_pat = check_github_pat(clean = clean),
     renv_download = check_renv_download_method(clean = clean),
-    renv_download_file = check_renv_download_file_method(clean = clean),
+    renv_download_file = check_renv_dl_file_method(clean = clean),
     rtools = check_rtools(),
-    renviron_rprofile = check_renviron_rprofile_location()
+    renviron_rprofile = check_renv_rprof_location()
   )
   summarise_diagnostic_results(results)
   if (full) {
@@ -74,11 +74,66 @@ diagnostic_test <- function(
       }
     )
     cli::cli_h2("Sys.getenv()")
-    cli::cli_verbatim(utils::capture.output(print(Sys.getenv())))
+    cli::cli_verbatim(
+      utils::capture.output(print(mask_sensitive_env(Sys.getenv())))
+    )
     cli::cli_h2("options()")
     cli::cli_verbatim(utils::capture.output(print(options())))
   }
   invisible(results)
+}
+
+# Internal helper: read selected keys from `git config --global --list`.
+# Returns a named list of character values for keys present, in the order
+# requested. Keys not present in the global config are omitted. Later
+# assignments overwrite earlier ones, matching git's own resolution.
+git_config_get_global <- function(keys) {
+  if (!nzchar(Sys.which("git"))) {
+    return(list())
+  }
+  out <- suppressWarnings(
+    system2(
+      "git",
+      c("config", "--global", "--list"),
+      stdout = TRUE,
+      stderr = FALSE
+    )
+  )
+  if (length(out) == 0) {
+    return(list())
+  }
+  eq <- regexpr("=", out, fixed = TRUE)
+  has_eq <- eq > 0
+  out <- out[has_eq]
+  eq <- eq[has_eq]
+  names <- substr(out, 1, eq - 1)
+  values <- substr(out, eq + 1, nchar(out))
+  full <- stats::setNames(as.list(values), names)
+  matched <- intersect(keys, names(full))
+  full[matched]
+}
+
+# Internal helper: set or unset a single key in the global git config.
+# `value = NULL` unsets the key (no-op if absent).
+git_config_set_global <- function(key, value) {
+  if (is.null(value)) {
+    suppressWarnings(
+      system2(
+        "git",
+        c("config", "--global", "--unset-all", key),
+        stdout = FALSE,
+        stderr = FALSE
+      )
+    )
+  } else {
+    system2(
+      "git",
+      c("config", "--global", key, value),
+      stdout = FALSE,
+      stderr = FALSE
+    )
+  }
+  invisible(NULL)
 }
 
 # Internal helper: render the trailing summary line for diagnostic_test().
@@ -154,22 +209,16 @@ check_proxy_settings <- function(
 ) {
   cli::cli_h2("Proxy settings")
   proxy_settings_detected <- FALSE
-  any_cleaned <- FALSE
   any_left <- FALSE
   # Check for proxy settings in the Git configuration
-  git_config <- git2r::config()
-  proxy_config <- git_config[["global"]][proxy_setting_names]
-  proxy_config <- proxy_config[!is.na(names(proxy_config))]
+  proxy_config <- git_config_get_global(proxy_setting_names)
   if (length(proxy_config) > 0) {
     proxy_settings_detected <- TRUE
     if (clean) {
-      proxy_args <- stats::setNames(
-        rep(list(NULL), length(proxy_config)),
-        names(proxy_config)
-      )
-      rlang::inject(git2r::config(!!!proxy_args, global = TRUE))
+      for (key in names(proxy_config)) {
+        git_config_set_global(key, NULL)
+      }
       cli::cli_alert_success("Git proxy settings have been cleared.")
-      any_cleaned <- TRUE
     } else {
       cli::cli_alert_danger("Git proxy settings have been left in place.")
       any_left <- TRUE
@@ -186,15 +235,10 @@ check_proxy_settings <- function(
   if (length(proxy_system) > 0) {
     proxy_settings_detected <- TRUE
     if (clean) {
-      proxy_args <- stats::setNames(
-        rep(list(""), length(proxy_system)),
-        names(proxy_system)
-      )
-      rlang::inject(Sys.setenv(!!!proxy_args))
+      Sys.unsetenv(names(proxy_system))
       cli::cli_alert_success(
         "System environment proxy settings have been cleared."
       )
-      any_cleaned <- TRUE
     } else {
       cli::cli_alert_danger(
         "System environment proxy settings have been left in place."
@@ -241,18 +285,15 @@ check_git_sslverify <- function(
   clean = FALSE
 ) {
   cli::cli_h2("Git sslverify")
-  git_config <- git2r::config()[["global"]][ssl_verify_vars]
-  git_config <- git_config[!is.na(names(git_config))]
+  git_config <- git_config_get_global(ssl_verify_vars)
   status <- "pass"
   if (length(git_config) > 0) {
-    if (any(tolower(git_config) == "false")) {
+    if (any(tolower(unlist(git_config)) == "false")) {
       if (clean) {
-        to_fix <- git_config[tolower(git_config) == "false"]
-        git_args <- stats::setNames(
-          rep(list("true"), length(to_fix)),
-          names(to_fix)
-        )
-        rlang::inject(git2r::config(!!!git_args, global = TRUE))
+        to_fix <- git_config[tolower(unlist(git_config)) == "false"]
+        for (key in names(to_fix)) {
+          git_config_set_global(key, "true")
+        }
         cli::cli_alert_success("sslverify has been set back to true.")
         status <- "fixed"
       } else {
@@ -280,20 +321,15 @@ check_git_sslverify <- function(
 #' prints the resolved path so users can sanity-check it against the file they
 #' think they are editing.
 #'
-#' @param clean Currently has no effect. Reserved for future use so the
-#'   function signature matches the other `check_*` helpers.
-#'
 #' @return List object containing `gitconfig_path` (or `NA` if none found)
-#'   plus a `status` field (`"info"` or `"fail"`).
+#'   plus a `status` field (`"pass"`, `"info"` or `"fail"`).
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #' check_gitconfig_location()
 #' }
-check_gitconfig_location <- function(
-  clean = FALSE
-) {
+check_gitconfig_location <- function() {
   cli::cli_h2("Global .gitconfig location")
   git_path <- Sys.which("git")
   if (!nzchar(git_path)) {
@@ -302,8 +338,7 @@ check_gitconfig_location <- function(
     )
     return(invisible(list(gitconfig_path = NA_character_, status = "info")))
   }
-  # Shell out to git (rather than git2r) because we need --show-origin to find
-  # which file git actually parsed, and git2r::config() does not expose that.
+  # --show-origin tells us which file git actually parsed.
   output <- suppressWarnings(
     system2(
       "git",
@@ -322,20 +357,20 @@ check_gitconfig_location <- function(
   path <- origin_lines[1] |>
     sub(pattern = "^file:", replacement = "") |>
     sub(pattern = "\\s.*$", replacement = "")
-  status <- "info"
+
   if (grepl("OneDrive", path, ignore.case = TRUE)) {
     cli::cli_alert_danger(
-      paste0(
-        "Your global .gitconfig is inside OneDrive ({path}). This often ",
-        "causes Git, R, and RStudio to disagree on which config is in ",
-        "effect. We recommend moving it to the standard location: ",
+      c(
+        "Your global .gitconfig is inside OneDrive ({.path {path}}). ",
+        "This often causes Git, R, and RStudio to disagree on which config ",
+        "is in effect. We recommend moving it to the standard location: ",
         "{.path C:/Users/<username>/.gitconfig}"
       )
     )
     status <- "fail"
-  }
-  if (status == "info") {
-    cli::cli_alert_info("Global .gitconfig is in a standard location.")
+  } else {
+    cli::cli_alert_success("Global .gitconfig is in a standard location.")
+    status <- "pass"
   }
   invisible(list(gitconfig_path = path, status = status))
 }
@@ -415,6 +450,25 @@ mask_github_pat <- function(pat) {
   }
 }
 
+# Internal helper: mask values whose key name matches a sensitive pattern.
+# Used to sanitise Sys.getenv() before printing in the full diagnostic dump.
+# Patterns are intentionally broad - "KEY" will also match vars like
+# "..._KEYBOARD_LAYOUT", which is a deliberately conservative trade-off.
+mask_sensitive_env <- function(
+  env,
+  patterns = c("TOKEN", "SECRET", "KEY", "PAT", "PASSWORD", "CRED")
+) {
+  if (length(env) == 0) {
+    return(env)
+  }
+  re <- paste(patterns, collapse = "|")
+  hits <- grepl(re, names(env), ignore.case = TRUE)
+  if (any(hits)) {
+    env[hits] <- vapply(env[hits], mask_github_pat, character(1))
+  }
+  env
+}
+
 #' Check renv download method
 #'
 #' @description
@@ -422,9 +476,7 @@ mask_github_pat <- function(pat) {
 #' `wininet` doesn't work from within the DfE network. This function checks
 #' for the parameter controlling which of these is used
 #' (`RENV_DOWNLOAD_METHOD`) in the user's `.Renviron` and sets it to `curl`
-#' when called with `clean = TRUE`. In interactive R sessions, `clean = TRUE`
-#' prompts for confirmation before rewriting `.Renviron`; non-interactive
-#' callers (CI, scripts) proceed without prompting.
+#' when called with `clean = TRUE`.
 #'
 #' @param renviron_file Location of `.Renviron` file. Default: `~/.Renviron`
 #' @inheritParams check_proxy_settings
@@ -448,8 +500,7 @@ check_renv_download_method <- function(
   } else {
     .renviron <- c()
   }
-  rdm_present <- .renviron |>
-    stringr::str_detect("^\\s*RENV_DOWNLOAD_METHOD\\s*=")
+  rdm_present <- grepl("^\\s*RENV_DOWNLOAD_METHOD\\s*=", .renviron)
   if (any(rdm_present)) {
     matched_lines <- .renviron[rdm_present]
     # .Renviron is evaluated top-to-bottom, so the last assignment wins.
@@ -465,22 +516,6 @@ check_renv_download_method <- function(
   }
   if (is.na(detected_method) || detected_method != "curl") {
     if (clean) {
-      if (interactive()) {
-        ok <- utils::askYesNo(
-          paste0(
-            "About to rewrite ", renviron_file,
-            " to set RENV_DOWNLOAD_METHOD=\"curl\". Proceed?"
-          ),
-          default = FALSE
-        )
-        if (!isTRUE(ok)) {
-          cli::cli_alert_info("No changes made to .Renviron.")
-          return(invisible(list(
-            RENV_DOWNLOAD_METHOD = detected_method,
-            status = "fail"
-          )))
-        }
-      }
       if (any(rdm_present)) {
         .renviron <- .renviron[!rdm_present]
       }
@@ -514,7 +549,10 @@ check_renv_download_method <- function(
         )
       }
       cli::cli_li(
-        "Add the following line to .Renviron: {.code RENV_DOWNLOAD_METHOD=\"curl\"}"
+        paste0(
+          "Add the following line to .Renviron: ",
+          "{.code RENV_DOWNLOAD_METHOD=\"curl\"}"
+        )
       )
       cli::cli_end()
       cli::cli_text(
@@ -550,9 +588,9 @@ check_renv_download_method <- function(
 #'
 #' @examples
 #' \dontrun{
-#' check_renv_download_file_method()
+#' check_renv_dl_file_method()
 #' }
-check_renv_download_file_method <- function(
+check_renv_dl_file_method <- function(
   clean = FALSE
 ) {
   cli::cli_h2("RENV_DOWNLOAD_FILE_METHOD")
@@ -638,18 +676,19 @@ check_rtools <- function() {
 #' OneDrive-redirected home folder).
 #'
 #' The path lines are only printed when a file is missing or when the home
-#' directory is OneDrive-redirected.
+#' directory is OneDrive-redirected. The status is `"fail"` when the home
+#' directory has been redirected into OneDrive, and `"pass"` otherwise.
 #'
 #' @return List object containing the resolved paths, existence flags,
-#'   relevant environment variables and a `status` field (`"info"` or
+#'   relevant environment variables and a `status` field (`"pass"` or
 #'   `"fail"`).
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' check_renviron_rprofile_location()
+#' check_renv_rprof_location()
 #' }
-check_renviron_rprofile_location <- function() {
+check_renv_rprof_location <- function() {
   cli::cli_h2(".Renviron / .Rprofile location")
   renviron_path <- normalizePath("~/.Renviron", mustWork = FALSE)
   rprofile_path <- normalizePath("~/.Rprofile", mustWork = FALSE)
@@ -661,12 +700,18 @@ check_renviron_rprofile_location <- function() {
   onedrive <- grepl("OneDrive", tilde, ignore.case = TRUE)
   any_missing <- !renviron_exists || !rprofile_exists
   if (any_missing || onedrive) {
-    cli::cli_text(
-      ".Renviron: {.path {renviron_path}} ({if (renviron_exists) 'exists' else 'missing'})"
-    )
-    cli::cli_text(
-      ".Rprofile: {.path {rprofile_path}} ({if (rprofile_exists) 'exists' else 'missing'})"
-    )
+    renviron_status <- if (renviron_exists) "exists" else "missing"
+    rprofile_status <- if (rprofile_exists) "exists" else "missing"
+    cli::cli_text(paste0(
+      ".Renviron: {.path {renviron_path}} (",
+      renviron_status,
+      ")"
+    ))
+    cli::cli_text(paste0(
+      ".Rprofile: {.path {rprofile_path}} (",
+      rprofile_status,
+      ")"
+    ))
   }
   if (onedrive) {
     cli::cli_alert_danger(
@@ -677,10 +722,10 @@ check_renviron_rprofile_location <- function() {
     )
     status <- "fail"
   } else {
-    cli::cli_alert_info(
+    cli::cli_alert_success(
       ".Renviron and .Rprofile locations resolve outside of OneDrive."
     )
-    status <- "info"
+    status <- "pass"
   }
   invisible(list(
     renviron_path = renviron_path,

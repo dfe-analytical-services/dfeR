@@ -38,10 +38,10 @@ The checks include:
 \item The \code{GITHUB_PAT} system variable (\code{check_github_pat()})
 \item renv download method in \code{.Renviron} (\code{check_renv_download_method()})
 \item The \code{RENV_DOWNLOAD_FILE_METHOD} system variable
-(\code{check_renv_download_file_method()})
+(\code{check_renv_dl_file_method()})
 \item Presence of an RTools/\code{make} toolchain (\code{check_rtools()})
 \item The location of \code{.Renviron} and \code{.Rprofile}
-(\code{check_renviron_rprofile_location()})
+(\code{check_renv_rprof_location()})
 }
 }
 \examples{

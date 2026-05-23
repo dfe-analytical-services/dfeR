@@ -1,23 +1,68 @@
+git_set <- function(key, value) {
+  system2(
+    "git",
+    c("config", "--global", key, value),
+    stdout = FALSE,
+    stderr = FALSE
+  )
+}
+
+git_get <- function(key) {
+  out <- suppressWarnings(
+    system2(
+      "git",
+      c("config", "--global", "--get", key),
+      stdout = TRUE,
+      stderr = FALSE
+    )
+  )
+  if (length(out) == 0) NA_character_ else out[[1]]
+}
+
+# GIT_CONFIG_GLOBAL has been honoured since git 2.32 (June 2021). Tests that
+# write to the global config use it to redirect those writes into a temp file,
+# so the user's real ~/.gitconfig is never touched.
+git_supports_isolated_global <- function() {
+  if (!nzchar(Sys.which("git"))) {
+    return(FALSE)
+  }
+  ver <- suppressWarnings(
+    system2("git", "--version", stdout = TRUE, stderr = FALSE)
+  )
+  if (length(ver) == 0) {
+    return(FALSE)
+  }
+  m <- regmatches(ver, regexpr("[0-9]+\\.[0-9]+(\\.[0-9]+)?", ver))
+  if (length(m) == 0) {
+    return(FALSE)
+  }
+  numeric_version(m) >= "2.32"
+}
+
+local_isolated_gitconfig <- function(.local_envir = parent.frame()) {
+  testthat::skip_if_not(
+    git_supports_isolated_global(),
+    "git >= 2.32 required for isolated GIT_CONFIG_GLOBAL"
+  )
+  cfg <- withr::local_tempfile(.local_envir = .local_envir)
+  file.create(cfg)
+  withr::local_envvar(
+    c(GIT_CONFIG_GLOBAL = cfg),
+    .local_envir = .local_envir
+  )
+  invisible(cfg)
+}
+
 test_that("check_proxy_settings identifies and removes proxy settings", {
+  local_isolated_gitconfig()
   proxy_setting_names <- c("http.proxy.test", "https.proxy.test")
   proxy_env_names <- c("http_proxy_test", "https_proxy_test", "no_proxy_test")
 
-  withr::defer(
-    try(
-      git2r::config(
-        http.proxy.test = NULL,
-        https.proxy.test = NULL,
-        global = TRUE
-      ),
-      silent = TRUE
-    )
-  )
-
   # Confirm the dummy config is actually set before checking removal
-  git2r::config(http.proxy.test = "this-is-a-test-entry", global = TRUE)
-  expect_true("http.proxy.test" %in% names(git2r::config()$global))
+  git_set("http.proxy.test", "this-is-a-test-entry")
+  expect_equal(git_get("http.proxy.test"), "this-is-a-test-entry")
 
-  # Detect (clean = FALSE)
+  # Detection run with clean disabled
   expect_equal(
     suppressMessages(
       check_proxy_settings(
@@ -50,7 +95,7 @@ test_that("check_proxy_settings identifies and removes proxy settings", {
   )
 
   # After cleaning, the setting is gone
-  expect_false("http.proxy.test" %in% names(git2r::config()$global))
+  expect_true(is.na(git_get("http.proxy.test")))
   expect_equal(
     suppressMessages(
       check_proxy_settings(
@@ -89,17 +134,10 @@ test_that("check_proxy_settings identifies and removes proxy settings", {
 })
 
 test_that("check_git_sslverify detects and corrects sslverify=false", {
-  prior_sslverify <- git2r::config()$global$http.sslverify
-  withr::defer(
-    if (is.null(prior_sslverify)) {
-      git2r::config(http.sslverify = NULL, global = TRUE)
-    } else {
-      git2r::config(http.sslverify = prior_sslverify, global = TRUE)
-    }
-  )
+  local_isolated_gitconfig()
 
-  git2r::config(http.sslverify = "false", global = TRUE)
-  expect_equal(git2r::config()$global$http.sslverify, "false")
+  git_set("http.sslverify", "false")
+  expect_equal(git_get("http.sslverify"), "false")
 
   res <- suppressMessages(
     check_git_sslverify(
@@ -117,10 +155,7 @@ test_that("check_git_sslverify detects and corrects sslverify=false", {
     )
   )
   expect_equal(res_fixed$status, "fixed")
-  expect_equal(
-    tolower(git2r::config()$global$http.sslverify),
-    "true"
-  )
+  expect_equal(tolower(git_get("http.sslverify")), "true")
 })
 
 test_that("check_github_pat detects, masks and clears GITHUB_PAT", {
@@ -199,19 +234,19 @@ test_that("check_renv_download_method handles missing/curl/wininet cases", {
   )
 })
 
-test_that("check_renv_download_file_method detects and clears wininet", {
+test_that("check_renv_dl_file_method detects and clears wininet", {
   withr::with_envvar(c(RENV_DOWNLOAD_FILE_METHOD = ""), {
-    res <- suppressMessages(check_renv_download_file_method())
+    res <- suppressMessages(check_renv_dl_file_method())
     expect_equal(res$RENV_DOWNLOAD_FILE_METHOD, "")
     expect_equal(res$status, "pass")
   })
 
   withr::with_envvar(c(RENV_DOWNLOAD_FILE_METHOD = "wininet"), {
-    res <- suppressMessages(check_renv_download_file_method())
+    res <- suppressMessages(check_renv_dl_file_method())
     expect_equal(res$RENV_DOWNLOAD_FILE_METHOD, "wininet")
     expect_equal(res$status, "fail")
 
-    res_fixed <- suppressMessages(check_renv_download_file_method(clean = TRUE))
+    res_fixed <- suppressMessages(check_renv_dl_file_method(clean = TRUE))
     expect_equal(res_fixed$status, "fixed")
     expect_equal(Sys.getenv("RENV_DOWNLOAD_FILE_METHOD"), "")
   })
@@ -225,8 +260,8 @@ test_that("check_rtools returns make path info", {
   expect_true(res$status %in% c("pass", "info"))
 })
 
-test_that("check_renviron_rprofile_location reports paths", {
-  res <- suppressMessages(check_renviron_rprofile_location())
+test_that("check_renv_rprof_location reports paths", {
+  res <- suppressMessages(check_renv_rprof_location())
   expect_true(is.list(res))
   expect_true(
     all(
@@ -243,7 +278,7 @@ test_that("check_renviron_rprofile_location reports paths", {
         names(res)
     )
   )
-  expect_true(res$status %in% c("info", "fail"))
+  expect_true(res$status %in% c("info", "fail", "pass"))
 })
 
 test_that("check_gitconfig_location returns a path when git is on PATH", {
@@ -251,7 +286,7 @@ test_that("check_gitconfig_location returns a path when git is on PATH", {
   res <- suppressMessages(check_gitconfig_location())
   expect_true(is.list(res))
   expect_true("gitconfig_path" %in% names(res))
-  expect_true(res$status %in% c("info", "fail"))
+  expect_true(res$status %in% c("info", "fail", "pass"))
 })
 
 test_that("diagnostic_test runs without error", {
@@ -279,8 +314,51 @@ test_that("diagnostic_test runs without error", {
 
 test_that("diagnostic_test(full = TRUE) prints the full dump", {
   skip_if_not_installed("renv")
-  out <- capture.output(
-    suppressMessages(diagnostic_test(full = TRUE))
+  # Mock renv::diagnostics to avoid the full dump actually being printed
+  testthat::local_mocked_bindings(
+    diagnostics = function(...) invisible(NULL),
+    .package = "renv"
   )
+  out <- testthat::capture_messages(diagnostic_test(full = TRUE))
   expect_true(any(grepl("Full diagnostic dump", out)))
+})
+
+test_that("diagnostic_test(full = TRUE) masks sensitive env values", {
+  skip_if_not_installed("renv")
+  testthat::local_mocked_bindings(
+    diagnostics = function(...) invisible(NULL),
+    .package = "renv"
+  )
+  withr::with_envvar(
+    c(
+      GITHUB_PAT = "ghp_thisisafaketoken12345",
+      FAKE_API_TOKEN = "secret-value-abcd1234",
+      MY_SAFE_VAR = "ordinary-value"
+    ),
+    {
+      out <- paste(
+        testthat::capture_messages(diagnostic_test(full = TRUE)),
+        collapse = "\n"
+      )
+      expect_false(grepl("ghp_thisisafaketoken12345", out, fixed = TRUE))
+      expect_false(grepl("secret-value-abcd1234", out, fixed = TRUE))
+      expect_true(grepl("...2345", out, fixed = TRUE))
+      expect_true(grepl("...1234", out, fixed = TRUE))
+    }
+  )
+})
+
+test_that("mask_sensitive_env masks values by key pattern", {
+  env <- c(
+    GITHUB_PAT = "ghp_abcdefghij1234",
+    MY_API_TOKEN = "tok_zzzz9999",
+    BORING = "hello",
+    EMPTY_SECRET = ""
+  )
+  out <- mask_sensitive_env(env)
+  expect_equal(out[["GITHUB_PAT"]], "...1234")
+  expect_equal(out[["MY_API_TOKEN"]], "...9999")
+  expect_equal(out[["BORING"]], "hello")
+  # Unset/empty sensitive vars stay empty rather than rendering as "..."
+  expect_equal(out[["EMPTY_SECRET"]], "")
 })

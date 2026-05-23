@@ -59,9 +59,9 @@ reference:
   - check_gitconfig_location
   - check_github_pat
   - check_renv_download_method
-  - check_renv_download_file_method
+  - check_renv_dl_file_method
   - check_rtools
-  - check_renviron_rprofile_location
+  - check_renv_rprof_location
 
 - title: Helpers
   desc: >

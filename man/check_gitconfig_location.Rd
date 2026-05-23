@@ -4,15 +4,11 @@
 \alias{check_gitconfig_location}
 \title{Check the location of the global .gitconfig file}
 \usage{
-check_gitconfig_location(clean = FALSE)
-}
-\arguments{
-\item{clean}{Currently has no effect. Reserved for future use so the
-function signature matches the other \verb{check_*} helpers.}
+check_gitconfig_location()
 }
 \value{
 List object containing \code{gitconfig_path} (or \code{NA} if none found)
-plus a \code{status} field (\code{"info"} or \code{"fail"}).
+plus a \code{status} field (\code{"pass"}, \code{"info"} or \code{"fail"}).
 }
 \description{
 Reports the location Git is using for its global config file. R, RStudio,
