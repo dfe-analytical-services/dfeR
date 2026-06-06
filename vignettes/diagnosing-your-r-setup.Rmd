@@ -116,11 +116,11 @@ If you cannot find RTools in the Software Centre, you can also install it direct
 
 ## .Renviron / .Rprofile location
 
-`check_renv_rprof_location()` reports where R is resolving `~/.Renviron` and `~/.Rprofile`, and the values of `HOME`, `R_USER` and `path.expand("~")`. It does not change anything; like the gitconfig check, it tells you where things are.
+`check_renv_rprof_location()` reports where R will read your `.Renviron` and `.Rprofile` from. R can read these files from more than one place, so the check lists every location it consults, in the order R uses them: the `R_ENVIRON_USER` / `R_PROFILE_USER` environment variable if you have set one, then a copy in your current working directory, then a copy in your home directory. Each file that exists is listed, and the one R actually uses is tagged. It does not change anything; like the gitconfig check, it tells you where things are.
 
-The check fails when your home directory has been redirected into OneDrive. When that happens, R, RStudio and Git may resolve `~` inconsistently, and `.Renviron` or `.Rprofile` changes you make in one tool may not be picked up by another. As with the gitconfig check, the fix is a Windows-level change rather than something R can do automatically. You will usually need to set the `HOME` environment variable explicitly to a path outside OneDrive (for example `C:/Users/<username>`) and make sure your `.Renviron` and `.Rprofile` live in that location.
+This check is always `INFO` — it never fails. Its value is in spotting surprises. The most common one is finding the same file in more than one place: a stray `.Renviron` or `.Rprofile` sitting in a project folder will quietly take precedence over the one in your home directory, so settings you thought you had changed at home are being ignored. If you see a copy you did not expect, delete the one you do not want.
 
-If your home directory is not in OneDrive, this check will report `INFO` and you do not need to do anything.
+If any of the listed paths sits inside OneDrive, the check adds a note. R, RStudio and Git can resolve `~` inconsistently when your home directory is redirected into OneDrive, so changes you make in one tool may not be picked up by another. The fix is a Windows-level change rather than something R can do automatically: set the `HOME` environment variable explicitly to a path outside OneDrive (for example `C:/Users/<username>`) and make sure your `.Renviron` and `.Rprofile` live there.
 
 ## Sharing the full output with support
 

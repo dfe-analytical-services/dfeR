@@ -141,6 +141,11 @@ git_config_set_global <- function(key, value) {
 # non-Windows systems, where there is no equivalent persistent store to clear.
 # setx only affects new processes, so callers should also Sys.unsetenv() to
 # clear the value from the current session. Returns TRUE when setx was run.
+#
+# Note: setx sets the value to "" rather than deleting the registry key, so the
+# variable still exists (empty) in the user environment. This is deliberate:
+# Sys.getenv() treats "" as unset, so it is functionally equivalent and avoids
+# a `reg delete /F` that manipulates the registry directly.
 setx_clear <- function(var) {
   if (.Platform$OS.type != "windows") {
     return(FALSE)
@@ -259,14 +264,13 @@ check_proxy_settings <- function(
       Sys.unsetenv(names(proxy_system))
       permanent <- FALSE
       for (var in names(proxy_system)) {
-        permanent <- setx_clear(var)
+        permanent <- setx_clear(var) || permanent
       }
       if (permanent) {
         cli::cli_alert_success(
           paste(
             "System environment proxy settings have been cleared for this R",
-            "session and removed permanently from your Windows user",
-            "environment."
+            "session and permanently in your Windows user environment."
           )
         )
       } else {
@@ -653,7 +657,7 @@ check_renv_dl_file_method <- function(
         cli::cli_alert_success(
           paste(
             "RENV_DOWNLOAD_FILE_METHOD has been cleared for this R session and",
-            "removed permanently from your Windows user environment."
+            "permanently in your Windows user environment."
           )
         )
       } else {
@@ -709,22 +713,93 @@ check_rtools <- function() {
   invisible(list(rtools_make_path = make_path, status = status))
 }
 
+# Internal helper: resolve the locations R consults for a user-level startup
+# file (.Renviron or .Rprofile), in precedence order. `override_var` is the
+# environment variable that, when set, overrides the search (R_ENVIRON_USER for
+# .Renviron, R_PROFILE_USER for .Rprofile). When the override is set R reads
+# only that target and does not fall back to the working-directory or home
+# copies. Returns a list with the normalised candidate `paths`, a logical
+# `exists` vector, the existing paths (`found`) and the path R will actually
+# read (`used`, NA_character_ when none).
+resolve_startup_file <- function(filename, override_var) {
+  override <- Sys.getenv(override_var)
+  has_override <- nzchar(override)
+  paths <- character(0)
+  if (has_override) {
+    paths <- normalizePath(override, mustWork = FALSE)
+  }
+  paths <- c(
+    paths,
+    normalizePath(file.path(getwd(), filename), mustWork = FALSE),
+    normalizePath(file.path(path.expand("~"), filename), mustWork = FALSE)
+  )
+  # Drop duplicate paths, keeping the highest-precedence occurrence (e.g. when
+  # the working directory and home directory are the same folder).
+  paths <- paths[!duplicated(paths)]
+  exists <- file.exists(paths)
+  if (has_override) {
+    used <- paths[[1]]
+  } else if (any(exists)) {
+    used <- paths[exists][[1]]
+  } else {
+    used <- NA_character_
+  }
+  list(
+    paths = paths,
+    exists = exists,
+    found = paths[exists],
+    used = used
+  )
+}
+
+# Internal helper: print the resolved locations for a single startup file.
+# Shows every candidate that exists, plus the `used` path even when it is
+# missing (which happens when an override points at a file that is not there),
+# tagging the one R actually reads.
+report_startup_file <- function(filename, resolved) {
+  is_used <- !is.na(resolved$used) & resolved$paths == resolved$used
+  shown <- resolved$exists | is_used
+  if (!any(shown)) {
+    cli::cli_text(
+      "{filename}: not found in any location R reads (working directory or home)." # nolint: line_length_linter, line.
+    )
+    return(invisible(NULL))
+  }
+  n_found <- length(resolved$found)
+  if (n_found > 1) {
+    cli::cli_text("{filename}: found in {n_found} locations (the first wins):")
+  } else {
+    cli::cli_text("{filename}:")
+  }
+  for (i in seq_along(resolved$paths)) {
+    if (!shown[[i]]) {
+      next
+    }
+    tag <- if (is_used[[i]]) " [USED]" else ""
+    suffix <- if (!resolved$exists[[i]]) " (missing)" else ""
+    cli::cli_bullets(
+      c("*" = paste0("{.path {resolved$paths[[i]]}}", tag, suffix))
+    )
+  }
+  invisible(NULL)
+}
+
 #' Check the location of .Renviron and .Rprofile
 #'
 #' @description
-#' Reports the resolved paths and existence of the user-level `.Renviron` and
-#' `.Rprofile` files, plus the values of `HOME`, `R_USER` and
-#' `path.expand("~")`. This is useful for diagnosing situations where R is
-#' reading these files from a different location than expected (for example a
-#' OneDrive-redirected home folder).
+#' Reports where R will read the user-level `.Renviron` and `.Rprofile` files
+#' from, listing every location R consults in precedence order: the
+#' `R_ENVIRON_USER` / `R_PROFILE_USER` override, the current working directory,
+#' and the home directory. Each file that exists is listed, and the one R
+#' actually uses is tagged, so you can spot when more than one copy exists (for
+#' example a project-level file shadowing the one in your home directory).
 #'
-#' The path lines are only printed when a file is missing or when the home
-#' directory is OneDrive-redirected. The status is `"fail"` when the home
-#' directory has been redirected into OneDrive, and `"pass"` otherwise.
+#' This check is purely informational and never reports a failure.
 #'
 #' @inherit diagnostic_params details
-#' @return List object containing the resolved paths, existence flags,
-#'   relevant environment variables and a `status` field.
+#' @return List object with a `renviron` and an `rprofile` entry (each a list of
+#'   the `used` path and the `found` paths that exist), plus a `status` field
+#'   which is always `"info"`.
 #' @export
 #'
 #' @examples
@@ -733,51 +808,24 @@ check_rtools <- function() {
 #' }
 check_renv_rprof_location <- function() {
   cli::cli_h2(".Renviron / .Rprofile location")
-  renviron_path <- normalizePath("~/.Renviron", mustWork = FALSE)
-  rprofile_path <- normalizePath("~/.Rprofile", mustWork = FALSE)
-  renviron_exists <- file.exists(renviron_path)
-  rprofile_exists <- file.exists(rprofile_path)
-  home <- Sys.getenv("HOME")
-  r_user <- Sys.getenv("R_USER")
-  tilde <- path.expand("~")
-  onedrive <- grepl("OneDrive", tilde, ignore.case = TRUE)
-  any_missing <- !renviron_exists || !rprofile_exists
-  if (any_missing || onedrive) {
-    renviron_status <- if (renviron_exists) "exists" else "missing"
-    rprofile_status <- if (rprofile_exists) "exists" else "missing"
-    cli::cli_text(paste0(
-      ".Renviron: {.path {renviron_path}} (",
-      renviron_status,
-      ")"
-    ))
-    cli::cli_text(paste0(
-      ".Rprofile: {.path {rprofile_path}} (",
-      rprofile_status,
-      ")"
-    ))
-  }
-  if (onedrive) {
-    cli::cli_alert_danger(
+  renviron <- resolve_startup_file(".Renviron", "R_ENVIRON_USER")
+  rprofile <- resolve_startup_file(".Rprofile", "R_PROFILE_USER")
+  report_startup_file(".Renviron", renviron)
+  cli::cli_text("")
+  report_startup_file(".Rprofile", rprofile)
+  found_paths <- c(renviron$found, rprofile$found)
+  if (any(grepl("OneDrive", found_paths, ignore.case = TRUE))) {
+    cli::cli_alert_info(
       paste(
-        "Your home directory is inside OneDrive. R, RStudio and Git may",
-        "resolve '~' inconsistently in that case."
+        "One or more of these files resolves inside OneDrive. R, RStudio and",
+        "Git can resolve '~' inconsistently in that case, so double-check they",
+        "all agree if something looks off."
       )
     )
-    status <- "fail"
-  } else {
-    cli::cli_alert_success(
-      ".Renviron and .Rprofile locations resolve outside of OneDrive."
-    )
-    status <- "pass"
   }
   invisible(list(
-    renviron_path = renviron_path,
-    renviron_exists = renviron_exists,
-    rprofile_path = rprofile_path,
-    rprofile_exists = rprofile_exists,
-    HOME = home,
-    R_USER = r_user,
-    tilde = tilde,
-    status = status
+    renviron = list(used = renviron$used, found = renviron$found),
+    rprofile = list(used = rprofile$used, found = rprofile$found),
+    status = "info"
   ))
 }

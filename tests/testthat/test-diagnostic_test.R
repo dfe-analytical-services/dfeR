@@ -136,6 +136,31 @@ test_that("check_proxy_settings identifies and removes proxy settings", {
   expect_equal(Sys.getenv("http_proxy_test"), "")
 })
 
+test_that("check_proxy_settings reports permanent removal across multiple vars", {
+  local_isolated_gitconfig()
+  # Mock the permanent (setx) removal as succeeding so we can assert the
+  # "permanently" success message fires when several variables are cleared.
+  # This locks down the OR-accumulation of the `permanent` flag in the loop:
+  # the success message must fire even though the helper is called per-variable.
+  testthat::local_mocked_bindings(setx_clear = function(var) TRUE)
+  proxy_setting_names <- c("http.proxy.test", "https.proxy.test")
+  proxy_env_names <- c("http_proxy_test", "https_proxy_test", "no_proxy_test")
+
+  withr::local_envvar(c(
+    http_proxy_test = "this-is-a-test-entry",
+    https_proxy_test = "this-is-another-test-entry"
+  ))
+
+  expect_message(
+    check_proxy_settings(
+      proxy_setting_names = proxy_setting_names,
+      proxy_env_names = proxy_env_names,
+      clean = TRUE
+    ),
+    "permanently in your Windows user environment"
+  )
+})
+
 test_that("check_git_sslverify detects and corrects sslverify=false", {
   local_isolated_gitconfig()
 
@@ -266,25 +291,74 @@ test_that("check_rtools returns make path info", {
   expect_true(res$status %in% c("pass", "info"))
 })
 
-test_that("check_renv_rprof_location reports paths", {
+test_that("check_renv_rprof_location returns info status and tidy shape", {
   res <- suppressMessages(check_renv_rprof_location())
-  expect_true(is.list(res))
-  expect_true(
-    all(
-      c(
-        "renviron_path",
-        "renviron_exists",
-        "rprofile_path",
-        "rprofile_exists",
-        "HOME",
-        "R_USER",
-        "tilde",
-        "status"
-      ) %in%
-        names(res)
-    )
+  expect_equal(res$status, "info")
+  # HOME / R_USER / path.expand("~") are no longer surfaced.
+  expect_setequal(names(res), c("renviron", "rprofile", "status"))
+  expect_setequal(names(res$renviron), c("used", "found"))
+  expect_setequal(names(res$rprofile), c("used", "found"))
+})
+
+test_that("check_renv_rprof_location finds a working-directory copy", {
+  tmp <- withr::local_tempdir()
+  withr::local_dir(tmp)
+  withr::local_envvar(c(R_ENVIRON_USER = "", R_PROFILE_USER = ""))
+  file.create(file.path(tmp, ".Renviron"))
+  file.create(file.path(tmp, ".Rprofile"))
+
+  res <- suppressMessages(check_renv_rprof_location())
+
+  wd_renviron <- normalizePath(file.path(getwd(), ".Renviron"))
+  wd_rprofile <- normalizePath(file.path(getwd(), ".Rprofile"))
+  # The working-directory copy outranks any home copy, so it is the one used.
+  expect_equal(res$renviron$used, wd_renviron)
+  expect_equal(res$rprofile$used, wd_rprofile)
+  expect_true(wd_renviron %in% res$renviron$found)
+  expect_true(wd_rprofile %in% res$rprofile$found)
+})
+
+test_that("check_renv_rprof_location reports multiple copies, override wins", {
+  tmp <- withr::local_tempdir()
+  withr::local_dir(tmp)
+  file.create(file.path(tmp, ".Renviron"))
+  override <- withr::local_tempfile(fileext = ".Renviron")
+  file.create(override)
+  withr::local_envvar(c(R_ENVIRON_USER = override, R_PROFILE_USER = ""))
+
+  res <- suppressMessages(check_renv_rprof_location())
+
+  override_path <- normalizePath(override)
+  wd_renviron <- normalizePath(file.path(getwd(), ".Renviron"))
+  # Two copies exist; the R_ENVIRON_USER override short-circuits the search.
+  expect_equal(res$renviron$used, override_path)
+  expect_true(all(c(override_path, wd_renviron) %in% res$renviron$found))
+})
+
+test_that("check_renv_rprof_location ignores absent working-directory copies", {
+  tmp <- withr::local_tempdir()
+  withr::local_dir(tmp)
+  withr::local_envvar(c(R_ENVIRON_USER = "", R_PROFILE_USER = ""))
+
+  res <- suppressMessages(check_renv_rprof_location())
+
+  wd_renviron <- normalizePath(
+    file.path(getwd(), ".Renviron"),
+    mustWork = FALSE
   )
-  expect_true(res$status %in% c("info", "fail", "pass"))
+  expect_false(wd_renviron %in% res$renviron$found)
+})
+
+test_that("check_renv_rprof_location surfaces a missing override target", {
+  missing <- withr::local_tempfile(fileext = ".Renviron")
+  withr::local_envvar(c(R_ENVIRON_USER = missing))
+
+  res <- suppressMessages(check_renv_rprof_location())
+
+  override_path <- normalizePath(missing, mustWork = FALSE)
+  # R reads only the override target, even though it does not exist.
+  expect_equal(res$renviron$used, override_path)
+  expect_false(override_path %in% res$renviron$found)
 })
 
 test_that("check_gitconfig_location returns a path when git is on PATH", {

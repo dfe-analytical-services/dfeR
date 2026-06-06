@@ -7,19 +7,19 @@
 check_renv_rprof_location()
 }
 \value{
-List object containing the resolved paths, existence flags,
-relevant environment variables and a \code{status} field.
+List object with a \code{renviron} and an \code{rprofile} entry (each a list of
+the \code{used} path and the \code{found} paths that exist), plus a \code{status} field
+which is always \code{"info"}.
 }
 \description{
-Reports the resolved paths and existence of the user-level \code{.Renviron} and
-\code{.Rprofile} files, plus the values of \code{HOME}, \code{R_USER} and
-\code{path.expand("~")}. This is useful for diagnosing situations where R is
-reading these files from a different location than expected (for example a
-OneDrive-redirected home folder).
+Reports where R will read the user-level \code{.Renviron} and \code{.Rprofile} files
+from, listing every location R consults in precedence order: the
+\code{R_ENVIRON_USER} / \code{R_PROFILE_USER} override, the current working directory,
+and the home directory. Each file that exists is listed, and the one R
+actually uses is tagged, so you can spot when more than one copy exists (for
+example a project-level file shadowing the one in your home directory).
 
-The path lines are only printed when a file is missing or when the home
-directory is OneDrive-redirected. The status is \code{"fail"} when the home
-directory has been redirected into OneDrive, and \code{"pass"} otherwise.
+This check is purely informational and never reports a failure.
 }
 \details{
 Each check returns a list including a \code{status} field, one of \code{"pass"},
