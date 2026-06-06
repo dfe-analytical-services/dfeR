@@ -74,7 +74,7 @@ check_databricks_odbc <- function() {
       "Please set them in your {.file .Renviron} file
       or in your Windows account environment variables.
       Follow the instructions on the linked DfE Analyst guide below: \n
-      {.url https://shorturl.at/SCHru }"
+      {.url https://dfe-analytical-services.github.io/analysts-guide/ADA/databricks_rstudio_sql_warehouse.html#establishing-an-rstudio-connection-using-environment-variables }"
     )
     return(invisible(FALSE))
   }
