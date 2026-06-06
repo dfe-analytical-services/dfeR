@@ -45,16 +45,9 @@ fatal: unable to access 'https://...': Could not resolve proxy: mwg.proxy.ad.hq.
 
 then this is almost certainly what is causing it.
 
-Running `check_proxy_settings(clean = TRUE)` will clear the Git config entries and unset the environment variables for the current R session. If your proxy environment variables were set permanently in Windows (using `setx` in the past), they will come back when you open a new R session. To remove them permanently, open a Windows terminal and run:
+Running `check_proxy_settings(clean = TRUE)` will clear the Git config entries and remove the proxy environment variables. On Windows it clears the environment variables permanently from your user environment, not just for the current R session, so they will not come back when you open a new R session. Windows only applies environment changes to *new* processes, so close and reopen RStudio afterwards for the change to be picked up everywhere.
 
-```
-setx http_proxy ""
-setx https_proxy ""
-```
-
-`setx` only affects *new* shell and RStudio sessions, so close and reopen RStudio after running this for the change to be picked up.
-
-The equivalent command for the Git config, which you can run from your R console or a terminal, is:
+If you would rather change the Git config by hand, you can run this from a terminal:
 
 ```
 git config --global --unset http.proxy
@@ -111,13 +104,7 @@ You will need to restart R after editing `.Renviron` for the change to take effe
 
 `check_renv_dl_file_method()` looks at the `RENV_DOWNLOAD_FILE_METHOD` system environment variable. The legacy DfE setup script set this to `wininet`, which breaks `renv` outside the DfE network and is no longer needed.
 
-Running `check_renv_dl_file_method(clean = TRUE)` will unset the variable for the current R session. If the variable was set permanently with `setx`, this clears it for the session you are in but it will come back the next time you start R. To remove it permanently, open a Windows terminal and run:
-
-```
-setx RENV_DOWNLOAD_FILE_METHOD ""
-```
-
-As with the proxy variables, `setx` only takes effect in new shell and RStudio sessions, so close and reopen RStudio afterwards.
+Running `check_renv_dl_file_method(clean = TRUE)` will remove the variable. On Windows it clears it both for the current R session and permanently from your user environment, so it will not come back the next time you start R. As with the proxy variables, Windows only applies the change to new processes, so close and reopen RStudio afterwards.
 
 ## RTools
 

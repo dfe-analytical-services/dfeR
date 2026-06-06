@@ -7,11 +7,11 @@
 check_renv_dl_file_method(clean = FALSE)
 }
 \arguments{
-\item{clean}{Attempt to clean settings.}
+\item{clean}{If \code{TRUE}, attempt to clean detected issues. Default \code{FALSE}.}
 }
 \value{
 List object containing \code{RENV_DOWNLOAD_FILE_METHOD} plus a \code{status}
-field (\code{"pass"}, \code{"fail"} or \code{"fixed"}).
+field.
 }
 \description{
 The legacy \code{proxy.R} script used \verb{setx RENV_DOWNLOAD_FILE_METHOD wininet} to
@@ -20,9 +20,14 @@ DfE network and is no longer needed. This function checks the
 \code{RENV_DOWNLOAD_FILE_METHOD} system environment variable and (with
 \code{clean = TRUE}) unsets it for the current R session.
 
-Removing the variable for the current R session does not undo a permanent
-Windows \code{setx} registry entry. If the variable was set permanently the
-function prints instructions for clearing it from the user's environment.
+On Windows, \code{clean = TRUE} also clears the variable permanently from your
+user environment (via \code{setx}), so it does not come back the next time you
+start R. Windows only applies the change to new processes, so close and
+reopen RStudio afterwards.
+}
+\details{
+Each check returns a list including a \code{status} field, one of \code{"pass"},
+\code{"fail"}, \code{"fixed"} or \code{"info"}, depending on the outcome of the check.
 }
 \examples{
 \dontrun{

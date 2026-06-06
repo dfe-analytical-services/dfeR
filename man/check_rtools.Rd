@@ -7,15 +7,18 @@
 check_rtools()
 }
 \value{
-List object containing \code{rtools_make_path} plus a \code{status} field
-(\code{"pass"} if \code{make} is found, otherwise \code{"info"}). Missing RTools is
-reported as info rather than a failure because many users will not need
-to compile packages from source.
+List object containing \code{rtools_make_path} plus a \code{status} field.
+Missing RTools is reported as \code{"info"} rather than a failure because many
+users will not need to compile packages from source.
 }
 \description{
 Some R packages require compilation, which on Windows means RTools must be
 installed and on \code{PATH}. This function checks whether \code{make} is available
 via \code{Sys.which("make")}. It does not attempt to install RTools.
+}
+\details{
+Each check returns a list including a \code{status} field, one of \code{"pass"},
+\code{"fail"}, \code{"fixed"} or \code{"info"}, depending on the outcome of the check.
 }
 \examples{
 \dontrun{

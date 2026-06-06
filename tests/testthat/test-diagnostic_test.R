@@ -55,6 +55,9 @@ local_isolated_gitconfig <- function(.local_envir = parent.frame()) {
 
 test_that("check_proxy_settings identifies and removes proxy settings", {
   local_isolated_gitconfig()
+  # Stub out the permanent (setx) removal so the test does not write to the
+  # real Windows user environment; we only assert the session-level clear.
+  testthat::local_mocked_bindings(setx_clear = function(var) FALSE)
   proxy_setting_names <- c("http.proxy.test", "https.proxy.test")
   proxy_env_names <- c("http_proxy_test", "https_proxy_test", "no_proxy_test")
 
@@ -235,6 +238,9 @@ test_that("check_renv_download_method handles missing/curl/wininet cases", {
 })
 
 test_that("check_renv_dl_file_method detects and clears wininet", {
+  # Stub out the permanent (setx) removal so the test does not write to the
+  # real Windows user environment; we only assert the session-level clear.
+  testthat::local_mocked_bindings(setx_clear = function(var) FALSE)
   withr::with_envvar(c(RENV_DOWNLOAD_FILE_METHOD = ""), {
     res <- suppressMessages(check_renv_dl_file_method())
     expect_equal(res$RENV_DOWNLOAD_FILE_METHOD, "")

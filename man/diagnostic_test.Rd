@@ -19,8 +19,7 @@ so do not paste it into public channels.}
 Invisibly, a named list keyed by check (\code{proxy}, \code{sslverify},
 \code{gitconfig}, \code{github_pat}, \code{renv_download}, \code{renv_download_file},
 \code{rtools}, \code{renviron_rprofile}). Each entry is the result list returned by
-the corresponding \verb{check_*} helper, including a \code{status} field with one
-of \code{"pass"}, \code{"fail"}, \code{"fixed"} or \code{"info"}.
+the corresponding \verb{check_*} helper, plus a \code{status} field.
 }
 \description{
 Run a set of diagnostic tests to check for common issues found when setting
@@ -43,6 +42,10 @@ The checks include:
 \item The location of \code{.Renviron} and \code{.Rprofile}
 (\code{check_renv_rprof_location()})
 }
+}
+\details{
+Each check returns a list including a \code{status} field, one of \code{"pass"},
+\code{"fail"}, \code{"fixed"} or \code{"info"}, depending on the outcome of the check.
 }
 \examples{
 \dontrun{

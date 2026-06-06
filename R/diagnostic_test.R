@@ -20,18 +20,18 @@
 #'   - The location of `.Renviron` and `.Rprofile`
 #'     (`check_renv_rprof_location()`)
 #'
-#' @param clean If `TRUE`, attempt to clean detected issues. Default `FALSE`.
+#' @inheritParams diagnostic_params
 #' @param full If `TRUE`, append a session-dump section after the per-check
 #'   output containing `renv::diagnostics()`, `Sys.getenv()` and `options()`.
 #'   Useful for sharing a full diagnostic with support. Defaults to `FALSE`.
 #'   Note: this output contains unmasked sensitive values such as `GITHUB_PAT`,
 #'   so do not paste it into public channels.
 #'
+#' @inherit diagnostic_params details
 #' @return Invisibly, a named list keyed by check (`proxy`, `sslverify`,
 #'   `gitconfig`, `github_pat`, `renv_download`, `renv_download_file`,
 #'   `rtools`, `renviron_rprofile`). Each entry is the result list returned by
-#'   the corresponding `check_*` helper, including a `status` field with one
-#'   of `"pass"`, `"fail"`, `"fixed"` or `"info"`.
+#'   the corresponding `check_*` helper, plus a `status` field.
 #' @export
 #'
 #' @examples
@@ -136,6 +136,21 @@ git_config_set_global <- function(key, value) {
   invisible(NULL)
 }
 
+# Internal helper: permanently clear a Windows User environment variable by
+# setting it to an empty string with setx. No-op (returns FALSE) on
+# non-Windows systems, where there is no equivalent persistent store to clear.
+# setx only affects new processes, so callers should also Sys.unsetenv() to
+# clear the value from the current session. Returns TRUE when setx was run.
+setx_clear <- function(var) {
+  if (.Platform$OS.type != "windows") {
+    return(FALSE)
+  }
+  suppressWarnings(
+    system2("setx", c(var, '""'), stdout = FALSE, stderr = FALSE)
+  )
+  TRUE
+}
+
 # Internal helper: render the trailing summary line for diagnostic_test().
 summarise_diagnostic_results <- function(results) {
   statuses <- vapply(
@@ -186,16 +201,22 @@ summarise_diagnostic_results <- function(results) {
 #' the system environment variables (`http_proxy`, `https_proxy`, `no_proxy` by
 #' default) are checked.
 #'
+#' On Windows, `clean = TRUE` clears the matching environment variables
+#' permanently from your user environment (via `setx`) as well as from the
+#' current R session, so they do not come back the next time you start R.
+#' Windows only applies the change to new processes, so close and reopen
+#' RStudio afterwards.
+#'
 #' @param proxy_setting_names Vector of Git-config keys to check for. Default:
 #'   `c("http.proxy", "https.proxy")`
 #' @param proxy_env_names Vector of system environment variable names to check
 #'   for. Default: `c("http_proxy", "https_proxy", "no_proxy")`
-#' @param clean Attempt to clean settings.
+#' @inheritParams diagnostic_params
 #'
+#' @inherit diagnostic_params details
 #' @return A list with three slots: `git` (named list of detected Git-config
 #'   proxy entries, or `NULL`), `system` (named list of detected
-#'   environment-variable proxy entries, or `NULL`) and `status` (one of
-#'   `"pass"`, `"fail"` or `"fixed"`).
+#'   environment-variable proxy entries, or `NULL`) and a `status` field.
 #' @export
 #'
 #' @examples
@@ -236,9 +257,23 @@ check_proxy_settings <- function(
     proxy_settings_detected <- TRUE
     if (clean) {
       Sys.unsetenv(names(proxy_system))
-      cli::cli_alert_success(
-        "System environment proxy settings have been cleared."
-      )
+      permanent <- FALSE
+      for (var in names(proxy_system)) {
+        permanent <- setx_clear(var)
+      }
+      if (permanent) {
+        cli::cli_alert_success(
+          paste(
+            "System environment proxy settings have been cleared for this R",
+            "session and removed permanently from your Windows user",
+            "environment."
+          )
+        )
+      } else {
+        cli::cli_alert_success(
+          "System environment proxy settings have been cleared."
+        )
+      }
     } else {
       cli::cli_alert_danger(
         "System environment proxy settings have been left in place."
@@ -270,10 +305,10 @@ check_proxy_settings <- function(
 #' `https.sslVerify`.
 #'
 #' @param ssl_verify_vars Vector of variables to check for in the Git config.
-#' @param clean Attempt to clean settings.
+#' @inheritParams diagnostic_params
 #'
-#' @return List of sslverify settings plus a `status` field
-#'   (`"pass"`, `"fail"` or `"fixed"`).
+#' @inherit diagnostic_params details
+#' @return List of sslverify settings plus a `status` field.
 #' @export
 #'
 #' @examples
@@ -321,8 +356,9 @@ check_git_sslverify <- function(
 #' prints the resolved path so users can sanity-check it against the file they
 #' think they are editing.
 #'
+#' @inherit diagnostic_params details
 #' @return List object containing `gitconfig_path` (or `NA` if none found)
-#'   plus a `status` field (`"pass"`, `"info"` or `"fail"`).
+#'   plus a `status` field.
 #' @export
 #'
 #' @examples
@@ -388,11 +424,12 @@ check_gitconfig_location <- function() {
 #' list (only its length and last four characters are shown). The raw value is
 #' never returned, so it is safe to share the result of `diagnostic_test()`.
 #'
-#' @inheritParams check_proxy_settings
+#' @inheritParams diagnostic_params
 #'
+#' @inherit diagnostic_params details
 #' @return List object containing `GITHUB_PAT` (masked: empty string when
 #'   unset, otherwise `"..."` followed by the last four characters) plus a
-#'   `status` field (`"pass"`, `"fail"` or `"fixed"`).
+#'   `status` field.
 #' @export
 #'
 #' @examples
@@ -479,11 +516,12 @@ mask_sensitive_env <- function(
 #' when called with `clean = TRUE`.
 #'
 #' @param renviron_file Location of `.Renviron` file. Default: `~/.Renviron`
-#' @inheritParams check_proxy_settings
+#' @inheritParams diagnostic_params
 #'
+#' @inherit diagnostic_params details
 #' @return List object containing `RENV_DOWNLOAD_METHOD` (with surrounding
 #'   whitespace and any wrapping quotes stripped, or `NA` if the variable is
-#'   not set) plus a `status` field (`"pass"`, `"fail"` or `"fixed"`).
+#'   not set) plus a `status` field.
 #' @export
 #'
 #' @examples
@@ -576,14 +614,16 @@ check_renv_download_method <- function(
 #' `RENV_DOWNLOAD_FILE_METHOD` system environment variable and (with
 #' `clean = TRUE`) unsets it for the current R session.
 #'
-#' Removing the variable for the current R session does not undo a permanent
-#' Windows `setx` registry entry. If the variable was set permanently the
-#' function prints instructions for clearing it from the user's environment.
+#' On Windows, `clean = TRUE` also clears the variable permanently from your
+#' user environment (via `setx`), so it does not come back the next time you
+#' start R. Windows only applies the change to new processes, so close and
+#' reopen RStudio afterwards.
 #'
-#' @inheritParams check_proxy_settings
+#' @inheritParams diagnostic_params
 #'
+#' @inherit diagnostic_params details
 #' @return List object containing `RENV_DOWNLOAD_FILE_METHOD` plus a `status`
-#'   field (`"pass"`, `"fail"` or `"fixed"`).
+#'   field.
 #' @export
 #'
 #' @examples
@@ -608,16 +648,19 @@ check_renv_dl_file_method <- function(
     )
     if (clean) {
       Sys.unsetenv("RENV_DOWNLOAD_FILE_METHOD")
-      cli::cli_alert_success(
-        "RENV_DOWNLOAD_FILE_METHOD has been unset for the current R session."
-      )
-      cli::cli_text(
-        paste(
-          "If the variable was set permanently via {.code setx}, also run",
-          "this in a Windows terminal to remove it permanently:"
+      permanent <- setx_clear("RENV_DOWNLOAD_FILE_METHOD")
+      if (permanent) {
+        cli::cli_alert_success(
+          paste(
+            "RENV_DOWNLOAD_FILE_METHOD has been cleared for this R session and",
+            "removed permanently from your Windows user environment."
+          )
         )
-      )
-      cli::cli_verbatim("    setx RENV_DOWNLOAD_FILE_METHOD \"\"")
+      } else {
+        cli::cli_alert_success(
+          "RENV_DOWNLOAD_FILE_METHOD has been unset for the current R session."
+        )
+      }
       status <- "fixed"
     } else {
       status <- "fail"
@@ -636,10 +679,10 @@ check_renv_dl_file_method <- function(
 #' installed and on `PATH`. This function checks whether `make` is available
 #' via `Sys.which("make")`. It does not attempt to install RTools.
 #'
-#' @return List object containing `rtools_make_path` plus a `status` field
-#'   (`"pass"` if `make` is found, otherwise `"info"`). Missing RTools is
-#'   reported as info rather than a failure because many users will not need
-#'   to compile packages from source.
+#' @inherit diagnostic_params details
+#' @return List object containing `rtools_make_path` plus a `status` field.
+#'   Missing RTools is reported as `"info"` rather than a failure because many
+#'   users will not need to compile packages from source.
 #' @export
 #'
 #' @examples
@@ -679,9 +722,9 @@ check_rtools <- function() {
 #' directory is OneDrive-redirected. The status is `"fail"` when the home
 #' directory has been redirected into OneDrive, and `"pass"` otherwise.
 #'
+#' @inherit diagnostic_params details
 #' @return List object containing the resolved paths, existence flags,
-#'   relevant environment variables and a `status` field (`"pass"` or
-#'   `"fail"`).
+#'   relevant environment variables and a `status` field.
 #' @export
 #'
 #' @examples

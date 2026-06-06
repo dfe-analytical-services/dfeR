@@ -9,12 +9,12 @@ check_renv_download_method(renviron_file = "~/.Renviron", clean = FALSE)
 \arguments{
 \item{renviron_file}{Location of \code{.Renviron} file. Default: \verb{~/.Renviron}}
 
-\item{clean}{Attempt to clean settings.}
+\item{clean}{If \code{TRUE}, attempt to clean detected issues. Default \code{FALSE}.}
 }
 \value{
 List object containing \code{RENV_DOWNLOAD_METHOD} (with surrounding
 whitespace and any wrapping quotes stripped, or \code{NA} if the variable is
-not set) plus a \code{status} field (\code{"pass"}, \code{"fail"} or \code{"fixed"}).
+not set) plus a \code{status} field.
 }
 \description{
 The renv package can retrieve packages either using \code{curl} or \code{wininet}, but
@@ -22,6 +22,10 @@ The renv package can retrieve packages either using \code{curl} or \code{wininet
 for the parameter controlling which of these is used
 (\code{RENV_DOWNLOAD_METHOD}) in the user's \code{.Renviron} and sets it to \code{curl}
 when called with \code{clean = TRUE}.
+}
+\details{
+Each check returns a list including a \code{status} field, one of \code{"pass"},
+\code{"fail"}, \code{"fixed"} or \code{"info"}, depending on the outcome of the check.
 }
 \examples{
 \dontrun{

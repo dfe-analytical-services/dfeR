@@ -7,12 +7,12 @@
 check_github_pat(clean = FALSE)
 }
 \arguments{
-\item{clean}{Attempt to clean settings.}
+\item{clean}{If \code{TRUE}, attempt to clean detected issues. Default \code{FALSE}.}
 }
 \value{
 List object containing \code{GITHUB_PAT} (masked: empty string when
 unset, otherwise \code{"..."} followed by the last four characters) plus a
-\code{status} field (\code{"pass"}, \code{"fail"} or \code{"fixed"}).
+\code{status} field.
 }
 \description{
 If the \code{GITHUB_PAT} system variable is set, it can cause issues with R
@@ -24,6 +24,10 @@ the current R session.
 The function masks the PAT value both in console output and in the returned
 list (only its length and last four characters are shown). The raw value is
 never returned, so it is safe to share the result of \code{diagnostic_test()}.
+}
+\details{
+Each check returns a list including a \code{status} field, one of \code{"pass"},
+\code{"fail"}, \code{"fixed"} or \code{"info"}, depending on the outcome of the check.
 }
 \examples{
 \dontrun{

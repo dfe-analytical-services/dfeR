@@ -17,13 +17,12 @@ check_proxy_settings(
 \item{proxy_env_names}{Vector of system environment variable names to check
 for. Default: \code{c("http_proxy", "https_proxy", "no_proxy")}}
 
-\item{clean}{Attempt to clean settings.}
+\item{clean}{If \code{TRUE}, attempt to clean detected issues. Default \code{FALSE}.}
 }
 \value{
 A list with three slots: \code{git} (named list of detected Git-config
 proxy entries, or \code{NULL}), \code{system} (named list of detected
-environment-variable proxy entries, or \code{NULL}) and \code{status} (one of
-\code{"pass"}, \code{"fail"} or \code{"fixed"}).
+environment-variable proxy entries, or \code{NULL}) and a \code{status} field.
 }
 \description{
 Prior to the pandemic, analysts in the DfE would need to add proxy settings
@@ -35,6 +34,16 @@ removes them.
 Both the Git configuration (keys \code{http.proxy}, \code{https.proxy} by default) and
 the system environment variables (\code{http_proxy}, \code{https_proxy}, \code{no_proxy} by
 default) are checked.
+
+On Windows, \code{clean = TRUE} clears the matching environment variables
+permanently from your user environment (via \code{setx}) as well as from the
+current R session, so they do not come back the next time you start R.
+Windows only applies the change to new processes, so close and reopen
+RStudio afterwards.
+}
+\details{
+Each check returns a list including a \code{status} field, one of \code{"pass"},
+\code{"fail"}, \code{"fixed"} or \code{"info"}, depending on the outcome of the check.
 }
 \examples{
 \dontrun{

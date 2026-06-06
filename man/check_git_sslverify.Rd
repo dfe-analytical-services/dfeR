@@ -12,17 +12,20 @@ check_git_sslverify(
 \arguments{
 \item{ssl_verify_vars}{Vector of variables to check for in the Git config.}
 
-\item{clean}{Attempt to clean settings.}
+\item{clean}{If \code{TRUE}, attempt to clean detected issues. Default \code{FALSE}.}
 }
 \value{
-List of sslverify settings plus a \code{status} field
-(\code{"pass"}, \code{"fail"} or \code{"fixed"}).
+List of sslverify settings plus a \code{status} field.
 }
 \description{
 Checks the values of the SSL-verify settings in the global Git config. If
 they're set to \code{false}, the function flips them back to \code{TRUE} when called
 with \code{clean = TRUE}. By default it checks \code{http.sslVerify} and
 \code{https.sslVerify}.
+}
+\details{
+Each check returns a list including a \code{status} field, one of \code{"pass"},
+\code{"fail"}, \code{"fixed"} or \code{"info"}, depending on the outcome of the check.
 }
 \examples{
 \dontrun{

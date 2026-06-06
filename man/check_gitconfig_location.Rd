@@ -8,7 +8,7 @@ check_gitconfig_location()
 }
 \value{
 List object containing \code{gitconfig_path} (or \code{NA} if none found)
-plus a \code{status} field (\code{"pass"}, \code{"info"} or \code{"fail"}).
+plus a \code{status} field.
 }
 \description{
 Reports the location Git is using for its global config file. R, RStudio,
@@ -16,6 +16,10 @@ and the system Git can disagree on this location (e.g. when \code{HOME} is
 redirected into OneDrive). The function flags non-standard locations and
 prints the resolved path so users can sanity-check it against the file they
 think they are editing.
+}
+\details{
+Each check returns a list including a \code{status} field, one of \code{"pass"},
+\code{"fail"}, \code{"fixed"} or \code{"info"}, depending on the outcome of the check.
 }
 \examples{
 \dontrun{

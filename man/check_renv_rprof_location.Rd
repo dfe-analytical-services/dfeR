@@ -8,8 +8,7 @@ check_renv_rprof_location()
 }
 \value{
 List object containing the resolved paths, existence flags,
-relevant environment variables and a \code{status} field (\code{"pass"} or
-\code{"fail"}).
+relevant environment variables and a \code{status} field.
 }
 \description{
 Reports the resolved paths and existence of the user-level \code{.Renviron} and
@@ -21,6 +20,10 @@ OneDrive-redirected home folder).
 The path lines are only printed when a file is missing or when the home
 directory is OneDrive-redirected. The status is \code{"fail"} when the home
 directory has been redirected into OneDrive, and \code{"pass"} otherwise.
+}
+\details{
+Each check returns a list including a \code{status} field, one of \code{"pass"},
+\code{"fail"}, \code{"fixed"} or \code{"info"}, depending on the outcome of the check.
 }
 \examples{
 \dontrun{
