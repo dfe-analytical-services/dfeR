@@ -13,6 +13,35 @@ check_fetch_location_inputs <- function(year_input, country_input) {
         "year must either be 'All', or a valid 4 digit year e.g. '2024'"
       )
     }
+#' @param lookup_data the data frame to check the years against, defaults to
+#' dfeR::geo_hierarchy
+#'
+#' @return nothing, unless a failure, and then it will give an error
+#' @keywords internal
+#' @noRd
+check_fetch_location_inputs <- function(
+  year_input,
+  country_input,
+  lookup_data = dfeR::geo_hierarchy
+) {
+  if (year_input != "All") {
+    if (!grepl("^\\d{4}$", as.character(year_input))) {
+      stop("year must either be 'All', or a valid 4 digit year e.g. '2024'")
+    }
+
+    min_year <- min(lookup_data$first_available_year_included)
+    max_year <- max(lookup_data$most_recent_year_included)
+    year_num <- as.numeric(year_input)
+    if (year_num < min_year || year_num > max_year) {
+      stop(
+        sprintf(
+          "year must either be 'All' or a valid year between %d and %d",
+          min_year,
+          max_year
+        ),
+        call. = FALSE
+      )
+    }
   }
 
   allowed_countries <- c("England", "Scotland", "Wales", "Northern Ireland")
