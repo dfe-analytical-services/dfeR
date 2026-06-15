@@ -1,18 +1,3 @@
-#' Validation for fetch location lookups
-#'
-#' @param year_input the value of the years input
-#' @param country_input the value of the countries input
-#'
-#' @return nothing, unless a failure, and then it will give an error
-#' @keywords internal
-#' @noRd
-check_fetch_location_inputs <- function(year_input, country_input) {
-  if (year_input != "All") {
-    if (!grepl("^\\d{4}$", as.character(year_input))) {
-      stop(
-        "year must either be 'All', or a valid 4 digit year e.g. '2024'"
-      )
-    }
 #' @param lookup_data the data frame to check the years against, defaults to
 #' dfeR::geo_hierarchy
 #'
