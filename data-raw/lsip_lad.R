@@ -31,10 +31,6 @@
 #
 # ------------------------------------------------------------------------------
 
-
-# Fetch and combine LSIP-LAD data for all available years using get_lsip_lad()
-# First boundaries published in 2023, ONS didn't publish a 2024 set
-
 # Fetch and combine LSIP-LAD data for all available years using get_lsip_lad()
 # First boundaries published in 2023, ONS didn't publish a 2024 set
 lsip_lad <- lapply(c(2023, 2025), get_lsip_lad) |>
