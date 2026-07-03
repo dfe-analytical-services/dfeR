@@ -24,8 +24,10 @@
 #' @param full If `TRUE`, append a session-dump section after the per-check
 #'   output containing `renv::diagnostics()`, `Sys.getenv()` and `options()`.
 #'   Useful for sharing a full diagnostic with support. Defaults to `FALSE`.
-#'   Note: this output contains unmasked sensitive values such as `GITHUB_PAT`,
-#'   so do not paste it into public channels.
+#'   Environment variables whose names look sensitive (containing e.g. `TOKEN`,
+#'   `SECRET`, `KEY`, `PAT`, `PASSWORD`, `CRED`) are masked, but the
+#'   `options()` and `renv::diagnostics()` sections are printed as-is, so
+#'   review the output before sharing it in public channels.
 #'
 #' @inherit diagnostic_params details
 #' @return Invisibly, a named list keyed by check (`proxy`, `sslverify`,
@@ -46,8 +48,9 @@ diagnostic_test <- function(
   if (full) {
     cli::cli_alert_warning(
       paste(
-        "The full dump may contain unmasked sensitive values",
-        "(e.g. GITHUB_PAT). Do not paste this output into public channels."
+        "Sensitive-looking environment variables are masked, but the",
+        "options() and renv::diagnostics() sections are printed as-is.",
+        "Review the output before sharing it in public channels."
       )
     )
   }
@@ -108,7 +111,10 @@ git_config_get_global <- function(keys) {
   eq <- eq[has_eq]
   names <- substr(out, 1, eq - 1)
   values <- substr(out, eq + 1, nchar(out))
-  full <- stats::setNames(as.list(values), names)
+  # Keep only the last occurrence of each key so duplicates resolve the same
+  # way git resolves them (later assignments win).
+  keep <- !duplicated(names, fromLast = TRUE)
+  full <- stats::setNames(as.list(values[keep]), names[keep])
   matched <- intersect(keys, names(full))
   full[matched]
 }
@@ -394,9 +400,17 @@ check_gitconfig_location <- function() {
     )
     return(invisible(list(gitconfig_path = NA_character_, status = "info")))
   }
+  # --show-origin separates the file path from the config entry with a tab,
+  # so split on that (paths themselves can contain spaces, e.g. OneDrive).
+  # Paths with special characters (e.g. backslashes on Windows) are C-style
+  # quoted by git: wrapped in double quotes with `\` and `"` escaped.
   path <- origin_lines[1] |>
     sub(pattern = "^file:", replacement = "") |>
-    sub(pattern = "\\s.*$", replacement = "")
+    sub(pattern = "\t.*$", replacement = "")
+  if (grepl('^".*"$', path)) {
+    path <- substr(path, 2, nchar(path) - 1)
+    path <- gsub('\\\\(["\\\\])', "\\1", path)
+  }
 
   if (grepl("OneDrive", path, ignore.case = TRUE)) {
     cli::cli_alert_danger(
@@ -538,7 +552,7 @@ check_renv_download_method <- function(
 ) {
   cli::cli_h2("renv download method")
   if (file.exists(renviron_file)) {
-    .renviron <- readLines(renviron_file)
+    .renviron <- readLines(renviron_file, warn = FALSE)
   } else {
     .renviron <- c()
   }

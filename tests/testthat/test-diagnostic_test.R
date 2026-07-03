@@ -136,7 +136,7 @@ test_that("check_proxy_settings identifies and removes proxy settings", {
   expect_equal(Sys.getenv("http_proxy_test"), "")
 })
 
-test_that("check_proxy_settings reports permanent removal across multiple vars", {
+test_that("check_proxy_settings reports permanent removal, multiple vars", {
   local_isolated_gitconfig()
   # Mock the permanent (setx) removal as succeeding so we can assert the
   # "permanently" success message fires when several variables are cleared.
@@ -151,13 +151,15 @@ test_that("check_proxy_settings reports permanent removal across multiple vars",
     https_proxy_test = "this-is-another-test-entry"
   ))
 
-  expect_message(
-    check_proxy_settings(
-      proxy_setting_names = proxy_setting_names,
-      proxy_env_names = proxy_env_names,
-      clean = TRUE
-    ),
-    "permanently in your Windows user environment"
+  suppressMessages(
+    expect_message(
+      check_proxy_settings(
+        proxy_setting_names = proxy_setting_names,
+        proxy_env_names = proxy_env_names,
+        clean = TRUE
+      ),
+      "permanently in your Windows user environment"
+    )
   )
 })
 
@@ -359,6 +361,44 @@ test_that("check_renv_rprof_location surfaces a missing override target", {
   # R reads only the override target, even though it does not exist.
   expect_equal(res$renviron$used, override_path)
   expect_false(override_path %in% res$renviron$found)
+})
+
+test_that("git_config_get_global resolves duplicate keys like git", {
+  local_isolated_gitconfig()
+
+  git_set("http.proxy.test", "first-value")
+  # git config replaces existing keys, so append a duplicate section to the
+  # config file directly to simulate a hand-edited .gitconfig.
+  cfg <- Sys.getenv("GIT_CONFIG_GLOBAL")
+  cat(
+    '[http "proxy"]\n\ttest = last-value\n',
+    file = cfg,
+    append = TRUE
+  )
+
+  res <- git_config_get_global("http.proxy.test")
+  expect_equal(res, list(http.proxy.test = "last-value"))
+})
+
+test_that("check_gitconfig_location keeps the full path when it has spaces", {
+  testthat::skip_if_not(
+    git_supports_isolated_global(),
+    "git >= 2.32 required for isolated GIT_CONFIG_GLOBAL"
+  )
+  base <- withr::local_tempdir()
+  spaced_dir <- file.path(base, "OneDrive - Department for Education")
+  dir.create(spaced_dir)
+  cfg <- file.path(spaced_dir, ".gitconfig")
+  writeLines(c("[user]", "\tname = Test"), cfg)
+  withr::local_envvar(c(GIT_CONFIG_GLOBAL = cfg))
+
+  res <- suppressMessages(check_gitconfig_location())
+
+  expect_equal(
+    normalizePath(res$gitconfig_path, mustWork = FALSE),
+    normalizePath(cfg, mustWork = FALSE)
+  )
+  expect_equal(res$status, "fail")
 })
 
 test_that("check_gitconfig_location returns a path when git is on PATH", {

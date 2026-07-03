@@ -12,8 +12,10 @@ diagnostic_test(clean = FALSE, full = FALSE)
 \item{full}{If \code{TRUE}, append a session-dump section after the per-check
 output containing \code{renv::diagnostics()}, \code{Sys.getenv()} and \code{options()}.
 Useful for sharing a full diagnostic with support. Defaults to \code{FALSE}.
-Note: this output contains unmasked sensitive values such as \code{GITHUB_PAT},
-so do not paste it into public channels.}
+Environment variables whose names look sensitive (containing e.g. \code{TOKEN},
+\code{SECRET}, \code{KEY}, \code{PAT}, \code{PASSWORD}, \code{CRED}) are masked, but the
+\code{options()} and \code{renv::diagnostics()} sections are printed as-is, so
+review the output before sharing it in public channels.}
 }
 \value{
 Invisibly, a named list keyed by check (\code{proxy}, \code{sslverify},
