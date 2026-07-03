@@ -1,3 +1,7 @@
+#' Validation for fetch location lookups
+#'
+#' @param year_input the value of the years input
+#' @param country_input the value of the countries input
 #' @param lookup_data the data frame to check the years against, defaults to
 #' dfeR::geo_hierarchy
 #'
