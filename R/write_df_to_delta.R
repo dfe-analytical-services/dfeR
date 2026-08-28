@@ -34,6 +34,12 @@
 #' Moreover, this function requires valid `.Renviron` variables for
 #' authentication, specifically `DATABRICKS_TOKEN` and `DATABRICKS_HOST`.
 #'
+#' `DATABRICKS_HOST` may be supplied with or without a scheme. A bare host
+#' has `https://` prepended automatically, and `http://` is upgraded to
+#' `https://`. Both `adb-1234.cloud.databricks.com` and
+#' `https://adb-1234.cloud.databricks.com` are accepted. A trailing slash
+#' is stripped if present.
+#'
 #' @param df A `data.frame` or `tibble` containing the data to be written to
 #' Delta Lake.
 #' @param target_table A character string specifying the name of the Delta
@@ -111,14 +117,16 @@
 #' @import arrow
 #' @import httr2
 #' @importFrom dplyr mutate across where
-write_df_to_delta <- function(df,
-                              target_table,
-                              db_conn,
-                              column_types_schema = NULL,
-                              volume_dir,
-                              copy_options = "'mergeSchema' = 'true'",
-                              overwrite_table = FALSE,
-                              chunk_size_bytes = 5 * 1024^3) {
+write_df_to_delta <- function(
+  df,
+  target_table,
+  db_conn,
+  column_types_schema = NULL,
+  volume_dir,
+  copy_options = "'mergeSchema' = 'true'",
+  overwrite_table = FALSE,
+  chunk_size_bytes = 5 * 1024^3
+) {
   # Validation checks to ensure input is a data frame or tibble
   if (!inherits(df, "data.frame") && !inherits(df, "tbl_df")) {
     stop(
@@ -136,8 +144,10 @@ write_df_to_delta <- function(df,
   validate_db_connection(db_conn)
 
   # Validate column_types_schema
-  if (!is.null(column_types_schema) &&
-        !inherits(column_types_schema, "Schema")) {
+  if (
+    !is.null(column_types_schema) &&
+      !inherits(column_types_schema, "Schema")
+  ) {
     stop(
       "`column_types_schema` must be an Arrow schema object ",
       "created with arrow::schema()."
@@ -145,8 +155,9 @@ write_df_to_delta <- function(df,
   }
 
   # Validate volume_dir argument
-  if (is.null(volume_dir) || !is.character(volume_dir) ||
-        length(volume_dir) != 1) {
+  if (
+    is.null(volume_dir) || !is.character(volume_dir) || length(volume_dir) != 1
+  ) {
     stop(
       "`volume_dir` must be a non-NULL string ",
       "specifying the Databricks volume path."
@@ -156,7 +167,9 @@ write_df_to_delta <- function(df,
   # Check that the volume exists
   if (!volume_exists(volume_dir)) {
     stop(
-      "Target volume '", volume_dir, "' does not exist. ",
+      "Target volume '",
+      volume_dir,
+      "' does not exist. ",
       "Please check the path or mount the volume first."
     )
   }
@@ -205,16 +218,19 @@ write_df_to_delta <- function(df,
   chunk_indices <- if (n_chunks < 2) {
     list(seq_len(nrow(df))) # If only one chunk, return the entire data frame
   } else {
-    split(seq_len(nrow(df)), cut(seq_len(nrow(df)),
-      breaks = n_chunks,
-      labels = FALSE
-    ))
+    split(
+      seq_len(nrow(df)),
+      cut(seq_len(nrow(df)), breaks = n_chunks, labels = FALSE)
+    )
   }
 
   # Create a unique identifier for uploaded files
   unique_id <- paste0(
-    "temp_parquet_", as.integer(Sys.time()), "_",
-    sample(10000, 1), "_chunk"
+    "temp_parquet_",
+    as.integer(Sys.time()),
+    "_",
+    sample(10000, 1),
+    "_chunk"
   )
 
   # Process each chunk of the data frame
@@ -246,9 +262,15 @@ write_df_to_delta <- function(df,
 
     # Upload the Parquet file to Databricks Volume
     message(
-      "Uploading chunk ", i, " / ", n_chunks,
-      "; data size: ", round(utils::object.size(df_chunk) / (1024^2), 2), " MB",
-      "; parquet file size: ", round(file.size(local_tmp_file) / (1024^2), 2),
+      "Uploading chunk ",
+      i,
+      " / ",
+      n_chunks,
+      "; data size: ",
+      round(utils::object.size(df_chunk) / (1024^2), 2),
+      " MB",
+      "; parquet file size: ",
+      round(file.size(local_tmp_file) / (1024^2), 2),
       " MB"
     )
 
@@ -256,9 +278,10 @@ write_df_to_delta <- function(df,
 
     # Close and remove the local temporary file after upload
     all_conns <- showConnections(all = TRUE)
-    match_row <- which(all_conns[, "description"] ==
-                         normalizePath(local_tmp_file,
-                                       winslash = "\\", mustWork = FALSE))
+    match_row <- which(
+      all_conns[, "description"] ==
+        normalizePath(local_tmp_file, winslash = "\\", mustWork = FALSE)
+    )
     if (length(match_row) > 0) {
       conn_id <- as.integer(rownames(all_conns)[match_row])
       close(getConnection(conn_id))

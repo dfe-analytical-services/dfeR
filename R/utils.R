@@ -1,3 +1,31 @@
+#' Read and normalise the Databricks host environment variable
+#'
+#' Reads `DATABRICKS_HOST` from the environment, errors if it is unset or
+#' empty, and ensures the returned value starts with `https://`. A bare host
+#' has `https://` prepended; a leading `http://` is upgraded to `https://`,
+#' since Databricks requires TLS and `http://` is almost always a
+#' misconfiguration. Any trailing `/` is also stripped, to avoid
+#' double-slashes when the host is combined with API paths.
+#'
+#' @return Character. The host string, always prefixed with `https://` and
+#' without a trailing slash.
+#' @keywords internal
+#' @noRd
+get_databricks_host <- function() {
+  host <- Sys.getenv("DATABRICKS_HOST")
+  if (!nzchar(host)) {
+    stop(
+      "DATABRICKS_HOST must be set in the environment.",
+      call. = FALSE
+    )
+  }
+  if (grepl("^http://", host)) {
+    host <- sub("^http://", "https://", host)
+  } else if (!grepl("^https://", host)) {
+    host <- paste0("https://", host)
+  }
+  sub("/$", "", host)
+}
 #' Determine decimal places for large numeric values
 #'
 #' This helper function calculates the appropriate number of decimal places
