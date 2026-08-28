@@ -161,6 +161,11 @@ the existing table.</p></li>
 on the Databricks Volume used for staging (specified in <code>volume_dir</code>).</p></li>
 </ul><p>Moreover, this function requires valid <code>.Renviron</code> variables for
 authentication, specifically <code>DATABRICKS_TOKEN</code> and <code>DATABRICKS_HOST</code>.</p>
+<p><code>DATABRICKS_HOST</code> may be supplied with or without a scheme. A bare host
+has <code>https://</code> prepended automatically, and <code>http://</code> is upgraded to
+<code>https://</code>. Both <code>adb-1234.cloud.databricks.com</code> and
+<code>https://adb-1234.cloud.databricks.com</code> are accepted. A trailing slash
+is stripped if present.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

@@ -8,6 +8,11 @@
   [`pretty_num()`](https://dfe-analytical-services.github.io/dfeR/reference/pretty_num.md)
   function to add `abbreviate` argument giving the option to avoid
   displaying large numbers in millions/billions.
+- [`write_df_to_delta()`](https://dfe-analytical-services.github.io/dfeR/reference/write_df_to_delta.md)
+  now accepts `DATABRICKS_HOST` with or without a scheme; bare hosts
+  have `https://` prepended automatically, `http://` is upgraded to
+  `https://`, and any trailing slash is stripped. An unset or empty
+  `DATABRICKS_HOST` now produces a clearer error.
 
 ## dfeR 1.2.0
 
