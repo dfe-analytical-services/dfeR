@@ -8,6 +8,32 @@
 #' @keywords internal
 dfer_min_air_version <- "0.10.0"
 
+#' Get the expected Air executable path for the current platform
+#'
+#' @description works out the platform-specific Air executable name and
+#' expected install location (in `~/.local/bin/`), returning both alongside
+#' the resolved home directory and full path to the executable.
+#'
+#' @keywords internal
+get_air_path <- function() {
+  platform <- Sys.info()[1]
+
+  if (platform == "Windows") {
+    air_executable <- "air.exe"
+    user_home <- Sys.getenv("USERPROFILE")
+  } else {
+    air_executable <- "air"
+    user_home <- Sys.getenv("HOME")
+  }
+
+  list(
+    platform = platform,
+    air_executable = air_executable,
+    user_home = user_home,
+    air_path = paste0(user_home, "/.local/bin/", air_executable)
+  )
+}
+
 #' Get the installed Air version
 #'
 #' @description returns the installed Air version as a
@@ -24,7 +50,17 @@ get_air_version <- function(air_path) {
 
   version_output <- tryCatch(
     system(paste0(shQuote(air_path), " --version"), intern = TRUE),
-    warning = function(w) NA_character_,
+    warning = function(w) {
+      # system(intern = TRUE) warns (rather than errors) when the command
+      # runs but exits with a non-zero status, e.g. "had status 1" - treat
+      # that as "version undetectable". Any other, unexpected warning is
+      # re-raised so it isn't silently swallowed.
+      if (grepl("had status", conditionMessage(w))) {
+        NA_character_
+      } else {
+        warning(w)
+      }
+    },
     error = function(e) NA_character_
   )
 
@@ -63,17 +99,11 @@ air_install <- function(
   verbose = TRUE,
   force = FALSE
 ) {
-  platform <- Sys.info()[1]
-
-  if (platform == "Windows") {
-    air_executable <- "air.exe"
-    user_home <- Sys.getenv("USERPROFILE")
-  } else {
-    air_executable <- "air"
-    user_home <- Sys.getenv("HOME")
-  }
-
-  air_path <- paste0(user_home, "/.local/bin/", air_executable)
+  air_info <- get_air_path()
+  platform <- air_info$platform
+  air_executable <- air_info$air_executable
+  user_home <- air_info$user_home
+  air_path <- air_info$air_path
 
   if (verbose) {
     toggle_message(
@@ -98,7 +128,7 @@ air_install <- function(
     if (force) {
       toggle_message(
         "Forcing a reinstall of Air, installing now",
-        verbose = TRUE
+        verbose = verbose
       )
     } else if (!is.na(installed_version)) {
       toggle_message(
@@ -107,19 +137,19 @@ air_install <- function(
         ") is older than the minimum supported version (",
         dfer_min_air_version,
         "), reinstalling now",
-        verbose = TRUE
+        verbose = verbose
       )
     } else if (file.exists(air_path)) {
       toggle_message(
         "Found Air at ",
         air_path,
         " but could not determine its version, reinstalling now",
-        verbose = TRUE
+        verbose = verbose
       )
     } else {
       toggle_message(
         "Air does not appear to be installed, installing now",
-        verbose = TRUE
+        verbose = verbose
       )
     }
     if (platform == "Windows") {
@@ -177,17 +207,9 @@ air_install <- function(
 #' air_style()
 #' }
 air_style <- function(target = ".", verbose = FALSE) {
-  platform <- Sys.info()[1]
+  air_info <- get_air_path()
+  air_path <- air_info$air_path
 
-  if (platform == "Windows") {
-    air_executable <- "air.exe"
-    user_home <- Sys.getenv("USERPROFILE")
-  } else {
-    air_executable <- "air"
-    user_home <- Sys.getenv("HOME")
-  }
-
-  air_path <- paste0(user_home, "/.local/bin/", air_executable)
   if (verbose) {
     toggle_message(
       "Expecting air executable to be in ",
