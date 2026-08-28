@@ -130,7 +130,7 @@ write_df_to_delta(
 
 }
 \seealso{
-Other databricks: 
-\code{\link{check_databricks_odbc}()}
+Other databricks:
+\code{\link[=check_databricks_odbc]{check_databricks_odbc()}}
 }
 \concept{databricks}

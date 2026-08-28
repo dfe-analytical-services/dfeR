@@ -192,3 +192,48 @@ fetch_regions <- function() {
 fetch_countries <- function() {
   dfeR::countries
 }
+
+#' Fetch MP lookup
+#'
+#' Fetch a data frame of candidate-level general election results, as
+#' maintained in the
+#' \href{https://github.com/dfe-analytical-services/mp-lookup}{mp-lookup}
+#' repository. This lookup updates automatically as new results are
+#' published, and is read directly from its GitHub-hosted CSV so that users
+#' don't need to know or find the URL themselves.
+#'
+#' @param verbose TRUE or FALSE boolean. TRUE by default. FALSE will turn off
+#' the messages to the console that update on what the function is doing
+#'
+#' @return data frame of candidate-level general election results
+#' @export
+#'
+#' @examples
+#' \donttest{
+#' head(fetch_mp_lookup())
+#' }
+fetch_mp_lookup <- function(verbose = TRUE) {
+  mp_lookup_url <- paste0(
+    "https://raw.githubusercontent.com/dfe-analytical-services",
+    "/mp-lookup/refs/heads/main/mp_lookup.csv"
+  )
+
+  dfeR::toggle_message("Fetching MP lookup data...", verbose = verbose)
+
+  output <- tryCatch(
+    readr::read_csv(mp_lookup_url, show_col_types = FALSE),
+    error = function(e) {
+      stop(
+        "Failed to fetch MP lookup data from:\n",
+        mp_lookup_url,
+        "\n\nOriginal error: ",
+        conditionMessage(e),
+        call. = FALSE
+      )
+    }
+  )
+
+  dfeR::toggle_message("...data fetched!", verbose = verbose)
+
+  output
+}

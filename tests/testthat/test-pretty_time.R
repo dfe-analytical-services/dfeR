@@ -22,8 +22,13 @@ test_that("handles vector inputs", {
   expect_equal(
     pretty_time(c(1, 8, 60, 61, 121, 4, 8008)),
     c(
-      "1 second", "8 seconds", "60 seconds", "61 seconds",
-      "2 minutes 1 second", "4 seconds", "2 hours 13 minutes 28 seconds"
+      "1 second",
+      "8 seconds",
+      "60 seconds",
+      "61 seconds",
+      "2 minutes 1 second",
+      "4 seconds",
+      "2 hours 13 minutes 28 seconds"
     )
   )
 })

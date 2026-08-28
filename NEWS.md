@@ -1,5 +1,6 @@
 # dfeR (development version)
 
+- Added `fetch_mp_lookup()` to fetch the candidate-level general election results lookup maintained at https://github.com/dfe-analytical-services/mp-lookup.
 - Updated `geo_hierarchy`, and associated `fetch_*` functions with latest 2025 lookups.
 - Updated `pretty_num()` function to add `abbreviate` argument giving the option to avoid displaying large numbers in millions/billions.
 

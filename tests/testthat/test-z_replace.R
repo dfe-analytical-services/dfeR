@@ -13,41 +13,49 @@ df <- data.frame(
 
 test_that("z_replace outputs are as expected", {
   # testing standard functionality
-  expect_equal(z_replace(df), data.frame(
-    time_period = c(2022, 2022, 2022),
-    time_identifier = c("Calendar year", "Calendar year", "Calendar year"),
-    geographic_level = c("National", "Regional", "Regional"),
-    country_code = c("E92000001", "E92000001", "E92000001"),
-    country_name = c("England", "England", "England"),
-    region_code = c(NA, "E12000001", "E12000002"),
-    region_name = c(NA, "North East", "North West"),
-    mystery_count = c(42, 25, "z")
-  ))
+  expect_equal(
+    z_replace(df),
+    data.frame(
+      time_period = c(2022, 2022, 2022),
+      time_identifier = c("Calendar year", "Calendar year", "Calendar year"),
+      geographic_level = c("National", "Regional", "Regional"),
+      country_code = c("E92000001", "E92000001", "E92000001"),
+      country_name = c("England", "England", "England"),
+      region_code = c(NA, "E12000001", "E12000002"),
+      region_name = c(NA, "North East", "North West"),
+      mystery_count = c(42, 25, "z")
+    )
+  )
 
   # testing alternative replacement
 
-  expect_equal(z_replace(df, replacement_alt = "x"), data.frame(
-    time_period = c(2022, 2022, 2022),
-    time_identifier = c("Calendar year", "Calendar year", "Calendar year"),
-    geographic_level = c("National", "Regional", "Regional"),
-    country_code = c("E92000001", "E92000001", "E92000001"),
-    country_name = c("England", "England", "England"),
-    region_code = c(NA, "E12000001", "E12000002"),
-    region_name = c(NA, "North East", "North West"),
-    mystery_count = c(42, 25, "x")
-  ))
+  expect_equal(
+    z_replace(df, replacement_alt = "x"),
+    data.frame(
+      time_period = c(2022, 2022, 2022),
+      time_identifier = c("Calendar year", "Calendar year", "Calendar year"),
+      geographic_level = c("National", "Regional", "Regional"),
+      country_code = c("E92000001", "E92000001", "E92000001"),
+      country_name = c("England", "England", "England"),
+      region_code = c(NA, "E12000001", "E12000002"),
+      region_name = c(NA, "North East", "North West"),
+      mystery_count = c(42, 25, "x")
+    )
+  )
 
-
-  expect_equal(z_replace(df, replacement_alt = "c"), data.frame(
-    time_period = c(2022, 2022, 2022),
-    time_identifier = c("Calendar year", "Calendar year", "Calendar year"),
-    geographic_level = c("National", "Regional", "Regional"),
-    country_code = c("E92000001", "E92000001", "E92000001"),
-    country_name = c("England", "England", "England"),
-    region_code = c(NA, "E12000001", "E12000002"),
-    region_name = c(NA, "North East", "North West"),
-    mystery_count = c(42, 25, "c")
-  ))
+  expect_equal(
+    z_replace(df, replacement_alt = "c"),
+    data.frame(
+      time_period = c(2022, 2022, 2022),
+      time_identifier = c("Calendar year", "Calendar year", "Calendar year"),
+      geographic_level = c("National", "Regional", "Regional"),
+      country_code = c("E92000001", "E92000001", "E92000001"),
+      country_name = c("England", "England", "England"),
+      region_code = c(NA, "E12000001", "E12000002"),
+      region_name = c(NA, "North East", "North West"),
+      mystery_count = c(42, 25, "c")
+    )
+  )
 })
 
 # check error messages for non-empty data frames
@@ -84,23 +92,28 @@ df <- data.frame(
 # without including county_name in exclude_columns
 test_that("exclude_columns works", {
   # without including county_name in exclude_columns
-  expect_equal(z_replace(df), data.frame(
-    a = c("1", "2", "3", "z"),
-    b = c("1", "2", "z", "4"),
-    county_name = c("county1", "county2", "z", "county3"),
-    country_code = c("country1", NA_character_, "country2", "country3"),
-    time_period = c(2008, 2023, 2024, as.double(NA))
-  ))
-
+  expect_equal(
+    z_replace(df),
+    data.frame(
+      a = c("1", "2", "3", "z"),
+      b = c("1", "2", "z", "4"),
+      county_name = c("county1", "county2", "z", "county3"),
+      country_code = c("country1", NA_character_, "country2", "country3"),
+      time_period = c(2008, 2023, 2024, as.double(NA))
+    )
+  )
 
   # including county_name in exclude_columns
-  expect_equal(z_replace(df, exclude_columns = "county_name"), data.frame(
-    a = c("1", "2", "3", "z"),
-    b = c("1", "2", "z", "4"),
-    county_name = c("county1", "county2", NA_character_, "county3"),
-    country_code = c("country1", NA_character_, "country2", "country3"),
-    time_period = c(2008, 2023, 2024, as.double(NA))
-  ))
+  expect_equal(
+    z_replace(df, exclude_columns = "county_name"),
+    data.frame(
+      a = c("1", "2", "3", "z"),
+      b = c("1", "2", "z", "4"),
+      county_name = c("county1", "county2", NA_character_, "county3"),
+      country_code = c("country1", NA_character_, "country2", "country3"),
+      time_period = c(2008, 2023, 2024, as.double(NA))
+    )
+  )
 })
 
 # Check error message for empty data frame

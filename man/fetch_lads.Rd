@@ -45,11 +45,11 @@ fetch_regions()
 fetch_countries()
 }
 \seealso{
-Other fetch_locations: 
-\code{\link{fetch_countries}()},
-\code{\link{fetch_las}()},
-\code{\link{fetch_mayoral}()},
-\code{\link{fetch_regions}()},
-\code{\link{fetch_wards}()}
+Other fetch_locations:
+\code{\link[=fetch_countries]{fetch_countries()}},
+\code{\link[=fetch_las]{fetch_las()}},
+\code{\link[=fetch_mayoral]{fetch_mayoral()}},
+\code{\link[=fetch_regions]{fetch_regions()}},
+\code{\link[=fetch_wards]{fetch_wards()}}
 }
 \concept{fetch_locations}
