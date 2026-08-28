@@ -9,7 +9,7 @@ fetch_pcons(year = "All", countries = "All")
 }
 \arguments{
 \item{year}{year to filter the locations to, default is "All",
-options of 2017, 2019, 2020, 2021, 2022", 2023, 2024, 2025}
+options of 2017, 2019, 2020, 2021, 2022, 2023, 2024, 2025}
 
 \item{countries}{vector of desired countries to filter the locations to,
 default is "All", or can be a vector with options of "England", "Scotland",
@@ -36,6 +36,10 @@ head(fetch_pcons(countries = "Scotland"))
 head(fetch_pcons(year = 2023, countries = c("England", "Wales")))
 
 head(fetch_mayoral())
+
+head(fetch_lsips())
+
+head(fetch_lsips(2025))
 
 fetch_lads(2024, "Wales")
 

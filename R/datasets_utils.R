@@ -586,3 +586,43 @@ get_cauth_lad <- function(year) {
   # Tidy up the output file (defined earlier in this script)
   tidy_raw_lookup(output)
 }
+
+#' Fetch a single year of the LSIP-LAD lookup
+#'
+#' Helper function to extract data from the LSIP-LAD lookups
+#'
+#' @param year four digit year of the lookup
+#'
+#' @return data.frame for the individual year of the lookup
+#'
+#' @keywords internal
+#' @noRd
+get_lsip_lad <- function(year) {
+  year_end <- year %% 100
+
+  data_id <- paste0("LAD", year_end, "_LSIP", year_end, "_EN_LU")
+
+  fields <- paste0(
+    "LSIP",
+    year_end,
+    "CD,LSIP",
+    year_end,
+    "NM,LAD",
+    year_end,
+    "CD,LAD",
+    year_end,
+    "NM"
+  )
+
+  output <- get_ons_api_data(
+    data_id = data_id,
+    query_params = list(
+      where = "1=1",
+      outFields = fields,
+      outSR = 4326,
+      f = "json"
+    )
+  )
+
+  tidy_raw_lookup(output)
+}

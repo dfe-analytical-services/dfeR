@@ -4,7 +4,7 @@
 #' given year and country based on the dfeR::geo_hierarchy file.
 #'
 #' @param year year to filter the locations to, default is "All",
-#' options of 2017, 2019, 2020, 2021, 2022", 2023, 2024, 2025
+#' options of 2017, 2019, 2020, 2021, 2022, 2023, 2024, 2025
 #' @param countries vector of desired countries to filter the locations to,
 #' default is "All", or can be a vector with options of "England", "Scotland",
 #' "Wales" or "Northern Ireland"
@@ -27,6 +27,10 @@
 #' head(fetch_pcons(year = 2023, countries = c("England", "Wales")))
 #'
 #' head(fetch_mayoral())
+#'
+#' head(fetch_lsips())
+#'
+#' head(fetch_lsips(2025))
 #'
 #' fetch_lads(2024, "Wales")
 #'
@@ -143,7 +147,7 @@ fetch_wards <- function(year = "All", countries = "All") {
 #' published by ONS.
 #'
 #' @param year year to filter the locations to, default is "All",
-#' options of 2017, 2019, 2020, 2021, 2022", 2023, 2024, 2025
+#' options of 2017, 2019, 2020, 2021, 2022, 2023, 2024, 2025
 #'
 #' @family fetch_locations
 #' @return data frame of unique location names and codes
@@ -191,4 +195,34 @@ fetch_regions <- function() {
 #' @inherit fetch examples
 fetch_countries <- function() {
   dfeR::countries
+}
+
+#' Fetch Local Skills Improvement Plan (LSIP) areas lookup
+#'
+#' Fetch a data frame of Local Skills Improvement Plan (LSIP) areas
+#' for a given year based on `dfeR::lsip_lad`.
+#'
+#' @param year year to filter the locations to, default is "All",
+#' options of 2023 or 2025. ONS did not publish a 2024 lookup, so 2024 is not
+#' a valid option
+#' @family fetch_locations
+#' @return data frame of LSIP for a given year.
+#' @export
+#' @inherit fetch examples
+fetch_lsips <- function(year = "All") {
+  # LSIP lookups have a gap in their years (no 2024), so we give the exact
+  # years published rather than letting the year range be inferred
+  check_fetch_location_inputs(
+    year,
+    "England",
+    dfeR::lsip_lad,
+    valid_years = c(2023, 2025)
+  )
+
+  fetch_locations(
+    lookup_data = dfeR::lsip_lad,
+    cols = c("lsip_code", "lsip_name"),
+    year = year,
+    countries = "All"
+  )
 }
