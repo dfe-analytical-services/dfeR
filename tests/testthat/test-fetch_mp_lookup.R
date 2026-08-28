@@ -8,12 +8,22 @@ fake_mp_lookup <- data.frame(
 )
 
 test_that("fetch_mp_lookup returns a data frame using the mp-lookup URL", {
-  mockery::stub(fetch_mp_lookup, "utils::read.csv", fake_mp_lookup)
+  m_read <- mockery::mock(fake_mp_lookup)
+  mockery::stub(fetch_mp_lookup, "utils::read.csv", m_read)
 
   output <- fetch_mp_lookup(verbose = FALSE)
 
   expect_true(is.data.frame(output))
   expect_equal(output, fake_mp_lookup)
+
+  args <- mockery::mock_args(m_read)
+  expect_equal(
+    args[[1]][[1]],
+    paste0(
+      "https://raw.githubusercontent.com/dfe-analytical-services",
+      "/mp-lookup/refs/heads/main/mp_lookup.csv"
+    )
+  )
 })
 
 test_that("fetch_mp_lookup gives an informative error if the fetch fails", {
