@@ -34,6 +34,12 @@
 #' Moreover, this function requires valid `.Renviron` variables for
 #' authentication, specifically `DATABRICKS_TOKEN` and `DATABRICKS_HOST`.
 #'
+#' `DATABRICKS_HOST` may be supplied with or without a scheme. A bare host
+#' has `https://` prepended automatically, and `http://` is upgraded to
+#' `https://`. Both `adb-1234.cloud.databricks.com` and
+#' `https://adb-1234.cloud.databricks.com` are accepted. A trailing slash
+#' is stripped if present.
+#'
 #' @param df A `data.frame` or `tibble` containing the data to be written to
 #' Delta Lake.
 #' @param target_table A character string specifying the name of the Delta
