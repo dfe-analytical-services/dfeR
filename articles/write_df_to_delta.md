@@ -120,6 +120,7 @@ is straightforward. See the example below, or refer to the
 help page for a full description of all available parameters.
 
 ``` r
+
 library(dfeR)
 library(DBI)
 library(odbc)
@@ -168,6 +169,7 @@ directly into the function. This schema is applied during the Parquet
 conversion step.
 
 ``` r
+
 library(arrow)
 
 my_custom_schema <- schema(
@@ -201,6 +203,7 @@ fine-tune performance based on your specific dataset:
   Parquet file will be well under the 5 GB REST API limit.
 
 ``` r
+
 write_df_to_delta(
   df = my_data,
   target_table = "catalog.schema.my_table",
@@ -239,10 +242,10 @@ associated with diverse SQL data types.
 
 To ensure statistical reliability and account for fluctuations in
 network traffic or cluster load, we carried out 10 independent runs for
-each data volume (rows), $n$, where $n \in \{ 10^{2},\ldots,10^{6}\}$.
+each data volume (rows), $`n`$, where $`n \in \{10^2, \dots, 10^6\}`$.
 The benchmarks presented below show the median execution time, with the
-error bars representing the interquartile range ($25^{th}$ to $75^{th}$
-percentile).
+error bars representing the interquartile range ($`25^{th}`$ to
+$`75^{th}`$ percentile).
 
 ### Key Results
 
@@ -263,10 +266,10 @@ row counts.
 
 ### Recommendation: Choosing the Right Tool
 
-| Dataset Size                  | Recommended Method                                                                                     | Reason                                                                                |
-|:------------------------------|:-------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------|
-| **Small** (\< 5k rows)        | [`DBI::dbWriteTable()`](https://dbi.r-dbi.org/reference/dbWriteTable.html)                             | Lower overhead; no need for Volume staging.                                           |
-| **Medium** (5k - 100k rows)   | [`write_df_to_delta()`](https://dfe-analytical-services.github.io/dfeR/reference/write_df_to_delta.md) | Significant reduction in execution time compared to standard SQL-based inserts.       |
+| Dataset Size | Recommended Method | Reason |
+|:---|:---|:---|
+| **Small** (\< 5k rows) | [`DBI::dbWriteTable()`](https://dbi.r-dbi.org/reference/dbWriteTable.html) | Lower overhead; no need for Volume staging. |
+| **Medium** (5k - 100k rows) | [`write_df_to_delta()`](https://dfe-analytical-services.github.io/dfeR/reference/write_df_to_delta.md) | Significant reduction in execution time compared to standard SQL-based inserts. |
 | **Large/Stress** (\> 1M rows) | [`write_df_to_delta()`](https://dfe-analytical-services.github.io/dfeR/reference/write_df_to_delta.md) | The only viable method for high-volume transfers within a standard analytical window. |
 
 ## Stress Tests
@@ -285,7 +288,7 @@ The stress tests were performed on the DfE High Memory Desktop (AVD). We
 used a synthetic dataset (comprising integers, numerics, characters,
 factors, logicals, Dates, and UTC timestamps) of up to 1 billion rows
 (~41 GB). We conducted 5 independent runs for each data volume (rows),
-$n$, where $n \in \{ 10^{2},...,10^{9}\}$.
+$`n`$, where $`n \in \{10^2,...,10^9\}`$.
 
 A 1-billion-row dataset represents the practical maximum scale for a
 single R session on AVD. While the AVD hardware is robust, a

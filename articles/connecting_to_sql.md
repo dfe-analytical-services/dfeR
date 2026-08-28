@@ -41,6 +41,7 @@ connection) to grant you access to the database, as the package can
 automatically detect your user details.
 
 ``` r
+
 # Library calls ====
 
 library(odbc)
@@ -89,6 +90,7 @@ database, as your database should already be specified in your
 connection setup.
 
 ``` r
+
 sql_query <- dfeR::get_clean_sql("path_to_sql_file.sql")
 ```
 
@@ -111,6 +113,7 @@ consider using the
 functions from the [DBI package](https://dbi.r-dbi.org/) instead.
 
 ``` r
+
 sql_query_result <- DBI::dbGetQuery(con, statement = sql_query)
 ```
 
@@ -118,6 +121,7 @@ As a side note, if your SQL query is short, you could write it directly
 into the function such as:
 
 ``` r
+
 sql_query_result <- DBI::dbGetQuery(
   con,
   statement = "SELECT * FROM [my_database_table]"
@@ -137,6 +141,7 @@ the `additional_settings` argument in the
 function.
 
 ``` r
+
 sql_query <- dfeR::get_clean_sql(
   "path_to_sql_file.sql",
   additional_settings = TRUE

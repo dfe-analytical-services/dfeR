@@ -48,6 +48,7 @@ RTools (a helpful R extension) at the same time to use renv.
 typing the below code into the console window in RStudio:
 
 ``` r
+
 install.packages("dfeR")
 ```
 
@@ -156,13 +157,13 @@ Wizard’, the parameters which need a `TRUE`/`FALSE` input will be set to
 parameters, their meaning and what you should take into account for
 each.
 
-| Parameter                 | Meaning                                        | Considerations                                                  | Output                                                                |
-|:--------------------------|:-----------------------------------------------|:----------------------------------------------------------------|:----------------------------------------------------------------------|
-| path                      | Folder pathway                                 | Where do you want to store your project?                        | This will be the folder your new project is created within.           |
-| init_renv                 | Initiate renv in the project                   | Do you want to use renv for package version control?            | If set to `TRUE`, renv will be initialised in your project.           |
-| include_structure_for_pkg | Additional folder for package development      | Are you creating this project to work on a package?             | If set to `TRUE`, an extra package development folder will be created |
-| create_publication_proj   | Create project with structure for publications | Should the folder structure be for a publication project?       | If set to `TRUE`, extra publication specific folders will be created  |
-| include_github_gitignore  | Include a GitHub .gitignore file               | Do you want to exclude certain files from being tracked by Git? | If set to `TRUE`, a GitHub .gitignore file will be created.           |
+| Parameter | Meaning | Considerations | Output |
+|:---|:---|:---|:---|
+| path | Folder pathway | Where do you want to store your project? | This will be the folder your new project is created within. |
+| init_renv | Initiate renv in the project | Do you want to use renv for package version control? | If set to `TRUE`, renv will be initialised in your project. |
+| include_structure_for_pkg | Additional folder for package development | Are you creating this project to work on a package? | If set to `TRUE`, an extra package development folder will be created |
+| create_publication_proj | Create project with structure for publications | Should the folder structure be for a publication project? | If set to `TRUE`, extra publication specific folders will be created |
+| include_github_gitignore | Include a GitHub .gitignore file | Do you want to exclude certain files from being tracked by Git? | If set to `TRUE`, a GitHub .gitignore file will be created. |
 
 When using the ‘New Project Wizard’, you will be prompted to enter these
 parameters manually by filling in provided boxes or ticking the
@@ -175,6 +176,7 @@ type of project.
 Here is the basic code you will need to use, having installed `dfeR`:
 
 ``` r
+
 dfeR::create_project(
   path = "C:/path/to/your/new/project",
   init_renv = TRUE,
@@ -191,6 +193,7 @@ with renv initialised, a publication project structure, and a GitHub
 .gitignore file included.
 
 ``` r
+
 # Load the dfeR package
 library(dfeR)
 # Create a new project with the desired parameters

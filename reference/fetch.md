@@ -29,6 +29,7 @@ data frame of unique location names and codes
 ## Examples
 
 ``` r
+
 # Using head() to show only top 5 rows for examples
 head(fetch_wards())
 #> # A tibble: 6 × 2

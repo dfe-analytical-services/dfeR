@@ -54,6 +54,7 @@ sure someone from the team agrees with the change.
 Packages worth installing to aid development are:
 
 ``` r
+
 install.packages("devtools")
 install.packages("usethis")
 install.packages("pkgdown")
@@ -74,6 +75,7 @@ into the package and then go back to step 1 afterwards.
     if adding a new function, create a test script using:
 
 ``` r
+
 usethis::use_test("name_of_new_function")
 ```
 
@@ -84,6 +86,7 @@ examples if you want to see example tests in practice.
     existing function, or add a new R script using:
 
 ``` r
+
 usethis::use_r("name_of_new_function")
 ```
 
@@ -113,12 +116,14 @@ usethis::use_r("name_of_new_function")
 5.  Automatically style code using:
 
 ``` r
+
 styler::style_pkg()
 ```
 
 5.  Run a full check of the package using the following functions:
 
 ``` r
+
 devtools::check() # General package check, can also use Ctrl-Shift-E
 lintr::lint_package() # Check formatting of code
 spelling::spell_check_package() # Check for spelling mistakes
@@ -129,6 +134,7 @@ spelling::spell_check_package() # Check for spelling mistakes
 Keyboard shortcuts for the `devtools` package to use while in RStudio:
 
 ``` r
+
 load_all() # (Ctrl-Shift-L): Load code with dfeR package
 test() # (Ctrl-Shift-T): Run tests
 document() # (Ctrl-Shift-D): Rebuild docs and NAMESPACE
@@ -143,12 +149,14 @@ package where possible for consistency and simplicity.
 Add any packages the package users will need with:
 
 ``` r
+
 usethis::use_package(pkgname)
 ```
 
 Add any packages that package developers only may need with:
 
 ``` r
+
 usethis::use_package(pkgname, type = "suggests")
 ```
 
@@ -161,6 +169,7 @@ not always prompted to update when newer versions are available. You can
 EES-ily update all package dependencies using the `pak` package:
 
 ``` r
+
 install.packages("pak")
 pak::local_install_dev_deps()
 ```
@@ -174,6 +183,7 @@ Make all changes to the `README.Rmd` file and then run the following
 line to rebuild:
 
 ``` r
+
 devtools::build_readme()
 ```
 
@@ -187,6 +197,7 @@ to this file you will need to re-initialise the site using the following
 line:
 
 ``` r
+
 pkgdown::init_site()
 ```
 
@@ -194,6 +205,7 @@ The site is hosted on GitHub pages. You build and preview the pkgdown
 site locally by running:
 
 ``` r
+
 devtools::build_site()
 ```
 
@@ -208,6 +220,7 @@ wild, you should review the R packages guidance for submitting a new
 version to CRAN. You can increment the package version using:
 
 ``` r
+
 usethis::use_version()
 ```
 
@@ -247,12 +260,14 @@ You can use the [styler](https://CRAN.R-project.org/package=styler)
 package to apply most of the styling using:
 
 ``` r
+
 styler::style_pkg()
 ```
 
 To check for any further styling issues locally, use:
 
 ``` r
+
 lintr::lint_package()
 ```
 
@@ -329,6 +344,7 @@ potential spelling errors. Please review and fix any genuine errors.
 You can run a check yourself using:
 
 ``` r
+
 spelling::spell_check_package()
 ```
 
@@ -336,6 +352,7 @@ To automatically pick up genuine new words in the package and add to
 this list, use:
 
 ``` r
+
 spelling::update_wordlist()
 ```
 
@@ -345,6 +362,7 @@ Vignettes can be found in the `vignettes/` folder as .Rmd files. To
 start a new one use:
 
 ``` r
+
 usethis::use_vignette("name_of_vignette")
 ```
 

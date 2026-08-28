@@ -60,6 +60,7 @@ installation.
 Then install dfeR from CRAN:
 
 ``` r
+
 # If you don’t have pak installed yet, install it first using
 # install.packages("pak") 
 pak::pak("dfeR")
@@ -72,12 +73,14 @@ If you are using
 project (recommended):
 
 ``` r
+
 renv::install("dfe-analytical-services/dfeR")
 ```
 
 Otherwise:
 
 ``` r
+
 # If you don’t have pak installed yet, install it first using
 # install.packages("pak") 
 pak::pak("dfe-analytical-services/dfeR")
@@ -121,6 +124,7 @@ By contributing to this project, you agree to abide by its terms.
 Here are some example functions from within the package:
 
 ``` r
+
 library(dfeR)
 #> Note: The dataset `wd_pcon_lad_la_rgn_ctry` is deprecated and will be removed in the next major release. Use `geo_hierarchy` instead.
 
