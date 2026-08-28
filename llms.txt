@@ -346,6 +346,9 @@ Data sets exported in the package
 - [`wd_pcon_lad_la_rgn_ctry`](https://dfe-analytical-services.github.io/dfeR/reference/wd_pcon_lad_la_rgn_ctry.md)
   **\[deprecated\]** : Ward to Constituency to LAD to LA to Region to
   Country lookup
+- [`lsip_lad`](https://dfe-analytical-services.github.io/dfeR/reference/lsip_lad.md)
+  : Local Skills Improvement Plan (LSIP) areas to Local Authority
+  District (LAD) Lookup
 
 ## Fetch geography lists
 
@@ -359,6 +362,8 @@ Pull geography lookups from the ONS Geography Portal
   : Fetch local authority districts
 - [`fetch_las()`](https://dfe-analytical-services.github.io/dfeR/reference/fetch_las.md)
   : Fetch local authorities
+- [`fetch_lsips()`](https://dfe-analytical-services.github.io/dfeR/reference/fetch_lsips.md)
+  : Fetch Local Skills Improvement Plan (LSIP) areas lookup
 - [`fetch_mayoral()`](https://dfe-analytical-services.github.io/dfeR/reference/fetch_mayoral.md)
   : Fetch mayoral combined authorities
 - [`fetch_regions()`](https://dfe-analytical-services.github.io/dfeR/reference/fetch_regions.md)

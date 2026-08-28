@@ -1,32 +1,26 @@
-# Fetch mayoral combined authorities
+# Fetch Local Skills Improvement Plan (LSIP) areas lookup
 
-Fetch a data frame of all mayoral combined authorities for a given year
-and country based on the dfeR::geo_hierarchy file.
+Fetch a data frame of Local Skills Improvement Plan (LSIP) areas for a
+given year based on
+[`dfeR::lsip_lad`](https://dfe-analytical-services.github.io/dfeR/reference/lsip_lad.md).
 
 ## Usage
 
 ``` r
-fetch_mayoral(year = "All")
+fetch_lsips(year = "All")
 ```
 
 ## Arguments
 
 - year:
 
-  year to filter the locations to, default is "All", options of 2017,
-  2019, 2020, 2021, 2022, 2023, 2024, 2025
+  year to filter the locations to, default is "All", options of 2023
+  or 2025. ONS did not publish a 2024 lookup, so 2024 is not a valid
+  option
 
 ## Value
 
-data frame of unique location names and codes
-
-## Details
-
-Note that mayoral combined authorities only exist for England.
-
-Mayoral combined authorities are also known as English Devolved Areas,
-as we add in the Greater London Authority to the combined authority
-lookup published by ONS.
+data frame of LSIP for a given year.
 
 ## See also
 
@@ -34,7 +28,7 @@ Other fetch_locations:
 [`fetch_countries()`](https://dfe-analytical-services.github.io/dfeR/reference/fetch_countries.md),
 [`fetch_lads()`](https://dfe-analytical-services.github.io/dfeR/reference/fetch_lads.md),
 [`fetch_las()`](https://dfe-analytical-services.github.io/dfeR/reference/fetch_las.md),
-[`fetch_lsips()`](https://dfe-analytical-services.github.io/dfeR/reference/fetch_lsips.md),
+[`fetch_mayoral()`](https://dfe-analytical-services.github.io/dfeR/reference/fetch_mayoral.md),
 [`fetch_regions()`](https://dfe-analytical-services.github.io/dfeR/reference/fetch_regions.md),
 [`fetch_wards()`](https://dfe-analytical-services.github.io/dfeR/reference/fetch_wards.md)
 

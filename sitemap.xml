@@ -22,6 +22,7 @@
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/fetch_countries.html</loc></url>
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/fetch_lads.html</loc></url>
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/fetch_las.html</loc></url>
+<url><loc>https://dfe-analytical-services.github.io/dfeR/reference/fetch_lsips.html</loc></url>
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/fetch_mayoral.html</loc></url>
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/fetch_regions.html</loc></url>
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/fetch_wards.html</loc></url>
@@ -34,6 +35,7 @@
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/get_clean_sql.html</loc></url>
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/get_ons_api_data.html</loc></url>
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/index.html</loc></url>
+<url><loc>https://dfe-analytical-services.github.io/dfeR/reference/lsip_lad.html</loc></url>
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/ons_geog_shorthands.html</loc></url>
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/pretty_filesize.html</loc></url>
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/pretty_num.html</loc></url>

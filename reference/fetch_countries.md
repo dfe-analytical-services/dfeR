@@ -17,6 +17,7 @@ data frame of unique location names and codes
 Other fetch_locations:
 [`fetch_lads()`](https://dfe-analytical-services.github.io/dfeR/reference/fetch_lads.md),
 [`fetch_las()`](https://dfe-analytical-services.github.io/dfeR/reference/fetch_las.md),
+[`fetch_lsips()`](https://dfe-analytical-services.github.io/dfeR/reference/fetch_lsips.md),
 [`fetch_mayoral()`](https://dfe-analytical-services.github.io/dfeR/reference/fetch_mayoral.md),
 [`fetch_regions()`](https://dfe-analytical-services.github.io/dfeR/reference/fetch_regions.md),
 [`fetch_wards()`](https://dfe-analytical-services.github.io/dfeR/reference/fetch_wards.md)
@@ -91,6 +92,24 @@ head(fetch_mayoral())
 #> 4 E47000013                  East Midlands                  
 #> 5 E47000017                  Greater Lincolnshire           
 #> 6 E47000007                  West Midlands                  
+
+head(fetch_lsips())
+#>   lsip_code                                   lsip_name
+#> 1 E69000001 Brighton and Hove, East Sussex, West Sussex
+#> 2 E69000002                             Buckinghamshire
+#> 3 E69000003             Cambridgeshire and Peterborough
+#> 4 E69000004                     Cheshire and Warrington
+#> 5 E69000005            Cornwall and the Isles of Scilly
+#> 6 E69000006                                     Cumbria
+
+head(fetch_lsips(2025))
+#>   lsip_code                        lsip_name
+#> 1 E69000002                  Buckinghamshire
+#> 2 E69000003  Cambridgeshire and Peterborough
+#> 3 E69000004          Cheshire and Warrington
+#> 4 E69000005 Cornwall and the Isles of Scilly
+#> 5 E69000006                          Cumbria
+#> 6 E69000008                           Dorset
 
 fetch_lads(2024, "Wales")
 #> # A tibble: 22 × 2

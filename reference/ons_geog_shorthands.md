@@ -13,7 +13,7 @@ ons_geog_shorthands
 
 ### `ons_geog_shorthands`
 
-A data frame with 9 rows and 3 columns:
+A data frame with 10 rows and 3 columns:
 
 - ons_level_shorthands:
 

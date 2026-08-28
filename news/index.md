@@ -1,6 +1,6 @@
 # Changelog
 
-## dfeR (development version)
+## dfeR 1.3.0
 
 - Updated `geo_hierarchy`, and associated `fetch_*` functions with
   latest 2025 lookups.
@@ -8,6 +8,13 @@
   [`pretty_num()`](https://dfe-analytical-services.github.io/dfeR/reference/pretty_num.md)
   function to add `abbreviate` argument giving the option to avoid
   displaying large numbers in millions/billions.
+- Added the data `lsip_lad` which is a lookup table for Local Skills
+  Improvement Plan (LSIP) areas and the function
+  [`fetch_lsips()`](https://dfe-analytical-services.github.io/dfeR/reference/fetch_lsips.md)
+  to fetch LSIP data.
+- The `fetch_*()` functions now give an error when given a year that
+  their lookup does not cover, where previously they returned an empty
+  data frame.
 - [`write_df_to_delta()`](https://dfe-analytical-services.github.io/dfeR/reference/write_df_to_delta.md)
   now accepts `DATABRICKS_HOST` with or without a scheme; bare hosts
   have `https://` prepended automatically, `http://` is upgraded to
