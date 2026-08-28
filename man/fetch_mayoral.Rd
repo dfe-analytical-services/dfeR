@@ -8,7 +8,7 @@ fetch_mayoral(year = "All")
 }
 \arguments{
 \item{year}{year to filter the locations to, default is "All",
-options of 2017, 2019, 2020, 2021, 2022", 2023, 2024, 2025}
+options of 2017, 2019, 2020, 2021, 2022, 2023, 2024, 2025}
 }
 \value{
 data frame of unique location names and codes
@@ -39,6 +39,10 @@ head(fetch_pcons(year = 2023, countries = c("England", "Wales")))
 
 head(fetch_mayoral())
 
+head(fetch_lsips())
+
+head(fetch_lsips(2025))
+
 fetch_lads(2024, "Wales")
 
 fetch_las(2022, "Northern Ireland")
@@ -52,6 +56,7 @@ Other fetch_locations:
 \code{\link[=fetch_countries]{fetch_countries()}},
 \code{\link[=fetch_lads]{fetch_lads()}},
 \code{\link[=fetch_las]{fetch_las()}},
+\code{\link[=fetch_lsips]{fetch_lsips()}},
 \code{\link[=fetch_regions]{fetch_regions()}},
 \code{\link[=fetch_wards]{fetch_wards()}}
 }

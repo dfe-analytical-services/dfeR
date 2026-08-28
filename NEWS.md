@@ -1,8 +1,12 @@
-# dfeR (development version)
+# dfeR 1.3.0
 
+- `air_install()` now checks the installed Air version and automatically reinstalls it if it is older than the minimum version required by `air_style()` (currently 0.10.0, when Air's default `assignment-style` changed to `"arrow"`). It also gains a `force` argument to always reinstall regardless of the currently installed version.
 - Added `fetch_mp_lookup()` to fetch the candidate-level general election results lookup maintained at https://github.com/dfe-analytical-services/mp-lookup.
 - Updated `geo_hierarchy`, and associated `fetch_*` functions with latest 2025 lookups.
 - Updated `pretty_num()` function to add `abbreviate` argument giving the option to avoid displaying large numbers in millions/billions.
+- Added the data `lsip_lad` which is a lookup table for Local Skills Improvement Plan (LSIP) areas and the function `fetch_lsips()` to fetch LSIP data.
+- The `fetch_*()` functions now give an error when given a year that their lookup does not cover, where previously they returned an empty data frame.
+- `write_df_to_delta()` now accepts `DATABRICKS_HOST` with or without a scheme; bare hosts have `https://` prepended automatically, `http://` is upgraded to `https://`, and any trailing slash is stripped. An unset or empty `DATABRICKS_HOST` now produces a clearer error.
 
 # dfeR 1.2.0
 

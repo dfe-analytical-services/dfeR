@@ -4,16 +4,20 @@
 \alias{air_install}
 \title{Air Install}
 \usage{
-air_install(update_rstudio_settings = FALSE, verbose = TRUE)
+air_install(update_rstudio_settings = FALSE, verbose = TRUE, force = FALSE)
 }
 \arguments{
 \item{update_rstudio_settings}{auto update RStudio settings}
 
 \item{verbose}{Run in verbose mode}
+
+\item{force}{force (re)installation of Air, even if an up to date
+version is already installed}
 }
 \description{
 checks for air installation status and installs it if
-required, updating the global settings if selected
+required (or if the installed version is older than the minimum
+supported version), updating the global settings if selected
 }
 \examples{
 \dontrun{

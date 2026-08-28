@@ -298,12 +298,12 @@ safe_req_perform <- function(req, max_tries = 5, wait_base = 2) {
 #' @import httr2
 volume_exists <- function(volume_dir) {
   # Read Databricks host and token from environment
-  databricks_host <- Sys.getenv("DATABRICKS_HOST")
+  databricks_host <- get_databricks_host()
   databricks_token <- Sys.getenv("DATABRICKS_TOKEN")
 
-  if (databricks_host == "" || databricks_token == "") {
+  if (databricks_token == "") {
     stop(
-      "DATABRICKS_HOST and DATABRICKS_TOKEN must be set in the environment.",
+      "DATABRICKS_TOKEN must be set in the environment.",
       call. = FALSE
     )
   }
@@ -365,7 +365,7 @@ volume_exists <- function(volume_dir) {
 #' @import httr2
 upload_to_volume <- function(local_file, volume_file) {
   # Set Databricks host and token for file uploads
-  databricks_host <- Sys.getenv("DATABRICKS_HOST")
+  databricks_host <- get_databricks_host()
   databricks_token <- Sys.getenv("DATABRICKS_TOKEN")
 
   upload_url <- paste0(
@@ -416,7 +416,7 @@ upload_to_volume <- function(local_file, volume_file) {
 #' @import httr2
 delete_from_volume <- function(volume_file) {
   # Set Databricks host and token for file deletion
-  databricks_host <- Sys.getenv("DATABRICKS_HOST")
+  databricks_host <- get_databricks_host()
   databricks_token <- Sys.getenv("DATABRICKS_TOKEN")
 
   delete_url <- paste0(
@@ -644,10 +644,13 @@ create_empty_delta <- function(df_or_schema, target_table, db_conn) {
       ) {
         stop(
           sprintf(
-            "DBI Execution Failed: Insufficient Unity Catalog WRITE privileges. ",
-            "\nYou need 'USE CATALOG' privilege on the target catalog and ",
-            "'CREATE TABLE' privilege on the target schema to execute ",
-            "'CREATE OR REPLACE TABLE %s'.",
+            paste0(
+              "DBI Execution Failed: Insufficient Unity Catalog WRITE ",
+              "privileges.\n",
+              "You need 'USE CATALOG' privilege on the target catalog and ",
+              "'CREATE TABLE' privilege on the target schema to execute ",
+              "'CREATE OR REPLACE TABLE %s'."
+            ),
             target_table
           ),
           call. = FALSE
@@ -739,9 +742,12 @@ copy_into_delta <- function(
       ) {
         stop(
           sprintf(
-            "DBI Execution Failed: Insufficient Unity Catalog READ/WRITE ",
-            "privileges.\nCheck if you have 'SELECT' on the volume and 'MODIFY'",
-            "on the target table (%s).",
+            paste0(
+              "DBI Execution Failed: Insufficient Unity Catalog READ/WRITE ",
+              "privileges.\n",
+              "Check if you have 'SELECT' on the volume and 'MODIFY' ",
+              "on the target table (%s)."
+            ),
             target_table
           ),
           call. = FALSE

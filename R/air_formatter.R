@@ -1,10 +1,55 @@
+#' Minimum supported Air version
+#'
+#' @description Air 0.10.0 changed the default `assignment-style` to
+#' `"arrow"`, which affects the styled output that [air_style()] produces.
+#' Versions of Air older than this will silently produce different (older)
+#' formatting.
+#'
+#' @keywords internal
+dfer_min_air_version <- "0.10.0"
+
+#' Get the installed Air version
+#'
+#' @description returns the installed Air version as a
+#' [numeric_version()], or `NA` if Air is not installed or its version
+#' cannot be determined.
+#'
+#' @param air_path path to the air executable
+#'
+#' @keywords internal
+get_air_version <- function(air_path) {
+  if (!file.exists(air_path)) {
+    return(NA)
+  }
+
+  version_output <- tryCatch(
+    system(paste0(shQuote(air_path), " --version"), intern = TRUE),
+    warning = function(w) NA_character_,
+    error = function(e) NA_character_
+  )
+
+  version_string <- regmatches(
+    version_output,
+    regexpr("[0-9]+\\.[0-9]+\\.[0-9]+", version_output)
+  )
+
+  if (length(version_string) == 0 || identical(version_string, "")) {
+    return(NA)
+  }
+
+  numeric_version(version_string[1])
+}
+
 #' Air Install
 #'
 #' @description checks for air installation status and installs it if
-#' required, updating the global settings if selected
+#' required (or if the installed version is older than the minimum
+#' supported version), updating the global settings if selected
 #'
 #' @param update_rstudio_settings auto update RStudio settings
 #' @param verbose Run in verbose mode
+#' @param force force (re)installation of Air, even if an up to date
+#' version is already installed
 #'
 #' @export
 #'
@@ -13,7 +58,11 @@
 #' air_install()
 #' }
 
-air_install <- function(update_rstudio_settings = FALSE, verbose = TRUE) {
+air_install <- function(
+  update_rstudio_settings = FALSE,
+  verbose = TRUE,
+  force = FALSE
+) {
   platform <- Sys.info()[1]
 
   if (platform == "Windows") {
@@ -23,6 +72,8 @@ air_install <- function(update_rstudio_settings = FALSE, verbose = TRUE) {
     air_executable <- "air"
     user_home <- Sys.getenv("HOME")
   }
+
+  air_path <- paste0(user_home, "/.local/bin/", air_executable)
 
   if (verbose) {
     toggle_message(
@@ -35,14 +86,30 @@ air_install <- function(update_rstudio_settings = FALSE, verbose = TRUE) {
     )
   }
 
+  installed_version <- get_air_version(air_path)
+  needs_install <- force ||
+    is.na(installed_version) ||
+    installed_version < numeric_version(dfer_min_air_version)
+
   # Check for air and settings
-  if (file.exists(paste0(user_home, "/.local/bin/", air_executable))) {
+  if (!needs_install) {
     toggle_message("Air is already installed on your system", verbose = verbose)
   } else {
-    toggle_message(
-      "Air does not appear to be installed, installing now",
-      verbose = TRUE
-    )
+    if (!force && !is.na(installed_version)) {
+      toggle_message(
+        "Installed Air version (",
+        as.character(installed_version),
+        ") is older than the minimum supported version (",
+        dfer_min_air_version,
+        "), reinstalling now",
+        verbose = TRUE
+      )
+    } else {
+      toggle_message(
+        "Air does not appear to be installed, installing now",
+        verbose = TRUE
+      )
+    }
     if (platform == "Windows") {
       system(
         paste0(
