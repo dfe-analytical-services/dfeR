@@ -145,11 +145,38 @@ test_that("get_air_version treats a non-zero exit status as undetectable", {
     get_air_version,
     "system",
     function(...) {
+      # Mirrors what system(intern = TRUE) really does on a non-zero exit
+      # status: it warns *and* sets a "status" attribute on the result
+      # (see ?system) - get_air_version() relies on that attribute, not
+      # the (locale-dependent) warning text, to detect this case
+      result <- ""
+      attr(result, "status") <- 1L
       warning("running command 'air --version' had status 1")
-      ""
+      result
     }
   )
 
+  expect_no_warning(get_air_version("/fake/path/air"))
+  expect_true(is.na(get_air_version("/fake/path/air")))
+})
+
+test_that("get_air_version detects a non-zero exit status via any locale", {
+  mockery::stub(get_air_version, "file.exists", TRUE)
+  mockery::stub(
+    get_air_version,
+    "system",
+    function(...) {
+      # A translated message that would not match an English-only
+      # "had status" check, to prove detection relies on the "status"
+      # attribute rather than the (locale-dependent) warning text
+      result <- ""
+      attr(result, "status") <- 1L
+      warning("la commande a \u00e9chou\u00e9 avec le statut 1")
+      result
+    }
+  )
+
+  expect_no_warning(get_air_version("/fake/path/air"))
   expect_true(is.na(get_air_version("/fake/path/air")))
 })
 

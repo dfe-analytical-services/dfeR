@@ -53,8 +53,16 @@ test_that("the live mp-lookup file still has the expected shape", {
         "party_text",
         "member_email",
         "election_result_summary_2024",
+        "lad_names",
+        "lad_codes",
+        "la_names",
+        "new_la_codes",
+        "mayoral_auth_names",
+        "mayoral_auth_codes",
         "region_name",
-        "country_name"
+        "region_code",
+        "country_name",
+        "country_code"
       ) %in%
         names(output)
     )
@@ -64,6 +72,11 @@ test_that("the live mp-lookup file still has the expected shape", {
   expect_type(output$pcon_code, "character")
   expect_type(output$region_code, "character")
   expect_type(output$country_code, "character")
+
+  # member_id is all-digit, so it's expected (and fine) to be guessed as
+  # numeric rather than character - it's an ID for reference/joining, not a
+  # code with meaningful leading zeros
+  expect_true(is.numeric(output$member_id))
 
   # One row per constituency, not one row per candidate
   expect_gt(nrow(output), 600)

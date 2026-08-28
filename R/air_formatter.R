@@ -48,21 +48,39 @@ get_air_version <- function(air_path) {
     return(NA)
   }
 
-  version_output <- tryCatch(
-    system(paste0(shQuote(air_path), " --version"), intern = TRUE),
+  # system(intern = TRUE) warns (rather than errors) when the command runs
+  # but exits with a non-zero status. Rather than matching on the warning
+  # text (which is translated by R and so locale-dependent), muffle the
+  # warning here and identify a non-zero exit via the "status" attribute
+  # that system() also sets on the result (see ?system) - that check works
+  # the same regardless of locale.
+  caught_warning <- NULL
+  version_output <- withCallingHandlers(
+    tryCatch(
+      system(paste0(shQuote(air_path), " --version"), intern = TRUE),
+      error = function(e) NA_character_
+    ),
     warning = function(w) {
-      # system(intern = TRUE) warns (rather than errors) when the command
-      # runs but exits with a non-zero status, e.g. "had status 1" - treat
-      # that as "version undetectable". Any other, unexpected warning is
-      # re-raised so it isn't silently swallowed.
-      if (grepl("had status", conditionMessage(w))) {
-        NA_character_
-      } else {
-        warning(w)
-      }
-    },
-    error = function(e) NA_character_
+      caught_warning <<- w
+      invokeRestart("muffleWarning")
+    }
   )
+
+  exit_status <- attr(version_output, "status")
+  has_exit_status_warning <- !is.null(exit_status) && exit_status != 0
+
+  if (!is.null(caught_warning)) {
+    if (!has_exit_status_warning) {
+      # Not explained by a non-zero exit status - genuinely unexpected,
+      # re-raise so it isn't silently swallowed
+      warning(caught_warning)
+    }
+    return(NA)
+  }
+
+  if (has_exit_status_warning) {
+    return(NA)
+  }
 
   version_string <- regmatches(
     version_output,
