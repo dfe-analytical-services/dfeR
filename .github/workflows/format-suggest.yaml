@@ -11,4 +11,4 @@ permissions:
 
 jobs:
   air-formatter:
-    uses: dfe-analytical-services/dfeR/.github/workflows/format-suggest-reusable.yaml@feature/air-integration
+    uses: dfe-analytical-services/dfeR/.github/workflows/format-suggest-reusable.yaml@main
