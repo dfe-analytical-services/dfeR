@@ -143,10 +143,12 @@ air_install <- function(
   if (!needs_install) {
     toggle_message("Air is already installed on your system", verbose = verbose)
   } else {
+    # Installing runs a remote script, always announce it regardless of
+    # verbose so the side effect is never silent
     if (force) {
       toggle_message(
         "Forcing a reinstall of Air, installing now",
-        verbose = verbose
+        verbose = TRUE
       )
     } else if (!is.na(installed_version)) {
       toggle_message(
@@ -155,19 +157,19 @@ air_install <- function(
         ") is older than the minimum supported version (",
         dfer_min_air_version,
         "), reinstalling now",
-        verbose = verbose
+        verbose = TRUE
       )
     } else if (file.exists(air_path)) {
       toggle_message(
         "Found Air at ",
         air_path,
         " but could not determine its version, reinstalling now",
-        verbose = verbose
+        verbose = TRUE
       )
     } else {
       toggle_message(
         "Air does not appear to be installed, installing now",
-        verbose = verbose
+        verbose = TRUE
       )
     }
     if (platform == "Windows") {
@@ -188,6 +190,23 @@ air_install <- function(
           "air-installer.sh ",
           "| sh"
         )
+      )
+    }
+    # Confirm the install actually delivered a usable version, otherwise
+    # air_style() would silently carry on using the old executable
+    installed_version <- get_air_version(air_path)
+    if (
+      is.na(installed_version) ||
+        installed_version < numeric_version(dfer_min_air_version)
+    ) {
+      warning(
+        "Air installation does not appear to have completed successfully. ",
+        "Expected Air ",
+        dfer_min_air_version,
+        " or newer at ",
+        air_path,
+        ". Try dfeR::air_install(force = TRUE), or install Air manually ",
+        "from https://posit-dev.github.io/air/"
       )
     }
   }

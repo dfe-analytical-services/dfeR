@@ -48,12 +48,19 @@ test_that("air_install reports the right reason for reinstalling", {
   # Stub out the actual installer, we only care about the message given
   mockery::stub(air_install, "system", invisible(NULL))
 
+  # Installing runs a remote script, so the reason is always announced, even
+  # when verbose = FALSE. The stubbed version is what get_air_version() gives
+  # back after the install too, so the branches below that are still under the
+  # minimum version also warn - suppressed here to keep the focus on messages
   mockery::stub(air_install, "get_air_version", numeric_version("99.0.0"))
   expect_message(
     air_install(verbose = TRUE, force = TRUE),
     "Forcing a reinstall of Air"
   )
-  expect_no_message(air_install(verbose = FALSE, force = TRUE))
+  expect_message(
+    air_install(verbose = FALSE, force = TRUE),
+    "Forcing a reinstall of Air"
+  )
 
   expect_message(
     air_install(verbose = TRUE),
@@ -63,27 +70,54 @@ test_that("air_install reports the right reason for reinstalling", {
 
   mockery::stub(air_install, "get_air_version", numeric_version("0.9.0"))
   expect_message(
-    air_install(verbose = TRUE),
+    suppressWarnings(air_install(verbose = TRUE)),
     "is older than the minimum supported version"
   )
-  expect_no_message(air_install(verbose = FALSE))
+  expect_message(
+    suppressWarnings(air_install(verbose = FALSE)),
+    "is older than the minimum supported version"
+  )
 
   # Air missing entirely, no executable on disk to find
   mockery::stub(air_install, "get_air_version", NA)
   mockery::stub(air_install, "file.exists", FALSE)
   expect_message(
-    air_install(verbose = TRUE),
+    suppressWarnings(air_install(verbose = TRUE)),
     "Air does not appear to be installed"
   )
-  expect_no_message(air_install(verbose = FALSE))
+  expect_message(
+    suppressWarnings(air_install(verbose = FALSE)),
+    "Air does not appear to be installed"
+  )
 
   # Air present, but its version could not be determined
   mockery::stub(air_install, "file.exists", TRUE)
   expect_message(
-    air_install(verbose = TRUE),
+    suppressWarnings(air_install(verbose = TRUE)),
     "could not determine its version"
   )
-  expect_no_message(air_install(verbose = FALSE))
+  expect_message(
+    suppressWarnings(air_install(verbose = FALSE)),
+    "could not determine its version"
+  )
+})
+
+test_that("air_install warns when the install did not take", {
+  # Stub out the actual installer, the version stub stays below the minimum
+  # to mimic an install that silently failed to update Air
+  mockery::stub(air_install, "system", invisible(NULL))
+  mockery::stub(air_install, "get_air_version", numeric_version("0.9.0"))
+
+  expect_warning(
+    suppressMessages(air_install(verbose = FALSE)),
+    "does not appear to have completed successfully"
+  )
+
+  # An install that worked leaves no warning behind
+  mockery::stub(air_install, "get_air_version", numeric_version("99.0.0"))
+  expect_no_warning(
+    suppressMessages(air_install(verbose = FALSE, force = TRUE))
+  )
 })
 
 test_that("get_air_path resolves a platform-specific executable path", {

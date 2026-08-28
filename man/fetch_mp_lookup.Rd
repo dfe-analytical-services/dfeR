@@ -33,7 +33,7 @@ Note that this is a lookup of sitting MPs, not a set of candidate-level
 results, so unsuccessful candidates are not included.
 }
 \examples{
-\donttest{
+\dontrun{
 head(fetch_mp_lookup())
 }
 }

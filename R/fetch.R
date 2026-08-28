@@ -223,7 +223,7 @@ fetch_countries <- function() {
 #' @export
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' head(fetch_mp_lookup())
 #' }
 fetch_mp_lookup <- function(verbose = TRUE) {

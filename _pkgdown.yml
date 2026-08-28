@@ -26,7 +26,8 @@ reference:
   - lsip_lad
 
 - title: Fetch geography lists
-  desc: Pull geography lookups from the ONS Geography Portal
+  desc: Pull geography lookups and reference data from the ONS Geography
+    Portal and other trusted sources
   contents:
   - starts_with("fetch_")
   - get_ons_api_data
