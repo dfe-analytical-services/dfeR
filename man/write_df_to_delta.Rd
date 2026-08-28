@@ -115,7 +115,8 @@ authentication, specifically \code{DATABRICKS_TOKEN} and \code{DATABRICKS_HOST}.
 \code{DATABRICKS_HOST} may be supplied with or without a scheme. A bare host
 has \verb{https://} prepended automatically, and \verb{http://} is upgraded to
 \verb{https://}. Both \verb{adb-1234.cloud.databricks.com} and
-\verb{https://adb-1234.cloud.databricks.com} are accepted.
+\verb{https://adb-1234.cloud.databricks.com} are accepted. A trailing slash
+is stripped if present.
 }
 \examples{
 \dontrun{
@@ -136,6 +137,6 @@ write_df_to_delta(
 }
 \seealso{
 Other databricks: 
-\code{\link{check_databricks_odbc}()}
+\code{\link{check_databricks_odbc}()}
 }
 \concept{databricks}

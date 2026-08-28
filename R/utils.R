@@ -4,9 +4,11 @@
 #' empty, and ensures the returned value starts with `https://`. A bare host
 #' has `https://` prepended; a leading `http://` is upgraded to `https://`,
 #' since Databricks requires TLS and `http://` is almost always a
-#' misconfiguration.
+#' misconfiguration. Any trailing `/` is also stripped, to avoid
+#' double-slashes when the host is combined with API paths.
 #'
-#' @return Character. The host string, always prefixed with `https://`.
+#' @return Character. The host string, always prefixed with `https://` and
+#' without a trailing slash.
 #' @keywords internal
 #' @noRd
 get_databricks_host <- function() {
@@ -18,12 +20,11 @@ get_databricks_host <- function() {
     )
   }
   if (grepl("^http://", host)) {
-    sub("^http://", "https://", host)
+    host <- sub("^http://", "https://", host)
   } else if (!grepl("^https://", host)) {
-    paste0("https://", host)
-  } else {
-    host
+    host <- paste0("https://", host)
   }
+  sub("/$", "", host)
 }
 #' Determine decimal places for large numeric values
 #'
