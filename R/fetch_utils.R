@@ -4,6 +4,11 @@
 #' @param country_input the value of the countries input
 #' @param lookup_data the data frame to check the years against, defaults to
 #' dfeR::geo_hierarchy
+#' @param valid_years optional vector of the years actually published for this
+#' lookup. Give this where the lookup has gaps in its years, as the year
+#' columns only record the first and most recent year for each location, so a
+#' plain range check would accept a year that was never published. Leave as
+#' NULL to check the year falls within the range of the lookup instead
 #'
 #' @return nothing, unless a failure, and then it will give an error
 #' @keywords internal
@@ -11,25 +16,40 @@
 check_fetch_location_inputs <- function(
   year_input,
   country_input,
-  lookup_data = dfeR::geo_hierarchy
+  lookup_data = dfeR::geo_hierarchy,
+  valid_years = NULL
 ) {
   if (year_input != "All") {
     if (!grepl("^\\d{4}$", as.character(year_input))) {
       stop("year must either be 'All', or a valid 4 digit year e.g. '2024'")
     }
 
-    min_year <- min(lookup_data$first_available_year_included)
-    max_year <- max(lookup_data$most_recent_year_included)
     year_num <- as.numeric(year_input)
-    if (year_num < min_year || year_num > max_year) {
-      stop(
-        sprintf(
-          "year must either be 'All' or a valid year between %d and %d",
-          min_year,
-          max_year
-        ),
-        call. = FALSE
-      )
+
+    if (!is.null(valid_years)) {
+      # Where we know the exact years published, check against those
+      if (!year_num %in% valid_years) {
+        stop(
+          sprintf(
+            "year must either be 'All' or one of: %s",
+            paste(valid_years, collapse = ", ")
+          ),
+          call. = FALSE
+        )
+      }
+    } else {
+      min_year <- min(lookup_data$first_available_year_included)
+      max_year <- max(lookup_data$most_recent_year_included)
+      if (year_num < min_year || year_num > max_year) {
+        stop(
+          sprintf(
+            "year must either be 'All' or a valid year between %d and %d",
+            min_year,
+            max_year
+          ),
+          call. = FALSE
+        )
+      }
     }
   }
 
@@ -49,7 +69,7 @@ check_fetch_location_inputs <- function(
 #'
 #' Shared logic for summarising location lookups and filtering
 #' by operational years.
-#' Used by fetch_locations and fetch_lsip.
+#' Used by fetch_locations and fetch_lsips.
 #'
 #' @param lookup_data The lookup data frame.
 #' @param cols Character vector of columns to keep and group by.

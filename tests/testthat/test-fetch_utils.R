@@ -29,6 +29,55 @@ test_that("check_fetch_location_inputs passes for valid inputs", {
   expect_silent(check_fetch_location_inputs(2024, c("England", "Wales")))
 })
 
+test_that("check_fetch_location_inputs errors on year outside lookup range", {
+  # Without valid_years we fall back to the range of the lookup
+  expect_error(
+    check_fetch_location_inputs(1800, "All"),
+    "year must either be 'All' or a valid year between 2017 and 2025"
+  )
+})
+
+test_that("check_fetch_location_inputs uses valid_years where given", {
+  gappy_lookup <- data.frame(
+    code = c("A", "B"),
+    first_available_year_included = c(2023, 2025),
+    most_recent_year_included = c(2025, 2025)
+  )
+
+  # 2024 sits within the range of the lookup, but was never published, so
+  # giving valid_years should catch it where the range check would not
+  expect_silent(
+    check_fetch_location_inputs(2024, "All", gappy_lookup)
+  )
+  expect_error(
+    check_fetch_location_inputs(
+      2024,
+      "All",
+      gappy_lookup,
+      valid_years = c(2023, 2025)
+    ),
+    "year must either be 'All' or one of: 2023, 2025"
+  )
+
+  # Years that were published still pass
+  expect_silent(
+    check_fetch_location_inputs(
+      2023,
+      "All",
+      gappy_lookup,
+      valid_years = c(2023, 2025)
+    )
+  )
+  expect_silent(
+    check_fetch_location_inputs(
+      "All",
+      "All",
+      gappy_lookup,
+      valid_years = c(2023, 2025)
+    )
+  )
+})
+
 # Minimal mock data for fetch_locations
 mock_lookup <- data.frame(
   code = c("E1", "S1", "W1", "N1"),

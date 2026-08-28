@@ -587,7 +587,7 @@ get_cauth_lad <- function(year) {
   tidy_raw_lookup(output)
 }
 
-#' Fetch and combine LSIP-LAD lookup data for multiple years
+#' Fetch a single year of the LSIP-LAD lookup
 #'
 #' Helper function to extract data from the LSIP-LAD lookups
 #'
@@ -614,10 +614,9 @@ get_lsip_lad <- function(year) {
     "NM"
   )
 
-
   output <- get_ons_api_data(
     data_id = data_id,
-    list(
+    query_params = list(
       where = "1=1",
       outFields = fields,
       outSR = 4326,

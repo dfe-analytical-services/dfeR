@@ -2,7 +2,8 @@
 
 - Updated `geo_hierarchy`, and associated `fetch_*` functions with latest 2025 lookups.
 - Updated `pretty_num()` function to add `abbreviate` argument giving the option to avoid displaying large numbers in millions/billions.
-- Added the data `lsip_lad` which is a lookup table for Local Skills Improvement Plan (LSIP) areas and the function `fetch_lsip()` to fetch LSIP data.
+- Added the data `lsip_lad` which is a lookup table for Local Skills Improvement Plan (LSIP) areas and the function `fetch_lsips()` to fetch LSIP data.
+- The `fetch_*()` functions now give an error when given a year that their lookup does not cover, where previously they returned an empty data frame.
 
 # dfeR 1.2.0
 
