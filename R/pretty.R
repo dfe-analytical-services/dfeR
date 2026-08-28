@@ -351,13 +351,13 @@ pretty_num <- function(
 
     if (!is.null(nsmall)) {
       nsmall <- nsmall
-    } else if (dp > 0 & is.null(nsmall)) {
+    } else if (dp > 0 && is.null(nsmall)) {
       nsmall <- dp
     } else {
       nsmall <- 0
     }
 
-    if (abs(num_value) >= 1.e9 & abbreviate == TRUE) {
+    if (abs(num_value) >= 1.e9 && abbreviate == TRUE) {
       paste0(
         prefix,
         currency,
@@ -368,7 +368,7 @@ pretty_num <- function(
         " billion",
         suffix
       )
-    } else if (abs(num_value) >= 1.e6 & abbreviate == TRUE) {
+    } else if (abs(num_value) >= 1.e6 && abbreviate == TRUE) {
       paste0(
         prefix,
         currency,
