@@ -8,17 +8,23 @@ df <- data.frame(
 
 
 test_that("prettifies tables", {
-  expect_equal(pretty_num_table(df, dp = 2), data.frame(
-    a = c("2.59", "-5.89", as.double(NA)),
-    b = c("11.20", "45.69", "-78.50"),
-    c = c(as.double(NA), as.double(NA), as.double(NA))
-  ))
+  expect_equal(
+    pretty_num_table(df, dp = 2),
+    data.frame(
+      a = c("2.59", "-5.89", as.double(NA)),
+      b = c("11.20", "45.69", "-78.50"),
+      c = c(as.double(NA), as.double(NA), as.double(NA))
+    )
+  )
 
-  expect_equal(pretty_num_table(df, dp = 3), data.frame(
-    a = c("2.589", "-5.894", as.double(NA)),
-    b = c("11.199", "45.689", "-78.499"),
-    c = c(as.double(NA), as.double(NA), as.double(NA))
-  ))
+  expect_equal(
+    pretty_num_table(df, dp = 3),
+    data.frame(
+      a = c("2.589", "-5.894", as.double(NA)),
+      b = c("11.199", "45.689", "-78.499"),
+      c = c(as.double(NA), as.double(NA), as.double(NA))
+    )
+  )
 
   expect_equal(
     pretty_num_table(df, dp = 2, gbp = TRUE, exclude_columns = "c"),
@@ -38,10 +44,12 @@ test_that("prettifies tables", {
     )
   )
 
-
   expect_equal(
-    pretty_num_table(df,
-      suffix = "%", dp = 1, nsmall = 2,
+    pretty_num_table(
+      df,
+      suffix = "%",
+      dp = 1,
+      nsmall = 2,
       exclude_columns = c("b", "c")
     ),
     data.frame(
@@ -52,8 +60,10 @@ test_that("prettifies tables", {
   )
 
   expect_equal(
-    pretty_num_table(df,
-      alt_na = "[z]", dp = -1,
+    pretty_num_table(
+      df,
+      alt_na = "[z]",
+      dp = -1,
       include_columns = c("a", "b")
     ),
     data.frame(
@@ -64,9 +74,13 @@ test_that("prettifies tables", {
   )
 
   expect_equal(
-    pretty_num_table(df,
-      alt_na = "", dp = 2,
-      prefix = "+/-", suffix = "g", include_columns = "a"
+    pretty_num_table(
+      df,
+      alt_na = "",
+      dp = 2,
+      prefix = "+/-",
+      suffix = "g",
+      include_columns = "a"
     ),
     data.frame(
       a = c("+2.59g", "-5.89g", ""),
@@ -75,12 +89,8 @@ test_that("prettifies tables", {
     )
   )
 
-
   expect_equal(
-    pretty_num_table(df,
-      dp = 2,
-      include_columns = "a", exclude_columns = "b"
-    ),
+    pretty_num_table(df, dp = 2, include_columns = "a", exclude_columns = "b"),
     data.frame(
       a = c("2.59", "-5.89", as.double(NA)),
       b = c(11.19875, 45.6894, -78.4985),

@@ -5,8 +5,10 @@ test_that("write_df_to_delta returns TRUE on a successful end-to-end run", {
     DATABRICKS_TOKEN = "dapi_fake_token_12345",
     DATABRICKS_SQL_PATH = "sql/protocol/v1/o/fake"
   )
-  fake_con <- structure(list(),
-                        class = c("Databricks", "odbc", "DBIConnection"))
+  fake_con <- structure(
+    list(),
+    class = c("Databricks", "odbc", "DBIConnection")
+  )
 
   # Mocking
   local_mocked_bindings(
@@ -40,8 +42,10 @@ test_that("write_df_to_delta returns TRUE on a successful end-to-end run", {
 
 test_that("write_df_to_delta stops on invalid input types", {
   # Setup a fake connection object
-  fake_con <- structure(list(),
-                        class = c("Databricks", "odbc", "DBIConnection"))
+  fake_con <- structure(
+    list(),
+    class = c("Databricks", "odbc", "DBIConnection")
+  )
 
   # Mock the connection validation so the function doesn't crash on the DBI call
   local_mocked_bindings(
@@ -69,8 +73,10 @@ test_that("write_df_to_delta stops on invalid input types", {
 
 test_that("write_df_to_delta stops if volume or table is missing", {
   # Setup a fake connection object
-  fake_con <- structure(list(),
-                        class = c("Databricks", "odbc", "DBIConnection"))
+  fake_con <- structure(
+    list(),
+    class = c("Databricks", "odbc", "DBIConnection")
+  )
 
   # Mock connection so we can reach Volume checks
   local_mocked_bindings(validate_db_connection = function(...) TRUE)
@@ -88,16 +94,23 @@ test_that("write_df_to_delta stops if volume or table is missing", {
     db_exists_table_ignore_case = function(...) FALSE
   )
   expect_error(
-    write_df_to_delta(iris, "new_tab", fake_con, volume_dir = "/path",
-                      overwrite_table = FALSE),
+    write_df_to_delta(
+      iris,
+      "new_tab",
+      fake_con,
+      volume_dir = "/path",
+      overwrite_table = FALSE
+    ),
     "Target table does not exist and overwrite_table = FALSE"
   )
 })
 
 test_that("write_df_to_delta triggers table creation when overwrite is TRUE", {
   # SETUP: Create a dummy connection object
-  fake_con <- structure(list(),
-                        class = c("Databricks", "odbc", "DBIConnection"))
+  fake_con <- structure(
+    list(),
+    class = c("Databricks", "odbc", "DBIConnection")
+  )
 
   # SPY: Create a mock 'spy' to track if the table creation function is called
   m_create <- mockery::mock(TRUE)
@@ -135,8 +148,10 @@ test_that("write_df_to_delta triggers table creation when overwrite is TRUE", {
 
 test_that("write_df_to_delta returns FALSE if copy step fails", {
   # SETUP: Create a dummy connection object
-  fake_con <- structure(list(),
-                        class = c("Databricks", "odbc", "DBIConnection"))
+  fake_con <- structure(
+    list(),
+    class = c("Databricks", "odbc", "DBIConnection")
+  )
 
   local_mocked_bindings(
     # Standard mocks for a issue-free path until we reach the SQL execution
@@ -168,8 +183,10 @@ test_that("write_df_to_delta returns FALSE if copy step fails", {
 
 test_that("write_df_to_delta handles multiple chunks correctly", {
   # Create a dummy connection object
-  fake_con <- structure(list(),
-                        class = c("Databricks", "odbc", "DBIConnection"))
+  fake_con <- structure(
+    list(),
+    class = c("Databricks", "odbc", "DBIConnection")
+  )
 
   # We use a function mock or 'cycle = TRUE' so it can be called many times
   m_upload <- mockery::mock(TRUE, cycle = TRUE)
@@ -207,8 +224,10 @@ test_that("write_df_to_delta handles multiple chunks correctly", {
 
 test_that("write_df_to_delta applies arrow schema and converts factors", {
   # Create a dummy connection object
-  fake_con <- structure(list(),
-                        class = c("Databricks", "odbc", "DBIConnection"))
+  fake_con <- structure(
+    list(),
+    class = c("Databricks", "odbc", "DBIConnection")
+  )
 
   # Create a dummy dataframe with a factor
   test_df <- data.frame(a = factor("label"), b = 1)
@@ -229,7 +248,10 @@ test_that("write_df_to_delta applies arrow schema and converts factors", {
   # If this runs without error, it means the factor conversion
   # and as_arrow_table(schema = ...) logic is sound.
   result <- suppressMessages(
-    write_df_to_delta(test_df, "tab", fake_con,
+    write_df_to_delta(
+      test_df,
+      "tab",
+      fake_con,
       volume_dir = "/path",
       column_types_schema = test_schema
     )
@@ -239,8 +261,10 @@ test_that("write_df_to_delta applies arrow schema and converts factors", {
 
 test_that("write_df_to_delta correctly reports row count matches", {
   # Create a dummy connection object
-  fake_con <- structure(list(),
-                        class = c("Databricks", "odbc", "DBIConnection"))
+  fake_con <- structure(
+    list(),
+    class = c("Databricks", "odbc", "DBIConnection")
+  )
 
   # Mocking
   local_mocked_bindings(
@@ -260,6 +284,8 @@ test_that("write_df_to_delta correctly reports row count matches", {
   })
 
   # iris has 150 rows. Our mock says 150 were added.
-  expect_match(paste(messages, collapse = " "),
-               "Matches number of rows in data frame: TRUE")
+  expect_match(
+    paste(messages, collapse = " "),
+    "Matches number of rows in data frame: TRUE"
+  )
 })
