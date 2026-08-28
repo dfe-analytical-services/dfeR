@@ -16,7 +16,7 @@ test_that("air_style runs Air", {
     styled_code |>
       paste(collapse = "\n"),
     paste0(
-      "test_function = function(\n  param = NULL\n) ",
+      "test_function <- function(\n  param = NULL\n) ",
       "{\n  print(\n    param\n  )\n}"
     )
   )
