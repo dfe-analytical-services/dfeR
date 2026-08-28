@@ -5,7 +5,7 @@ articles:
   connecting_to_sql: connecting_to_sql.html
   create_new_project: create_new_project.html
   write_df_to_delta: write_df_to_delta.html
-last_built: 2026-08-28T11:42Z
+last_built: 2026-08-28T12:24Z
 urls:
   reference: https://dfe-analytical-services.github.io/dfeR/reference
   article: https://dfe-analytical-services.github.io/dfeR/articles
