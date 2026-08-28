@@ -50,3 +50,39 @@ test_that("air_style runs Air", {
 
   unlink(temp_dir, recursive = TRUE)
 })
+
+test_that("air_install reports the right reason for reinstalling", {
+  # Stub out the actual installer, we only care about the message given
+  mockery::stub(air_install, "system", invisible(NULL))
+
+  mockery::stub(air_install, "get_air_version", numeric_version("99.0.0"))
+  expect_message(
+    air_install(verbose = FALSE, force = TRUE),
+    "Forcing a reinstall of Air"
+  )
+  expect_message(
+    air_install(verbose = TRUE),
+    "Air is already installed on your system"
+  )
+
+  mockery::stub(air_install, "get_air_version", numeric_version("0.9.0"))
+  expect_message(
+    air_install(verbose = FALSE),
+    "is older than the minimum supported version"
+  )
+
+  # Air missing entirely, no executable on disk to find
+  mockery::stub(air_install, "get_air_version", NA)
+  mockery::stub(air_install, "file.exists", FALSE)
+  expect_message(
+    air_install(verbose = FALSE),
+    "Air does not appear to be installed"
+  )
+
+  # Air present, but its version could not be determined
+  mockery::stub(air_install, "file.exists", TRUE)
+  expect_message(
+    air_install(verbose = FALSE),
+    "could not determine its version"
+  )
+})

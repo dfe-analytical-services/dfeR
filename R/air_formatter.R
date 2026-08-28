@@ -33,7 +33,7 @@ get_air_version <- function(air_path) {
     regexpr("[0-9]+\\.[0-9]+\\.[0-9]+", version_output)
   )
 
-  if (length(version_string) == 0 || identical(version_string, "")) {
+  if (length(version_string) == 0) {
     return(NA)
   }
 
@@ -95,13 +95,25 @@ air_install <- function(
   if (!needs_install) {
     toggle_message("Air is already installed on your system", verbose = verbose)
   } else {
-    if (!force && !is.na(installed_version)) {
+    if (force) {
+      toggle_message(
+        "Forcing a reinstall of Air, installing now",
+        verbose = TRUE
+      )
+    } else if (!is.na(installed_version)) {
       toggle_message(
         "Installed Air version (",
         as.character(installed_version),
         ") is older than the minimum supported version (",
         dfer_min_air_version,
         "), reinstalling now",
+        verbose = TRUE
+      )
+    } else if (file.exists(air_path)) {
+      toggle_message(
+        "Found Air at ",
+        air_path,
+        " but could not determine its version, reinstalling now",
         verbose = TRUE
       )
     } else {

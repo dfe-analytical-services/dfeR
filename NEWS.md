@@ -1,7 +1,7 @@
 # dfeR 1.3.0
 
 - `air_install()` now checks the installed Air version and automatically reinstalls it if it is older than the minimum version required by `air_style()` (currently 0.10.0, when Air's default `assignment-style` changed to `"arrow"`). It also gains a `force` argument to always reinstall regardless of the currently installed version.
-- Added `fetch_mp_lookup()` to fetch the candidate-level general election results lookup maintained at https://github.com/dfe-analytical-services/mp-lookup.
+- Added `fetch_mp_lookup()` to fetch the Westminster constituency to sitting MP lookup maintained at https://github.com/dfe-analytical-services/mp-lookup, giving one row per constituency with the MP's name, party, member ID and email alongside the geography the constituency maps to.
 - Updated `geo_hierarchy`, and associated `fetch_*` functions with latest 2025 lookups.
 - Updated `pretty_num()` function to add `abbreviate` argument giving the option to avoid displaying large numbers in millions/billions.
 - Added the data `lsip_lad` which is a lookup table for Local Skills Improvement Plan (LSIP) areas and the function `fetch_lsips()` to fetch LSIP data.
