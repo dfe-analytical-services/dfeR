@@ -18,7 +18,9 @@ test_that("rows and cols match description", {
   expect_equal(ncol(old_la_codes), 3)
 
   expected_columns <- c(
-    "la_name", "old_la_code", "new_la_code"
+    "la_name",
+    "old_la_code",
+    "new_la_code"
   )
 
   expect_equal(names(old_la_codes), expected_columns)

@@ -12,6 +12,8 @@ EESScreenerLAs
 GOR
 INT
 JBLOGGS
+LADs
+LSIP
 LUP
 LaNameCodes
 Lifecycle
@@ -62,6 +64,7 @@ int
 las
 lauraselby
 lockfile
+lsip
 lup
 num
 odbc

@@ -19,7 +19,8 @@ test_that("time cols are always 4 digit numbers", {
   )
   expect_true(
     all(grepl(
-      "^\\d{4}$", dfeR::wd_pcon_lad_la_rgn_ctry$most_recent_year_included
+      "^\\d{4}$",
+      dfeR::wd_pcon_lad_la_rgn_ctry$most_recent_year_included
     ))
   )
 })
@@ -62,11 +63,21 @@ test_that("rows and cols match description", {
   expect_equal(ncol(dfeR::wd_pcon_lad_la_rgn_ctry), 15)
 
   expected_columns <- c(
-    "first_available_year_included", "most_recent_year_included",
-    "ward_name", "pcon_name", "lad_name", "la_name",
-    "region_name", "country_name",
-    "ward_code", "pcon_code", "lad_code", "old_la_code", "new_la_code",
-    "region_code", "country_code"
+    "first_available_year_included",
+    "most_recent_year_included",
+    "ward_name",
+    "pcon_name",
+    "lad_name",
+    "la_name",
+    "region_name",
+    "country_name",
+    "ward_code",
+    "pcon_code",
+    "lad_code",
+    "old_la_code",
+    "new_la_code",
+    "region_code",
+    "country_code"
   )
 
   expect_equal(names(dfeR::wd_pcon_lad_la_rgn_ctry), expected_columns)

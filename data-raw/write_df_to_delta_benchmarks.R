@@ -38,16 +38,16 @@ devtools::load_all()
 
 # Configuration
 db_catalog <- "catalog_40_copper_student_finance_modelling_unit"
-db_schema  <- "sfmu"
-db_volume  <-
+db_schema <- "sfmu"
+db_volume <-
   "/Volumes/catalog_40_copper_student_finance_modelling_unit/sfmu/sfmu_volume"
 
 # Set up Databricks connection
 con <- DBI::dbConnect(
   odbc::databricks(),
-  httpPath       = Sys.getenv("DATABRICKS_SQL_PATH"),
-  catalog        = db_catalog,
-  schema         = db_schema,
+  httpPath = Sys.getenv("DATABRICKS_SQL_PATH"),
+  catalog = db_catalog,
+  schema = db_schema,
   useNativeQuery = FALSE
 )
 
@@ -66,24 +66,28 @@ for (n in scales) {
     factor = factor(sample(c("High", "Medium", "Low"), n, replace = TRUE)),
     logical = sample(c(TRUE, FALSE, NA), n, replace = TRUE),
     date = as.Date("2020-01-01") + (1:n),
-    time = as.POSIXct("2025-01-01 00:00:00", tz = "UTC")  + (1:n)
+    time = as.POSIXct("2025-01-01 00:00:00", tz = "UTC") + (1:n)
   )
 
   # Run 10 iterations for each
   bm <- microbenchmark::microbenchmark(
     "DBI::dbWriteTable" = {
-      DBI::dbWriteTable(conn = con,
-                        name = "temp_dbi",
-                        value = test_data,
-                        overwrite = TRUE)
+      DBI::dbWriteTable(
+        conn = con,
+        name = "temp_dbi",
+        value = test_data,
+        overwrite = TRUE
+      )
     },
     "dfeR::write_df_to_delta" = {
       suppressMessages(
-        write_df_to_delta(test_data,
-                          target_table = "temp_dfe",
-                          db_conn = con,
-                          volume_dir = db_volume,
-                          overwrite_table = TRUE)
+        write_df_to_delta(
+          test_data,
+          target_table = "temp_dfe",
+          db_conn = con,
+          volume_dir = db_volume,
+          overwrite_table = TRUE
+        )
       )
     },
     times = 10,
@@ -101,5 +105,8 @@ DBI::dbRemoveTable(con, "temp_dfe")
 DBI::dbDisconnect(con)
 
 # Write the benchmarking results into the package
-usethis::use_data(write_df_to_delta_benchmarks, overwrite = TRUE,
-                  internal = TRUE)
+usethis::use_data(
+  write_df_to_delta_benchmarks,
+  overwrite = TRUE,
+  internal = TRUE
+)
