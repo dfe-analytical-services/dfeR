@@ -1,5 +1,6 @@
 # dfeR 1.3.0
 
+- Added `diagnostic_test()` and a set of `check_*` helpers to diagnose and (optionally) fix common DfE laptop R-setup issues — proxy settings, Git SSL verification, `GITHUB_PAT`, renv download methods, RTools toolchain, global `.gitconfig` location, and `.Renviron`/`.Rprofile` location.
 - Updated `geo_hierarchy`, and associated `fetch_*` functions with latest 2025 lookups.
 - Updated `pretty_num()` function to add `abbreviate` argument giving the option to avoid displaying large numbers in millions/billions.
 - Added the data `lsip_lad` which is a lookup table for Local Skills Improvement Plan (LSIP) areas and the function `fetch_lsips()` to fetch LSIP data.
