@@ -271,7 +271,7 @@ air_style <- function(target = ".", verbose = FALSE) {
   } else {
     stop(
       "Air does not appear to be installed on your system.\n",
-      "Run dfeR::install_air() before formatting again."
+      "Run dfeR::air_install() before formatting again."
     )
   }
 }
