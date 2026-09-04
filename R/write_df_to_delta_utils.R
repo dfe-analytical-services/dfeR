@@ -635,10 +635,13 @@ create_empty_delta <- function(df_or_schema, target_table, db_conn) {
     error = function(e) {
       # Check for the specific Unity Catalog Insufficient Privileges error
       # (SQLSTATE: 42501)
-      if (grepl("42501", e$message) || grepl(
-        "INSUFFICIENT_PERMISSIONS",
-        e$message
-      )) {
+      if (
+        grepl("42501", e$message) ||
+          grepl(
+            "INSUFFICIENT_PERMISSIONS",
+            e$message
+          )
+      ) {
         stop(
           sprintf(
             paste0(
@@ -730,10 +733,13 @@ copy_into_delta <- function(
 
       # --- 1. Check for Permissions Errors (SQLSTATE: 42501 or general
       # INSUFFICIENT_PRIVILEGES) ---
-      if (grepl("42501", error_message) || grepl(
-        "INSUFFICIENT_PERMISSIONS",
-        error_message
-      )) {
+      if (
+        grepl("42501", error_message) ||
+          grepl(
+            "INSUFFICIENT_PERMISSIONS",
+            error_message
+          )
+      ) {
         stop(
           sprintf(
             paste0(
