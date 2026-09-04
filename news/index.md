@@ -2,6 +2,12 @@
 
 ## dfeR 1.3.0
 
+- Added
+  [`diagnostic_test()`](https://dfe-analytical-services.github.io/dfeR/reference/diagnostic_test.md)
+  and a set of `check_*` helpers to diagnose and (optionally) fix common
+  DfE laptop R-setup issues — proxy settings, Git SSL verification,
+  `GITHUB_PAT`, renv download methods, RTools toolchain, global
+  `.gitconfig` location, and `.Renviron`/`.Rprofile` location.
 - Updated `geo_hierarchy`, and associated `fetch_*` functions with
   latest 2025 lookups.
 - Updated

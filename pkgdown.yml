@@ -4,8 +4,9 @@ pkgdown_sha: ~
 articles:
   connecting_to_sql: connecting_to_sql.html
   create_new_project: create_new_project.html
+  diagnosing-your-r-setup: diagnosing-your-r-setup.html
   write_df_to_delta: write_df_to_delta.html
-last_built: 2026-08-28T12:24Z
+last_built: 2026-09-04T06:10Z
 urls:
   reference: https://dfe-analytical-services.github.io/dfeR/reference
   article: https://dfe-analytical-services.github.io/dfeR/articles

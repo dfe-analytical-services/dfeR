@@ -430,6 +430,29 @@ Functions for converting to specific formats
 - [`format_fy_reverse()`](https://dfe-analytical-services.github.io/dfeR/reference/format_fy_reverse.md)
   : Undo financial year formatting
 
+## System diagnostics
+
+Functions to diagnose and fix common system issues
+
+- [`diagnostic_test()`](https://dfe-analytical-services.github.io/dfeR/reference/diagnostic_test.md)
+  : Diagnostic testing
+- [`check_proxy_settings()`](https://dfe-analytical-services.github.io/dfeR/reference/check_proxy_settings.md)
+  : Check proxy settings
+- [`check_git_sslverify()`](https://dfe-analytical-services.github.io/dfeR/reference/check_git_sslverify.md)
+  : Check Git sslverify setting
+- [`check_gitconfig_location()`](https://dfe-analytical-services.github.io/dfeR/reference/check_gitconfig_location.md)
+  : Check the location of the global .gitconfig file
+- [`check_github_pat()`](https://dfe-analytical-services.github.io/dfeR/reference/check_github_pat.md)
+  : Check GITHUB_PAT setting
+- [`check_renv_download_method()`](https://dfe-analytical-services.github.io/dfeR/reference/check_renv_download_method.md)
+  : Check renv download method
+- [`check_renv_dl_file_method()`](https://dfe-analytical-services.github.io/dfeR/reference/check_renv_dl_file_method.md)
+  : Check RENV_DOWNLOAD_FILE_METHOD system variable
+- [`check_rtools()`](https://dfe-analytical-services.github.io/dfeR/reference/check_rtools.md)
+  : Check for an RTools / make toolchain
+- [`check_renv_rprof_location()`](https://dfe-analytical-services.github.io/dfeR/reference/check_renv_rprof_location.md)
+  : Check the location of .Renviron and .Rprofile
+
 ## Helpers
 
 Functions used in other functions across the package, exported as they
@@ -446,5 +469,7 @@ can also be useful in their own right
   SQL](https://dfe-analytical-services.github.io/dfeR/articles/connecting_to_sql.md):
 - [Creating a new dfeR
   project](https://dfe-analytical-services.github.io/dfeR/articles/create_new_project.md):
+- [Diagnosing your R
+  setup](https://dfe-analytical-services.github.io/dfeR/articles/diagnosing-your-r-setup.md):
 - [Scalable Bulk Writing to Databricks:
   write_df_to_delta](https://dfe-analytical-services.github.io/dfeR/articles/write_df_to_delta.md):
