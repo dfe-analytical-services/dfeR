@@ -352,7 +352,8 @@ Data sets exported in the package
 
 ## Fetch geography lists
 
-Pull geography lookups from the ONS Geography Portal
+Pull geography lookups and reference data from the ONS Geography Portal
+and other trusted sources
 
 - [`fetch_pcons()`](https://dfe-analytical-services.github.io/dfeR/reference/fetch.md)
   : Fetch Westminster parliamentary constituencies
@@ -366,6 +367,8 @@ Pull geography lookups from the ONS Geography Portal
   : Fetch Local Skills Improvement Plan (LSIP) areas lookup
 - [`fetch_mayoral()`](https://dfe-analytical-services.github.io/dfeR/reference/fetch_mayoral.md)
   : Fetch mayoral combined authorities
+- [`fetch_mp_lookup()`](https://dfe-analytical-services.github.io/dfeR/reference/fetch_mp_lookup.md)
+  : Fetch Westminster constituency to MP lookup
 - [`fetch_regions()`](https://dfe-analytical-services.github.io/dfeR/reference/fetch_regions.md)
   : Fetch regions
 - [`fetch_wards()`](https://dfe-analytical-services.github.io/dfeR/reference/fetch_wards.md)

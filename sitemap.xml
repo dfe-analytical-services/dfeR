@@ -27,6 +27,7 @@
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/countries.html</loc></url>
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/create_project.html</loc></url>
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/dfeR-package.html</loc></url>
+<url><loc>https://dfe-analytical-services.github.io/dfeR/reference/dfer_min_air_version.html</loc></url>
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/diagnostic_params.html</loc></url>
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/diagnostic_test.html</loc></url>
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/fetch.html</loc></url>
@@ -35,6 +36,7 @@
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/fetch_las.html</loc></url>
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/fetch_lsips.html</loc></url>
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/fetch_mayoral.html</loc></url>
+<url><loc>https://dfe-analytical-services.github.io/dfeR/reference/fetch_mp_lookup.html</loc></url>
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/fetch_regions.html</loc></url>
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/fetch_wards.html</loc></url>
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/format_ay.html</loc></url>
@@ -43,6 +45,8 @@
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/format_fy_reverse.html</loc></url>
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/geo_hierarchy.html</loc></url>
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/geog_time_identifiers.html</loc></url>
+<url><loc>https://dfe-analytical-services.github.io/dfeR/reference/get_air_path.html</loc></url>
+<url><loc>https://dfe-analytical-services.github.io/dfeR/reference/get_air_version.html</loc></url>
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/get_clean_sql.html</loc></url>
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/get_ons_api_data.html</loc></url>
 <url><loc>https://dfe-analytical-services.github.io/dfeR/reference/index.html</loc></url>

@@ -21,6 +21,8 @@ Useful links:
 
 Authors:
 
+- Cam Race <cameron.race@education.gov.uk>
+
 - Laura Selby <laura.selby@education.gov.uk>
 
 - Adam Robinson

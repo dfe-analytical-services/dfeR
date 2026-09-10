@@ -2,6 +2,21 @@
 
 ## dfeR 1.3.0
 
+- [`air_install()`](https://dfe-analytical-services.github.io/dfeR/reference/air_install.md)
+  now checks the installed Air version and automatically reinstalls it
+  if it is older than the minimum version required by
+  [`air_style()`](https://dfe-analytical-services.github.io/dfeR/reference/air_style.md)
+  (currently 0.10.0, when Air’s default `assignment-style` changed to
+  `"arrow"`). It also gains a `force` argument to always reinstall
+  regardless of the currently installed version. If the install does not
+  leave a supported version of Air in place, it now warns rather than
+  failing silently.
+- Added
+  [`fetch_mp_lookup()`](https://dfe-analytical-services.github.io/dfeR/reference/fetch_mp_lookup.md)
+  to fetch the Westminster constituency to sitting MP lookup maintained
+  at <https://github.com/dfe-analytical-services/mp-lookup>, giving one
+  row per constituency with the MP’s name, party, member ID and email
+  alongside the geography the constituency maps to.
 - Added
   [`diagnostic_test()`](https://dfe-analytical-services.github.io/dfeR/reference/diagnostic_test.md)
   and a set of `check_*` helpers to diagnose and (optionally) fix common
