@@ -9,3 +9,4 @@ inst/doc
 /Meta/
 data/*csv
 /.posit/
+.claude/

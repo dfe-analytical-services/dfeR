@@ -288,7 +288,7 @@ mp_lookup_expected_cols <- c(
   "region_name",
   "region_code",
   "country_name",
-  "country_cod
+  "country_code"
 )
 
 #' Fetch Local Skills Improvement Plan (LSIP) areas lookup
