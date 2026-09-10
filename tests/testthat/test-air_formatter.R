@@ -1,3 +1,5 @@
+skip_if_not_installed("mockery")
+
 test_that("air_style runs Air", {
   air_install(update_rstudio_settings = FALSE, verbose = FALSE)
 

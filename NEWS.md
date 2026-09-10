@@ -1,3 +1,22 @@
+# dfeR 2.0.0
+
+- **Breaking change**: Removed the deprecated `wd_pcon_lad_la_rgn_ctry` dataset, along with its
+  startup deprecation message. It was superseded by `geo_hierarchy` in 1.2.0, has not been updated
+  since (it stops at 2024 while `geo_hierarchy` continues to 2025), and the deprecation notice has
+  been visible on GitHub and r-universe since then. Use `geo_hierarchy` instead.
+- Fixed `air_style()` so that a `target` path containing spaces (for example a Windows OneDrive path
+  under "OneDrive - Department for Education") is passed to Air correctly instead of being broken
+  apart.
+- `check_databricks_odbc()` no longer errors for users who don't have `stringr` installed; it has
+  moved from Suggests to Imports.
+- `fetch_mp_lookup()` now errors with an informative message if the upstream MP lookup file is
+  missing expected columns, instead of silently returning malformed data.
+- Documented that `pretty_num_table()` returns `NA` for any selected column that cannot be coerced
+  to numeric (including character columns), and that `ignore_na = TRUE` is the safe way to leave
+  those values unchanged.
+- Fixed the `write_df_to_delta` vignette so it builds correctly when `ggplot2`, `scales` and `purrr`
+  are not installed (this was causing r-universe build failures).
+
 # dfeR 1.3.0
 
 - `air_install()` now checks the installed Air version and automatically reinstalls it if it is older than the minimum version required by `air_style()` (currently 0.10.0, when Air's default `assignment-style` changed to `"arrow"`). It also gains a `force` argument to always reinstall regardless of the currently installed version. If the install does not leave a supported version of Air in place, it now warns rather than failing silently.

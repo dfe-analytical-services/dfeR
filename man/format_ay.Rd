@@ -10,7 +10,7 @@ format_ay(year)
 \item{year}{Academic year}
 }
 \value{
-Character vector of formatted academic year
+A single formatted academic year string
 }
 \description{
 This function formats academic year variables for reporting purposes. It

@@ -6,7 +6,7 @@
 #' It accepts both numerical and character arguments.
 #'
 #' @param year Academic year
-#' @return Character vector of formatted academic year
+#' @return A single formatted academic year string
 #' @family format
 #' @export
 #' @examples
@@ -49,7 +49,7 @@ format_ay_reverse <- function(year) {
 #' It accepts both numerical and character arguments.
 #'
 #' @param year Financial year
-#' @return Character vector of formatted financial year
+#' @return A single formatted financial year string
 #' @family format
 #' @export
 #' @examples

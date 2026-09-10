@@ -251,10 +251,45 @@ fetch_mp_lookup <- function(verbose = TRUE) {
     }
   )
 
+  missing_cols <- setdiff(mp_lookup_expected_cols, names(output))
+
+  if (length(missing_cols) > 0) {
+    stop(
+      "The MP lookup file at:\n",
+      mp_lookup_url,
+      "\n\nis missing expected column(s): ",
+      paste(missing_cols, collapse = ", "),
+      "\nThe upstream file has likely changed shape.",
+      call. = FALSE
+    )
+  }
+
   dfeR::toggle_message("...data fetched!", verbose = verbose)
 
   output
 }
+
+# Columns fetch_mp_lookup() expects in the upstream mp-lookup CSV. Referenced
+# by the live test in test-fetch_mp_lookup.R too, so the two can't drift.
+mp_lookup_expected_cols <- c(
+  "pcon_name",
+  "pcon_code",
+  "member_id",
+  "display_as",
+  "party_text",
+  "member_email",
+  "election_result_summary_2024",
+  "lad_names",
+  "lad_codes",
+  "la_names",
+  "new_la_codes",
+  "mayoral_auth_names",
+  "mayoral_auth_codes",
+  "region_name",
+  "region_code",
+  "country_name",
+  "country_cod
+)
 
 #' Fetch Local Skills Improvement Plan (LSIP) areas lookup
 #'

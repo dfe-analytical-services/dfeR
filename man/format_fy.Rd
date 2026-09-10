@@ -10,7 +10,7 @@ format_fy(year)
 \item{year}{Financial year}
 }
 \value{
-Character vector of formatted financial year
+A single formatted financial year string
 }
 \description{
 This function formats financial year variables for reporting purposes. It

@@ -41,7 +41,7 @@ automatically be set to 0.}
 
 \item{dynamic_dp_value}{Integer. Default = NULL.
 Overrides the \code{dp} setting and dynamically adjusts decimal places based on
-value magnitude. For values ≥ 1 million or ≥ 1 billion, the function checks
+value magnitude. For values >= 1 million or >= 1 billion, the function checks
 the scaled value (e.g., value / 1e6 or value / 1e9): if the scaled value is
 a whole number, it sets decimal places to 0; otherwise, it adds precision
 as specified here. This approach improves clarity without

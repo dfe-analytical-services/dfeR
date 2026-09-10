@@ -259,9 +259,7 @@ air_style <- function(target = ".", verbose = FALSE) {
   if (file.exists(air_path)) {
     toggle_message("Found Air executable, running Air...", verbose = verbose)
     if (file.exists(target)) {
-      system(
-        paste0(air_path, " format ", target)
-      )
+      system2(air_path, c("format", shQuote(target)))
       toggle_message("Styled file(s) at ", target, verbose = verbose)
     } else {
       stop(

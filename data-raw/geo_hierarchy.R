@@ -17,7 +17,7 @@
 # public facing documentation in R/datasets_documentation.R.
 #
 # A number of the functions used in this script are stored in
-# R/datasets_utils.R, in there you can see the details of how we query the API
+# data-raw/utils.R, in there you can see the details of how we query the API
 # and any transformations we apply to the data within those functions.
 #
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -48,7 +48,7 @@
 # 1. ONS like to vary their data set ids
 #    You may need edit the `case_when()` in the `get_*()`
 #    functions to add a new condition for the latest
-#    year, both of these are defined in R/datasets_utils.R
+#    year, both of these are defined in data-raw/utils.R
 #
 # 2. Watch out for standard column names changing
 #    Double check the Open Geography Portal for the latest source data and make
@@ -66,6 +66,8 @@
 library(readxl)
 library(dplyr)
 library(tidyr)
+
+source("data-raw/utils.R")
 
 # Set the years we want to pull for -------------------------------------------
 # Started publishing in 2017, but didn't publish a 2018 file

@@ -6,7 +6,7 @@
 # - https://geoportal.statistics.gov.uk/search?q=lad%20lsip
 #
 # The get_lsip_lad() function used in this script is stored in
-# R/datasets_utils.R, in there you can see the details of how we query the API
+# data-raw/utils.R, in there you can see the details of how we query the API
 # and any transformations we apply to the data within that function.
 #
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -32,6 +32,8 @@
 #    what stops years ONS never published (such as 2024) being accepted
 #
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+source("data-raw/utils.R")
 
 # First boundaries published in 2023, ONS didn't publish a 2024 set
 lsip_lad <- lapply(c(2023, 2025), get_lsip_lad) |>

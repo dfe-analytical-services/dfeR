@@ -1,3 +1,5 @@
+skip_if_not_installed("mockery")
+
 test_that("write_df_to_delta returns TRUE on a successful end-to-end run", {
   # Setup
   withr::local_envvar(

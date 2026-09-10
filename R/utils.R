@@ -40,7 +40,7 @@ get_databricks_host <- function() {
 #' @param dp Integer. The default number of decimal places for values less than
 #' 1 million.
 #' @param dynamic_dp_value Integer. Default is 2. Sets the number of decimal
-#' places to use when the value is ≥ 1 million or ≥ 1 billion but not a
+#' places to use when the value is >= 1 million or >= 1 billion but not a
 #' whole number after scaling.
 #' This adds precision only when needed, improving clarity without
 #' over-formatting for pretty_num().

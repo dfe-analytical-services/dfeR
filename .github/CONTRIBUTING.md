@@ -203,7 +203,7 @@ internal only functions that relate to a specific family.
 
 Documentation for all data shipped with the packages is kept in `R/datasets_documentation.R`. Scripts used for preparing 
 data used in the package is not in the R folder, it is in the `data-raw/` folder, helper functions for this can be found 
-in the `R/datasets_utils.R` folder, and more details on maintaining the data sets can be found under the [Package data](#package-data) header on this page.
+in the `data-raw/utils.R` file, and more details on maintaining the data sets can be found under the [Package data](#package-data) header on this page.
 
 `utils.R` should be used to hold any cross-package helpers that aren't exported as functions or specific to a family.
 
@@ -263,7 +263,7 @@ Our general workflow for data in the package is:
 
 Our general principle is that all data should be created through reproducible code, so if it's custom data you're defining, write it in code. If you're sourcing it from elsewhere, try to make use of API connections. This saves on unnecessary data storage bloat and makes our scripts nice and reproducible without external dependencies to worry about.
 
-We try to keep the data-raw/ scripts as tidy as possible, so some helper functions have been created in R/datasets-utils.R. These are not exported for users of the package and are only used by scripts in the data-raw/ folder for the creation of data exported in the package.
+We try to keep the data-raw/ scripts as tidy as possible, so some helper functions have been created in data-raw/utils.R. These are not exported for users of the package and are only used by scripts in the data-raw/ folder for the creation of data exported in the package.
 
 Sometimes when running the scripts to create new data sets you might hit this error:
 
@@ -290,7 +290,7 @@ On the [ONS Open Geography portal](https://geoportal.statistics.gov.uk/), you wi
 
 We have a `get_ons_api_data()` function that acts as a wrapper to the ONS API, it does things like converting readable parameters into a query string and also handles batching and multiple requests if needed, so you get all of the data in one nice neat data frame (there's a limit on the rows per single query for the API). Make use of this function first, though if you're looking to expand on this function at all or there's anything the `get_ons_api_data()` function doesn't do that you'd like it to, you should check if the [boundr package](https://github.com/francisbarton/boundr) does what you need, as that gives a number of methods for extracting data from the portal as well. If neither our existing function or the boundr package do what you need, then we can look at raising a suggestion on dfeR if it's a DfE specific request, or on boundr if it's a more general request.
 
-The way ONS publish has varied over their first few years of publishing, and on top of that each data set has an individual API connection for every year of boundaries. As there's no link over time from the ONS side we have helper functions defined in R/datasets_utils.R that wrap these up into a single neat time series bundle for us. Given the likelihood of further variations, don't be too surprised if adding new years to the data sets results in errors first time around, some manual fudgery is often needed so roll up your sleeves and prepare to get elbow deep into the murky depths of the R/datasets_utils.R file!
+The way ONS publish has varied over their first few years of publishing, and on top of that each data set has an individual API connection for every year of boundaries. As there's no link over time from the ONS side we have helper functions defined in data-raw/utils.R that wrap these up into a single neat time series bundle for us. Given the likelihood of further variations, don't be too surprised if adding new years to the data sets results in errors first time around, some manual fudgery is often needed so roll up your sleeves and prepare to get elbow deep into the murky depths of the data-raw/utils.R file!
 
 There is also some data we just define ourselves in code as we curate that, like custom regions we publish in DfE or our own lookup table for the shorthands used in the column names by ONS.
 

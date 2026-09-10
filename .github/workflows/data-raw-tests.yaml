@@ -1,0 +1,22 @@
+name: data-raw-tests
+on:
+  pull_request:
+    paths: ['data-raw/**']
+  workflow_dispatch:
+
+jobs:
+  test-data-raw:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::testthat, any::readxl, any::tidyr, local::.
+      - name: Run data-raw tests
+        run: testthat::test_dir("data-raw/tests")
+        shell: Rscript {0}
