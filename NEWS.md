@@ -1,5 +1,7 @@
 # dfeR 1.3.0
 
+- `air_install()` now checks the installed Air version and automatically reinstalls it if it is older than the minimum version required by `air_style()` (currently 0.10.0, when Air's default `assignment-style` changed to `"arrow"`). It also gains a `force` argument to always reinstall regardless of the currently installed version. If the install does not leave a supported version of Air in place, it now warns rather than failing silently.
+- Added `fetch_mp_lookup()` to fetch the Westminster constituency to sitting MP lookup maintained at https://github.com/dfe-analytical-services/mp-lookup, giving one row per constituency with the MP's name, party, member ID and email alongside the geography the constituency maps to.
 - Added `diagnostic_test()` and a set of `check_*` helpers to diagnose and (optionally) fix common DfE laptop R-setup issues — proxy settings, Git SSL verification, `GITHUB_PAT`, renv download methods, RTools toolchain, global `.gitconfig` location, and `.Renviron`/`.Rprofile` location.
 - Updated `geo_hierarchy`, and associated `fetch_*` functions with latest 2025 lookups.
 - Updated `pretty_num()` function to add `abbreviate` argument giving the option to avoid displaying large numbers in millions/billions.

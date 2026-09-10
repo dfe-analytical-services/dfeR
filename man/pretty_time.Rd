@@ -37,10 +37,10 @@ pretty_time(c(60, 2, 88, 88888888))
 \seealso{
 \code{\link[=comma_sep]{comma_sep()}} \code{\link[=round_five_up]{round_five_up()}} \code{\link[=as.POSIXct]{as.POSIXct()}}
 
-Other prettying: 
-\code{\link{pretty_filesize}()},
-\code{\link{pretty_num}()},
-\code{\link{pretty_num_table}()},
-\code{\link{pretty_time_taken}()}
+Other prettying:
+\code{\link[=pretty_filesize]{pretty_filesize()}},
+\code{\link[=pretty_num]{pretty_num()}},
+\code{\link[=pretty_num_table]{pretty_num_table()}},
+\code{\link[=pretty_time_taken]{pretty_time_taken()}}
 }
 \concept{prettying}

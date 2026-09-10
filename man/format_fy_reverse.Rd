@@ -22,9 +22,9 @@ It accepts character arguments.
 format_fy_reverse("2016-17")
 }
 \seealso{
-Other format: 
-\code{\link{format_ay}()},
-\code{\link{format_ay_reverse}()},
-\code{\link{format_fy}()}
+Other format:
+\code{\link[=format_ay]{format_ay()}},
+\code{\link[=format_ay_reverse]{format_ay_reverse()}},
+\code{\link[=format_fy]{format_fy()}}
 }
 \concept{format}

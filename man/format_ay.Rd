@@ -24,9 +24,9 @@ format_ay(201617)
 format_ay("201617")
 }
 \seealso{
-Other format: 
-\code{\link{format_ay_reverse}()},
-\code{\link{format_fy}()},
-\code{\link{format_fy_reverse}()}
+Other format:
+\code{\link[=format_ay_reverse]{format_ay_reverse()}},
+\code{\link[=format_fy]{format_fy()}},
+\code{\link[=format_fy_reverse]{format_fy_reverse()}}
 }
 \concept{format}

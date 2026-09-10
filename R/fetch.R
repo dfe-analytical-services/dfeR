@@ -197,6 +197,65 @@ fetch_countries <- function() {
   dfeR::countries
 }
 
+#' Fetch Westminster constituency to MP lookup
+#'
+#' Fetch a data frame with one row per Westminster parliamentary constituency
+#' and the MP currently sitting for it. Alongside the constituency name and
+#' code, it gives the MP's name, Parliament member ID, party, email address
+#' and 2024 general election result summary, plus the local authority
+#' districts, local authorities, mayoral authorities, region and country that
+#' each constituency maps to.
+#'
+#' The lookup is maintained in the
+#' \href{https://github.com/dfe-analytical-services/mp-lookup}{mp-lookup}
+#' repository. It updates automatically as new results are
+#' published, and is read directly from its GitHub-hosted CSV so that users
+#' don't need to know or find the URL themselves.
+#'
+#' Note that this is a lookup of sitting MPs, not a set of candidate-level
+#' results, so unsuccessful candidates are not included.
+#'
+#' @param verbose TRUE or FALSE boolean. TRUE by default. FALSE will turn off
+#' the messages to the console that update on what the function is doing
+#'
+#' @return data frame with one row per Westminster parliamentary constituency
+#' and its sitting MP
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' head(fetch_mp_lookup())
+#' }
+fetch_mp_lookup <- function(verbose = TRUE) {
+  mp_lookup_url <- paste0(
+    "https://raw.githubusercontent.com/dfe-analytical-services",
+    "/mp-lookup/refs/heads/main/mp_lookup.csv"
+  )
+
+  dfeR::toggle_message("Fetching MP lookup data...", verbose = verbose)
+
+  output <- tryCatch(
+    utils::read.csv(
+      mp_lookup_url,
+      check.names = FALSE,
+      encoding = "UTF-8"
+    ),
+    error = function(e) {
+      stop(
+        "Failed to fetch MP lookup data from:\n",
+        mp_lookup_url,
+        "\n\nOriginal error: ",
+        conditionMessage(e),
+        call. = FALSE
+      )
+    }
+  )
+
+  dfeR::toggle_message("...data fetched!", verbose = verbose)
+
+  output
+}
+
 #' Fetch Local Skills Improvement Plan (LSIP) areas lookup
 #'
 #' Fetch a data frame of Local Skills Improvement Plan (LSIP) areas

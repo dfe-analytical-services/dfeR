@@ -24,6 +24,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Cam Race \email{cameron.race@education.gov.uk}
   \item Laura Selby \email{laura.selby@education.gov.uk}
   \item Adam Robinson
 }

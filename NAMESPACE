@@ -19,6 +19,7 @@ export(fetch_lads)
 export(fetch_las)
 export(fetch_lsips)
 export(fetch_mayoral)
+export(fetch_mp_lookup)
 export(fetch_pcons)
 export(fetch_regions)
 export(fetch_wards)
@@ -41,17 +42,21 @@ import(DBI)
 import(arrow)
 import(httr2)
 import(renv, except = run)
-importFrom(dplyr,across)
-importFrom(dplyr,coalesce)
-importFrom(dplyr,mutate)
-importFrom(dplyr,where)
+importFrom(dplyr,
+  across,
+  coalesce,
+  mutate,
+  where
+)
 importFrom(emoji,emoji)
 importFrom(lifecycle,deprecated)
 importFrom(rlang,.data)
-importFrom(usethis,create_package)
-importFrom(usethis,create_project)
-importFrom(usethis,proj_set)
-importFrom(usethis,use_test)
-importFrom(usethis,use_testthat)
+importFrom(usethis,
+  create_package,
+  create_project,
+  proj_set,
+  use_test,
+  use_testthat
+)
 importFrom(utils,installed.packages)
 importFrom(withr,with_dir)
