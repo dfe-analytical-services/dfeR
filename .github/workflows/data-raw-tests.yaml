@@ -4,6 +4,9 @@ on:
     paths: ['data-raw/**']
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   test-data-raw:
     runs-on: ubuntu-latest
