@@ -132,7 +132,7 @@
 #' @format ## `geog_time_identifiers`
 #' A character vector with 38 potential column names in snake case format.
 #' @source curated by explore.statistics@@education.gov.uk.
-#' \href{https://www.shorturl.at/j4532}{Guidance on time and geography data.}
+#' \href{https://dfe-analytical-services.github.io/analysts-guide/statistics-production/ud.html#time-and-geography}{Guidance on time and geography data.}
 "geog_time_identifiers"
 
 #' Local Skills Improvement Plan (LSIP) areas to

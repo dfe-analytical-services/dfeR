@@ -3,7 +3,7 @@
 #' @description
 #' Replaces `NA` values in tables except for ones in time and geography
 #' columns that must be included in DfE official statistics.
-#' \href{https://www.shorturl.at/chy76}{Guidance on our Open Data Standards.}
+#' \href{https://dfe-analytical-services.github.io/analysts-guide/statistics-production/ud.html}{Guidance on our Open Data Standards.}
 #'
 #' @details
 

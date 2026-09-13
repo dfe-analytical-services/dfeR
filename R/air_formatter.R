@@ -105,6 +105,8 @@ get_air_version <- function(air_path) {
 #' @param force force (re)installation of Air, even if an up to date
 #' version is already installed
 #'
+#' @return No return value, called for side effects
+#'
 #' @export
 #'
 #' @examples
@@ -236,6 +238,8 @@ air_install <- function(
 #'
 #' @param target single file target for formatting
 #' @param verbose Run in verbose mode
+#'
+#' @return No return value, called for side effects
 #'
 #' @export
 #'
