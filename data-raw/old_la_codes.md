@@ -12,9 +12,9 @@ This is a step by step guide to adding the three-digit ("old") local authority c
 
     -   Save this file in the 'data' folder of the dfeR repo. This step is temporary.
 
-3.  Run the code in data-raw/old_la_codes.R to join the data and save a new version of the lookup.
+3.  Run the code in data-raw/old_la_codes.R to join the data and save a new version of the lookup to data-raw/old_la_codes.csv.
 
-4.  Run `devtools::check()` to check everything is working as expected.
+4.  Check the script ran without errors (it checks the columns, blank cells and duplicate rows) and review the changes to data-raw/old_la_codes.csv.
 
 5.  Remove the screener (la.csv) and GIAS CSV files saved in the data folder.
 

@@ -177,7 +177,7 @@ the standard DBI approach takes nearly 30 minutes.
 
 ```{r benchmarks_plot, echo = FALSE, eval = can_plot, message = FALSE, warning = FALSE, fig.cap = "Figure 1: Performance comparison between DBI and dfeR across increasing row counts."}
 # 1. Clean and Prepare Benchmark Data
-summary_df <- imap_dfr(dfeR:::write_df_to_delta_benchmarks, ~ {
+summary_df <- imap_dfr(readRDS("write_df_to_delta_benchmarks.rds"), ~ {
   as.data.frame(.x) |>
     group_by(expr) |>
     summarise(
@@ -290,8 +290,8 @@ The boxplot below captures both the speed and the stability of the transfer acro
 
 ```{r stress_test_plot, echo = FALSE, eval = can_plot, message = FALSE, warning = FALSE, fig.cap = "Figure 2: Performance resiliency testing from 100 to 1 billion rows, showing stable execution times."}
 # 1. Process the Stress Test data
-# Using your exact logic, just pointing to the package data object
-plot_df <- purrr::imap_dfr(dfeR:::write_df_to_delta_stress_test,
+# Using your exact logic, just pointing to the saved benchmark results
+plot_df <- purrr::imap_dfr(readRDS("write_df_to_delta_stress_test.rds"),
                            function(bm, n) {
                                             df <- as.data.frame(bm)
                                             df$row_count <- as.numeric(n)

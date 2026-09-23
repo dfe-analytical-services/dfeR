@@ -201,6 +201,12 @@ geo_hierarchy <- geo_hierarchy |>
   )
 
 # Add 3 digit local authority codes from GIAS  --------------------------------
+# See data-raw/old_la_codes.md for how to update this lookup
+old_la_codes <- data.table::fread(
+  "data-raw/old_la_codes.csv",
+  colClasses = "character"
+)
+
 geo_hierarchy <- geo_hierarchy |>
   # join the data onto the GIAs LA 3 digit code data
   dplyr::left_join(
