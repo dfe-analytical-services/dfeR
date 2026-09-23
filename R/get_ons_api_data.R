@@ -35,7 +35,7 @@
 #' @export
 #' @return parsed data.frame of geographic names and codes
 #'
-#' @examples
+#' @examplesIf interactive()
 #' # Fetch everything from a data set
 #' dfeR::get_ons_api_data(data_id = "LAD23_RGN23_EN_LU")
 #'
@@ -76,9 +76,16 @@ get_ons_api_data <- function(
   id_params$returnIdsOnly <- "TRUE"
 
   # Query to get the Ids
-  id_response <- httr::POST(dataset_url, query = id_params)
-  id_body <- httr::content(id_response, "text")
-  id_parsed <- jsonlite::fromJSON(id_body)$objectIds
+  id_parsed <- ons_api_query(dataset_url, id_params)$objectIds
+
+  if (length(id_parsed) == 0) {
+    stop(
+      "No objects were found in the ONS Open Geography API for data_id '",
+      data_id,
+      "' with the given query_params.",
+      call. = FALSE
+    )
+  }
 
   # Work out total number of ids
   total_ids <- max(id_parsed)
@@ -125,17 +132,8 @@ get_ons_api_data <- function(
     batch_params$where <- NULL
     batch_params$objectIds <- paste0(batches[[batch_num]], collapse = ",")
 
-    # Stitch the data_id in and give the query parameters
-    batch_response <- httr::POST(
-      dataset_url,
-      query = batch_params
-    )
-
-    # Get the body of the response
-    batch_body <- httr::content(batch_response, "text")
-
-    # Parse the JSON
-    batch_parsed <- jsonlite::fromJSON(batch_body)
+    # Stitch the data_id in, give the query parameters and parse the JSON
+    batch_parsed <- ons_api_query(dataset_url, batch_params)
 
     # bind on batch to rest
     full_table <- rbind(full_table, jsonlite::flatten(batch_parsed$features))
@@ -154,4 +152,60 @@ get_ons_api_data <- function(
   )
 
   full_table
+}
+
+# Internal helper: POST a query to the ONS API and return the parsed JSON.
+# Stops with an informative error if the API can't be reached, returns an HTTP
+# error status, returns something that isn't JSON, or reports an error in the
+# response body (ArcGIS returns errors such as an unknown data_id with a 200
+# status, so the status code alone isn't enough).
+ons_api_query <- function(dataset_url, query_params) {
+  response <- tryCatch(
+    httr::POST(dataset_url, query = query_params),
+    error = function(e) {
+      stop(
+        "Failed to connect to the ONS Open Geography API at:\n",
+        dataset_url,
+        "\n\nOriginal error: ",
+        conditionMessage(e),
+        call. = FALSE
+      )
+    }
+  )
+
+  if (httr::http_error(response)) {
+    stop(
+      "The ONS Open Geography API returned HTTP status ",
+      httr::status_code(response),
+      " for:\n",
+      dataset_url,
+      call. = FALSE
+    )
+  }
+
+  parsed <- tryCatch(
+    jsonlite::fromJSON(httr::content(response, "text")),
+    error = function(e) {
+      stop(
+        "Could not parse the response from the ONS Open Geography API at:\n",
+        dataset_url,
+        "\n\nOriginal error: ",
+        conditionMessage(e),
+        call. = FALSE
+      )
+    }
+  )
+
+  if (!is.null(parsed$error)) {
+    stop(
+      "The ONS Open Geography API returned an error for:\n",
+      dataset_url,
+      "\n\nAPI message: ",
+      parsed$error$message,
+      "\nCheck that the data_id and query_params are valid.",
+      call. = FALSE
+    )
+  }
+
+  parsed
 }

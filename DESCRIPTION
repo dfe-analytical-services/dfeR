@@ -16,9 +16,9 @@ Authors@R: c(
     person("Lara", "Garbett", , "lara.garbett@education.gov.uk", role = "ctb"),
     person("Paula", "Rocha", , "paula.rocha@education.gov.uk", role = "ctb")
   )
-Description: Preferred methods for common analytical tasks that are
-    undertaken across the Department, including number formatting, project
-    templates and curated reference data.
+Description: Provides preferred methods for common analytical tasks
+    undertaken across the Department for Education in England, including
+    number formatting, project templates and curated reference data.
 License: GPL (>= 3)
 URL: https://dfe-analytical-services.github.io/dfeR/,
     https://github.com/dfe-analytical-services/dfeR

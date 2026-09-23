@@ -222,10 +222,8 @@ fetch_countries <- function() {
 #' and its sitting MP
 #' @export
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf interactive()
 #' head(fetch_mp_lookup())
-#' }
 fetch_mp_lookup <- function(verbose = TRUE) {
   mp_lookup_url <- paste0(
     "https://raw.githubusercontent.com/dfe-analytical-services",

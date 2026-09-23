@@ -37,9 +37,7 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' diagnostic_test()
-#' }
 diagnostic_test <- function(
   clean = FALSE,
   full = FALSE
@@ -231,9 +229,7 @@ summarise_diagnostic_results <- function(results) {
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' check_proxy_settings()
-#' }
 check_proxy_settings <- function(
   proxy_setting_names = c("http.proxy", "https.proxy"),
   proxy_env_names = c("http_proxy", "https_proxy", "no_proxy"),
@@ -322,9 +318,7 @@ check_proxy_settings <- function(
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' check_git_sslverify()
-#' }
 check_git_sslverify <- function(
   ssl_verify_vars = c("http.sslverify", "https.sslverify"),
   clean = FALSE
@@ -372,9 +366,7 @@ check_git_sslverify <- function(
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' check_gitconfig_location()
-#' }
 check_gitconfig_location <- function() {
   cli::cli_h2("Global .gitconfig location")
   git_path <- Sys.which("git")
@@ -451,9 +443,7 @@ check_gitconfig_location <- function() {
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' check_github_pat()
-#' }
 check_github_pat <- function(
   clean = FALSE
 ) {
@@ -543,9 +533,7 @@ mask_sensitive_env <- function(
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' check_renv_download_method()
-#' }
 check_renv_download_method <- function(
   renviron_file = "~/.Renviron",
   clean = FALSE
@@ -645,9 +633,7 @@ check_renv_download_method <- function(
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' check_renv_dl_file_method()
-#' }
 check_renv_dl_file_method <- function(
   clean = FALSE
 ) {
@@ -704,9 +690,7 @@ check_renv_dl_file_method <- function(
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' check_rtools()
-#' }
 check_rtools <- function() {
   cli::cli_h2("RTools / make toolchain")
   make_path <- unname(Sys.which("make"))
@@ -817,9 +801,7 @@ report_startup_file <- function(filename, resolved) {
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' check_renv_rprof_location()
-#' }
 check_renv_rprof_location <- function() {
   cli::cli_h2(".Renviron / .Rprofile location")
   renviron <- resolve_startup_file(".Renviron", "R_ENVIRON_USER")

@@ -53,6 +53,7 @@ widely you should also look at the
 \href{https://github.com/francisbarton/boundr}{boundr package}.
 }
 \examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 # Fetch everything from a data set
 dfeR::get_ons_api_data(data_id = "LAD23_RGN23_EN_LU")
 
@@ -66,4 +67,5 @@ dfeR::get_ons_api_data(
     f = "json"
   )
 )
+\dontshow{\}) # examplesIf}
 }

@@ -46,7 +46,5 @@ Each check returns a list including a \code{status} field, one of \code{"pass"},
 \code{"fail"}, \code{"fixed"} or \code{"info"}, depending on the outcome of the check.
 }
 \examples{
-\dontrun{
 check_proxy_settings()
-}
 }
