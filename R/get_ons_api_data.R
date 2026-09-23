@@ -23,12 +23,12 @@
 #' @param query_params query parameters to pass into the API, see the ESRI
 #' documentation for more information on query parameters -
 #' \href{https://developers.arcgis.com/rest/services-reference/enterprise/query-feature-service-layer/}{ESRI Query (Feature Service/Layer)}
-#' @param batch_size the number of rows per query. This is 250 by default, if
+#' @param batch_size the number of rows per query. This is 200 by default, if
 #' you hit errors then try lowering this. The API has a limit of 1000 to 2000
 #' rows per query, and in truth, the actual limit for our method is lower as
-#' every ObjectId queried is pasted into the query URL so for every row
-#' included in the batch, and especial if those Id's go into the 1,000s or
-#' 10,000s they will increase the size of the URL and risk hitting the limit.
+#' every ObjectId queried is pasted into the request, so larger batches, and
+#' especially Ids that go into the 1,000s or 10,000s, increase the size of
+#' each request and risk hitting the limit.
 #' @param verbose TRUE or FALSE boolean. TRUE by default. FALSE will turn off
 #' the messages to the console that update on what the function is doing
 #'
@@ -88,17 +88,17 @@ get_ons_api_data <- function(
   }
 
   # Work out total number of ids
-  total_ids <- max(id_parsed)
+  total_ids <- length(id_parsed)
   dfeR::toggle_message(
     dfeR::pretty_num(total_ids),
     " objects found for the query",
     verbose = verbose
   )
 
-  # Create a list of batches of ids
-  # Using 1000 as that's the max recommended number features on the ONS API
+  # Create a list of batches of the ids returned by the query, so that any
+  # where filter is respected and gaps in the ids are handled
   # 2000 is the maximum limit for a batch
-  batches <- split(1:total_ids, ceiling(seq_along(1:total_ids) / batch_size))
+  batches <- split(id_parsed, ceiling(seq_along(id_parsed) / batch_size))
   num_of_batches <- length(batches)
   dfeR::toggle_message(
     "Created ",
@@ -126,8 +126,8 @@ get_ons_api_data <- function(
     )
 
     # Force the objectIds for the batch into the query
-    # This also blanks out any WHERE filters as we don't need those for getting
-    # the total number of Ids
+    # This also blanks out any WHERE filters as the Ids have already been
+    # filtered by the initial query
     batch_params <- query_params
     batch_params$where <- NULL
     batch_params$objectIds <- paste0(batches[[batch_num]], collapse = ",")
@@ -161,7 +161,10 @@ get_ons_api_data <- function(
 # status, so the status code alone isn't enough).
 ons_api_query <- function(dataset_url, query_params) {
   response <- tryCatch(
-    httr::POST(dataset_url, query = query_params),
+    httr2::request(dataset_url) |>
+      httr2::req_body_form(!!!query_params) |>
+      httr2::req_error(is_error = function(resp) FALSE) |>
+      httr2::req_perform(),
     error = function(e) {
       stop(
         "Failed to connect to the ONS Open Geography API at:\n",
@@ -173,10 +176,10 @@ ons_api_query <- function(dataset_url, query_params) {
     }
   )
 
-  if (httr::http_error(response)) {
+  if (httr2::resp_is_error(response)) {
     stop(
       "The ONS Open Geography API returned HTTP status ",
-      httr::status_code(response),
+      httr2::resp_status(response),
       " for:\n",
       dataset_url,
       call. = FALSE
@@ -184,7 +187,7 @@ ons_api_query <- function(dataset_url, query_params) {
   }
 
   parsed <- tryCatch(
-    jsonlite::fromJSON(httr::content(response, "text")),
+    jsonlite::fromJSON(httr2::resp_body_string(response)),
     error = function(e) {
       stop(
         "Could not parse the response from the ONS Open Geography API at:\n",

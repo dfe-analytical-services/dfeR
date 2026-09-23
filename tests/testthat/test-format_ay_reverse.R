@@ -10,3 +10,11 @@ test_that("Rejects incorrectly formatted dates", {
 test_that("Converts correctly", {
   expect_equal(format_ay_reverse("1999/20"), "199920")
 })
+
+test_that("Handles vectors", {
+  expect_equal(
+    format_ay_reverse(c("1999/20", "2020/21")),
+    c("199920", "202021")
+  )
+  expect_error(format_ay_reverse(c("1999/20", "abcdef")))
+})
