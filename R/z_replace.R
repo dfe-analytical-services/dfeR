@@ -3,7 +3,9 @@
 #' @description
 #' Replaces `NA` values in tables except for ones in time and geography
 #' columns that must be included in DfE official statistics.
+# nolint start: line_length_linter.
 #' \href{https://dfe-analytical-services.github.io/analysts-guide/statistics-production/ud.html}{Guidance on our Open Data Standards.}
+# nolint end
 #'
 #' @details
 

@@ -22,7 +22,9 @@
 #' Geography Portal
 #' @param query_params query parameters to pass into the API, see the ESRI
 #' documentation for more information on query parameters -
+# nolint start: line_length_linter.
 #' \href{https://developers.arcgis.com/rest/services-reference/enterprise/query-feature-service-layer/}{ESRI Query (Feature Service/Layer)}
+# nolint end
 #' @param batch_size the number of rows per query. This is 200 by default, if
 #' you hit errors then try lowering this. The API has a limit of 1000 to 2000
 #' rows per query, and in truth, the actual limit for our method is lower as
