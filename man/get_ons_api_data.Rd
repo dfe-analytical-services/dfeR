@@ -19,12 +19,12 @@ Geography Portal}
 documentation for more information on query parameters -
 \href{https://developers.arcgis.com/rest/services-reference/enterprise/query-feature-service-layer/}{ESRI Query (Feature Service/Layer)}}
 
-\item{batch_size}{the number of rows per query. This is 250 by default, if
+\item{batch_size}{the number of rows per query. This is 200 by default, if
 you hit errors then try lowering this. The API has a limit of 1000 to 2000
 rows per query, and in truth, the actual limit for our method is lower as
-every ObjectId queried is pasted into the query URL so for every row
-included in the batch, and especial if those Id's go into the 1,000s or
-10,000s they will increase the size of the URL and risk hitting the limit.}
+every ObjectId queried is pasted into the request, so larger batches, and
+especially Ids that go into the 1,000s or 10,000s, increase the size of
+each request and risk hitting the limit.}
 
 \item{verbose}{TRUE or FALSE boolean. TRUE by default. FALSE will turn off
 the messages to the console that update on what the function is doing}

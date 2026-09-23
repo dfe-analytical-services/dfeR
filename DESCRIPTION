@@ -31,7 +31,6 @@ Imports:
     DBI,
     dplyr,
     emoji,
-    httr,
     httr2,
     jsonlite,
     lifecycle,

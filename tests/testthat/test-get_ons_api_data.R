@@ -1,18 +1,15 @@
-# {mockery} replaces httr::POST() inside ons_api_query() (or ons_api_query()
-# inside get_ons_api_data()) with fakes, so these tests don't hit the ONS API
-# and don't depend on the network.
+# {mockery} replaces httr2::req_perform() inside ons_api_query() (or
+# ons_api_query() inside get_ons_api_data()) with fakes, so these tests don't
+# hit the ONS API and don't depend on the network.
 
-# Minimal stand-in for an httr response object, enough for http_error(),
-# status_code() and content() to work on.
+# Minimal stand-in for an httr2 response object, enough for resp_is_error(),
+# resp_status() and resp_body_string() to work on.
 fake_response <- function(status_code, body) {
-  structure(
-    list(
-      url = "https://example.com",
-      status_code = as.integer(status_code),
-      headers = list(`Content-Type` = "application/json; charset=utf-8"),
-      content = charToRaw(body)
-    ),
-    class = "response"
+  httr2::response(
+    status_code = status_code,
+    url = "https://example.com",
+    headers = list(`Content-Type` = "application/json; charset=utf-8"),
+    body = charToRaw(body)
   )
 }
 
@@ -21,7 +18,7 @@ test_that("ons_api_query returns the parsed JSON on success", {
 
   mockery::stub(
     ons_api_query,
-    "httr::POST",
+    "httr2::req_perform",
     fake_response(200, '{"objectIds": [1, 2, 3]}')
   )
 
@@ -37,7 +34,7 @@ test_that("ons_api_query gives an informative error if it can't connect", {
   # Simulate no connection / the API being down
   mockery::stub(
     ons_api_query,
-    "httr::POST",
+    "httr2::req_perform",
     function(...) stop("network error")
   )
 
@@ -52,7 +49,7 @@ test_that("ons_api_query gives an informative error on an HTTP error", {
 
   mockery::stub(
     ons_api_query,
-    "httr::POST",
+    "httr2::req_perform",
     fake_response(500, "Internal Server Error")
   )
 
@@ -67,7 +64,7 @@ test_that("ons_api_query gives an informative error if it can't parse", {
 
   mockery::stub(
     ons_api_query,
-    "httr::POST",
+    "httr2::req_perform",
     fake_response(200, "<html>not json</html>")
   )
 
@@ -83,7 +80,7 @@ test_that("ons_api_query surfaces errors the API returns with a 200", {
   # ArcGIS returns errors such as an unknown data_id with a 200 status
   mockery::stub(
     ons_api_query,
-    "httr::POST",
+    "httr2::req_perform",
     fake_response(
       200,
       '{"error": {"code": 400, "message": "Invalid URL", "details": []}}'
@@ -134,4 +131,35 @@ test_that("get_ons_api_data batches, stacks and flattens the results", {
   args <- mockery::mock_args(m_query)
   expect_equal(args[[2]][[2]]$objectIds, "1,2")
   expect_null(args[[2]][[2]]$where)
+})
+
+test_that("get_ons_api_data only queries the ids returned by the filter", {
+  skip_if_not_installed("mockery")
+
+  # A where filter can return gappy ids that don't start at 1, only those ids
+  # should be queried
+  m_query <- mockery::mock(
+    jsonlite::fromJSON('{"objectIds": [5, 9, 20]}'),
+    jsonlite::fromJSON(
+      '{"features": [{"attributes": {"code": "E"}},
+                     {"attributes": {"code": "I"}}]}'
+    ),
+    jsonlite::fromJSON('{"features": [{"attributes": {"code": "T"}}]}')
+  )
+  mockery::stub(get_ons_api_data, "ons_api_query", m_query)
+
+  output <- get_ons_api_data(
+    "A_DATA_SET",
+    query_params = list(where = "code IN ('E', 'I', 'T')", f = "json"),
+    batch_size = 2,
+    verbose = FALSE
+  )
+
+  expect_equal(output, data.frame(attributes.code = c("E", "I", "T")))
+  mockery::expect_called(m_query, 3)
+
+  args <- mockery::mock_args(m_query)
+  expect_equal(args[[1]][[2]]$where, "code IN ('E', 'I', 'T')")
+  expect_equal(args[[2]][[2]]$objectIds, "5,9")
+  expect_equal(args[[3]][[2]]$objectIds, "20")
 })
