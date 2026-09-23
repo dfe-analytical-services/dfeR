@@ -14,3 +14,4 @@
 ^cran-comments\.md$
 ^\.posit/
 ^\.claude$
+^CRAN-SUBMISSION$
