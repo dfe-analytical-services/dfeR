@@ -2,7 +2,7 @@
 title: "Scalable Bulk Writing to Databricks: write_df_to_delta"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{write_df_to_delta}
+  %\VignetteIndexEntry{Scalable Bulk Writing to Databricks: write_df_to_delta}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

@@ -2,7 +2,7 @@
 title: "Creating a new dfeR project"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{create_new_project}
+  %\VignetteIndexEntry{Creating a new dfeR project}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -170,7 +170,7 @@ dfeR::create_project(
 
 You can view this by going to the location of the pathway you chose in File Explorer. You should find your new project there, inside a folder with the name you added at the end of your pathway, as below.
 
-![](../man/figures/create_new_project_screenshot.png){fig-alt="Newly created contents of project folder in File Explorer."} You will also need to think about what you want your project to be called and include this in your file path. You can always amend this later.
+![Newly created contents of project folder in File Explorer.](../man/figures/create_new_project_screenshot.png) You will also need to think about what you want your project to be called and include this in your file path. You can always amend this later.
 
 For example, if you want to create a project called “my-new-project” in the folder you created above, your file path (with the username changed to your username) would be "C:/Users/JBLOGGS/repos/my-new-project".
 
@@ -200,7 +200,9 @@ If you are using RStudio, you can also create a new project using the 'New Proje
 
 6.  Click 'Create Project' to set up your new project.
 
-![](../man/figures/project_wizard_screenshot.png){fig-alt="'New Project Wizard' window with option to create dfeR project template open."}
+```{r, echo = FALSE, fig.alt = "'New Project Wizard' window with option to create dfeR project template open."}
+knitr::include_graphics("../man/figures/project_wizard_screenshot.png")
+```
 
 You can also access the 'New Project Wizard' by clicking on the project that you are currently in, in the top-right hand corner and then selecting 'New Project'.
 
