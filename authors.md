@@ -28,7 +28,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/dfe-analytical-services/dfeR/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/dfe-analytical-services/dfeR/blob/v2.0.0/DESCRIPTION)
 
 Race C, Selby L, Robinson A (2026). *dfeR: Common Department for
 Education Analysis Tasks*. R package version 2.0.0,

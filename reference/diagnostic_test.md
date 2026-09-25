@@ -91,7 +91,7 @@ diagnostic_test()
 #> 
 #> ── GITHUB_PAT ──
 #> 
-#> ✖ GITHUB_PAT is set (length 377, ending ...IJLA). This may cause issues with installing packages from GitHub such as dfeR and dfeshiny. The GITHUB_PAT value is sensitive - do not share it.
+#> ✖ GITHUB_PAT is set (length 377, ending ...Ng-Q). This may cause issues with installing packages from GitHub such as dfeR and dfeshiny. The GITHUB_PAT value is sensitive - do not share it.
 #> 
 #> ── renv download method ──
 #> 
