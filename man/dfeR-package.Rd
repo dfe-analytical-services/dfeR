@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Preferred methods for common analytical tasks that are undertaken across the Department, including number formatting, project templates and curated reference data.
+Provides preferred methods for common analytical tasks undertaken across the Department for Education in England, including number formatting, project templates and curated reference data.
 }
 \seealso{
 Useful links:

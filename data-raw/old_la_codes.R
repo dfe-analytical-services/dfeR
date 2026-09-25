@@ -1,7 +1,8 @@
-# Create the internal old_la_codes data set ----------------------------------
+# Create the old_la_codes lookup ----------------------------------------------
 
 # This data is used to add 'old' 3 digit la codes to the wd_pcon_lad_la_reg_ctry
-# lookup table in dfeR
+# lookup table in dfeR. It is saved as data-raw/old_la_codes.csv and read in by
+# data-raw/geo_hierarchy.R, it is not shipped as part of the package
 
 # Get and process data from GIAS ------------------------------------------
 
@@ -42,7 +43,7 @@ gias_la_codes <- dplyr::bind_rows(
   dplyr::rename(gias_old_la_code = old_la_code)
 
 
-# Create the internal old_la_codes data set ----------------------------------
+# Create the old_la_codes lookup ----------------------------------------------
 
 # This data is used to add 'old' 3 digit la codes to the wd_pcon_lad_la_reg_ctry
 # lookup table in dfeR
@@ -87,5 +88,12 @@ old_la_codes <- dfeR::fetch_las() |>
   dplyr::distinct()
 
 
-# Write the data into the package ---------------------------------------------
-usethis::use_data(old_la_codes, internal = TRUE, overwrite = TRUE)
+# Check the data --------------------------------------------------------------
+stopifnot(
+  identical(names(old_la_codes), c("la_name", "old_la_code", "new_la_code")),
+  !anyNA(old_la_codes),
+  !anyDuplicated(old_la_codes)
+)
+
+# Write the lookup for use in data-raw/geo_hierarchy.R ------------------------
+data.table::fwrite(old_la_codes, "data-raw/old_la_codes.csv")

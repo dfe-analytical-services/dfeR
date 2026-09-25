@@ -1,9 +1,9 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # INTERNAL ONLY FUNCTIONS #####################################################
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# These functions are only used by the scripts in data-raw/, but are kept here
-# in order to keep those scripts cleaner and easier to use. To update any of
-# the data used in this app, refer to the scripts kept in data-raw/.
+# These functions are only used by the scripts in data-raw/, to build the data
+# sets bundled with the package. To update any of the data used in this app,
+# refer to the scripts kept in data-raw/.
 #
 # For more information on updating the geography data in the package see the
 # 'Maintaining geography data' section of the .github/CONTRIBUTING.md file.
@@ -367,7 +367,7 @@ get_wd_pcon_lad_la <- function(year) {
     )
     output <- as.data.frame(readxl::read_excel(path = local_file))
   } else {
-    output <- get_ons_api_data(
+    output <- dfeR::get_ons_api_data(
       data_id = paste0(
         "WD",
         year_end,
@@ -484,7 +484,7 @@ get_lad_region <- function(year) {
     )
   }
 
-  output <- get_ons_api_data(
+  output <- dfeR::get_ons_api_data(
     data_id = data_id,
     query_params = list(
       where = "1=1",
@@ -566,7 +566,7 @@ get_cauth_lad <- function(year) {
     )
     output <- as.data.frame(readxl::read_excel(path = local_file))
   } else {
-    output <- get_ons_api_data(
+    output <- dfeR::get_ons_api_data(
       data_id = paste0(
         "LAD",
         year_end,
@@ -614,7 +614,7 @@ get_lsip_lad <- function(year) {
     "NM"
   )
 
-  output <- get_ons_api_data(
+  output <- dfeR::get_ons_api_data(
     data_id = data_id,
     query_params = list(
       where = "1=1",

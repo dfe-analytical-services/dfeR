@@ -1,4 +1,11 @@
+skip_if_not_installed("mockery")
+
 test_that("air_style runs Air", {
+  # Downloads and installs Air into the user's home directory, so never run
+  # on CRAN
+  skip_on_cran()
+  skip_if_offline()
+
   air_install(update_rstudio_settings = FALSE, verbose = FALSE)
 
   air_path <- get_air_path()$air_path
@@ -15,7 +22,7 @@ test_that("air_style runs Air", {
     )
   )
 
-  temp_dir <- tempdir()
+  temp_dir <- withr::local_tempdir()
   test_script <- file(file.path(temp_dir, "air_test.R"))
   writeLines(
     "test_function=function(\nparam=NULL){print(\nparam)}",
@@ -40,8 +47,6 @@ test_that("air_style runs Air", {
     air_style("./this/file/does/not/exist.R"),
     "Target file ./this/file/does/not/exist.R does not exist"
   )
-
-  unlink(temp_dir, recursive = TRUE)
 })
 
 test_that("air_install reports the right reason for reinstalling", {

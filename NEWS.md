@@ -1,13 +1,48 @@
+# dfeR 2.0.0
+
+- **Breaking change**: Removed the deprecated `wd_pcon_lad_la_rgn_ctry` dataset and its startup
+  message. Use `geo_hierarchy` instead, which has all the same columns plus more, and is kept up to
+  date (it includes 2025, `wd_pcon_lad_la_rgn_ctry` stopped at 2024).
+- Added `diagnostic_test()` and a set of `check_*` helpers to diagnose and (optionally) fix common
+  DfE laptop R-setup issues — proxy settings, Git SSL verification, `GITHUB_PAT`, renv download
+  methods, RTools toolchain, global `.gitconfig` location, and `.Renviron`/`.Rprofile` location.
+- Added `fetch_mp_lookup()` to fetch the Westminster constituency to sitting MP lookup maintained at
+  https://github.com/dfe-analytical-services/mp-lookup, giving one row per constituency with the MP's
+  name, party, member ID and email alongside the geography the constituency maps to. It errors
+  with an informative message if the upstream file is missing any expected columns.
+- `air_install()` now checks the installed Air version and automatically reinstalls it if it is
+  older than the minimum version required by `air_style()` (currently 0.10.0, when Air's default
+  `assignment-style` changed to `"arrow"`). It also gains a `force` argument to always reinstall.
+  If the install does not leave a supported version of Air in place, it now warns rather than
+  failing silently.
+- `format_ay()`, `format_fy()`, `format_ay_reverse()` and `format_fy_reverse()` now accept vectors
+  of years, e.g. `format_ay(c(201617, 201718))`. Previously they failed given more than one value.
+- Fixed `get_ons_api_data()` ignoring any `where` filter in `query_params`; filtered queries could
+  return extra rows. It also now gives informative errors when a query matches nothing, the API
+  can't be reached, or the API rejects the request (for example an unknown `data_id`).
+- Fixed `air_style()` failing when the `target` path contains spaces (for example a OneDrive path
+  under "OneDrive - Department for Education").
+- Fixed `check_databricks_odbc()` failing for users who don't have `stringr` installed.
+
 # dfeR 1.3.0
 
-- `air_install()` now checks the installed Air version and automatically reinstalls it if it is older than the minimum version required by `air_style()` (currently 0.10.0, when Air's default `assignment-style` changed to `"arrow"`). It also gains a `force` argument to always reinstall regardless of the currently installed version. If the install does not leave a supported version of Air in place, it now warns rather than failing silently.
-- Added `fetch_mp_lookup()` to fetch the Westminster constituency to sitting MP lookup maintained at https://github.com/dfe-analytical-services/mp-lookup, giving one row per constituency with the MP's name, party, member ID and email alongside the geography the constituency maps to.
-- Added `diagnostic_test()` and a set of `check_*` helpers to diagnose and (optionally) fix common DfE laptop R-setup issues — proxy settings, Git SSL verification, `GITHUB_PAT`, renv download methods, RTools toolchain, global `.gitconfig` location, and `.Renviron`/`.Rprofile` location.
+- **Breaking change**: In `geo_hierarchy` and the output of `fetch_mayoral()`, the `cauth_name` and
+  `cauth_code` columns are renamed to `english_devolved_area_name` and
+  `english_devolved_area_code`, and the Greater London Authority is now included as the mayoral
+  authority for London boroughs.
+- Added `air_install()` and `air_style()` to install and run the Air formatter on R code.
+- Added `write_df_to_delta()` to write a data frame to a Delta table in Databricks, with an
+  accompanying vignette. It accepts `DATABRICKS_HOST` with or without a scheme; bare hosts have
+  `https://` prepended automatically, `http://` is upgraded to `https://`, and any trailing slash
+  is stripped. An unset or empty `DATABRICKS_HOST` gives a clear error.
+- Added the data `lsip_lad` which is a lookup table for Local Skills Improvement Plan (LSIP) areas
+  and the function `fetch_lsips()` to fetch LSIP data.
 - Updated `geo_hierarchy`, and associated `fetch_*` functions with latest 2025 lookups.
-- Updated `pretty_num()` function to add `abbreviate` argument giving the option to avoid displaying large numbers in millions/billions.
-- Added the data `lsip_lad` which is a lookup table for Local Skills Improvement Plan (LSIP) areas and the function `fetch_lsips()` to fetch LSIP data.
-- The `fetch_*()` functions now give an error when given a year that their lookup does not cover, where previously they returned an empty data frame.
-- `write_df_to_delta()` now accepts `DATABRICKS_HOST` with or without a scheme; bare hosts have `https://` prepended automatically, `http://` is upgraded to `https://`, and any trailing slash is stripped. An unset or empty `DATABRICKS_HOST` now produces a clearer error.
+- Updated `pretty_num()` to add an `abbreviate` argument giving the option to avoid displaying large
+  numbers in millions/billions, and a `dynamic_dp_value` argument that adds decimal places only when
+  a value in millions/billions isn't a whole number.
+- The `fetch_*()` functions now give an error when given a year that their lookup does not cover,
+  where previously they returned an empty data frame.
 
 # dfeR 1.2.0
 

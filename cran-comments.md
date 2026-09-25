@@ -1,7 +1,9 @@
 ## R CMD check results
 
-0 errors | 0 warnings | 1 notes
+0 errors | 0 warnings | 0 notes
 
-This submission follows the initial publishing of the package 2 days ago, and fixes the issues raised by the CRAN team.
+This is a package update.
 
-* removed package tests that tested the speed of function execution
+## Reverse dependencies
+
+There are currently no reverse dependencies on CRAN.

@@ -2,7 +2,7 @@
 title: "Scalable Bulk Writing to Databricks: write_df_to_delta"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{write_df_to_delta}
+  %\VignetteIndexEntry{Scalable Bulk Writing to Databricks: write_df_to_delta}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -13,10 +13,20 @@ knitr::opts_chunk$set(
   comment = "#>",
   fig.width = 7, fig.height = 5
 )
-library(ggplot2)
-library(dplyr)
-library(scales)
-library(purrr)
+
+plot_pkgs <- c("ggplot2", "scales", "purrr")
+can_plot <- all(vapply(plot_pkgs, requireNamespace, logical(1), quietly = TRUE))
+
+if (can_plot) {
+  library(ggplot2)
+  library(dplyr)
+  library(scales)
+  library(purrr)
+}
+```
+
+```{r, echo = FALSE, eval = !can_plot, results = "asis"}
+cat("_Figures omitted: ggplot2, scales and purrr are not installed._")
 ```
 
 ## Executive Summary
@@ -165,9 +175,9 @@ To ensure statistical reliability and account for fluctuations in network traffi
 As shown in the graph, for small datasets (\< 1,000 rows), `DBI::dbWriteTable()` is competitive. However, once you exceed 10,000 rows, the overhead of SQL-based inserts becomes a massive bottleneck. At 1 million rows, while `write_df_to_delta()` finishes in roughly 11 seconds, 
 the standard DBI approach takes nearly 30 minutes.
 
-```{r benchmarks_plot, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Figure 1: Performance comparison between DBI and dfeR across increasing row counts."}
+```{r benchmarks_plot, echo = FALSE, eval = can_plot, message = FALSE, warning = FALSE, fig.cap = "Figure 1: Performance comparison between DBI and dfeR across increasing row counts."}
 # 1. Clean and Prepare Benchmark Data
-summary_df <- imap_dfr(dfeR:::write_df_to_delta_benchmarks, ~ {
+summary_df <- imap_dfr(readRDS("write_df_to_delta_benchmarks.rds"), ~ {
   as.data.frame(.x) |>
     group_by(expr) |>
     summarise(
@@ -278,10 +288,10 @@ The boxplot below captures both the speed and the stability of the transfer acro
 
 -   **Reliability Trade-off**: Sequential chunking introduces a small amount of network overhead for each "slice." While this makes the total execution time longer than a single (theoretical) massive upload, it is a necessary trade-off to ensure the transfer is fault-tolerant and bypasses REST API payload limits.
 
-```{r stress_test_plot, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Figure 2: Performance resiliency testing from 100 to 1 billion rows, showing stable execution times."}
+```{r stress_test_plot, echo = FALSE, eval = can_plot, message = FALSE, warning = FALSE, fig.cap = "Figure 2: Performance resiliency testing from 100 to 1 billion rows, showing stable execution times."}
 # 1. Process the Stress Test data
-# Using your exact logic, just pointing to the package data object
-plot_df <- purrr::imap_dfr(dfeR:::write_df_to_delta_stress_test,
+# Using your exact logic, just pointing to the saved benchmark results
+plot_df <- purrr::imap_dfr(readRDS("write_df_to_delta_stress_test.rds"),
                            function(bm, n) {
                                             df <- as.data.frame(bm)
                                             df$row_count <- as.numeric(n)

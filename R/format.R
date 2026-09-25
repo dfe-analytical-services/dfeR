@@ -5,15 +5,16 @@
 #'
 #' It accepts both numerical and character arguments.
 #'
-#' @param year Academic year
-#' @return Character vector of formatted academic year
+#' @param year Academic year, a single value or a vector
+#' @return Character vector of formatted academic years
 #' @family format
 #' @export
 #' @examples
 #' format_ay(201617)
 #' format_ay("201617")
+#' format_ay(c(201617, 201718))
 format_ay <- function(year) {
-  if (!grepl("^[0-9]{6,6}$", year)) {
+  if (!all(grepl("^[0-9]{6,6}$", year))) {
     stop("year parameter must be a six digit number or string e.g. 201617")
   }
   sub("(.{4})(.*)", "\\1/\\2", year)
@@ -25,14 +26,15 @@ format_ay <- function(year) {
 #'
 #' It accepts character arguments.
 #'
-#' @param year Academic year
-#' @return Unformatted 6 digit year as string
+#' @param year Academic year, a single value or a vector
+#' @return Character vector of unformatted 6 digit years
 #' @family format
 #' @export
 #' @examples
 #' format_ay_reverse("2016/17")
+#' format_ay_reverse(c("2016/17", "2017/18"))
 format_ay_reverse <- function(year) {
-  if (!grepl("^\\d{4}/\\d{2}.*", year)) {
+  if (!all(grepl("^\\d{4}/\\d{2}.*", year))) {
     stop(
       "year parameter must be a seven digit string in an academic
          year format, e.g. '2016/17'"
@@ -48,15 +50,16 @@ format_ay_reverse <- function(year) {
 #'
 #' It accepts both numerical and character arguments.
 #'
-#' @param year Financial year
-#' @return Character vector of formatted financial year
+#' @param year Financial year, a single value or a vector
+#' @return Character vector of formatted financial years
 #' @family format
 #' @export
 #' @examples
 #' format_fy(201617)
 #' format_fy("201617")
+#' format_fy(c(201617, 201718))
 format_fy <- function(year) {
-  if (!grepl("^[0-9]{6,6}$", year)) {
+  if (!all(grepl("^[0-9]{6,6}$", year))) {
     stop("year parameter must be a six digit number or string e.g. 201617")
   }
   sub("(.{4})(.*)", "\\1-\\2", year)
@@ -68,15 +71,16 @@ format_fy <- function(year) {
 #'
 #' It accepts character arguments.
 #'
-#' @param year Financial year
-#' @return Unformatted 6 digit year as string
+#' @param year Financial year, a single value or a vector
+#' @return Character vector of unformatted 6 digit years
 #' @family format
 #' @export
 #' @examples
 #' format_fy_reverse("2016-17")
+#' format_fy_reverse(c("2016-17", "2017-18"))
 # function to reverse the change back to e.g. 201617
 format_fy_reverse <- function(year) {
-  if (!grepl("^\\d{4}-\\d{2}.*", year)) {
+  if (!all(grepl("^\\d{4}-\\d{2}.*", year))) {
     stop(
       "year parameter must be a seven digit string in a financial
          year format, e.g. '2016-17'"

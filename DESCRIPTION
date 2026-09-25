@@ -1,7 +1,7 @@
 Type: Package
 Package: dfeR
 Title: Common Department for Education Analysis Tasks
-Version: 1.3.0
+Version: 2.0.0
 Authors@R: c(
     person("Cam", "Race", , "cameron.race@education.gov.uk", role = c("aut", "cre")),
     person("Department for Education, England", , , "statistics.development@education.gov.uk", role = "cph"),
@@ -16,9 +16,9 @@ Authors@R: c(
     person("Lara", "Garbett", , "lara.garbett@education.gov.uk", role = "ctb"),
     person("Paula", "Rocha", , "paula.rocha@education.gov.uk", role = "ctb")
   )
-Description: Preferred methods for common analytical tasks that are
-    undertaken across the Department, including number formatting, project
-    templates and curated reference data.
+Description: Provides preferred methods for common analytical tasks
+    undertaken across the Department for Education in England, including
+    number formatting, project templates and curated reference data.
 License: GPL (>= 3)
 URL: https://dfe-analytical-services.github.io/dfeR/,
     https://github.com/dfe-analytical-services/dfeR
@@ -31,24 +31,21 @@ Imports:
     DBI,
     dplyr,
     emoji,
-    httr,
     httr2,
     jsonlite,
     lifecycle,
     renv,
     rlang,
     rstudio.prefs,
+    stringr,
     tidyselect,
     usethis,
     utils,
     withr
 Suggests:
     knitr,
-    readxl,
     rmarkdown,
     spelling,
-    stringr,
-    tidyr,
     testthat (>= 3.1.7),
     mockery,
     ggplot2,

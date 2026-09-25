@@ -11,3 +11,9 @@ test_that("Converts correctly", {
   expect_equal(format_fy(199900), "1999-00")
   expect_equal(format_fy("199900"), "1999-00")
 })
+
+test_that("Handles vectors", {
+  expect_equal(format_fy(c(199900, 202021)), c("1999-00", "2020-21"))
+  expect_equal(format_fy(c("199900", "202021")), c("1999-00", "2020-21"))
+  expect_error(format_fy(c(199900, 1985)))
+})

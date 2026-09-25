@@ -1,0 +1,231 @@
+la_name,old_la_code,new_la_code
+Blackburn with Darwen,889,E06000008
+Redcar and Cleveland,807,E06000003
+Hartlepool,805,E06000001
+Stockton-on-Tees,808,E06000004
+Middlesbrough,806,E06000002
+Darlington,841,E06000005
+Warrington,877,E06000007
+Halton,876,E06000006
+Blackpool,890,E06000009
+North Lincolnshire,813,E06000013
+North East Lincolnshire,812,E06000012
+Nottingham,892,E06000018
+Rutland,857,E06000017
+Derby,831,E06000015
+"Kingston upon Hull, City of",810,E06000010
+"Herefordshire, County of",884,E06000019
+East Riding of Yorkshire,811,E06000011
+Leicester,856,E06000016
+York,816,E06000014
+North Somerset,802,E06000024
+Telford and Wrekin,894,E06000020
+Stoke-on-Trent,861,E06000021
+Plymouth,879,E06000026
+Bath and North East Somerset,800,E06000022
+"Bristol, City of",801,E06000023
+Bournemouth,837,E06000028
+Poole,836,E06000029
+Peterborough,874,E06000031
+South Gloucestershire,803,E06000025
+Swindon,866,E06000030
+Luton,821,E06000032
+Torbay,880,E06000027
+Southend-on-Sea,882,E06000033
+Brighton and Hove,846,E06000043
+Portsmouth,851,E06000044
+Wokingham,872,E06000041
+Southampton,852,E06000045
+Reading,870,E06000038
+Bracknell Forest,867,E06000036
+Slough,871,E06000039
+Windsor and Maidenhead,868,E06000040
+West Berkshire,869,E06000037
+Thurrock,883,E06000034
+Milton Keynes,826,E06000042
+Isle of Wight,921,E06000046
+Cheshire East,895,E06000049
+County Durham,840,E06000047
+Medway,887,E06000035
+Cheshire West and Chester,896,E06000050
+Shropshire,893,E06000051
+Cornwall,908,E06000052
+Wiltshire,865,E06000054
+Isles of Scilly,420,E06000053
+Bedford,822,E06000055
+Northumberland,929,E06000057
+Cambridgeshire,873,E10000003
+Buckinghamshire,825,E10000002
+Cumbria,909,E10000006
+Central Bedfordshire,823,E06000056
+Derbyshire,830,E10000007
+Devon,878,E10000008
+Essex,881,E10000012
+Dorset,835,E10000009
+East Sussex,845,E10000011
+Gloucestershire,916,E10000013
+Hampshire,850,E10000014
+Hertfordshire,919,E10000015
+Kent,886,E10000016
+Lancashire,888,E10000017
+Leicestershire,855,E10000018
+Lincolnshire,925,E10000019
+Norfolk,926,E10000020
+North Yorkshire,815,E10000023
+Northamptonshire,928,E10000021
+Nottinghamshire,891,E10000024
+Oxfordshire,931,E10000025
+Somerset,933,E10000027
+Suffolk,935,E10000029
+Staffordshire,860,E10000028
+Surrey,936,E10000030
+Warwickshire,937,E10000031
+West Sussex,938,E10000032
+Bury,351,E08000002
+Manchester,352,E08000003
+Worcestershire,885,E10000034
+Oldham,353,E08000004
+Stockport,356,E08000007
+Rochdale,354,E08000005
+Salford,355,E08000006
+Bolton,350,E08000001
+Tameside,357,E08000008
+Trafford,358,E08000009
+Barnsley,370,E08000016
+Wigan,359,E08000010
+Sefton,343,E08000014
+Birmingham,330,E08000025
+Doncaster,371,E08000017
+Sunderland,394,E08000024
+St. Helens,342,E08000013
+Liverpool,341,E08000012
+Sheffield,373,E08000019
+South Tyneside,393,E08000023
+North Tyneside,392,E08000022
+Newcastle upon Tyne,391,E08000021
+Rotherham,372,E08000018
+Knowsley,340,E08000011
+Dudley,332,E08000027
+Coventry,331,E08000026
+Wirral,344,E08000015
+Camden,202,E09000007
+Bromley,305,E09000006
+Bradford,380,E08000032
+Wakefield,384,E08000036
+Walsall,335,E08000030
+Kirklees,382,E08000034
+City of London,201,E09000001
+Bexley,303,E09000004
+Barnet,302,E09000003
+Solihull,334,E08000029
+Sandwell,333,E08000028
+Brent,304,E09000005
+Leeds,383,E08000035
+Croydon,306,E09000008
+Gateshead,390,E08000037
+Wolverhampton,336,E08000031
+Barking and Dagenham,301,E09000002
+Calderdale,381,E08000033
+Hounslow,313,E09000018
+Greenwich,203,E09000011
+Kingston upon Thames,314,E09000021
+Havering,311,E09000016
+Redbridge,317,E09000026
+Harrow,310,E09000015
+Enfield,308,E09000010
+Haringey,309,E09000014
+Hammersmith and Fulham,205,E09000013
+Kensington and Chelsea,207,E09000020
+Newham,316,E09000025
+Merton,315,E09000024
+Lewisham,209,E09000023
+Hackney,204,E09000012
+Islington,206,E09000019
+Ealing,307,E09000009
+Lambeth,208,E09000022
+Hillingdon,312,E09000017
+Richmond upon Thames,318,E09000027
+Southwark,210,E09000028
+Belfast,z,N09000003
+Westminster,213,E09000033
+Causeway Coast and Glens,z,N09000004
+Waltham Forest,320,E09000031
+"Armagh City, Banbridge and Craigavon",z,N09000002
+Derry City and Strabane,z,N09000005
+Antrim and Newtownabbey,z,N09000001
+Fermanagh and Omagh,z,N09000006
+Sutton,319,E09000029
+Tower Hamlets,211,E09000030
+Wandsworth,212,E09000032
+Midlothian,z,S12000019
+Mid and East Antrim,z,N09000008
+"Newry, Mourne and Down",z,N09000010
+Fife,z,S12000015
+Mid Ulster,z,N09000009
+Falkirk,z,S12000014
+Ards and North Down,z,N09000011
+Na h-Eileanan Siar,z,S12000013
+Inverclyde,z,S12000018
+East Renfrewshire,z,S12000011
+East Lothian,z,S12000010
+East Ayrshire,z,S12000008
+Lisburn and Castlereagh,z,N09000007
+Highland,z,S12000017
+Dumfries and Galloway,z,S12000006
+Clackmannanshire,z,S12000005
+Moray,z,S12000020
+North Ayrshire,z,S12000021
+Perth and Kinross,z,S12000024
+Orkney Islands,z,S12000023
+Glasgow City,z,S12000046
+Isle of Anglesey,660,W06000001
+City of Edinburgh,z,S12000036
+West Lothian,z,S12000040
+South Lanarkshire,z,S12000029
+Aberdeenshire,z,S12000034
+North Lanarkshire,z,S12000044
+Gwynedd,661,W06000002
+Angus,z,S12000041
+Dundee City,z,S12000042
+East Dunbartonshire,z,S12000045
+Scottish Borders,z,S12000026
+Conwy,662,W06000003
+Aberdeen City,z,S12000033
+Argyll and Bute,z,S12000035
+Renfrewshire,z,S12000038
+Stirling,z,S12000030
+South Ayrshire,z,S12000028
+Shetland Islands,z,S12000027
+West Dunbartonshire,z,S12000039
+Swansea,670,W06000011
+Pembrokeshire,668,W06000009
+Wrexham,665,W06000006
+Denbighshire,663,W06000004
+Flintshire,664,W06000005
+Ceredigion,667,W06000008
+Carmarthenshire,669,W06000010
+Neath Port Talbot,671,W06000012
+Vale of Glamorgan,673,W06000014
+Newport,680,W06000022
+Powys,666,W06000023
+Torfaen,678,W06000020
+Rhondda Cynon Taf,674,W06000016
+Blaenau Gwent,677,W06000019
+Caerphilly,676,W06000018
+Monmouthshire,679,W06000021
+Bridgend,672,W06000013
+Cardiff,681,W06000015
+Merthyr Tydfil,675,W06000024
+"Bournemouth, Christchurch and Poole",839,E06000058
+Dorset,838,E06000059
+Glasgow City,z,S12000049
+Fife,z,S12000047
+Perth and Kinross,z,S12000048
+North Lanarkshire,z,S12000050
+Buckinghamshire,825,E06000060
+North Northamptonshire,940,E06000061
+West Northamptonshire,941,E06000062
+Cumberland,942,E06000063
+Westmorland and Furness,943,E06000064
+North Yorkshire,815,E06000065
+Somerset,933,E06000066

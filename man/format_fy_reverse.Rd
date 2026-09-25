@@ -7,10 +7,10 @@
 format_fy_reverse(year)
 }
 \arguments{
-\item{year}{Financial year}
+\item{year}{Financial year, a single value or a vector}
 }
 \value{
-Unformatted 6 digit year as string
+Character vector of unformatted 6 digit years
 }
 \description{
 This function converts financial year variables back into 201617 format.
@@ -20,6 +20,7 @@ It accepts character arguments.
 }
 \examples{
 format_fy_reverse("2016-17")
+format_fy_reverse(c("2016-17", "2017-18"))
 }
 \seealso{
 Other format:

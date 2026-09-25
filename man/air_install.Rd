@@ -14,6 +14,9 @@ air_install(update_rstudio_settings = FALSE, verbose = TRUE, force = FALSE)
 \item{force}{force (re)installation of Air, even if an up to date
 version is already installed}
 }
+\value{
+No return value, called for side effects
+}
 \description{
 checks for air installation status and installs it if
 required (or if the installed version is older than the minimum

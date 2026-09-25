@@ -11,3 +11,9 @@ test_that("Converts correctly", {
   expect_equal(format_ay(199920), "1999/20")
   expect_equal(format_ay("199920"), "1999/20")
 })
+
+test_that("Handles vectors", {
+  expect_equal(format_ay(c(199920, 202021)), c("1999/20", "2020/21"))
+  expect_equal(format_ay(c("199920", "202021")), c("1999/20", "2020/21"))
+  expect_error(format_ay(c(199920, 1985)))
+})

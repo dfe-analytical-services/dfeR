@@ -11,6 +11,9 @@ air_style(target = ".", verbose = FALSE)
 
 \item{verbose}{Run in verbose mode}
 }
+\value{
+No return value, called for side effects
+}
 \description{
 styles the whole project or single file using air
 }

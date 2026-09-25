@@ -94,9 +94,8 @@ DBI::dbRemoveTable(con, "temp_dfe")
 # Close the connection
 DBI::dbDisconnect(con)
 
-# Write the stress test results into the package
-usethis::use_data(
+# Write the stress test results for the write_df_to_delta vignette
+saveRDS(
   write_df_to_delta_stress_test,
-  overwrite = TRUE,
-  internal = TRUE
+  "vignettes/write_df_to_delta_stress_test.rds"
 )

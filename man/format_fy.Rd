@@ -7,10 +7,10 @@
 format_fy(year)
 }
 \arguments{
-\item{year}{Financial year}
+\item{year}{Financial year, a single value or a vector}
 }
 \value{
-Character vector of formatted financial year
+Character vector of formatted financial years
 }
 \description{
 This function formats financial year variables for reporting purposes. It
@@ -22,6 +22,7 @@ It accepts both numerical and character arguments.
 \examples{
 format_fy(201617)
 format_fy("201617")
+format_fy(c(201617, 201718))
 }
 \seealso{
 Other format:

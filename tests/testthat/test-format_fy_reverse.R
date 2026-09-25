@@ -11,3 +11,11 @@ test_that("Rejects incorrectly formatted dates", {
 test_that("Converts correctly", {
   expect_equal(format_fy_reverse("1999-20"), "199920")
 })
+
+test_that("Handles vectors", {
+  expect_equal(
+    format_fy_reverse(c("1999-20", "2020-21")),
+    c("199920", "202021")
+  )
+  expect_error(format_fy_reverse(c("1999-20", "1985/98")))
+})

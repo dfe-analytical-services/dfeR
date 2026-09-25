@@ -1,6 +1,6 @@
 # Readme template
 
-*This is the README template for a publication project. Please update the italicised text in each section below with the specific details for your publication. You can find more information on why you should have a README file on the* [RAP for statistics](https://dfe-analytical-services.github.io/analysts-guide/RAP/rap-statistics.html) *page of the Analysts' Guide.*
+*This is the README template for a publication project. Please update the italicised text in each section below with the specific details for your publication. You can find more information on why you should have a README file on the* [RAP for statistics](https://dfe-analytical-services.github.io/analysts-guide/RAP/rap-statistics/rap-statistics.html) *page of the Analysts' Guide.*
 
 *Once you have added your information, ensure all italicised text is deleted.*
 

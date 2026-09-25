@@ -2,7 +2,7 @@
 title: "Diagnosing your R setup"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{diagnosing-your-r-setup}
+  %\VignetteIndexEntry{Diagnosing your R setup}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
