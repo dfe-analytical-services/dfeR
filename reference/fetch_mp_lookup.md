@@ -39,7 +39,7 @@ results, so unsuccessful candidates are not included.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+if (FALSE) { # interactive()
 head(fetch_mp_lookup())
-} # }
+}
 ```

@@ -25,7 +25,9 @@ Each check returns a list including a `status` field, one of `"pass"`,
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 check_rtools()
-} # }
+#> 
+#> ── RTools / make toolchain ──
+#> 
+#> ✔ Found 'make' at /usr/bin/make.
 ```

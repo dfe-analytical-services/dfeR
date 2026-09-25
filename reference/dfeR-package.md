@@ -1,8 +1,8 @@
 # dfeR: Common Department for Education Analysis Tasks
 
-Preferred methods for common analytical tasks that are undertaken across
-the Department, including number formatting, project templates and
-curated reference data.
+Provides preferred methods for common analytical tasks undertaken across
+the Department for Education in England, including number formatting,
+project templates and curated reference data.
 
 ## See also
 

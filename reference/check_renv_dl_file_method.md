@@ -37,7 +37,9 @@ Each check returns a list including a `status` field, one of `"pass"`,
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 check_renv_dl_file_method()
-} # }
+#> 
+#> ── RENV_DOWNLOAD_FILE_METHOD ──
+#> 
+#> ✔ RENV_DOWNLOAD_FILE_METHOD is not set.
 ```

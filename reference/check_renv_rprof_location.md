@@ -30,7 +30,12 @@ Each check returns a list including a `status` field, one of `"pass"`,
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 check_renv_rprof_location()
-} # }
+#> 
+#> ── .Renviron / .Rprofile location ──
+#> 
+#> .Renviron: not found in any location R reads (working directory or home).
+#> 
+#> .Rprofile:
+#> • /home/runner/.Rprofile [USED]
 ```

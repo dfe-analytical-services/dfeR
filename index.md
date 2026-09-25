@@ -62,7 +62,7 @@ Then install dfeR from CRAN:
 ``` r
 
 # If you don’t have pak installed yet, install it first using
-# install.packages("pak") 
+# install.packages("pak") is required 
 pak::pak("dfeR")
 ```
 
@@ -126,7 +126,6 @@ Here are some example functions from within the package:
 ``` r
 
 library(dfeR)
-#> Note: The dataset `wd_pcon_lad_la_rgn_ctry` is deprecated and will be removed in the next major release. Use `geo_hierarchy` instead.
 
 # Prettify large numbers
 pretty_num(111111111, gbp = TRUE)
@@ -163,41 +162,17 @@ format_fy_reverse("2024-25")
 # Get hierachical lookup file for common geographies
 my_data <- dfeR::geo_hierarchy
 head(my_data) # show first 5 rows in console
-#>   first_available_year_included most_recent_year_included ward_name
-#> 1                          2017                      2021     Abbey
-#> 2                          2022                      2023     Abbey
-#> 3                          2024                      2025     Abbey
-#> 4                          2017                      2017     Abbey
-#> 5                          2024                      2025     Abbey
-#> 6                          2017                      2023     Abbey
-#>       pcon_name                     lad_name                      la_name
-#> 1       Barking         Barking and Dagenham         Barking and Dagenham
-#> 2       Barking         Barking and Dagenham         Barking and Dagenham
-#> 3       Barking         Barking and Dagenham         Barking and Dagenham
-#> 4          Bath Bath and North East Somerset Bath and North East Somerset
-#> 5 Belfast North      Antrim and Newtownabbey      Antrim and Newtownabbey
-#> 6 Belfast North      Antrim and Newtownabbey      Antrim and Newtownabbey
-#>   english_devolved_area_name      region_name     country_name ward_code
-#> 1   Greater London Authority           London          England E05000026
-#> 2   Greater London Authority           London          England E05014053
-#> 3   Greater London Authority           London          England E05014053
-#> 4            West of England       South West          England E05001935
-#> 5             Not applicable Northern Ireland Northern Ireland N08000101
-#> 6             Not applicable Northern Ireland Northern Ireland N08000101
-#>   pcon_code  lad_code old_la_code new_la_code english_devolved_area_code
-#> 1 E14000540 E09000002         301   E09000002                  E61000001
-#> 2 E14000540 E09000002         301   E09000002                  E61000001
-#> 3 E14001073 E09000002         301   E09000002                  E61000001
-#> 4 E14000547 E06000022         800   E06000022                  E47000009
-#> 5 N05000002 N09000001           z   N09000001                          z
-#> 6 N06000002 N09000001           z   N09000001                          z
-#>   region_code country_code
-#> 1   E12000007    E92000001
-#> 2   E12000007    E92000001
-#> 3   E12000007    E92000001
-#> 4   E12000009    E92000001
-#> 5   N92000002    N92000002
-#> 6   N92000002    N92000002
+#> # A tibble: 6 × 17
+#>   first_available_year_included most_recent_year_included ward_name pcon_name     lad_name  la_name english_devolved_are…¹ region_name country_name ward_code pcon_code lad_code old_la_code new_la_code
+#>                           <dbl>                     <dbl> <chr>     <chr>         <chr>     <chr>   <chr>                  <chr>       <chr>        <chr>     <chr>     <chr>    <chr>       <chr>      
+#> 1                          2017                      2021 Abbey     Barking       Barking … Barkin… Greater London Author… London      England      E05000026 E14000540 E090000… 301         E09000002  
+#> 2                          2022                      2023 Abbey     Barking       Barking … Barkin… Greater London Author… London      England      E05014053 E14000540 E090000… 301         E09000002  
+#> 3                          2024                      2025 Abbey     Barking       Barking … Barkin… Greater London Author… London      England      E05014053 E14001073 E090000… 301         E09000002  
+#> 4                          2017                      2017 Abbey     Bath          Bath and… Bath a… West of England        South West  England      E05001935 E14000547 E060000… 800         E06000022  
+#> 5                          2024                      2025 Abbey     Belfast North Antrim a… Antrim… Not applicable         Northern I… Northern Ir… N08000101 N05000002 N090000… z           N09000001  
+#> 6                          2017                      2023 Abbey     Belfast North Antrim a… Antrim… Not applicable         Northern I… Northern Ir… N08000101 N06000002 N090000… z           N09000001  
+#> # ℹ abbreviated name: ¹​english_devolved_area_name
+#> # ℹ 3 more variables: english_devolved_area_code <chr>, region_code <chr>, country_code <chr>
 
 # Get all countries
 dfeR::countries

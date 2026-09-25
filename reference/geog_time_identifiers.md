@@ -18,4 +18,5 @@ A character vector with 38 potential column names in snake case format.
 ## Source
 
 curated by explore.statistics@education.gov.uk. [Guidance on time and
-geography data.](https://www.shorturl.at/j4532)
+geography
+data.](https://dfe-analytical-services.github.io/analysts-guide/statistics-production/ud.html#time-and-geography)

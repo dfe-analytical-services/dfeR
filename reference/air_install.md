@@ -25,6 +25,10 @@ air_install(update_rstudio_settings = FALSE, verbose = TRUE, force = FALSE)
   force (re)installation of Air, even if an up to date version is
   already installed
 
+## Value
+
+No return value, called for side effects
+
 ## Examples
 
 ``` r

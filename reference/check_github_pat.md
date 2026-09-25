@@ -37,7 +37,9 @@ Each check returns a list including a `status` field, one of `"pass"`,
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 check_github_pat()
-} # }
+#> 
+#> ── GITHUB_PAT ──
+#> 
+#> ✖ GITHUB_PAT is set (length 377, ending ...IJLA). This may cause issues with installing packages from GitHub such as dfeR and dfeshiny. The GITHUB_PAT value is sensitive - do not share it.
 ```

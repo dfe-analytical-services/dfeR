@@ -56,7 +56,9 @@ Each check returns a list including a `status` field, one of `"pass"`,
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 check_proxy_settings()
-} # }
+#> 
+#> ── Proxy settings ──
+#> 
+#> ✔ No proxy settings found in your Git config or system environment.
 ```

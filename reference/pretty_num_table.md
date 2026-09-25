@@ -49,6 +49,15 @@ The function first checks if any columns are specified for inclusion via
 specified for exclusion via `exclude_columns`. If neither is specified,
 all columns in the data frame are formatted.
 
+## Warning
+
+Any selected column that cannot be coerced to numeric - including
+character columns such as geography or school names - is returned as
+`NA` by default. Pass `ignore_na = TRUE` (via `...`, forwarded to
+[`dfeR::pretty_num()`](https://dfe-analytical-services.github.io/dfeR/reference/pretty_num.md))
+to leave those values unchanged instead; this is the safe way to format
+a table that also contains non-numeric columns.
+
 ## See also
 
 [`pretty_num()`](https://dfe-analytical-services.github.io/dfeR/reference/pretty_num.md)
@@ -69,12 +78,21 @@ df <- data.frame(
   c = c("A", "B", "C")
 )
 
-# Apply formatting to all columns
+# Apply formatting to all columns - note column c is character, so it
+# cannot be coerced to numeric and comes back as NA (see Warning section)
 pretty_num_table(df, dp = 2)
 #>      a     b  c
 #> 1 1.23 10.11 NA
 #> 2 5.68 20.13 NA
 #> 3 9.10 30.15 NA
+
+# Apply formatting to all columns, leaving non-numeric columns like c
+# unchanged instead of turning them into NA
+pretty_num_table(df, dp = 2, ignore_na = TRUE)
+#>      a     b c
+#> 1 1.23 10.11 A
+#> 2 5.68 20.13 B
+#> 3 9.10 30.15 C
 
 # Apply formatting to only selected columns
 pretty_num_table(df, include_columns = c("a"), dp = 2)

@@ -13,11 +13,11 @@ format_fy(year)
 
 - year:
 
-  Financial year
+  Financial year, a single value or a vector
 
 ## Value
 
-Character vector of formatted financial year
+Character vector of formatted financial years
 
 ## Details
 
@@ -37,4 +37,6 @@ format_fy(201617)
 #> [1] "2016-17"
 format_fy("201617")
 #> [1] "2016-17"
+format_fy(c(201617, 201718))
+#> [1] "2016-17" "2017-18"
 ```

@@ -2,7 +2,8 @@
 
 Replaces `NA` values in tables except for ones in time and geography
 columns that must be included in DfE official statistics. [Guidance on
-our Open Data Standards.](https://www.shorturl.at/chy76)
+our Open Data
+Standards.](https://dfe-analytical-services.github.io/analysts-guide/statistics-production/ud.html)
 
 ## Usage
 

@@ -292,9 +292,9 @@ relate to a specific family.
 Documentation for all data shipped with the packages is kept in
 `R/datasets_documentation.R`. Scripts used for preparing data used in
 the package is not in the R folder, it is in the `data-raw/` folder,
-helper functions for this can be found in the `R/datasets_utils.R`
-folder, and more details on maintaining the data sets can be found under
-the [Package data](#package-data) header on this page.
+helper functions for this can be found in the `data-raw/utils.R` file,
+and more details on maintaining the data sets can be found under the
+[Package data](#package-data) header on this page.
 
 `utils.R` should be used to hold any cross-package helpers that aren’t
 exported as functions or specific to a family.
@@ -388,9 +388,9 @@ scripts nice and reproducible without external dependencies to worry
 about.
 
 We try to keep the data-raw/ scripts as tidy as possible, so some helper
-functions have been created in R/datasets-utils.R. These are not
-exported for users of the package and are only used by scripts in the
-data-raw/ folder for the creation of data exported in the package.
+functions have been created in data-raw/utils.R. These are not exported
+for users of the package and are only used by scripts in the data-raw/
+folder for the creation of data exported in the package.
 
 Sometimes when running the scripts to create new data sets you might hit
 this error:
@@ -452,12 +452,12 @@ request.
 The way ONS publish has varied over their first few years of publishing,
 and on top of that each data set has an individual API connection for
 every year of boundaries. As there’s no link over time from the ONS side
-we have helper functions defined in R/datasets_utils.R that wrap these
-up into a single neat time series bundle for us. Given the likelihood of
+we have helper functions defined in data-raw/utils.R that wrap these up
+into a single neat time series bundle for us. Given the likelihood of
 further variations, don’t be too surprised if adding new years to the
 data sets results in errors first time around, some manual fudgery is
 often needed so roll up your sleeves and prepare to get elbow deep into
-the murky depths of the R/datasets_utils.R file!
+the murky depths of the data-raw/utils.R file!
 
 There is also some data we just define ourselves in code as we curate
 that, like custom regions we publish in DfE or our own lookup table for

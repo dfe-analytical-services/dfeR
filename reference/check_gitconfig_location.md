@@ -25,7 +25,9 @@ Each check returns a list including a `status` field, one of `"pass"`,
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 check_gitconfig_location()
-} # }
+#> 
+#> ── Global .gitconfig location ──
+#> 
+#> ℹ No entries found in your global .gitconfig (Git could not locate one).
 ```

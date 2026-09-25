@@ -17,8 +17,8 @@
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
 <meta property="og:title" content="Common Department for Education Analysis Tasks">
-<meta name="description" content="Preferred methods for common analytical tasks that are undertaken across the Department, including number formatting, project templates and curated reference data.">
-<meta property="og:description" content="Preferred methods for common analytical tasks that are undertaken across the Department, including number formatting, project templates and curated reference data.">
+<meta name="description" content="Provides preferred methods for common analytical tasks undertaken across the Department for Education in England, including number formatting, project templates and curated reference data.">
+<meta property="og:description" content="Provides preferred methods for common analytical tasks undertaken across the Department for Education in England, including number formatting, project templates and curated reference data.">
 <meta property="og:image" content="https://dfe-analytical-services.github.io/dfeR/logo.png">
 </head>
 <body>
@@ -29,7 +29,7 @@
 
     <a class="navbar-brand me-2" href="index.html">dfeR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -105,7 +105,7 @@
 <p>Then install dfeR from CRAN:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># If you don’t have pak installed yet, install it first using</span></span>
-<span><span class="co"># install.packages("pak") </span></span>
+<span><span class="co"># install.packages("pak") is required </span></span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"dfeR"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -147,7 +147,6 @@
 <p>Here are some example functions from within the package:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dfe-analytical-services.github.io/dfeR/">dfeR</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Note: The dataset `wd_pcon_lad_la_rgn_ctry` is deprecated and will be removed in the next major release. Use `geo_hierarchy` instead.</span></span>
 <span></span>
 <span><span class="co"># Prettify large numbers</span></span>
 <span><span class="fu"><a href="reference/pretty_num.html">pretty_num</a></span><span class="op">(</span><span class="fl">111111111</span>, gbp <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -184,41 +183,17 @@
 <span><span class="co"># Get hierachical lookup file for common geographies</span></span>
 <span><span class="va">my_data</span> <span class="op">&lt;-</span> <span class="fu">dfeR</span><span class="fu">::</span><span class="va"><a href="reference/geo_hierarchy.html">geo_hierarchy</a></span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">my_data</span><span class="op">)</span> <span class="co"># show first 5 rows in console</span></span>
-<span><span class="co">#&gt;   first_available_year_included most_recent_year_included ward_name</span></span>
-<span><span class="co">#&gt; 1                          2017                      2021     Abbey</span></span>
-<span><span class="co">#&gt; 2                          2022                      2023     Abbey</span></span>
-<span><span class="co">#&gt; 3                          2024                      2025     Abbey</span></span>
-<span><span class="co">#&gt; 4                          2017                      2017     Abbey</span></span>
-<span><span class="co">#&gt; 5                          2024                      2025     Abbey</span></span>
-<span><span class="co">#&gt; 6                          2017                      2023     Abbey</span></span>
-<span><span class="co">#&gt;       pcon_name                     lad_name                      la_name</span></span>
-<span><span class="co">#&gt; 1       Barking         Barking and Dagenham         Barking and Dagenham</span></span>
-<span><span class="co">#&gt; 2       Barking         Barking and Dagenham         Barking and Dagenham</span></span>
-<span><span class="co">#&gt; 3       Barking         Barking and Dagenham         Barking and Dagenham</span></span>
-<span><span class="co">#&gt; 4          Bath Bath and North East Somerset Bath and North East Somerset</span></span>
-<span><span class="co">#&gt; 5 Belfast North      Antrim and Newtownabbey      Antrim and Newtownabbey</span></span>
-<span><span class="co">#&gt; 6 Belfast North      Antrim and Newtownabbey      Antrim and Newtownabbey</span></span>
-<span><span class="co">#&gt;   english_devolved_area_name      region_name     country_name ward_code</span></span>
-<span><span class="co">#&gt; 1   Greater London Authority           London          England E05000026</span></span>
-<span><span class="co">#&gt; 2   Greater London Authority           London          England E05014053</span></span>
-<span><span class="co">#&gt; 3   Greater London Authority           London          England E05014053</span></span>
-<span><span class="co">#&gt; 4            West of England       South West          England E05001935</span></span>
-<span><span class="co">#&gt; 5             Not applicable Northern Ireland Northern Ireland N08000101</span></span>
-<span><span class="co">#&gt; 6             Not applicable Northern Ireland Northern Ireland N08000101</span></span>
-<span><span class="co">#&gt;   pcon_code  lad_code old_la_code new_la_code english_devolved_area_code</span></span>
-<span><span class="co">#&gt; 1 E14000540 E09000002         301   E09000002                  E61000001</span></span>
-<span><span class="co">#&gt; 2 E14000540 E09000002         301   E09000002                  E61000001</span></span>
-<span><span class="co">#&gt; 3 E14001073 E09000002         301   E09000002                  E61000001</span></span>
-<span><span class="co">#&gt; 4 E14000547 E06000022         800   E06000022                  E47000009</span></span>
-<span><span class="co">#&gt; 5 N05000002 N09000001           z   N09000001                          z</span></span>
-<span><span class="co">#&gt; 6 N06000002 N09000001           z   N09000001                          z</span></span>
-<span><span class="co">#&gt;   region_code country_code</span></span>
-<span><span class="co">#&gt; 1   E12000007    E92000001</span></span>
-<span><span class="co">#&gt; 2   E12000007    E92000001</span></span>
-<span><span class="co">#&gt; 3   E12000007    E92000001</span></span>
-<span><span class="co">#&gt; 4   E12000009    E92000001</span></span>
-<span><span class="co">#&gt; 5   N92000002    N92000002</span></span>
-<span><span class="co">#&gt; 6   N92000002    N92000002</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 17</span></span>
+<span><span class="co">#&gt;   first_available_year_included most_recent_year_included ward_name pcon_name     lad_name  la_name english_devolved_are…¹ region_name country_name ward_code pcon_code lad_code old_la_code new_la_code</span></span>
+<span><span class="co">#&gt;                           &lt;dbl&gt;                     &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;         &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;                  &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;    &lt;chr&gt;       &lt;chr&gt;      </span></span>
+<span><span class="co">#&gt; 1                          2017                      2021 Abbey     Barking       Barking … Barkin… Greater London Author… London      England      E05000026 E14000540 E090000… 301         E09000002  </span></span>
+<span><span class="co">#&gt; 2                          2022                      2023 Abbey     Barking       Barking … Barkin… Greater London Author… London      England      E05014053 E14000540 E090000… 301         E09000002  </span></span>
+<span><span class="co">#&gt; 3                          2024                      2025 Abbey     Barking       Barking … Barkin… Greater London Author… London      England      E05014053 E14001073 E090000… 301         E09000002  </span></span>
+<span><span class="co">#&gt; 4                          2017                      2017 Abbey     Bath          Bath and… Bath a… West of England        South West  England      E05001935 E14000547 E060000… 800         E06000022  </span></span>
+<span><span class="co">#&gt; 5                          2024                      2025 Abbey     Belfast North Antrim a… Antrim… Not applicable         Northern I… Northern Ir… N08000101 N05000002 N090000… z           N09000001  </span></span>
+<span><span class="co">#&gt; 6                          2017                      2023 Abbey     Belfast North Antrim a… Antrim… Not applicable         Northern I… Northern Ir… N08000101 N06000002 N090000… z           N09000001  </span></span>
+<span><span class="co">#&gt; # ℹ abbreviated name: ¹​english_devolved_area_name</span></span>
+<span><span class="co">#&gt; # ℹ 3 more variables: english_devolved_area_code &lt;chr&gt;, region_code &lt;chr&gt;, country_code &lt;chr&gt;</span></span>
 <span></span>
 <span><span class="co"># Get all countries</span></span>
 <span><span class="fu">dfeR</span><span class="fu">::</span><span class="va"><a href="reference/countries.html">countries</a></span></span>
@@ -383,7 +358,7 @@
 <li><a href="https://github.com/dfe-analytical-services/dfeR/actions/workflows/pkgdown.yaml" class="external-link"><img src="https://github.com/dfe-analytical-services/dfeR/actions/workflows/pkgdown.yaml/badge.svg" alt="pkgdown"></a></li>
 <li><a href="https://app.codecov.io/gh/dfe-analytical-services/dfeR" class="external-link"><img src="https://codecov.io/gh/dfe-analytical-services/dfeR/graph/badge.svg" alt="Codecov test coverage"></a></li>
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-green.svg" alt="Lifecycle: stable"></a></li>
-<li><a href="https://cran.r-project.org/package=dfeR" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/dfeR"></a></li>
+<li><a href="https://cran.r-project.org/package=dfeR" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/dfeR" alt="CRAN downloads"></a></li>
 </ul>
 </div>
 

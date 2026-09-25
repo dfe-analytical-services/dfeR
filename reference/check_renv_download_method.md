@@ -36,7 +36,13 @@ Each check returns a list including a `status` field, one of `"pass"`,
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 check_renv_download_method()
-} # }
+#> 
+#> ── renv download method ──
+#> 
+#> ✖ RENV_DOWNLOAD_METHOD is not currently set.
+#> To manually update your .Renviron file:
+#> • Run `usethis::edit_r_environ()` in the R console.
+#> • Add the following line to .Renviron: `RENV_DOWNLOAD_METHOD="curl"`
+#> Or run `dfeR::check_renv_download_method(clean = TRUE)`.
 ```

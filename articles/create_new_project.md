@@ -68,7 +68,7 @@ Whenever you are using RStudio, you should work in an R project. This
 makes sure you are set up in the correct working directory, so your code
 is pointing at the right folders and files. You can find out more in
 [this guide for using projects in
-R](https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects).
+R](https://docs.posit.co/ide/user/ide/guide/code/projects.html).
 
 ### What is renv?
 
@@ -109,7 +109,7 @@ your Git repository. By creating a .gitignore file, you can keep your
 repository clean and focused on the essential files needed for your
 project. Find more guidance on how to avoid revealing sensitive
 information on the [Analysts’
-Guide](https://dfe-analytical-services.github.io/analysts-guide/RAP/rap-statistics.html#avoid-revealing-sensitive-information).
+Guide](https://dfe-analytical-services.github.io/analysts-guide/RAP/rap-statistics/rap-statistics-version-control.html#avoid-revealing-sensitive-information).
 
 ## Using the create_project() function
 
@@ -210,9 +210,10 @@ You can view this by going to the location of the pathway you chose in
 File Explorer. You should find your new project there, inside a folder
 with the name you added at the end of your pathway, as below.
 
-![](../reference/figures/create_new_project_screenshot.png) You will
-also need to think about what you want your project to be called and
-include this in your file path. You can always amend this later.
+![Newly created contents of project folder in File
+Explorer.](../reference/figures/create_new_project_screenshot.png) You
+will also need to think about what you want your project to be called
+and include this in your file path. You can always amend this later.
 
 For example, if you want to create a project called “my-new-project” in
 the folder you created above, your file path (with the username changed
@@ -257,7 +258,8 @@ project without writing any code. To do this, follow these steps:
 
 6.  Click ‘Create Project’ to set up your new project.
 
-![](../reference/figures/project_wizard_screenshot.png)
+!['New Project Wizard' window with option to create dfeR project
+template open.](../reference/figures/project_wizard_screenshot.png)
 
 You can also access the ‘New Project Wizard’ by clicking on the project
 that you are currently in, in the top-right hand corner and then

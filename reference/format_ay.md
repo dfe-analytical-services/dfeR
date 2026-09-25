@@ -14,11 +14,11 @@ format_ay(year)
 
 - year:
 
-  Academic year
+  Academic year, a single value or a vector
 
 ## Value
 
-Character vector of formatted academic year
+Character vector of formatted academic years
 
 ## Details
 
@@ -38,4 +38,6 @@ format_ay(201617)
 #> [1] "2016/17"
 format_ay("201617")
 #> [1] "2016/17"
+format_ay(c(201617, 201718))
+#> [1] "2016/17" "2017/18"
 ```

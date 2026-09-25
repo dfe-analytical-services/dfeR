@@ -36,7 +36,9 @@ Each check returns a list including a `status` field, one of `"pass"`,
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 check_git_sslverify()
-} # }
+#> 
+#> ── Git sslverify ──
+#> 
+#> ✔ sslverify is not explicitly set.
 ```

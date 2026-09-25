@@ -18,6 +18,10 @@ air_style(target = ".", verbose = FALSE)
 
   Run in verbose mode
 
+## Value
+
+No return value, called for side effects
+
 ## Examples
 
 ``` r

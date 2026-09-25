@@ -12,11 +12,11 @@ format_fy_reverse(year)
 
 - year:
 
-  Financial year
+  Financial year, a single value or a vector
 
 ## Value
 
-Unformatted 6 digit year as string
+Character vector of unformatted 6 digit years
 
 ## Details
 
@@ -34,4 +34,6 @@ Other format:
 ``` r
 format_fy_reverse("2016-17")
 #> [1] "201617"
+format_fy_reverse(c("2016-17", "2017-18"))
+#> [1] "201617" "201718"
 ```

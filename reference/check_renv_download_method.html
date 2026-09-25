@@ -15,7 +15,7 @@ when called with clean = TRUE."><meta property="og:image" content="https://dfe-a
 
     <a class="navbar-brand me-2" href="../index.html">dfeR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -86,9 +86,15 @@ not set) plus a <code>status</code> field.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="fu">check_renv_download_method</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">check_renv_download_method</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">renv download method</span> ──</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">✖</span> RENV_DOWNLOAD_METHOD is not currently set.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> To manually update your .Renviron file:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> • Run `usethis::edit_r_environ()` in the R console.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> • Add the following line to .Renviron: `RENV_DOWNLOAD_METHOD="curl"`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Or run `dfeR::check_renv_download_method(clean = TRUE)`.</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

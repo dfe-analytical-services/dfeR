@@ -25,9 +25,6 @@ Data sets exported in the package
   : Lookup for valid region names and codes
 - [`geog_time_identifiers`](https://dfe-analytical-services.github.io/dfeR/reference/geog_time_identifiers.md)
   : Potential names for geography and time columns
-- [`wd_pcon_lad_la_rgn_ctry`](https://dfe-analytical-services.github.io/dfeR/reference/wd_pcon_lad_la_rgn_ctry.md)
-  **\[deprecated\]** : Ward to Constituency to LAD to LA to Region to
-  Country lookup
 - [`lsip_lad`](https://dfe-analytical-services.github.io/dfeR/reference/lsip_lad.md)
   : Local Skills Improvement Plan (LSIP) areas to Local Authority
   District (LAD) Lookup
