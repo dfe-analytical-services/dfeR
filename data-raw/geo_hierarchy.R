@@ -237,6 +237,7 @@ geo_hierarchy <- geo_hierarchy |>
     "pcon_code",
     "lad_code",
     "old_la_code",
+    "previous_la_codes",
     "new_la_code",
     "english_devolved_area_code",
     "region_code",

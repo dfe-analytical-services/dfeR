@@ -23,6 +23,8 @@
 - Fixed `air_style()` failing when the `target` path contains spaces (for example a OneDrive path
   under "OneDrive - Department for Education").
 - Fixed `check_databricks_odbc()` failing for users who don't have `stringr` installed.
+- **Breaking change**: Adding in `previous_la_codes` to old_la_codes introduced in version 1.1.0,
+  to track past versions of the new la code as this had started to cause duplication errors.
 
 # dfeR 1.3.0
 

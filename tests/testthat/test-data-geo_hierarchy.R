@@ -25,7 +25,7 @@ test_that("time cols are always 4 digit numbers", {
   )
 })
 
-test_that("code cols are always a 9 digit code except old_la_code", {
+test_that("code cols are always a 9 digit code except old_la_code and previous_la_codes", {
   # Get column names ending in _code
   code_columns <- colnames(dfeR::geo_hierarchy)[grepl(
     "_code$",
@@ -34,7 +34,7 @@ test_that("code cols are always a 9 digit code except old_la_code", {
 
   # remove old_la_code
   code_columns <- code_columns[
-    !code_columns %in% c("old_la_code", "english_devolved_area_code")
+    !code_columns %in% c("old_la_code", "previous_la_codes", english_devolved_area_code)
   ]
 
   # Check the format for each code column
@@ -94,6 +94,7 @@ test_that("rows and cols match description", {
     "pcon_code",
     "lad_code",
     "old_la_code",
+    "previous_la_code",
     "new_la_code",
     "english_devolved_area_code",
     "region_code",

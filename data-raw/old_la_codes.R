@@ -63,34 +63,51 @@ old_la_codes <- dfeR::fetch_las() |>
     gias_la_codes,
     by = c("la_name", "new_la_code")
   ) |>
-  # left join the screener 'old' 3 digit la codes
+  # left join the screener 'old' 3 digit la codes and old multi-digit codes, we're now getting several iterations
+  # old multi-digit codes are stored in previous_la_codes
   dplyr::left_join(
-    data.table::fread("data/las.csv") |>
-      dplyr::select(new_la_code, la_name, screener_old_la_code = old_la_code),
+    data.table::fread("data/las.csv") |> 
+      group_by(la_name) |> 
+      arrange(desc(date_of_operation )) |> 
+      mutate(previous_la_codes = paste(unique(c(new_la_code[-1])),collapse=",")) |>
+      dplyr::select(new_la_code, la_name, screener_old_la_code = old_la_code, previous_la_codes),
     by = c("la_name", "new_la_code")
   ) |>
-  # Identify missing LA codes from the GIAS data and extract any matches for
-  # them from screener data
+  # remove historic non-na filler and collapse old codes into one
   dplyr::mutate(
-    old_la_code = dplyr::if_else(
-      is.na(gias_old_la_code) & !is.na(screener_old_la_code),
-      screener_old_la_code,
-      gias_old_la_code
+    old_la_code = as.numeric(old_la_code),
+    gias_old_la_code = as.numeric(gias_old_la_code),
+    screener_old_la_code = as.numeric(screener_old_la_code),
+    old_la_codes_collapsed = coalesce(old_la_code,gias_old_la_code,screener_old_la_code)
+  ) |>
+  # replace nas with z
+  dplyr::mutate(old_la_codes_collapsed = 
+    case_when(
+      is.na(old_la_codes_collapsed) ~ "z",
+      T ~ as.character(old_la_codes_collapsed)
     )
   ) |>
-  # select the columns we need
-  dplyr::select(la_name, old_la_code, new_la_code) |>
-  # replace any remaining NAs in old_la_code with "z" to indicate no old code
-  dplyr::mutate(
-    old_la_code = dplyr::if_else(is.na(old_la_code), "z", old_la_code)
+  dplyr::mutate(previous_la_codes = 
+    case_when(
+      is.na(previous_la_codes) ~ "z",
+      nchar(previous_la_codes) == 0 ~ "z",
+      T ~ as.character(previous_la_codes)
+    )
   ) |>
+  # grepl has to be rowwise
+  rowwise() |>
+  # which rows are actually using an old version of the new_la_code
+  dplyr::mutate(past_version = grepl(new_la_code,previous_la_codes)) |>
+  # filter them out
+  slice(which(!past_version)) |>  
+  dplyr::select(la_name, old_la_code = old_la_codes_collapsed, previous_la_codes, new_la_code) |>
   # remove duplicates if any
   dplyr::distinct()
 
 
 # Check the data --------------------------------------------------------------
 stopifnot(
-  identical(names(old_la_codes), c("la_name", "old_la_code", "new_la_code")),
+  identical(names(old_la_codes), c("la_name", "old_la_code", "previous_la_codes", "new_la_code")),
   !anyNA(old_la_codes),
   !anyDuplicated(old_la_codes)
 )

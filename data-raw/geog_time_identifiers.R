@@ -39,6 +39,7 @@ geog_time_identifiers <- c(
   "institution_name",
   "planning_area_name",
   "old_la_code",
+  "previous_la_codes",
   "school_laestab",
   "time_period",
   "time_identifier"

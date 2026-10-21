@@ -100,7 +100,7 @@ fetch_las <- function(year = "All", countries = "All") {
   # Helper function to filter to locations we want
   output <- fetch_locations(
     lookup_data = dfeR::geo_hierarchy,
-    cols = c("new_la_code", "la_name", "old_la_code"),
+    cols = c("new_la_code", "la_name", "old_la_code","previous_la_codes"),
     year = year,
     countries = countries
   )

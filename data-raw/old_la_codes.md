@@ -16,7 +16,7 @@ This is a step by step guide to adding the three-digit ("old") local authority c
 
 4.  Check the script ran without errors (it checks the columns, blank cells and duplicate rows) and review the changes to data-raw/old_la_codes.csv.
 
-5.  Remove the screener (la.csv) and GIAS CSV files saved in the data folder.
+5.  Remove the screener (las.csv) and GIAS CSV files saved in the data folder.
 
 6.  Run the code in data-raw/geo_hierarchy.R to update the geo_hierarchy dataset.
 
