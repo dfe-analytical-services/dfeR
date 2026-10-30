@@ -22,6 +22,7 @@ Sandwell,333,E08000028
 Gloucestershire,916,E10000013
 Merton,315,E09000024
 Buckinghamshire,825,E06000060
+Buckinghamshire,825,E10000002
 Stoke-on-Trent,861,E06000021
 Northamptonshire,928,E10000021
 Westminster,213,E09000033
@@ -54,6 +55,7 @@ Ealing,307,E09000009
 Cardiff,681,W06000015
 Croydon,306,E09000008
 Hammersmith and Fulham,205,E09000013
+North Yorkshire,815,E10000023
 Surrey,936,E10000030
 Leeds,383,E08000035
 Lancashire,888,E10000017
@@ -69,6 +71,7 @@ North Lanarkshire,z,S12000044
 North Lanarkshire,z,S12000050
 North Yorkshire,815,E06000065
 Aberdeen City,z,S12000033
+Somerset,933,E10000027
 Redbridge,317,E09000026
 Wiltshire,865,E06000054
 Cheshire East,895,E06000049
@@ -170,6 +173,7 @@ Dorset,838,E06000059
 South Tyneside,393,E08000023
 Havering,311,E09000016
 East Dunbartonshire,z,S12000045
+Sheffield,373,E08000019
 Sheffield,373,E08000039
 Wirral,344,E08000015
 Bromley,305,E09000006
@@ -214,6 +218,7 @@ Plymouth,879,E06000026
 Monmouthshire,679,W06000021
 Hartlepool,805,E06000001
 Waltham Forest,320,E09000031
+Barnsley,370,E08000016
 Barnsley,370,E08000038
 Knowsley,340,E08000011
 Clackmannanshire,z,S12000005

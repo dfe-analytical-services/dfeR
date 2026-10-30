@@ -63,13 +63,13 @@ old_la_codes <- dfeR::fetch_las() |>
     gias_la_codes,
     by = c("la_name", "new_la_code")
   ) |>
-  #gias now has had multiple iterations of new_la_codes, these sometimes persist in old_la_codes tables this reduces things down to the most recent name
-  dplyr::mutate(in_gias = la_name %in% gias_la_codes$la_name & new_la_code %in% gias_la_codes$new_la_code) |>
-  dplyr::group_by(la_name) |> 
-  dplyr::mutate(any_in_gias = !all(!in_gias)) |>
-  ungroup()|>
-  dplyr::filter((in_gias & any_in_gias)|(!in_gias & !any_in_gias)) |>
-  dplyr::select(-c(in_gias,any_in_gias)) |>
+  #gias now has had multiple iterations of new_la_codes, these sometimes persist in old_la_codes tables if needed this reduces things down to the most recent name
+  #dplyr::mutate(in_gias = la_name %in% gias_la_codes$la_name & new_la_code %in% gias_la_codes$new_la_code) |>
+  #dplyr::group_by(la_name) |> 
+  #dplyr::mutate(any_in_gias = !all(!in_gias)) |>
+  #ungroup()|>
+  #dplyr::filter((in_gias & any_in_gias)|(!in_gias & !any_in_gias)) |>
+  #dplyr::select(-c(in_gias,any_in_gias)) |>
   # left join the screener 'old' 3 digit la codes
   dplyr::left_join(
     data.table::fread("data/las.csv") |>
