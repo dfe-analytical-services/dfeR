@@ -92,7 +92,8 @@ old_la_codes <- dfeR::fetch_las() |>
     old_la_code = dplyr::if_else(is.na(old_la_code), "z", old_la_code)
   ) |>
   # remove duplicates if any
-  dplyr::distinct()
+  dplyr::distinct() |>
+  arrange(new_la_code)
 
 
 # Check the data --------------------------------------------------------------
