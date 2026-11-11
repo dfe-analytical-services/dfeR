@@ -63,6 +63,9 @@ old_la_codes <- dfeR::fetch_las() |>
     gias_la_codes,
     by = c("la_name", "new_la_code")
   ) |>
+  # gias now has had multiple iterations of new_la_codes, these sometimes
+  # persist in old_la_codes tables if needed this reduces things down to
+  # the most recent name
   # left join the screener 'old' 3 digit la codes
   dplyr::left_join(
     data.table::fread("data/las.csv") |>
@@ -85,7 +88,8 @@ old_la_codes <- dfeR::fetch_las() |>
     old_la_code = dplyr::if_else(is.na(old_la_code), "z", old_la_code)
   ) |>
   # remove duplicates if any
-  dplyr::distinct()
+  dplyr::distinct() |>
+  arrange(new_la_code)
 
 
 # Check the data --------------------------------------------------------------
