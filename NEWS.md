@@ -1,3 +1,7 @@
+# dfeR 2.0.1
+
+- Updated `old_la_codes` to the more recent new_la_code.
+
 # dfeR 2.0.0
 
 - **Breaking change**: Removed the deprecated `wd_pcon_lad_la_rgn_ctry` dataset and its startup
