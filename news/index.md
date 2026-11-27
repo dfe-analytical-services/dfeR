@@ -1,5 +1,9 @@
 # Changelog
 
+## dfeR 2.0.1
+
+- Updated `old_la_codes` to the more recent new_la_code.
+
 ## dfeR 2.0.0
 
 CRAN release: 2026-09-23

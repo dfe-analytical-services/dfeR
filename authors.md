@@ -28,16 +28,16 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/dfe-analytical-services/dfeR/blob/v2.0.0/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/dfe-analytical-services/dfeR/blob/main/DESCRIPTION)
 
 Race C, Selby L, Robinson A (2026). *dfeR: Common Department for
-Education Analysis Tasks*. R package version 2.0.0,
+Education Analysis Tasks*. R package version 2.0.1,
 <https://dfe-analytical-services.github.io/dfeR/>.
 
     @Manual{,
       title = {dfeR: Common Department for Education Analysis Tasks},
       author = {Cam Race and Laura Selby and Adam Robinson},
       year = {2026},
-      note = {R package version 2.0.0},
+      note = {R package version 2.0.1},
       url = {https://dfe-analytical-services.github.io/dfeR/},
     }
